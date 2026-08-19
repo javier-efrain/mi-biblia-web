@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domingo de Ramos - Jesús en el burro</title>
+    <link rel="stylesheet" href="../css/estilo-base.css">
+</head>
+<body>
+    <div class="estudio-container">
+        
+        <!-- TÍTULO -->
+        <h1>🌿 Domingo de Ramos: Jesús entra en Jerusalén</h1>
+        
+        <!-- TEXTO INTRODUCTORIO -->
+        <p>El Domingo de Ramos conmemora la entrada triunfal de Jesús en Jerusalén, montado en un burro, mientras la multitud lo aclamaba con palmas y ramos de olivo. Este evento cumple la profecía de Zacarías 9:9.</p>
+        
+        <!-- VERSÍCULO CLAVE -->
+        <div class="versiculo">
+            <strong>Zacarías 9:9</strong><br>
+            "Alégrate mucho, hija de Sión; da voces de júbilo, hija de Jerusalén; he aquí tu Rey vendrá a ti, justo y salvador, humilde, y montado sobre un asno, sobre un pollino hijo de asna."
+        </div>
+        
+        <p>Jesús eligió este medio de transporte humilde para mostrar que su reino no es de este mundo, y que viene en paz, no como un rey guerrero montado en un caballo.</p>
+        
+        <!-- TABLA DE LOS EVENTOS -->
+        <h2>📖 Eventos del Domingo de Ramos</h2>
+        <table class="tabla-estudio">
+            <tr>
+                <th>Evento</th>
+                <th>Referencia</th>
+                <th>Significado</th>
+            </tr>
+            <tr>
+                <td>Jesús envía a dos discípulos</td>
+                <td>Mateo 21:1-3</td>
+                <td>Jesús demuestra su autoridad divina</td>
+            </tr>
+            <tr>
+                <td>Multitud extiende mantos y ramos</td>
+                <td>Mateo 21:8-9</td>
+                <td>Reconocimiento de Jesús como Rey</td>
+            </tr>
+            <tr>
+                <td>Aclamación: "¡Hosanna!"</td>
+                <td>Mateo 21:9</td>
+                <td>Salmo 118:25-26 (Mashíaj esperado)</td>
+            </tr>
+            <tr>
+                <td>Jesús llora sobre Jerusalén</td>
+                <td>Lucas 19:41-44</td>
+                <td>Lamento por la incredulidad de la ciudad</td>
+            </tr>
+        </table>
+        
+        <!-- IMAGEN -->
+        <img src="../imagenes/jesus-burro.jpg" alt="Jesús entrando en Jerusalén en un burro" class="imagen-estudio">
+        <p class="leyenda">"Jesús en el burro" - Entrada triunfal a Jerusalén</p>
+        
+        <!-- MAPA DEL RECORRIDO -->
+        <h2>🗺️ Recorrido de Jesús hacia Jerusalén</h2>
+        <p>Este mapa muestra el recorrido desde Betania hasta Jerusalén, pasando por el Monte de los Olivos.</p>
+        
+        <div id="mapa-container"></div>
+        
+        <!-- LÍNEA DE TIEMPO -->
+        <h2>⏳ Línea de tiempo de la Semana Santa</h2>
+        <div id="linea-tiempo"></div>
+        
+        <!-- REFLEXIÓN FINAL -->
+        <h2>💭 Reflexión</h2>
+        <p>La entrada de Jesús en Jerusalén nos enseña que la grandeza de Dios no se mide por el poder terrenal, sino por la humildad y el servicio. Jesús, el Rey de Reyes, eligió un burro para mostrar que su reino es de paz y amor.</p>
+        <p>¿Estamos dispuestos a recibir a Jesús como Rey en nuestras vidas, o solo queremos un "salvador" que resuelva nuestros problemas sin transformar nuestro corazón?</p>
+        
+    </div>
+    
+    <!-- JAVASCRIPT -->
+    <script src="../js/mapas.js"></script>
+    <script>
+        // DATOS DEL MAPA (¡AQUÍ ESTÁN LOS DATOS, NO EN JSON!)
+        const puntosMapa = [
+            { 
+                x: 15, y: 70, 
+                nombre: "Betania", 
+                descripcion: "Jesús sale de Betania" 
+            },
+            { 
+                x: 35, y: 55, 
+                nombre: "Monte de los Olivos", 
+                descripcion: "Jesús ora y llora" 
+            },
+            { 
+                x: 60, y: 45, 
+                nombre: "Valle de Cedrón", 
+                descripcion: "Cruza el valle" 
+            },
+            { 
+                x: 80, y: 40, 
+                nombre: "Puerta de Oro", 
+                descripcion: "Entrada a Jerusalén" 
+            },
+            { 
+                x: 92, y: 30, 
+                nombre: "Jerusalén", 
+                descripcion: "Llegada al Templo" 
+            }
+        ];
+        
+        // CONEXIONES ENTRE PUNTOS (ruta)
+        const conexiones = [
+            [0, 1], [1, 2], [2, 3], [3, 4]
+        ];
+        
+        // DATOS DE LA LÍNEA DE TIEMPO (¡TAMBIÉN AQUÍ!)
+        const eventosTiempo = [
+            { anio: "Domingo", descripcion: "Entrada triunfal a Jerusalén" },
+            { anio: "Lunes", descripcion: "Jesús purifica el Templo" },
+            { anio: "Martes", descripcion: "Enseñanzas en el Monte de los Olivos" },
+            { anio: "Miércoles", descripcion: "Unción en Betania" },
+            { anio: "Jueves", descripcion: "Última Cena y Getsemaní" },
+            { anio: "Viernes", descripcion: "Crucifixión" },
+            { anio: "Sábado", descripcion: "Jesús en la tumba" },
+            { anio: "Domingo", descripcion: "¡Resurrección!" }
+        ];
+        
+        // DIBUJAR MAPA Y LÍNEA DE TIEMPO
+        dibujarMapa('mapa-container', puntosMapa, conexiones);
+        dibujarLineaTiempo('linea-tiempo', eventosTiempo);
+    </script>
+</body>
+</html>
