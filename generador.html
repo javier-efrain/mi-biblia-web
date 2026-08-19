@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Generador de Estudios Bíblicos (Formulario)</title>
+    <style>
+        /* -------- ESTILOS DEL GENERADOR -------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f1f5f9;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 30px 20px;
+            color: #0f172a;
+        }
+        .contenedor {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 30px 35px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h1 small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #64748b;
+            margin-left: auto;
+        }
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 30px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 700px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .contenedor {
+                padding: 20px 16px;
+            }
+        }
+        .campo {
+            margin-bottom: 16px;
+        }
+        .campo label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+        .campo label .opcional {
+            font-weight: 400;
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+        .campo input[type="text"],
+        .campo textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: #fafcff;
+            transition: border 0.2s;
+        }
+        .campo input[type="text"]:focus,
+        .campo textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
+        }
+        .campo textarea {
+            resize: vertical;
+            min-height: 60px;
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+        }
+        .campo textarea.grande {
+            min-height: 120px;
+        }
+        .campo textarea.muy-grande {
+            min-height: 180px;
+        }
+        .campo textarea.lista {
+            min-height: 80px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .termino-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            position: relative;
+        }
+        .termino-box .numero {
+            font-weight: 700;
+            color: #3b82f6;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .termino-box .btn-eliminar {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .termino-box .btn-eliminar:hover {
+            color: #ef4444;
+        }
+        .btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+        }
+        .btn.verde {
+            background: #10b981;
+        }
+        .btn.verde:hover {
+            background: #059669;
+        }
+        .btn.azul {
+            background: #3b82f6;
+        }
+        .btn.azul:hover {
+            background: #2563eb;
+        }
+        .btn.gris {
+            background: #94a3b8;
+        }
+        .btn.gris:hover {
+            background: #64748b;
+        }
+        .btn.rojo {
+            background: #ef4444;
+        }
+        .btn.rojo:hover {
+            background: #dc2626;
+        }
+        .botones {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 18px 0 10px;
+        }
+        .output {
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+        .output .barra {
+            background: #e2e8f0;
+            padding: 10px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 500;
+        }
+        .output .barra .acciones {
+            display: flex;
+            gap: 10px;
+        }
+        .output .barra .acciones button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+        .output .barra .acciones button:hover {
+            background: #cbd5e1;
+        }
+        #resultado {
+            width: 100%;
+            min-height: 400px;
+            padding: 18px 20px;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            background: #f8fafc;
+            color: #0f172a;
+            resize: vertical;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        #resultado:focus {
+            outline: none;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+        .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ayuda {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #334155;
+            border-left: 4px solid #3b82f6;
+        }
+        .ayuda strong {
+            color: #0f172a;
+        }
+        .ayuda code {
+            background: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .oculto {
+            display: none !important;
+        }
+        .mt-10 {
+            margin-top: 10px;
+        }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>
+        📖 Generador de Estudios Bíblicos
+        <small>Formulario v2.0</small>
+    </h1>
+
+    <!-- ============================================================ -->
+    <!-- FORMULARIO                                                   -->
+    <!-- ============================================================ -->
+    <form id="formulario" onsubmit="event.preventDefault(); generar();">
+
+        <!-- ============ METADATOS ============ -->
+        <h2>📋 1. Metadatos</h2>
+        <div class="grid-2">
+            <div class="campo">
+                <label for="titulo">Título del estudio *</label>
+                <input type="text" id="titulo" placeholder="Ej. Judas: El remordimiento que no salva" required />
+            </div>
+            <div class="campo">
+                <label for="referencia">Referencia bíblica *</label>
+                <input type="text" id="referencia" placeholder="Ej. Mateo 27:3-10" required />
+            </div>
+        </div>
+        <div class="campo">
+            <label for="subtitulo">Subtítulo</label>
+            <input type="text" id="subtitulo" placeholder="Ej. La trágica diferencia entre el remordimiento y el arrepentimiento" />
+        </div>
+
+        <!-- ============ ESCENARIO ============ -->
+        <h2>📍 2. El Escenario</h2>
+        <div class="grid-2">
+            <div class="campo">
+                <label for="lugar">Lugar</label>
+                <input type="text" id="lugar" placeholder="Ej. El Templo de Jerusalén" />
+            </div>
+            <div class="campo">
+                <label for="fecha">Fecha</label>
+                <input type="text" id="fecha" placeholder="Ej. 29 d.C., viernes por la mañana" />
+            </div>
+        </div>
+        <div class="campo">
+            <label for="hora">Hora</label>
+            <input type="text" id="hora" placeholder="Ej. 6:00-7:00 a.m." />
+        </div>
+        <div class="campo">
+            <label for="contexto_historico">Contexto histórico / político</label>
+            <textarea id="contexto_historico" rows="3" placeholder="Describe el contexto histórico..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="contexto_cultural">Contexto cultural / teológico</label>
+            <textarea id="contexto_cultural" rows="3" placeholder="Describe el contexto cultural..."></textarea>
+        </div>
+
+        <!-- ============ CONEXIONES ============ -->
+        <h2>🔗 3. Conexiones Literarias</h2>
+        <div class="grid-2">
+            <div class="campo">
+                <label for="conexiones_at">Antiguo Testamento <span class="opcional">(una por línea)</span></label>
+                <textarea id="conexiones_at" class="lista" rows="4" placeholder="Zacarías 11:12-13: &quot;Pesaron por mi salario...&quot;&#10;Jeremías 32:6-15: La compra de un campo..."></textarea>
+            </div>
+            <div class="campo">
+                <label for="conexiones_nt">Nuevo Testamento <span class="opcional">(una por línea)</span></label>
+                <textarea id="conexiones_nt" class="lista" rows="4" placeholder="Mateo 26:14-16: Judas pacta la traición...&#10;Mateo 26:24: &quot;¡Ay de aquel hombre...&quot;"></textarea>
+            </div>
+        </div>
+
+        <!-- ============ EXÉGESIS (TÉRMINOS) ============ -->
+        <h2>📖 4. Exégesis (Términos Clave)</h2>
+        <p style="color:#64748b; font-size:0.9rem; margin-bottom:16px;">Cada término tiene 6 campos. Puedes añadir más con el botón al final.</p>
+
+        <div id="terminos-container">
+            <!-- Los términos se generan con JavaScript -->
+        </div>
+
+        <div class="botones" style="margin-top:5px;">
+            <button type="button" class="btn azul" onclick="agregarTermino()">➕ Añadir otro término</button>
+        </div>
+
+        <!-- ============ ATERRIZAJE ============ -->
+        <h2>✝️ 5. El Aterrizaje (Aplicación)</h2>
+        <div class="campo">
+            <label for="verdad_central">Verdad teológica central</label>
+            <textarea id="verdad_central" rows="3" placeholder="Ej. Judas sintió remordimiento, no arrepentimiento..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="punto_tension">Punto de tensión</label>
+            <textarea id="punto_tension" rows="3" placeholder="Ej. La tensión entre la confesión del pecado y la confianza en la gracia..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="devocional">Devocional (reflexión)</label>
+            <textarea id="devocional" class="grande" rows="6" placeholder="Texto devocional..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="examen">Examen del corazón <span class="opcional">(una pregunta por línea)</span></label>
+            <textarea id="examen" class="lista" rows="4" placeholder="¿Has pecado y sentido remordimiento?...&#10;¿Hay algún pecado que consideres imperdonable?..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="pasos">Pasos prácticos <span class="opcional">(uno por línea)</span></label>
+            <textarea id="pasos" class="lista" rows="4" placeholder="El inventario de la culpa: Escribe los pecados...&#10;El ayuno de la desesperación: No te castigues..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="oracion">Oración final</label>
+            <textarea id="oracion" class="muy-grande" rows="8" placeholder="Señor Jesús, he pecado..."></textarea>
+        </div>
+        <div class="campo">
+            <label for="dato">Dato del mentor <span class="opcional">(histórico, psicológico, curioso)</span></label>
+            <textarea id="dato" class="grande" rows="5" placeholder="Dato histórico o curioso..."></textarea>
+        </div>
+
+        <!-- ============ BOTONES ============ -->
+        <div class="botones" style="margin-top:25px; border-top:2px solid #e2e8f0; padding-top:25px;">
+            <button type="submit" class="btn verde" style="padding:14px 40px; font-size:1.05rem;">🚀 Generar HTML</button>
+            <button type="button" class="btn gris" onclick="limpiarFormulario()">🗑️ Limpiar todo</button>
+            <button type="button" class="btn gris" onclick="cargarEjemplo()">📄 Cargar ejemplo (Judas)</button>
+        </div>
+
+    </form>
+
+    <!-- ============================================================ -->
+    <!-- OUTPUT                                                       -->
+    <!-- ============================================================ -->
+    <div class="output" id="output-area">
+        <div class="barra">
+            <span>📋 HTML generado</span>
+            <div class="acciones">
+                <button onclick="copiar()" title="Copiar al portapapeles">📋</button>
+                <button onclick="descargar()" title="Descargar como .html">⬇️</button>
+            </div>
+        </div>
+        <textarea id="resultado" readonly placeholder="Aquí aparecerá el HTML generado después de presionar 'Generar HTML'..."></textarea>
+    </div>
+
+    <div class="footer">
+        Generador de Estudios Bíblicos — Diseñado para llenar campos y generar HTML al instante.
+    </div>
+
+</div>
+
+<script>
+    // ============================================================
+    //  GESTIÓN DE TÉRMINOS
+    // ============================================================
+
+    let contadorTerminos = 0;
+
+    function agregarTermino() {
+        contadorTerminos++;
+        const container = document.getElementById('terminos-container');
+        const div = document.createElement('div');
+        div.className = 'termino-box';
+        div.id = 'termino-' + contadorTerminos;
+        div.innerHTML = `
+            <div class="numero">📖 Término #${contadorTerminos}</div>
+            <button type="button" class="btn-eliminar" onclick="eliminarTermino('${div.id}')" title="Eliminar este término">✕</button>
+            <div class="grid-2">
+                <div class="campo">
+                    <label for="term_titulo_${contadorTerminos}">Título del término</label>
+                    <input type="text" id="term_titulo_${contadorTerminos}" placeholder="Ej. Remordimiento: la tristeza que no salva" />
+                </div>
+                <div class="campo">
+                    <label for="term_cita_${contadorTerminos}">Cita bíblica</label>
+                    <input type="text" id="term_cita_${contadorTerminos}" placeholder="Ej. Mateo 27:3" />
+                </div>
+            </div>
+            <div class="campo">
+                <label for="term_griego_${contadorTerminos}">Término en griego</label>
+                <input type="text" id="term_griego_${contadorTerminos}" placeholder="Ej. μεταμέλομαι (metamelomai)" />
+            </div>
+            <div class="campo">
+                <label for="term_significado_${contadorTerminos}">Análisis / significado</label>
+                <textarea id="term_significado_${contadorTerminos}" rows="3" placeholder="Texto explicativo..."></textarea>
+            </div>
+            <div class="campo">
+                <label for="term_verdad_${contadorTerminos}">Verdad exegética</label>
+                <input type="text" id="term_verdad_${contadorTerminos}" placeholder="Ej. El remordimiento no es arrepentimiento" />
+            </div>
+            <div class="campo">
+                <label for="term_error_${contadorTerminos}">Error de interpretación</label>
+                <textarea id="term_error_${contadorTerminos}" rows="3" placeholder="NO significa que..."></textarea>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function eliminarTermino(id) {
+        const elemento = document.getElementById(id);
+        if (elemento) {
+            const total = document.querySelectorAll('.termino-box').length;
+            if (total <= 1) {
+                alert('⚠️ Debes tener al menos 1 término.');
+                return;
+            }
+            elemento.remove();
+        }
+    }
+
+    function recolectarTerminos() {
+        const terminos = [];
+        const boxes = document.querySelectorAll('.termino-box');
+        boxes.forEach((box, index) => {
+            const i = index + 1;
+            const titulo = document.getElementById('term_titulo_' + i);
+            const cita = document.getElementById('term_cita_' + i);
+            const griego = document.getElementById('term_griego_' + i);
+            const significado = document.getElementById('term_significado_' + i);
+            const verdad = document.getElementById('term_verdad_' + i);
+            const error = document.getElementById('term_error_' + i);
+            if (titulo && cita) {
+                terminos.push({
+                    titulo: titulo.value.trim(),
+                    cita: cita.value.trim(),
+                    griego: griego ? griego.value.trim() : '',
+                    significado: significado ? significado.value.trim() : '',
+                    verdad: verdad ? verdad.value.trim() : '',
+                    error: error ? error.value.trim() : ''
+                });
+            }
+        });
+        return terminos;
+    }
+
+    // ============================================================
+    //  GENERAR
+    // ============================================================
+
+    function generar() {
+        // ---- Recolectar datos ----
+        const datos = {
+            titulo: document.getElementById('titulo').value.trim(),
+            referencia: document.getElementById('referencia').value.trim(),
+            subtitulo: document.getElementById('subtitulo').value.trim(),
+            lugar: document.getElementById('lugar').value.trim(),
+            fecha: document.getElementById('fecha').value.trim(),
+            hora: document.getElementById('hora').value.trim(),
+            contexto_historico: document.getElementById('contexto_historico').value.trim(),
+            contexto_cultural: document.getElementById('contexto_cultural').value.trim(),
+            conexiones_at: document.getElementById('conexiones_at').value.split('\n').filter(linea => linea.trim()),
+            conexiones_nt: document.getElementById('conexiones_nt').value.split('\n').filter(linea => linea.trim()),
+            terminos: recolectarTerminos(),
+            verdad_central: document.getElementById('verdad_central').value.trim(),
+            punto_tension: document.getElementById('punto_tension').value.trim(),
+            devocional: document.getElementById('devocional').value.trim(),
+            examen: document.getElementById('examen').value.split('\n').filter(linea => linea.trim()),
+            pasos: document.getElementById('pasos').value.split('\n').filter(linea => linea.trim()),
+            oracion: document.getElementById('oracion').value.trim(),
+            dato: document.getElementById('dato').value.trim()
+        };
+
+        // ---- Validaciones mínimas ----
+        if (!datos.titulo || !datos.referencia) {
+            alert('⚠️ El título y la referencia son obligatorios.');
+            return;
+        }
+
+        // ---- Generar HTML ----
+        const html = renderizar(datos);
+        document.getElementById('resultado').value = html;
+        document.getElementById('output-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ============================================================
+    //  RENDERIZADO
+    // ============================================================
+
+    function renderizar(d) {
+        function esc(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function texto(str) {
+            if (!str) return '';
+            return str.split('\n').filter(p => p.trim()).map(p => `<p>${esc(p)}</p>`).join('\n');
+        }
+
+        function lista(arr, cls = '') {
+            if (!arr || arr.length === 0) return '';
+            return `<ul class="${cls}">\n${arr.map(item => `<li>${esc(item)}</li>`).join('\n')}\n</ul>`;
+        }
+
+        // ---- Construir ----
+        let html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${esc(d.titulo)}</title>
+    <link rel="stylesheet" href="../css/estilo-base.css">
+</head>
+<body>
+    <div class="estudio-container">
+
+        <!-- ==================== TÍTULO ==================== -->
+        <h1>${esc(d.titulo)}</h1>
+        ${d.subtitulo ? `<div style="text-align:center;color:#64748b;font-size:0.9em;margin-top:-10px;margin-bottom:25px;">${esc(d.subtitulo)}</div>` : ''}
+        ${d.referencia ? `<div style="text-align:center;color:#64748b;font-size:0.9em;margin-top:-10px;margin-bottom:25px;">${esc(d.referencia)}</div>` : ''}
+
+        <!-- ==================== PARTE 1: EL ESCENARIO ==================== -->
+        <h2>📍 El Escenario</h2>
+
+        <div class="contexto-grid">
+            ${d.lugar ? `<div class="contexto-item"><strong>📍 Lugar</strong>${texto(d.lugar)}</div>` : ''}
+            ${d.fecha ? `<div class="contexto-item"><strong>📅 Fecha</strong>${texto(d.fecha)}</div>` : ''}
+            ${d.hora ? `<div class="contexto-item"><strong>⏰ Hora</strong>${texto(d.hora)}</div>` : ''}
+            ${d.contexto_historico ? `<div class="contexto-item"><strong>🏛️ Contexto Histórico/Político</strong>${texto(d.contexto_historico)}</div>` : ''}
+            ${d.contexto_cultural ? `<div class="contexto-item"><strong>📖 Contexto Cultural/Teológico</strong>${texto(d.contexto_cultural)}</div>` : ''}
+        </div>
+
+        ${(d.conexiones_at && d.conexiones_at.length > 0) || (d.conexiones_nt && d.conexiones_nt.length > 0) ? `
+        <!-- ==================== CONEXIONES LITERARIAS ==================== -->
+        <h3>🔗 Conexiones Literarias (AT y NT)</h3>
+        <div class="conexiones-grid">
+            ${d.conexiones_at && d.conexiones_at.length > 0 ? `
+            <div class="conexion-columna">
+                <div class="conexion-titulo">📜 Antiguo Testamento</div>
+                ${d.conexiones_at.map(item => `<div class="conexion-item">${esc(item)}</div>`).join('\n')}
+            </div>
+            ` : ''}
+            ${d.conexiones_nt && d.conexiones_nt.length > 0 ? `
+            <div class="conexion-columna nt">
+                <div class="conexion-titulo">✝️ Nuevo Testamento</div>
+                ${d.conexiones_nt.map(item => `<div class="conexion-item nt">${esc(item)}</div>`).join('\n')}
+            </div>
+            ` : ''}
+        </div>
+        ` : ''}
+
+        <!-- ============================================================ -->
+        <!-- ⚠️ ZONA PARA ELEMENTOS OPCIONALES (IMÁGENES, TABLAS, MAPAS)  -->
+        <!-- ============================================================ -->
+        <!-- 
+        INSTRUCCIONES:
+        1. Si quieres agregar una IMAGEN, copia esto donde quieras:
+           <img src="../imagenes/tu-imagen.jpg" alt="Descripción" class="imagen-estudio">
+           <p class="leyenda">Texto de la leyenda</p>
+        
+        2. Si quieres agregar una TABLA, copia esto donde quieras:
+           <h3>Título de la tabla</h3>
+           <table class="tabla-estudio">
+             <tr><th>Columna 1</th><th>Columna 2</th></tr>
+             <tr><td>Dato 1</td><td>Dato 2</td></tr>
+           </table>
+        
+        3. Si quieres agregar un MAPA, copia esto donde quieras:
+           <h3>🗺️ Título del mapa</h3>
+           <div id="mapa-id" style="width:100%; height:400px; border-radius:12px; margin:20px 0; border:2px solid #e2e8f0;"></div>
+           ... y al final del HTML agrega el código JavaScript del mapa.
+        -->
+        <!-- ============================================================ -->
+
+        ${d.dato ? `
+        <!-- ==================== DATO DEL MENTOR ==================== -->
+        <div class="dato-mentor">
+            <strong>💡 Dato del Mentor:</strong><br>
+            ${texto(d.dato)}
+        </div>
+        ` : ''}
+
+        <!-- ==================== PARTE 2: EXÉGESIS ==================== -->
+        ${d.terminos && d.terminos.length > 0 ? `
+        <h2>📖 Exégesis: Términos Clave</h2>
+        ${d.terminos.map((t, i) => `
+        <h3>${i+1}. ${esc(t.titulo || 'Término')}</h3>
+        ${t.cita ? `<div class="versiculo"><strong>${esc(t.cita)}</strong></div>` : ''}
+        ${t.griego ? `<p><strong>Término en griego:</strong> ${esc(t.griego)}</p>` : ''}
+        ${t.significado ? `<p><strong>Análisis:</strong> ${esc(t.significado)}</p>` : ''}
+        ${t.verdad ? `<div class="verdad-exegetica"><strong>Verdad Exegética:</strong> ${esc(t.verdad)}</div>` : ''}
+        ${t.error ? `<div class="error-interpretacion"><strong>Error de interpretación:</strong> ${esc(t.error)}</div>` : ''}
+        `).join('\n')}
+        ` : ''}
+
+        <!-- ==================== PARTE 3: EL ATERRIZAJE ==================== -->
+        <h2>✝️ El Aterrizaje: Vida y Aplicación</h2>
+
+        ${d.verdad_central ? `
+        <h3>Verdad Teológica Central</h3>
+        ${texto(d.verdad_central)}
+        ` : ''}
+
+        ${d.punto_tension ? `
+        <h3>Punto de Tensión</h3>
+        ${texto(d.punto_tension)}
+        ` : ''}
+
+        ${d.devocional ? `
+        <h3>Devocional</h3>
+        ${texto(d.devocional)}
+        ` : ''}
+
+        ${d.examen && d.examen.length > 0 ? `
+        <h3>Examen del Corazón</h3>
+        ${d.examen.map(p => `<div class="examen-pregunta">${esc(p)}</div>`).join('\n')}
+        ` : ''}
+
+        ${d.pasos && d.pasos.length > 0 ? `
+        <h3>Pasos Prácticos para la Semana</h3>
+        <ol>
+        ${d.pasos.map(p => `<li>${esc(p)}</li>`).join('\n')}
+        </ol>
+        ` : ''}
+
+        ${d.oracion ? `
+        <div class="oracion-final">
+            <strong>🙏 Oración Final</strong><br><br>
+            ${texto(d.oracion)}
+        </div>
+        ` : ''}
+
+        <!-- ==================== PIE DE PÁGINA ==================== -->
+        <div style="text-align:center;margin-top:50px;padding-top:20px;border-top:2px solid #e2e8f0;font-size:0.8em;color:#94a3b8;">
+            <p>Estudio generado con el Generador de Estudios Bíblicos</p>
+            <p style="margin-top:5px;">⬅️ <a href="../index.html" style="color:#3b82f6;text-decoration:none;font-weight:600;">Volver al índice</a></p>
+        </div>
+
+    </div>
+</body>
+</html>`;
+
+        return html;
+    }
+
+    // ============================================================
+    //  UTILIDADES
+    // ============================================================
+
+    function copiar() {
+        const resultado = document.getElementById('resultado');
+        resultado.select();
+        navigator.clipboard.writeText(resultado.value).then(() => {
+            alert('✅ HTML copiado al portapapeles');
+        }).catch(() => {
+            document.execCommand('copy');
+            alert('✅ HTML copiado al portapapeles');
+        });
+    }
+
+    function descargar() {
+        const contenido = document.getElementById('resultado').value;
+        if (!contenido.trim()) {
+            alert('⚠️ No hay HTML para descargar. Genera primero.');
+            return;
+        }
+        const blob = new Blob([contenido], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'estudio.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function limpiarFormulario() {
+        if (!confirm('¿Seguro que quieres limpiar todos los campos?')) return;
+        document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+        // Limpiar términos excepto el primero
+        const container = document.getElementById('terminos-container');
+        const boxes = container.querySelectorAll('.termino-box');
+        boxes.forEach((box, index) => {
+            if (index > 0) box.remove();
+        });
+        // Resetear el primer término
+        const primeros = container.querySelectorAll('.termino-box');
+        if (primeros.length === 0) {
+            agregarTermino();
+        } else {
+            // Limpiar campos del primer término
+            const first = primeros[0];
+            first.querySelectorAll('input, textarea').forEach(el => el.value = '');
+        }
+        document.getElementById('resultado').value = '';
+    }
+
+    function cargarEjemplo() {
+        // ---- Cargar ejemplo de Judas ----
+        document.getElementById('titulo').value = 'Judas: El remordimiento que no salva';
+        document.getElementById('referencia').value = 'Mateo 27:3-10';
+        document.getElementById('subtitulo').value = 'La trágica diferencia entre el remordimiento y el arrepentimiento';
+
+        document.getElementById('lugar').value = 'El Templo de Jerusalén, específicamente el Atrio del Templo.';
+        document.getElementById('fecha').value = '29 d.C., viernes por la mañana (cerca de las 6:00-7:00 a.m.).';
+        document.getElementById('hora').value = 'Primeras horas de la mañana del viernes.';
+        document.getElementById('contexto_historico').value = 'La devolución del dinero (Mateo 27:3-4). Judas devuelve las 30 piezas de plata. Dice: "He pecado entregando sangre inocente". Los sacerdotes responden: "¿Qué nos importa a nosotros? Allá tú".';
+        document.getElementById('contexto_cultural').value = 'El remordimiento de Judas (Mateo 27:3-4). Judas no se arrepiente (metanoia). Siente remordimiento (metamelomai). La diferencia es crucial: el arrepentimiento lleva a la restauración; el remordimiento lleva a la desesperación.';
+
+        document.getElementById('conexiones_at').value = 'Zacarías 11:12-13: "Pesaron por mi salario treinta piezas de plata... Y me dijo Jehová: Échalo al tesoro"\nJeremías 32:6-15: La compra de un campo como señal profética.\nSalmo 69:25; 109:8: "Su morada quede desierta... otro tome su oficio"';
+        document.getElementById('conexiones_nt').value = 'Mateo 26:14-16: Judas pacta la traición por 30 monedas.\nMateo 26:24: "¡Ay de aquel hombre por quien el Hijo del Hombre es entregado!"\nHechos 1:18-20: Pedro describe la muerte de Judas y cita el Salmo 109:8.';
+
+        // Limpiar términos existentes y agregar 3
+        const container = document.getElementById('terminos-container');
+        container.innerHTML = '';
+        contadorTerminos = 0;
+        for (let i = 0; i < 3; i++) {
+            agregarTermino();
+        }
+        // Llenar los términos
+        const terminosData = [
+            {
+                titulo: 'Remordimiento: la tristeza que no salva',
+                cita: 'Mateo 27:3',
+                griego: 'μεταμέλομαι (metamelomai)',
+                significado: 'Metamelomai significa "sentir remordimiento, lamentar, cambiar de opinión". No es el arrepentimiento genuino (metanoia), que implica un cambio de dirección del corazón hacia Dios. Metamelomai es la tristeza por las consecuencias del pecado, no por el pecado en sí mismo.',
+                verdad: 'El remordimiento no es arrepentimiento. Puedes sentirte mal por tu pecado y aun así no volver a Dios.',
+                error: 'NO significa que Judas se arrepintió. NO significa que el remordimiento sea inútil. NO significa que Judas fuera condenado por su pecado (fue condenado por su falta de fe en la gracia).'
+            },
+            {
+                titulo: 'Sangre inocente: la confesión que no buscó perdón',
+                cita: 'Mateo 27:4',
+                griego: 'αἷμα ἀθῷον (haima athōon)',
+                significado: 'Haima es "sangre". Athōos significa "inocente, sin culpa". Judas confiesa que Jesús era inocente. Esta es una de las confesiones más trágicas de la Escritura. Pero no busca perdón. Solo confiesa el hecho.',
+                verdad: 'Confesar el pecado sin buscar el perdón no es arrepentimiento. Judas dijo la verdad, pero no se volvió a Dios. La confesión sin fe es solo información.',
+                error: 'NO significa que Judas estuviera condenado porque confesó. NO significa que la confesión sea inútil. NO significa que los líderes religiosos fueran inocentes.'
+            },
+            {
+                titulo: 'Precio de sangre: el dinero que no pudo ser santificado',
+                cita: 'Mateo 27:6',
+                griego: 'τιμὴ αἵματος (timē haimatos)',
+                significado: 'Timē significa "precio, valor, honor". Haimatos es "sangre". Literalmente "precio de sangre". En la ley judía, el dinero obtenido por medios injustos no podía ser usado para el Templo.',
+                verdad: 'El dinero obtenido por medios injustos no puede ser usado para la obra de Dios. Pero la sangre de Jesús, que fue injustamente derramada, sí puede santificar a los pecadores.',
+                error: 'NO significa que el dinero sea malo. NO significa que los sacerdotes tuvieran razón. NO significa que la sangre de Jesús fuera impura.'
+            }
+        ];
+
+        const boxes = container.querySelectorAll('.termino-box');
+        boxes.forEach((box, index) => {
+            const i = index + 1;
+            const data = terminosData[index] || {};
+            document.getElementById('term_titulo_' + i).value = data.titulo || '';
+            document.getElementById('term_cita_' + i).value = data.cita || '';
+            document.getElementById('term_griego_' + i).value = data.griego || '';
+            document.getElementById('term_significado_' + i).value = data.significado || '';
+            document.getElementById('term_verdad_' + i).value = data.verdad || '';
+            document.getElementById('term_error_' + i).value = data.error || '';
+        });
+
+        document.getElementById('verdad_central').value = 'Judas sintió remordimiento, no arrepentimiento. Confesó su pecado, pero no buscó el perdón. Vio la inocencia de Jesús, pero no creyó en la gracia. Su tragedia no fue haber pecado (Pedro también pecó). Su tragedia fue no haber vuelto. La diferencia entre Pedro y Judas no es la gravedad del pecado, sino la dirección de la mirada. Pedro miró a Jesús y encontró gracia. Judas miró su pecado y encontró desesperación.';
+        document.getElementById('punto_tension').value = 'Judas confesó su pecado, pero no buscó el perdón. La tensión es entre la confesión del pecado (que es necesaria) y la confianza en la gracia (que es esencial). Judas dijo "he pecado". Pero no pidió perdón. Su confesión fue correcta, pero incompleta. ¿Estamos confesando nuestros pecados con la esperanza de ser perdonados, o solo sintiendo culpa sin buscar la gracia?';
+        document.getElementById('devocional').value = 'Hermano, hermana, hablemos de Judas. No como el villano de la historia. Como el que falló y no volvió.\n\nJudas estuvo cerca de Jesús. Muy cerca. Fue uno de los doce. Vio milagros. Escuchó enseñanzas. Compartió la mesa. Recibió el pan mojado.\n\nPero cuando falló, no volvió. Se desesperó. Se ahorcó.\n\nPedro también falló. Negó a Jesús tres veces. Juró que no lo conocía. Y cuando el gallo cantó, Pedro salió y lloró.\n\nPero Pedro volvió. No se desesperó. Esperó en la gracia. Y Jesús lo restauró.\n\nLa diferencia no es el pecado. La diferencia es la respuesta al pecado.\n\nTú has pecado. Tal vez no como Judas. Pero has fallado. Has negado. Has escondido. Has dudado.\n\n¿Y qué haces con tu pecado? ¿Te desesperas? ¿Te castigas? ¿Te escondes? ¿O vuelves a la gracia?\n\nLa diferencia entre la vida y la muerte espiritual no es la cantidad de pecado. Es la dirección de la mirada. Judas miró su pecado y se desesperó. Pedro miró a Jesús y encontró gracia.\n\nTú también tienes una elección. Puedes mirar tu fracaso y caer en la desesperación. O puedes mirar a Jesús y encontrar el perdón.\n\nÉl no está esperando para condenarte. Está esperando para restaurarte. Como restauró a Pedro. Como restauró a los discípulos que huyeron. Como te restaura a ti.\n\nNo importa lo que hayas hecho. No importa cuánto hayas fallado. La gracia es más grande que tu pecado. La misericordia es más profunda que tu culpa. El amor es más fuerte que tu fracaso.\n\nVuelve. No te desesperes. No te ahorques con la culpa. No te entierres en el campo de sangre. Corre a Jesús. Él te está esperando.';
+        document.getElementById('examen').value = '¿Has pecado y sentido remordimiento sin buscar el perdón? ¿Te has quedado en la culpa en lugar de ir a la gracia?\n¿Hay algún pecado que consideres "imperdonable"? ¿Crees que la gracia de Jesús es suficiente para cubrirlo?\nPedro y Judas pecaron gravemente. Uno volvió, el otro no. ¿Cuál es tu patrón cuando fallas? ¿Corres a Jesús o a la desesperación?\nJudas buscó absolución humana (los sacerdotes) y no la encontró. ¿Buscas la aprobación de las personas en lugar del perdón de Dios?\nEl campo de sangre fue comprado con el dinero de la traición. ¿Hay "dinero sucio" en tu vida que necesitas entregar a Dios?';
+        document.getElementById('pasos').value = 'El inventario de la culpa: Escribe los pecados que te pesan. Nómbralos. Luego escribe: "La gracia de Jesús es más grande que este pecado".\nEl ayuno de la desesperación: Un día esta semana, no te castigues por tus fracasos. Cuando la culpa venga, di: "Jesús me perdona. No me desespero. Vuelvo a él".\nLa práctica del regreso: Si hay un pecado que has estado escondiendo, confiésalo esta semana. No a un sacerdote necesariamente, sino a Dios y a alguien de confianza.\nLa oración del restaurado: Ora: "Señor, he pecado. Pero no me desespero. Vuelvo a ti. Restáurame como restauraste a Pedro".\nEl ejercicio del campo de sangre: Si hay "dinero sucio" en tu vida, entrega esa área a Dios. Pídele que redima lo que ha sido manchado.';
+        document.getElementById('oracion').value = 'Señor Jesús, he pecado. No como Judas quizás. Pero he fallado. He negado. He escondido. He dudado.\n\nY he sentido remordimiento. Me he sentido mal por lo que he hecho. Pero no siempre he buscado el perdón. He buscado absolución humana. He buscado justificarme a mí mismo. He buscado esconder mi culpa.\n\nPero tú no me condenas. Tú me esperas. Como esperaste a Pedro. Como esperaste a los discípulos que huyeron.\n\nNo quiero ser Judas. No quiero desesperarme. No quiero ahorcarme con la culpa. Quiero ser Pedro. Quiero llorar, pero volver. Quiero fallar, pero creer que tu gracia es suficiente.\n\nNo importa lo que haya hecho. Tu gracia es más grande. No importa cuánto haya fallado. Tu misericordia es más profunda.\n\nToma mi culpa. Toma mi remordimiento. Toma mi desesperación. Y dame tu perdón. Tu paz. Tu vida.\n\nNo me quedo en el campo de sangre. Voy a la cruz. Allí está mi perdón. Allí está mi esperanza. Allí estás tú.\n\nEn tu nombre, Jesús, el que murió por los traidores y los negadores. Amén.';
+        document.getElementById('dato').value = 'La muerte de Judas se describe de dos maneras en el Nuevo Testamento: Mateo 27:5 dice que se ahorcó; Hechos 1:18 dice que "cayendo de cabeza, se reventó por medio". La armonización más probable es que Judas se ahorcó, y después (quizás por la descomposición del cuerpo o porque la rama se rompió) cayó y su cuerpo se reventó. Los detalles no son contradictorios, sino complementarios.\n\nEl "campo del alfarero" (Mateo 27:7) se llamaba Haqel Dama ("campo de sangre") en arameo. Los peregrinos cristianos del siglo IV lo identificaron como el lugar donde Judas se ahorcó. Hoy, el campo de sangre sigue existiendo en el valle de Hinom, al sur de Jerusalén. Es un recordatorio físico de que el dinero de la traición no puede comprar la salvación. Solo la sangre de Jesús puede hacer eso.';
+
+        // Generar automáticamente
+        generar();
+    }
+
+    // ============================================================
+    //  INICIALIZAR
+    // ============================================================
+
+    window.onload = function() {
+        // Inicializar con 2 términos
+        for (let i = 0; i < 2; i++) {
+            agregarTermino();
+        }
+        // Cargar ejemplo por defecto
+        cargarEjemplo();
+    };
+</script>
+
+</body>
+</html>
