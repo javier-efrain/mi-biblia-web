@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +66,7 @@
             border-radius: 20px;
             padding: 28px 32px;
             margin-bottom: 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.07);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
         }
 
         .cabecera h1 {
@@ -99,7 +100,7 @@
             background: white;
             border-radius: 18px;
             padding: 28px 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
         }
 
         .panel-titulo {
@@ -195,7 +196,7 @@
         textarea:focus {
             outline: none;
             border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(59,130,246,.10);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, .10);
         }
 
         textarea {
@@ -224,7 +225,7 @@
         }
 
         .ayuda code {
-            background: rgba(255,255,255,.8);
+            background: rgba(255, 255, 255, .8);
             padding: 2px 5px;
             border-radius: 4px;
         }
@@ -335,7 +336,7 @@
             background: white;
             border-radius: 18px;
             padding: 25px 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
         }
 
         .output {
@@ -343,7 +344,7 @@
             background: white;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,.06);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .06);
         }
 
         .output-barra {
@@ -442,852 +443,869 @@
 
 <body>
 
-<div class="contenedor">
+    <div class="contenedor">
 
-    <header class="cabecera">
-        <h1>📖 Generador de Estudios Bíblicos</h1>
+        <header class="cabecera">
+            <h1>📖 Generador de Estudios Bíblicos</h1>
 
-        <p>
-            Generador basado en la estructura completa de
-            contexto, exégesis y aplicación.
-        </p>
+            <p>
+                Generador basado en la estructura completa de
+                contexto, exégesis y aplicación.
+            </p>
 
-        <span class="version">Formulario v3.0</span>
-    </header>
+            <span class="version">Formulario v3.0</span>
+        </header>
 
 
-    <form id="formulario" onsubmit="event.preventDefault(); generar();">
+        <form id="formulario" onsubmit="event.preventDefault(); generar();">
 
-        <!-- ========================================================
+            <!-- ========================================================
              METADATOS
              ======================================================== -->
 
-        <section class="panel">
+            <section class="panel">
 
-            <div class="panel-titulo">
-                📋 Metadatos
-            </div>
-
-            <div class="grid-2">
-
-                <div class="campo">
-                    <label for="titulo">
-                        Título del estudio *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="titulo"
-                        required
-                        placeholder="Ej. Jesús lava los pies de sus discípulos"
-                    >
+                <div class="panel-titulo">
+                    📋 Metadatos
                 </div>
-
-                <div class="campo">
-                    <label for="referencia">
-                        Pasaje bíblico *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="referencia"
-                        required
-                        placeholder="Ej. Juan 13:1-17"
-                    >
-                </div>
-
-            </div>
-
-            <div class="grid-2">
-
-                <div class="campo">
-                    <label for="subtitulo">
-                        Subtítulo
-                        <span class="opcional">(opcional)</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="subtitulo"
-                        placeholder="Ej. El Señor que toma la toalla"
-                    >
-                </div>
-
-                <div class="campo">
-                    <label for="tema">
-                        Tema
-                        <span class="opcional">(opcional)</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="tema"
-                        placeholder="Ej. Humildad, servicio y discipulado"
-                    >
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ========================================================
-             PARTE 1
-             ======================================================== -->
-
-        <section class="panel parte-1-panel">
-
-            <div class="panel-titulo">
-                🏛️ PARTE 1 — EL ESCENARIO
-            </div>
-
-
-            <!-- 1. EL TEXTO -->
-
-            <div class="subseccion">
-
-                <h3>1. 📖 El texto</h3>
-
-                <div class="campo">
-                    <label for="escena">
-                        Escena / introducción
-                    </label>
-
-                    <textarea
-                        id="escena"
-                        class="grande"
-                        placeholder="Describe brevemente qué está ocurriendo y cuál es la situación general del pasaje."
-                    ></textarea>
-                </div>
-
-
-                <div class="campo">
-                    <label for="estructura_literaria">
-                        Estructura literaria
-                    </label>
-
-                    <textarea
-                        id="estructura_literaria"
-                        class="grande"
-                        placeholder="Ej. 1. Jesús conoce su situación...&#10;2. Jesús realiza una acción inesperada..."
-                    ></textarea>
-                </div>
-
-
-                <div class="campo">
-                    <label for="observacion_inicial">
-                        Observación inicial del Mentor
-                        <span class="opcional">(opcional)</span>
-                    </label>
-
-                    <textarea
-                        id="observacion_inicial"
-                        placeholder="Una observación literaria o narrativa particularmente importante."
-                    ></textarea>
-                </div>
-
-            </div>
-
-
-            <!-- 2. EL MUNDO DEL TEXTO -->
-
-            <div class="subseccion">
-
-                <h3>2. 🌍 El mundo del texto</h3>
-
-                <div class="grid-3">
-
-                    <div class="campo">
-                        <label for="lugar">📍 Lugar</label>
-
-                        <textarea
-                            id="lugar"
-                            placeholder="Lugar y explicación."
-                        ></textarea>
-                    </div>
-
-                    <div class="campo">
-                        <label for="fecha">📅 Fecha</label>
-
-                        <textarea
-                            id="fecha"
-                            placeholder="Fecha aproximada y explicación cronológica."
-                        ></textarea>
-                    </div>
-
-                    <div class="campo">
-                        <label for="hora">⏰ Hora</label>
-
-                        <textarea
-                            id="hora"
-                            placeholder="Hora aproximada y evidencia."
-                        ></textarea>
-                    </div>
-
-                </div>
-
 
                 <div class="grid-2">
 
                     <div class="campo">
-                        <label for="personajes">
-                            👥 Personajes principales
+                        <label for="titulo">
+                            Título del estudio *
                         </label>
 
-                        <textarea
-                            id="personajes"
-                            placeholder="Personajes relevantes y función en la escena."
-                        ></textarea>
+                        <input type="text" id="titulo" required placeholder="Ej. Jesús lava los pies de sus discípulos">
+                    </div>
+
+                    <div class="campo">
+                        <label for="referencia">
+                            Pasaje bíblico *
+                        </label>
+
+                        <input type="text" id="referencia" required placeholder="Ej. Juan 13:1-17">
+                    </div>
+
+                </div>
+
+                <div class="grid-2">
+
+                    <div class="campo">
+                        <label for="subtitulo">
+                            Subtítulo
+                            <span class="opcional">(opcional)</span>
+                        </label>
+
+                        <input type="text" id="subtitulo" placeholder="Ej. El Señor que toma la toalla">
+                    </div>
+
+                    <div class="campo">
+                        <label for="tema">
+                            Tema
+                            <span class="opcional">(opcional)</span>
+                        </label>
+
+                        <input type="text" id="tema" placeholder="Ej. Humildad, servicio y discipulado">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================================
+             PARTE 1
+             ======================================================== -->
+
+            <section class="panel parte-1-panel">
+
+                <div class="panel-titulo">
+                    🏛️ PARTE 1 — EL ESCENARIO
+                </div>
+
+
+                <!-- 1. EL TEXTO -->
+
+                <div class="subseccion">
+
+                    <h3>1. 📖 El texto</h3>
+
+                    <div class="campo">
+                        <label for="escena">
+                            Escena / introducción
+                        </label>
+
+                        <textarea id="escena" class="grande"
+                            placeholder="Describe brevemente qué está ocurriendo y cuál es la situación general del pasaje."></textarea>
                     </div>
 
 
                     <div class="campo">
-                        <label for="situacion">
-                            🎬 Situación
+                        <label for="estructura_literaria">
+                            Estructura literaria
                         </label>
 
-                        <textarea
-                            id="situacion"
-                            placeholder="Qué está ocurriendo inmediatamente en el relato."
-                        ></textarea>
+                        <textarea id="estructura_literaria" class="grande"
+                            placeholder="Ej. 1. Jesús conoce su situación...&#10;2. Jesús realiza una acción inesperada..."></textarea>
+                    </div>
+
+
+                    <div class="campo">
+                        <label for="observacion_inicial">
+                            Observación inicial del Mentor
+                            <span class="opcional">(opcional)</span>
+                        </label>
+
+                        <textarea id="observacion_inicial"
+                            placeholder="Una observación literaria o narrativa particularmente importante."></textarea>
                     </div>
 
                 </div>
 
-            </div>
+
+                <!-- 2. EL MUNDO DEL TEXTO -->
+
+                <div class="subseccion">
+
+                    <h3>2. 🌍 El mundo del texto</h3>
+
+                    <div class="grid-3">
+
+                        <div class="campo">
+                            <label for="lugar">📍 Lugar</label>
+
+                            <textarea id="lugar" placeholder="Lugar y explicación."></textarea>
+                        </div>
+
+                        <div class="campo">
+                            <label for="fecha">📅 Fecha</label>
+
+                            <textarea id="fecha" placeholder="Fecha aproximada y explicación cronológica."></textarea>
+                        </div>
+
+                        <div class="campo">
+                            <label for="hora">⏰ Hora</label>
+
+                            <textarea id="hora" placeholder="Hora aproximada y evidencia."></textarea>
+                        </div>
+
+                    </div>
 
 
-            <!-- 3. CONTEXTO HISTÓRICO -->
+                    <div class="grid-2">
 
-            <div class="subseccion">
+                        <div class="campo">
+                            <label for="personajes">
+                                👥 Personajes principales
+                            </label>
 
-                <h3>3. 🏛️ Contexto histórico y político</h3>
-
-                <div class="campo">
-                    <textarea
-                        id="contexto_historico"
-                        class="muy-grande"
-                        placeholder="Gobierno, autoridades, situación histórica, tensiones políticas, acontecimientos relevantes..."
-                    ></textarea>
-                </div>
-
-            </div>
+                            <textarea id="personajes"
+                                placeholder="Personajes relevantes y función en la escena."></textarea>
+                        </div>
 
 
-            <!-- 4. CONTEXTO SOCIAL -->
+                        <div class="campo">
+                            <label for="situacion">
+                                🎬 Situación
+                            </label>
 
-            <div class="subseccion">
+                            <textarea id="situacion"
+                                placeholder="Qué está ocurriendo inmediatamente en el relato."></textarea>
+                        </div>
 
-                <h3>4. 🏺 Contexto social y cultural</h3>
+                    </div>
 
-                <div class="campo">
-                    <textarea
-                        id="contexto_cultural"
-                        class="muy-grande"
-                        placeholder="Costumbres, vida cotidiana, honor y vergüenza, prácticas sociales, comidas, vestimenta, hospitalidad..."
-                    ></textarea>
-                </div>
-
-            </div>
-
-
-            <!-- 5. CONTEXTO TEOLÓGICO -->
-
-            <div class="subseccion">
-
-                <h3>5. 🕍 Contexto religioso y teológico</h3>
-
-                <div class="campo">
-                    <textarea
-                        id="contexto_teologico"
-                        class="muy-grande"
-                        placeholder="Creencias judías, Segundo Templo, pureza, mesianismo, fiestas, conceptos teológicos..."
-                    ></textarea>
-                </div>
-
-            </div>
-
-
-            <!-- 6. CONEXIONES -->
-
-            <div class="subseccion">
-
-                <h3>6. 🔗 Conexiones literarias</h3>
-
-
-                <h4 style="margin-bottom:15px;">
-                    📜 Antiguo Testamento
-                </h4>
-
-                <div id="conexiones-at-container"></div>
-
-                <div class="botones">
-                    <button
-                        type="button"
-                        class="btn azul"
-                        onclick="agregarConexion('at')"
-                    >
-                        ➕ Añadir conexión AT
-                    </button>
                 </div>
 
 
-                <h4 style="margin:30px 0 15px;">
-                    ✝️ Nuevo Testamento
-                </h4>
+                <!-- 3. CONTEXTO HISTÓRICO -->
 
-                <div id="conexiones-nt-container"></div>
+                <div class="subseccion">
 
-                <div class="botones">
-                    <button
-                        type="button"
-                        class="btn verde"
-                        onclick="agregarConexion('nt')"
-                    >
-                        ➕ Añadir conexión NT
-                    </button>
-                </div>
+                    <h3>3. 🏛️ Contexto histórico y político</h3>
 
-            </div>
+                    <div class="campo">
+                        <textarea id="contexto_historico" class="muy-grande"
+                            placeholder="Gobierno, autoridades, situación histórica, tensiones políticas, acontecimientos relevantes..."></textarea>
+                    </div>
 
-
-            <!-- 7. LUGAR EN EL LIBRO -->
-
-            <div class="subseccion">
-
-                <h3>7. 🧭 Lugar del pasaje dentro del libro</h3>
-
-                <div class="campo">
-                    <label for="antes">
-                        Qué viene antes
-                    </label>
-
-                    <textarea id="antes"></textarea>
                 </div>
 
 
-                <div class="campo">
-                    <label for="despues">
-                        Qué viene después
-                    </label>
+                <!-- 4. CONTEXTO SOCIAL -->
 
-                    <textarea id="despues"></textarea>
+                <div class="subseccion">
+
+                    <h3>4. 🏺 Contexto social y cultural</h3>
+
+                    <div class="campo">
+                        <textarea id="contexto_cultural" class="muy-grande"
+                            placeholder="Costumbres, vida cotidiana, honor y vergüenza, prácticas sociales, comidas, vestimenta, hospitalidad..."></textarea>
+                    </div>
+
                 </div>
 
 
-                <div class="campo">
-                    <label for="funcion_libro">
-                        Función del pasaje dentro del libro
-                    </label>
+                <!-- 5. CONTEXTO TEOLÓGICO -->
 
-                    <textarea
-                        id="funcion_libro"
-                        class="grande"
-                    ></textarea>
+                <div class="subseccion">
+
+                    <h3>5. 🕍 Contexto religioso y teológico</h3>
+
+                    <div class="campo">
+                        <textarea id="contexto_teologico" class="muy-grande"
+                            placeholder="Creencias judías, Segundo Templo, pureza, mesianismo, fiestas, conceptos teológicos..."></textarea>
+                    </div>
+
                 </div>
 
-            </div>
+
+                <!-- 6. CONEXIONES -->
+
+                <div class="subseccion">
+
+                    <h3>6. 🔗 Conexiones literarias</h3>
 
 
-            <!-- DATO MENTOR 1 -->
+                    <h4 style="margin-bottom:15px;">
+                        📜 Antiguo Testamento
+                    </h4>
 
-            <div class="subseccion">
+                    <div id="conexiones-at-container"></div>
 
-                <h3>💡 Dato del Mentor — Parte 1</h3>
+                    <div class="botones">
+                        <button type="button" class="btn azul" onclick="agregarConexion('at')">
+                            ➕ Añadir conexión AT
+                        </button>
+                    </div>
 
-                <div class="campo">
-                    <textarea
-                        id="dato_mentor_1"
-                        class="grande"
-                        placeholder="Dato histórico, arqueológico o cultural relevante."
-                    ></textarea>
+
+                    <h4 style="margin:30px 0 15px;">
+                        ✝️ Nuevo Testamento
+                    </h4>
+
+                    <div id="conexiones-nt-container"></div>
+
+                    <div class="botones">
+                        <button type="button" class="btn verde" onclick="agregarConexion('nt')">
+                            ➕ Añadir conexión NT
+                        </button>
+                    </div>
+
                 </div>
 
-            </div>
 
-        </section>
+                <!-- 7. LUGAR EN EL LIBRO -->
+
+                <div class="subseccion">
+
+                    <h3>7. 🧭 Lugar del pasaje dentro del libro</h3>
+
+                    <div class="campo">
+                        <label for="antes">
+                            Qué viene antes
+                        </label>
+
+                        <textarea id="antes"></textarea>
+                    </div>
 
 
-        <!-- ========================================================
+                    <div class="campo">
+                        <label for="despues">
+                            Qué viene después
+                        </label>
+
+                        <textarea id="despues"></textarea>
+                    </div>
+
+
+                    <div class="campo">
+                        <label for="funcion_libro">
+                            Función del pasaje dentro del libro
+                        </label>
+
+                        <textarea id="funcion_libro" class="grande"></textarea>
+                    </div>
+
+                </div>
+
+
+                <!-- DATO MENTOR 1 -->
+
+                <div class="subseccion">
+
+                    <h3>💡 Dato del Mentor — Parte 1</h3>
+
+                    <div class="campo">
+                        <textarea id="dato_mentor_1" class="grande"
+                            placeholder="Dato histórico, arqueológico o cultural relevante."></textarea>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================================
              PARTE 2
              ======================================================== -->
 
-        <section class="panel parte-2-panel">
+            <section class="panel parte-2-panel">
 
-            <div class="panel-titulo">
-                🔬 PARTE 2 — EXÉGESIS
-            </div>
+                <div class="panel-titulo">
+                    🔬 PARTE 2 — EXÉGESIS
+                </div>
 
-            <div class="ayuda">
-                Podés utilizar <code>**negrita**</code> y
-                <code>*cursiva*</code> dentro de los textos.
-                El generador los transformará automáticamente en HTML.
-            </div>
+                <div class="ayuda">
+                    Podés utilizar <code>**negrita**</code> y
+                    <code>*cursiva*</code> dentro de los textos.
+                    El generador los transformará automáticamente en HTML.
+                </div>
 
 
-            <div id="terminos-container"></div>
+                <div id="terminos-container"></div>
 
-            <div class="botones">
+                <div class="botones">
 
-                <button
-                    type="button"
-                    class="btn violeta"
-                    onclick="agregarTermino()"
-                >
-                    ➕ Añadir término o concepto
+                    <button type="button" class="btn violeta" onclick="agregarTermino()">
+                        ➕ Añadir término o concepto
+                    </button>
+
+                </div>
+
+
+                <div class="subseccion">
+
+                    <h3>🧩 Síntesis exegética</h3>
+
+                    <div class="editor-toolbar">
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'negrita')">
+                            <strong>B</strong>
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'cursiva')">
+                            <em>I</em>
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'h2')">
+                            H2
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'h3')">
+                            H3
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'lista')">
+                            • Lista
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'numerada')">
+                            1. Lista
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'versiculo')">
+                            📖 Versículo
+                        </button>
+
+                        <button type="button" onclick="formatearTexto('sintesis_exegetica', 'original')">
+                            🔤 Original
+                        </button>
+
+                    </div>
+
+                    <div class="campo">
+
+                        <textarea id="sintesis_exegetica" class="muy-grande"
+                            placeholder="Integra los términos anteriores y explica el mensaje que surge del conjunto."></textarea>
+
+                    </div>
+
+                </div>
+
+                <div id="extras-sintesis-exegetica" class="bloques-extra-container"></div>
+
+                <button type="button" class="btn-agregar-bloque"
+                    onclick="agregarBloqueExtra('extras-sintesis-exegetica')">
+                    ➕ Insertar bloque después
                 </button>
 
-            </div>
+                <div class="subseccion">
 
+                    <h3>💡 Dato del Mentor — Parte 2</h3>
 
-            <div class="subseccion">
+                    <div class="campo">
+                        <textarea id="dato_mentor_2" class="grande"
+                            placeholder="Dato lingüístico, textual, histórico o exegético."></textarea>
+                    </div>
 
-                <h3>🧩 Síntesis exegética</h3>
-
-                <div class="campo">
-                    <textarea
-                        id="sintesis_exegetica"
-                        class="muy-grande"
-                        placeholder="Integra los términos anteriores y explica el mensaje que surge del conjunto."
-                    ></textarea>
                 </div>
 
-            </div>
+            </section>
 
 
-            <div class="subseccion">
-
-                <h3>💡 Dato del Mentor — Parte 2</h3>
-
-                <div class="campo">
-                    <textarea
-                        id="dato_mentor_2"
-                        class="grande"
-                        placeholder="Dato lingüístico, textual, histórico o exegético."
-                    ></textarea>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ========================================================
+            <!-- ========================================================
              PARTE 3
              ======================================================== -->
 
-        <section class="panel parte-3-panel">
+            <section class="panel parte-3-panel">
 
-            <div class="panel-titulo">
-                ❤️ PARTE 3 — EL ATERRIZAJE
-            </div>
-
-
-            <div class="campo">
-
-                <label for="verdad_central">
-                    🎯 Verdad Teológica Central
-                </label>
-
-                <textarea
-                    id="verdad_central"
-                    class="grande"
-                ></textarea>
-
-            </div>
+                <div class="panel-titulo">
+                    ❤️ PARTE 3 — EL ATERRIZAJE
+                </div>
 
 
-            <div class="campo">
+                <div class="campo">
 
-                <label for="punto_tension">
-                    ⚖️ Punto de Tensión
-                </label>
+                    <label for="verdad_central">
+                        🎯 Verdad Teológica Central
+                    </label>
 
-                <textarea
-                    id="punto_tension"
-                    class="grande"
-                ></textarea>
+                    <textarea id="verdad_central" class="grande"></textarea>
 
-            </div>
+                </div>
 
 
-            <div class="campo">
+                <div class="campo">
 
-                <label for="devocional">
-                    🌱 Devocional
-                </label>
+                    <label for="punto_tension">
+                        ⚖️ Punto de Tensión
+                    </label>
 
-                <textarea
-                    id="devocional"
-                    class="muy-grande"
-                ></textarea>
+                    <textarea id="punto_tension" class="grande"></textarea>
 
-            </div>
+                </div>
 
 
-            <div class="campo">
+                <div class="campo">
 
-                <label for="examen_corazon">
-                    🔍 Examen del Corazón
-                    <span class="opcional">
-                        (una pregunta por línea)
-                    </span>
-                </label>
+                    <label for="devocional">
+                        🌱 Devocional
+                    </label>
 
-                <textarea
-                    id="examen_corazon"
-                    class="grande"
-                    placeholder="¿Pregunta 1?&#10;¿Pregunta 2?&#10;¿Pregunta 3?"
-                ></textarea>
+                    <textarea id="devocional" class="muy-grande"></textarea>
 
-            </div>
+                </div>
 
 
-            <div class="campo">
+                <div class="campo">
+                    <label>
+                        🔍 Examen del Corazón
+                    </label>
 
-                <label for="pasos_practicos">
-                    👣 Pasos Prácticos
-                    <span class="opcional">
-                        (uno por línea)
-                    </span>
-                </label>
+                    <div class="ayuda">
+                        Cada pregunta tiene su propia caja. Podés escribir textos largos
+                        sin necesidad de mantenerlos en una sola línea.
+                    </div>
 
-                <textarea
-                    id="pasos_practicos"
-                    class="grande"
-                    placeholder="Acción 1&#10;Acción 2&#10;Acción 3"
-                ></textarea>
+                    <div id="examen-container"></div>
 
-            </div>
-
-
-            <div class="campo">
-
-                <label for="idea_clave">
-                    🧭 Una idea para llevarte
-                </label>
-
-                <textarea
-                    id="idea_clave"
-                    placeholder="Una frase memorable que resuma el estudio."
-                ></textarea>
-
-            </div>
+                    <div class="botones">
+                        <button type="button" class="btn violeta" onclick="agregarPreguntaExamen()">
+                            ➕ Agregar pregunta
+                        </button>
+                    </div>
+                </div>
 
 
-            <div class="campo">
+                <div class="campo">
+                    <label>
+                        👣 Pasos Prácticos
+                    </label>
 
-                <label for="oracion_final">
-                    🙏 Oración Final
-                </label>
+                    <div class="ayuda">
+                        Cada paso práctico tiene su propia caja.
+                        Podés escribir una explicación extensa sin mantenerla en una sola línea.
+                    </div>
 
-                <textarea
-                    id="oracion_final"
-                    class="muy-grande"
-                ></textarea>
+                    <div id="pasos-container"></div>
 
-            </div>
-
-
-            <div class="campo">
-
-                <label for="dato_mentor_3">
-                    💡 Dato del Mentor — Parte 3
-                </label>
-
-                <textarea
-                    id="dato_mentor_3"
-                    class="grande"
-                ></textarea>
-
-            </div>
-
-        </section>
+                    <div class="botones">
+                        <button type="button" class="btn verde" onclick="agregarPasoPractico()">
+                            ➕ Agregar paso práctico
+                        </button>
+                    </div>
+                </div>
 
 
-        <!-- ========================================================
+                <div class="campo">
+
+                    <label for="idea_clave">
+                        🧭 Una idea para llevarte
+                    </label>
+
+                    <textarea id="idea_clave" placeholder="Una frase memorable que resuma el estudio."></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="oracion_final">
+                        🙏 Oración Final
+                    </label>
+
+                    <textarea id="oracion_final" class="muy-grande"></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="dato_mentor_3">
+                        💡 Dato del Mentor — Parte 3
+                    </label>
+
+                    <textarea id="dato_mentor_3" class="grande"></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================================
              PROFUNDIZAR
              ======================================================== -->
 
-        <section class="panel profundizar-panel">
+            <section class="panel profundizar-panel">
 
-            <div class="panel-titulo">
-                📚 PARA PROFUNDIZAR
-                <span style="
+                <div class="panel-titulo">
+                    📚 PARA PROFUNDIZAR
+                    <span style="
                     font-size:.72rem;
                     color:#94a3b8;
                     font-weight:500;
                 ">
-                    (sección completamente opcional)
-                </span>
-            </div>
-
-
-            <div class="campo">
-
-                <label for="pasajes_relacionados">
-                    🔗 Pasajes relacionados
-                    <span class="opcional">
-                        (uno por línea)
+                        (sección completamente opcional)
                     </span>
-                </label>
+                </div>
 
-                <textarea id="pasajes_relacionados"></textarea>
+
+                <div class="campo">
+
+                    <label for="pasajes_relacionados">
+                        🔗 Pasajes relacionados
+                        <span class="opcional">
+                            (uno por línea)
+                        </span>
+                    </label>
+
+                    <textarea id="pasajes_relacionados"></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="preguntas_profundizar">
+                        🧠 Preguntas para profundizar
+                        <span class="opcional">
+                            (una por línea)
+                        </span>
+                    </label>
+
+                    <textarea id="preguntas_profundizar"></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="conceptos_investigar">
+                        🔎 Conceptos para investigar
+                        <span class="opcional">
+                            (uno por línea)
+                        </span>
+                    </label>
+
+                    <textarea id="conceptos_investigar"></textarea>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="bibliografia">
+                        📚 Bibliografía / Recursos
+                        <span class="opcional">
+                            (uno por línea)
+                        </span>
+                    </label>
+
+                    <textarea id="bibliografia"></textarea>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================================
+             ACCIONES
+             ======================================================== -->
+
+            <div class="acciones-finales">
+
+                <div class="botones">
+
+                    <button type="submit" class="btn verde">
+                        🚀 Generar HTML
+                    </button>
+
+
+                    <button type="button" class="btn gris" onclick="guardarLocal()">
+                        💾 Guardar borrador
+                    </button>
+
+
+                    <button type="button" class="btn gris" onclick="cargarLocal()">
+                        📂 Recuperar borrador
+                    </button>
+
+
+                    <button type="button" class="btn rojo" onclick="limpiarFormulario()">
+                        🗑️ Limpiar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <!-- ========================================================
+         OUTPUT
+         ======================================================== -->
+
+        <section class="output" id="output-area">
+
+            <div class="output-barra">
+
+                <strong>
+                    📋 HTML generado
+                </strong>
+
+                <div class="output-botones">
+
+                    <button onclick="copiarResultado()" title="Copiar HTML">
+                        📋
+                    </button>
+
+                    <button onclick="descargarResultado()" title="Descargar HTML">
+                        ⬇️
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <div class="campo">
-
-                <label for="preguntas_profundizar">
-                    🧠 Preguntas para profundizar
-                    <span class="opcional">
-                        (una por línea)
-                    </span>
-                </label>
-
-                <textarea id="preguntas_profundizar"></textarea>
-
-            </div>
-
-
-            <div class="campo">
-
-                <label for="conceptos_investigar">
-                    🔎 Conceptos para investigar
-                    <span class="opcional">
-                        (uno por línea)
-                    </span>
-                </label>
-
-                <textarea id="conceptos_investigar"></textarea>
-
-            </div>
-
-
-            <div class="campo">
-
-                <label for="bibliografia">
-                    📚 Bibliografía / Recursos
-                    <span class="opcional">
-                        (uno por línea)
-                    </span>
-                </label>
-
-                <textarea id="bibliografia"></textarea>
-
-            </div>
+            <textarea id="resultado" readonly placeholder="Aquí aparecerá el HTML final..."></textarea>
 
         </section>
 
 
-        <!-- ========================================================
-             ACCIONES
-             ======================================================== -->
-
-        <div class="acciones-finales">
-
-            <div class="botones">
-
-                <button
-                    type="submit"
-                    class="btn verde"
-                >
-                    🚀 Generar HTML
-                </button>
-
-
-                <button
-                    type="button"
-                    class="btn gris"
-                    onclick="guardarLocal()"
-                >
-                    💾 Guardar borrador
-                </button>
-
-
-                <button
-                    type="button"
-                    class="btn gris"
-                    onclick="cargarLocal()"
-                >
-                    📂 Recuperar borrador
-                </button>
-
-
-                <button
-                    type="button"
-                    class="btn rojo"
-                    onclick="limpiarFormulario()"
-                >
-                    🗑️ Limpiar
-                </button>
-
-            </div>
-
+        <div class="footer">
+            Generador de Estudios Bíblicos — versión 3.0
         </div>
 
-    </form>
-
-
-    <!-- ========================================================
-         OUTPUT
-         ======================================================== -->
-
-    <section class="output" id="output-area">
-
-        <div class="output-barra">
-
-            <strong>
-                📋 HTML generado
-            </strong>
-
-            <div class="output-botones">
-
-                <button
-                    onclick="copiarResultado()"
-                    title="Copiar HTML"
-                >
-                    📋
-                </button>
-
-                <button
-                    onclick="descargarResultado()"
-                    title="Descargar HTML"
-                >
-                    ⬇️
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <textarea
-            id="resultado"
-            readonly
-            placeholder="Aquí aparecerá el HTML final..."
-        ></textarea>
-
-    </section>
-
-
-    <div class="footer">
-        Generador de Estudios Bíblicos — versión 3.0
     </div>
 
-</div>
 
+    <script>
 
-<script>
+        /* ============================================================
+           CONTADORES
+           ============================================================ */
 
-    /* ============================================================
-       CONTADORES
-       ============================================================ */
+        let contadorTerminos = 0;
+        let contadorAT = 0;
+        let contadorNT = 0;
+        let contadorExamen = 0;
+        let contadorPasos = 0;
+        let contadorBloquesExtra = 0;
 
-    let contadorTerminos = 0;
-    let contadorAT = 0;
-    let contadorNT = 0;
+        const editoresFlexibles = [
 
+            {
+                campo: 'escena',
+                container: 'extras-escena',
+                propiedad: 'extras_escena'
+            },
 
-    /* ============================================================
-       UTILIDADES DE INTERFAZ
-       ============================================================ */
+            {
+                campo: 'estructura_literaria',
+                container: 'extras-estructura-literaria',
+                propiedad: 'extras_estructura_literaria'
+            },
 
-    function eliminarBloque(boton) {
+            {
+                campo: 'contexto_historico',
+                container: 'extras-contexto-historico',
+                propiedad: 'extras_contexto_historico'
+            },
 
-        const bloque = boton.closest('.dynamic-box');
+            {
+                campo: 'contexto_cultural',
+                container: 'extras-contexto-cultural',
+                propiedad: 'extras_contexto_cultural'
+            },
 
-        if (bloque) {
-            bloque.remove();
+            {
+                campo: 'contexto_teologico',
+                container: 'extras-contexto-teologico',
+                propiedad: 'extras_contexto_teologico'
+            },
+
+            {
+                campo: 'funcion_libro',
+                container: 'extras-funcion-libro',
+                propiedad: 'extras_funcion_libro'
+            },
+
+            {
+                campo: 'dato_mentor_1',
+                container: 'extras-dato-mentor-1',
+                propiedad: 'extras_dato_mentor_1'
+            }
+
+        ];
+
+        const editoresFormatoParte3 = [
+
+            'verdad_central',
+            'punto_tension',
+            'devocional',
+            'oracion_final',
+            'dato_mentor_3'
+
+        ];
+
+        /* ============================================================
+           UTILIDADES DE INTERFAZ
+           ============================================================ */
+
+        function eliminarBloque(boton) {
+
+            const bloque = boton.closest('.dynamic-box');
+
+            if (bloque) {
+                bloque.remove();
+            }
+
+            renumerarBloques();
         }
 
-        renumerarBloques();
-    }
+
+        function renumerarBloques() {
+
+            document
+                .querySelectorAll('.termino-box')
+                .forEach((box, index) => {
+
+                    const titulo = box.querySelector('.dynamic-box-title');
+
+                    if (titulo) {
+                        titulo.textContent =
+                            `🔬 Término / concepto #${index + 1}`;
+                    }
+
+                });
+
+            document
+                .querySelectorAll('.examen-box')
+                .forEach((box, index) => {
+
+                    const titulo =
+                        box.querySelector('.dynamic-box-title');
+
+                    if (titulo) {
+                        titulo.textContent =
+                            `🔍 Pregunta #${index + 1}`;
+                    }
+
+                });
+
+            document
+                .querySelectorAll('.paso-box')
+                .forEach((box, index) => {
+
+                    const titulo =
+                        box.querySelector('.dynamic-box-title');
+
+                    if (titulo) {
+                        titulo.textContent =
+                            `👣 Paso práctico #${index + 1}`;
+                    }
+
+                });
+
+            document
+                .querySelectorAll('.conexion-at-box')
+                .forEach((box, index) => {
+
+                    const titulo = box.querySelector('.dynamic-box-title');
+
+                    if (titulo) {
+                        titulo.textContent =
+                            `📜 Conexión AT #${index + 1}`;
+                    }
+
+                });
 
 
-    function renumerarBloques() {
+            document
+                .querySelectorAll('.conexion-nt-box')
+                .forEach((box, index) => {
 
-        document
-            .querySelectorAll('.termino-box')
-            .forEach((box, index) => {
+                    const titulo = box.querySelector('.dynamic-box-title');
 
-                const titulo = box.querySelector('.dynamic-box-title');
+                    if (titulo) {
+                        titulo.textContent =
+                            `✝️ Conexión NT #${index + 1}`;
+                    }
 
-                if (titulo) {
-                    titulo.textContent =
-                        `🔬 Término / concepto #${index + 1}`;
-                }
+                });
 
-            });
-
-
-        document
-            .querySelectorAll('.conexion-at-box')
-            .forEach((box, index) => {
-
-                const titulo = box.querySelector('.dynamic-box-title');
-
-                if (titulo) {
-                    titulo.textContent =
-                        `📜 Conexión AT #${index + 1}`;
-                }
-
-            });
-
-
-        document
-            .querySelectorAll('.conexion-nt-box')
-            .forEach((box, index) => {
-
-                const titulo = box.querySelector('.dynamic-box-title');
-
-                if (titulo) {
-                    titulo.textContent =
-                        `✝️ Conexión NT #${index + 1}`;
-                }
-
-            });
-
-    }
-
-
-    /* ============================================================
-       CONEXIONES DINÁMICAS
-       ============================================================ */
-
-    function agregarConexion(tipo, datos = {}) {
-
-        const esAT = tipo === 'at';
-
-        if (esAT) {
-            contadorAT++;
-        } else {
-            contadorNT++;
         }
 
-        const numero = esAT
-            ? contadorAT
-            : contadorNT;
 
-        const container = document.getElementById(
-            esAT
-                ? 'conexiones-at-container'
-                : 'conexiones-nt-container'
-        );
+        /* ============================================================
+           CONEXIONES DINÁMICAS
+           ============================================================ */
 
+        function agregarConexion(tipo, datos = {}) {
 
-        const box = document.createElement('div');
+            const esAT = tipo === 'at';
 
-        box.className =
-            `dynamic-box ${
+            if (esAT) {
+                contadorAT++;
+            } else {
+                contadorNT++;
+            }
+
+            const numero = esAT
+                ? contadorAT
+                : contadorNT;
+
+            const container = document.getElementById(
                 esAT
+                    ? 'conexiones-at-container'
+                    : 'conexiones-nt-container'
+            );
+
+
+            const box = document.createElement('div');
+
+            box.className =
+                `dynamic-box ${esAT
                     ? 'conexion-at-box'
                     : 'conexion-nt-box'
-            }`;
+                }`;
 
 
-        box.innerHTML = `
+            box.innerHTML = `
 
             <span class="dynamic-box-title">
                 ${esAT ? '📜' : '✝️'}
@@ -1356,650 +1374,1621 @@
         `;
 
 
-        container.appendChild(box);
+            container.appendChild(box);
 
 
-        box.querySelector('[data-campo="referencia"]').value =
-            datos.referencia || '';
+            box.querySelector('[data-campo="referencia"]').value =
+                datos.referencia || '';
 
-        box.querySelector('[data-campo="titulo"]').value =
-            datos.titulo || '';
+            box.querySelector('[data-campo="titulo"]').value =
+                datos.titulo || '';
 
-        box.querySelector('[data-campo="explicacion"]').value =
-            datos.explicacion || '';
-
-
-        renumerarBloques();
-    }
+            box.querySelector('[data-campo="explicacion"]').value =
+                datos.explicacion || '';
 
 
-    function recolectarConexiones(tipo) {
-
-        const selector =
-            tipo === 'at'
-                ? '.conexion-at-box'
-                : '.conexion-nt-box';
+            renumerarBloques();
+        }
 
 
-        return Array
-            .from(document.querySelectorAll(selector))
-            .map(box => ({
+        function recolectarConexiones(tipo) {
 
-                referencia:
+            const selector =
+                tipo === 'at'
+                    ? '.conexion-at-box'
+                    : '.conexion-nt-box';
+
+
+            return Array
+                .from(document.querySelectorAll(selector))
+                .map(box => ({
+
+                    referencia:
+                        box.querySelector(
+                            '[data-campo="referencia"]'
+                        )?.value.trim() || '',
+
+                    titulo:
+                        box.querySelector(
+                            '[data-campo="titulo"]'
+                        )?.value.trim() || '',
+
+                    explicacion:
+                        box.querySelector(
+                            '[data-campo="explicacion"]'
+                        )?.value.trim() || ''
+
+                }))
+                .filter(item =>
+                    item.referencia ||
+                    item.titulo ||
+                    item.explicacion
+                );
+        }
+
+
+        /* ============================================================
+           TÉRMINOS DINÁMICOS
+           ============================================================ */
+
+        function agregarTermino(datos = {}) {
+
+            contadorTerminos++;
+
+            const container =
+                document.getElementById('terminos-container');
+
+            const box =
+                document.createElement('div');
+
+            const textareaId =
+                `termino_analisis_${contadorTerminos}`;
+
+            box.className =
+                'dynamic-box termino-box';
+
+            box.innerHTML = `
+
+        <span class="dynamic-box-title">
+            🔬 Término / concepto #${contadorTerminos}
+        </span>
+
+
+        <button
+            type="button"
+            class="btn-eliminar"
+            onclick="eliminarBloque(this)"
+            title="Eliminar"
+        >
+            ✕
+        </button>
+
+
+        <div class="campo">
+
+            <label>
+                Título / concepto
+            </label>
+
+            <input
+                type="text"
+                data-campo="titulo"
+                placeholder="Ej. Tener parte con Cristo"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>
+                🔎 Análisis exegético
+            </label>
+
+
+            <div class="editor-toolbar">
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'negrita')"
+                >
+                    <strong>B</strong>
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'cursiva')"
+                >
+                    <em>I</em>
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'h2')"
+                >
+                    H2
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'h3')"
+                >
+                    H3
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'lista')"
+                >
+                    • Lista
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'numerada')"
+                >
+                    1. Lista
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'versiculo')"
+                >
+                    📖 Versículo
+                </button>
+
+                <button
+                    type="button"
+                    onclick="formatearTexto('${textareaId}', 'original')"
+                >
+                    🔤 Original
+                </button>
+
+            </div>
+
+
+            <textarea
+                id="${textareaId}"
+                class="muy-grande"
+                data-campo="analisis"
+                placeholder="Desarrollá aquí el análisis exegético completo: citas, términos originales, gramática, sintaxis, usos bíblicos, variantes, verdad exegética, errores comunes, etc."
+            ></textarea>
+
+        </div>
+
+    `;
+
+
+            container.appendChild(box);
+
+
+            box.querySelector(
+                '[data-campo="titulo"]'
+            ).value =
+                datos.titulo || '';
+
+
+            box.querySelector(
+                '[data-campo="analisis"]'
+            ).value =
+                datos.analisis || '';
+
+
+            renumerarBloques();
+        }
+
+
+
+        function agregarPreguntaExamen(texto = '') {
+
+            contadorExamen++;
+
+            const container =
+                document.getElementById('examen-container');
+
+            const box =
+                document.createElement('div');
+
+            const textareaId =
+                `examen_${contadorExamen}`;
+
+            box.className =
+                'dynamic-box examen-box';
+
+
+            box.innerHTML = `
+
+        <span class="dynamic-box-title">
+            🔍 Pregunta #${contadorExamen}
+        </span>
+
+        <button
+            type="button"
+            class="btn-eliminar"
+            onclick="eliminarBloque(this)"
+            title="Eliminar"
+        >
+            ✕
+        </button>
+
+       <div class="campo">
+
+    <div class="editor-toolbar">
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'negrita')"
+        >
+            <strong>B</strong>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'cursiva')"
+        >
+            <em>I</em>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'lista')"
+        >
+            • Lista
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'versiculo')"
+        >
+            📖 Versículo
+        </button>
+
+    </div>
+
+    <textarea
+        id="${textareaId}"
+        class="grande"
+        data-campo="pregunta"
+        placeholder="Escribí aquí la pregunta y, si hace falta, su explicación."
+    ></textarea>
+
+</div>
+
+    `;
+
+
+            container.appendChild(box);
+
+
+            box.querySelector(
+                '[data-campo="pregunta"]'
+            ).value = texto;
+
+
+            renumerarBloques();
+        }
+
+
+        function recolectarExamen() {
+
+            return Array
+                .from(
+                    document.querySelectorAll(
+                        '.examen-box'
+                    )
+                )
+                .map(box =>
                     box.querySelector(
-                        '[data-campo="referencia"]'
-                    )?.value.trim() || '',
-
-                titulo:
-                    box.querySelector(
-                        '[data-campo="titulo"]'
-                    )?.value.trim() || '',
-
-                explicacion:
-                    box.querySelector(
-                        '[data-campo="explicacion"]'
+                        '[data-campo="pregunta"]'
                     )?.value.trim() || ''
+                )
+                .filter(Boolean);
+        }
 
-            }))
-            .filter(item =>
-                item.referencia ||
-                item.titulo ||
-                item.explicacion
+        function agregarPasoPractico(texto = '') {
+
+            contadorPasos++;
+
+            const container =
+                document.getElementById('pasos-container');
+
+            if (!container) {
+                console.error('No existe #pasos-container');
+                return;
+            }
+
+            const box =
+                document.createElement('div');
+
+            const textareaId =
+                `paso_${contadorPasos}`;
+
+            box.className =
+                'dynamic-box paso-box';
+
+            box.innerHTML = `
+
+        <span class="dynamic-box-title">
+            👣 Paso práctico #${contadorPasos}
+        </span>
+
+        <button
+            type="button"
+            class="btn-eliminar"
+            onclick="eliminarBloque(this)"
+            title="Eliminar"
+        >
+            ✕
+        </button>
+
+<div class="campo">
+
+    <div class="editor-toolbar">
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'negrita')"
+        >
+            <strong>B</strong>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'cursiva')"
+        >
+            <em>I</em>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'lista')"
+        >
+            • Lista
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'versiculo')"
+        >
+            📖 Versículo
+        </button>
+
+    </div>
+
+    <textarea
+        id="${textareaId}"
+        class="grande"
+        data-campo="paso"
+        placeholder="Escribí aquí el paso práctico y su explicación."
+    ></textarea>
+
+</div>
+    `;
+
+            container.appendChild(box);
+
+            box.querySelector(
+                '[data-campo="paso"]'
+            ).value = texto;
+
+            renumerarBloques();
+        }
+
+
+        function recolectarPasos() {
+
+            return Array
+                .from(
+                    document.querySelectorAll(
+                        '.paso-box'
+                    )
+                )
+                .map(box =>
+                    box.querySelector(
+                        '[data-campo="paso"]'
+                    )?.value.trim() || ''
+                )
+                .filter(Boolean);
+        }
+
+        function recolectarBloquesExtra(containerId) {
+
+            const container =
+                document.getElementById(containerId);
+
+            if (!container) {
+                return [];
+            }
+
+            return Array
+                .from(
+                    container.querySelectorAll('.bloque-extra')
+                )
+                .map(bloque => {
+
+                    const titulo =
+                        bloque
+                            .querySelector('.bloque-extra-titulo')
+                            ?.value
+                            .trim() || '';
+
+                    const contenido =
+                        bloque
+                            .querySelector('.bloque-extra-contenido')
+                            ?.value
+                            .trim() || '';
+
+                    return {
+                        titulo,
+                        contenido
+                    };
+
+                })
+                .filter(bloque =>
+                    bloque.titulo ||
+                    bloque.contenido
+                );
+        }
+
+        function recolectarEditoresFlexibles() {
+
+            const datos = {};
+
+            editoresFlexibles.forEach(editor => {
+
+                datos[editor.propiedad] =
+                    recolectarBloquesExtra(
+                        editor.container
+                    );
+
+            });
+
+            return datos;
+        }
+
+
+
+        function recolectarTerminos() {
+
+            return Array
+                .from(
+                    document.querySelectorAll(
+                        '.termino-box'
+                    )
+                )
+                .map(box => ({
+
+                    titulo:
+                        box.querySelector(
+                            '[data-campo="titulo"]'
+                        )?.value.trim() || '',
+
+                    analisis:
+                        box.querySelector(
+                            '[data-campo="analisis"]'
+                        )?.value.trim() || ''
+
+                }))
+                .filter(t =>
+                    t.titulo ||
+                    t.analisis
+                );
+        }
+
+        function activarEditorFlexible(textareaId,
+            extrasContainerId = null,
+            permitirExtras = true) {
+
+            const textarea =
+                document.getElementById(textareaId);
+
+            if (!textarea) {
+                return;
+            }
+
+
+            /*
+               Evita crear la barra dos veces
+            */
+            if (
+                textarea.dataset.editorFlexible === 'true'
+            ) {
+                return;
+            }
+
+            textarea.dataset.editorFlexible = 'true';
+
+
+            /* =========================
+               BARRA DE FORMATO
+            ========================= */
+
+            const toolbar =
+                document.createElement('div');
+
+            toolbar.className =
+                'editor-toolbar';
+
+            toolbar.innerHTML = `
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'negrita')"
+        >
+            <strong>B</strong>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'cursiva')"
+        >
+            <em>I</em>
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'h2')"
+        >
+            H2
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'h3')"
+        >
+            H3
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'lista')"
+        >
+            • Lista
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'numerada')"
+        >
+            1. Lista
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'versiculo')"
+        >
+            📖 Versículo
+        </button>
+
+        <button
+            type="button"
+            onclick="formatearTexto('${textareaId}', 'original')"
+        >
+            🔤 Original
+        </button>
+
+    `;
+
+
+            textarea.parentNode.insertBefore(
+                toolbar,
+                textarea
             );
-    }
 
 
-    /* ============================================================
-       TÉRMINOS DINÁMICOS
-       ============================================================ */
+            /* =========================
+               BLOQUES EXTRA
+            ========================= */
 
-    function agregarTermino(datos = {}) {
+            if (!permitirExtras) {
+                return;
+            }
 
-        contadorTerminos++;
+            const campo =
+                textarea.closest('.campo');
 
-        const container =
-            document.getElementById('terminos-container');
-
-        const box =
-            document.createElement('div');
-
-
-        box.className =
-            'dynamic-box termino-box';
+            if (!campo) {
+                return;
+            }
 
 
-        box.innerHTML = `
+            const container =
+                document.createElement('div');
 
-            <span class="dynamic-box-title">
-                🔬 Término / concepto #${contadorTerminos}
-            </span>
+            container.id =
+                extrasContainerId;
 
+            container.className =
+                'bloques-extra-container';
+
+
+            const boton =
+                document.createElement('button');
+
+            boton.type =
+                'button';
+
+            boton.className =
+                'btn-agregar-bloque';
+
+            boton.textContent =
+                '➕ Insertar bloque después';
+
+            boton.onclick = () =>
+                agregarBloqueExtra(
+                    extrasContainerId
+                );
+
+
+            campo.insertAdjacentElement(
+                'afterend',
+                container
+            );
+
+            container.insertAdjacentElement(
+                'afterend',
+                boton
+            );
+        }
+
+        function formatearTexto(id, tipo) {
+
+            const textarea =
+                document.getElementById(id);
+
+            if (!textarea) {
+                return;
+            }
+
+            const inicio =
+                textarea.selectionStart;
+
+            const fin =
+                textarea.selectionEnd;
+
+            const texto =
+                textarea.value;
+
+            const seleccionado =
+                texto.substring(inicio, fin);
+
+            let nuevoTexto = '';
+            let cursorInicio = inicio;
+            let cursorFin = fin;
+
+
+            switch (tipo) {
+
+                case 'negrita':
+
+                    nuevoTexto =
+                        `**${seleccionado}**`;
+
+                    cursorInicio =
+                        inicio + 2;
+
+                    cursorFin =
+                        inicio + 2 + seleccionado.length;
+
+                    break;
+
+
+                case 'cursiva':
+
+                    nuevoTexto =
+                        `*${seleccionado}*`;
+
+                    cursorInicio =
+                        inicio + 1;
+
+                    cursorFin =
+                        inicio + 1 + seleccionado.length;
+
+                    break;
+
+
+                case 'h2':
+
+                    nuevoTexto =
+                        `## ${seleccionado}`;
+
+                    cursorInicio =
+                        inicio + 3;
+
+                    cursorFin =
+                        inicio + 3 + seleccionado.length;
+
+                    break;
+
+
+                case 'h3':
+
+                    nuevoTexto =
+                        `### ${seleccionado}`;
+
+                    cursorInicio =
+                        inicio + 4;
+
+                    cursorFin =
+                        inicio + 4 + seleccionado.length;
+
+                    break;
+
+
+                case 'lista':
+
+                    nuevoTexto =
+                        seleccionado
+                            .split('\n')
+                            .map(linea =>
+                                `- ${linea}`
+                            )
+                            .join('\n');
+
+                    cursorFin =
+                        inicio + nuevoTexto.length;
+
+                    break;
+
+
+                case 'numerada':
+
+                    nuevoTexto =
+                        seleccionado
+                            .split('\n')
+                            .map((linea, index) =>
+                                `${index + 1}. ${linea}`
+                            )
+                            .join('\n');
+
+                    cursorFin =
+                        inicio + nuevoTexto.length;
+
+                    break;
+
+
+                case 'versiculo':
+
+                    nuevoTexto =
+                        `:::versiculo
+${seleccionado}
+:::`;
+
+                    cursorInicio =
+                        inicio + 13;
+
+                    cursorFin =
+                        cursorInicio + seleccionado.length;
+
+                    break;
+
+
+                case 'original':
+
+                    nuevoTexto =
+                        `:::original
+${seleccionado}
+:::`;
+
+                    cursorInicio =
+                        inicio + 12;
+
+                    cursorFin =
+                        cursorInicio + seleccionado.length;
+
+                    break;
+
+            }
+
+
+            textarea.value =
+                texto.substring(0, inicio) +
+                nuevoTexto +
+                texto.substring(fin);
+
+
+            textarea.focus();
+
+
+            textarea.setSelectionRange(
+                cursorInicio,
+                cursorFin
+            );
+        }
+
+        /* ============================================================
+           PROCESAMIENTO DE TEXTO
+           ============================================================ */
+
+        function escaparHTML(str = '') {
+
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function agregarBloqueExtra(containerId, datos = {}) {
+
+            const container =
+                document.getElementById(containerId);
+
+            if (!container) {
+                return;
+            }
+
+            contadorBloquesExtra++;
+
+            const id =
+                `bloque_extra_${contadorBloquesExtra}`;
+
+            const bloque =
+                document.createElement('div');
+
+            bloque.className =
+                'bloque-extra dynamic-box';
+
+            bloque.dataset.bloqueExtra = 'true';
+
+            bloque.innerHTML = `
+
+        <button
+            type="button"
+            class="btn-eliminar-bloque"
+            onclick="this.closest('.bloque-extra').remove()"
+            title="Eliminar bloque"
+        >
+            ✕
+        </button>
+
+
+        <div class="campo">
+
+            <label>
+                Título opcional
+            </label>
+
+            <input
+                type="text"
+                class="bloque-extra-titulo"
+                value="${escaparHTML(datos.titulo || '')}"
+                placeholder="Ej.: La reacción de los fariseos"
+            >
+
+        </div>
+
+
+        <div class="editor-toolbar">
 
             <button
                 type="button"
-                class="btn-eliminar"
-                onclick="eliminarBloque(this)"
-                title="Eliminar"
+                onclick="formatearTexto('${id}', 'negrita')"
             >
-                ✕
+                <strong>B</strong>
             </button>
 
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'cursiva')"
+            >
+                <em>I</em>
+            </button>
 
-            <div class="grid-2">
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'h2')"
+            >
+                H2
+            </button>
 
-                <div class="campo">
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'h3')"
+            >
+                H3
+            </button>
 
-                    <label>
-                        Título / concepto
-                    </label>
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'lista')"
+            >
+                • Lista
+            </button>
 
-                    <input
-                        type="text"
-                        data-campo="titulo"
-                        placeholder="Ej. Tener parte con Cristo"
-                    >
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'numerada')"
+            >
+                1. Lista
+            </button>
 
-                </div>
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'versiculo')"
+            >
+                📖 Versículo
+            </button>
 
+            <button
+                type="button"
+                onclick="formatearTexto('${id}', 'original')"
+            >
+                🔤 Original
+            </button>
 
-                <div class="campo">
-
-                    <label>
-                        Cita bíblica
-                    </label>
-
-                    <input
-                        type="text"
-                        data-campo="cita"
-                        placeholder="Ej. Juan 13:8"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="campo">
-
-                <label>
-                    Término original
-                </label>
-
-                <input
-                    type="text"
-                    data-campo="original"
-                    placeholder="Ej. μέρος — meros"
-                >
-
-            </div>
-
-
-            <div class="campo">
-
-                <label>
-                    🔎 Análisis del significado original
-                </label>
-
-                <textarea
-                    class="muy-grande"
-                    data-campo="significado"
-                ></textarea>
-
-            </div>
+        </div>
 
 
-            <div class="campo">
+        <div class="campo">
 
-                <label>
-                    📚 Uso bíblico / contextual
-                </label>
+            <textarea
+                id="${id}"
+                class="bloque-extra-contenido muy-grande"
+                placeholder="Pegá aquí el contenido que debe aparecer entre esta sección y la siguiente."
+            >${datos.contenido || ''}</textarea>
 
-                <textarea
-                    class="grande"
-                    data-campo="uso"
-                ></textarea>
+        </div>
 
-            </div>
+    `;
 
+            container.appendChild(bloque);
+        }
+        /*
+            Mini Markdown seguro.
+    
+            **texto** → <strong>
+            *texto*   → <em>
+    
+            Primero escapamos HTML para impedir
+            insertar código arbitrario.
+        */
 
-            <div class="campo">
+        function inlineMarkdown(str = '') {
 
-                <label>
-                    🔗 Conexión teológica / literaria
-                    <span class="opcional">
-                        (opcional)
-                    </span>
-                </label>
-
-                <textarea
-                    class="grande"
-                    data-campo="conexion"
-                ></textarea>
-
-            </div>
-
-
-            <div class="campo">
-
-                <label>
-                    🎯 Verdad Exegética
-                </label>
-
-                <textarea
-                    class="grande"
-                    data-campo="verdad"
-                ></textarea>
-
-            </div>
+            let safe =
+                escaparHTML(str);
 
 
-            <div class="campo">
-
-                <label>
-                    ⚠️ Error común de interpretación
-                </label>
-
-                <textarea
-                    class="grande"
-                    data-campo="error"
-                ></textarea>
-
-            </div>
-
-        `;
+            safe = safe.replace(
+                /\*\*(.+?)\*\*/g,
+                '<strong>$1</strong>'
+            );
 
 
-        container.appendChild(box);
+            safe = safe.replace(
+                /(^|[^\*])\*([^*\n]+?)\*/g,
+                '$1<em>$2</em>'
+            );
 
 
-        const campos = [
-            'titulo',
-            'cita',
-            'original',
-            'significado',
-            'uso',
-            'conexion',
-            'verdad',
-            'error'
-        ];
+            return safe;
+        }
 
 
-        campos.forEach(campo => {
+        /*
+            Convierte párrafos separados por líneas
+            vacías en <p>.
+    
+            Si dentro de un mismo párrafo hay saltos
+            de línea simples, se convierten en <br>.
+        */
 
-            const elemento =
-                box.querySelector(
-                    `[data-campo="${campo}"]`
-                );
+        function textoHTML(texto = '') {
 
-            if (elemento) {
-                elemento.value =
-                    datos[campo] || '';
+            if (!texto || !texto.trim()) {
+                return '';
             }
 
-        });
+            texto = texto
+                .replace(/\r\n/g, '\n')
+                .replace(/\r/g, '\n');
+
+            const lineas = texto.split('\n');
+
+            let html = '';
+            let parrafo = [];
+            let lista = [];
+            let tipoLista = null;
+
+            let bloqueEspecial = null;
+            let contenidoEspecial = [];
 
 
-        renumerarBloques();
-    }
+            function procesarInline(texto) {
+
+                return inlineMarkdown(
+                    texto.trim()
+                );
+
+            }
 
 
-    function recolectarTerminos() {
+            function cerrarParrafo() {
 
-        return Array
-            .from(
-                document.querySelectorAll(
-                    '.termino-box'
+                if (!parrafo.length) {
+                    return;
+                }
+
+                const contenido = parrafo
+                    .map(linea => linea.trim())
+                    .filter(Boolean)
+                    .join(' ');
+
+                if (contenido) {
+
+                    html += `
+                <p>${procesarInline(contenido)}</p>
+            `;
+
+                }
+
+                parrafo = [];
+            }
+
+
+            function cerrarLista() {
+
+                if (!lista.length) {
+                    return;
+                }
+
+                const etiqueta =
+                    tipoLista === 'ol'
+                        ? 'ol'
+                        : 'ul';
+
+                html += `<${etiqueta}>`;
+
+                lista.forEach(item => {
+
+                    html += `
+                <li>${procesarInline(item)}</li>
+            `;
+
+                });
+
+                html += `</${etiqueta}>`;
+
+                lista = [];
+                tipoLista = null;
+            }
+
+
+            function cerrarBloqueEspecial() {
+
+                if (!bloqueEspecial) {
+                    return;
+                }
+
+                const contenido = contenidoEspecial
+                    .map(linea => linea.trim())
+                    .filter(Boolean)
+                    .join(' ');
+
+
+                if (bloqueEspecial === 'versiculo') {
+
+                    html += `
+                <div class="versiculo">
+                    <p>${procesarInline(contenido)}</p>
+                </div>
+            `;
+
+                }
+
+
+                if (bloqueEspecial === 'original') {
+
+                    html += `
+                <div class="texto-original">
+                    ${procesarInline(contenido)}
+                </div>
+            `;
+
+                }
+
+
+                bloqueEspecial = null;
+                contenidoEspecial = [];
+            }
+
+
+            lineas.forEach(lineaOriginal => {
+
+                const linea = lineaOriginal.trim();
+
+
+                /* =========================
+                   BLOQUES ESPECIALES
+                ========================= */
+
+
+                if (linea === ':::versiculo') {
+
+                    cerrarParrafo();
+                    cerrarLista();
+
+                    bloqueEspecial = 'versiculo';
+                    contenidoEspecial = [];
+
+                    return;
+                }
+
+
+                if (linea === ':::original') {
+
+                    cerrarParrafo();
+                    cerrarLista();
+
+                    bloqueEspecial = 'original';
+                    contenidoEspecial = [];
+
+                    return;
+                }
+
+
+                if (linea === ':::' && bloqueEspecial) {
+
+                    cerrarBloqueEspecial();
+
+                    return;
+                }
+
+
+                if (bloqueEspecial) {
+
+                    contenidoEspecial.push(lineaOriginal);
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   LÍNEA VACÍA
+                ========================= */
+
+
+                if (!linea) {
+
+                    cerrarParrafo();
+                    cerrarLista();
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   H2
+                ========================= */
+
+
+                if (/^##\s+/.test(linea)) {
+
+                    cerrarParrafo();
+                    cerrarLista();
+
+                    const titulo =
+                        linea.replace(/^##\s+/, '');
+
+                    html += `
+                <h2>${procesarInline(titulo)}</h2>
+            `;
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   H3
+                ========================= */
+
+
+                if (/^###\s+/.test(linea)) {
+
+                    cerrarParrafo();
+                    cerrarLista();
+
+                    const titulo =
+                        linea.replace(/^###\s+/, '');
+
+                    html += `
+                <h3>${procesarInline(titulo)}</h3>
+            `;
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   LISTA CON VIÑETAS
+                ========================= */
+
+
+                if (/^[-*]\s+/.test(linea)) {
+
+                    cerrarParrafo();
+
+                    if (tipoLista && tipoLista !== 'ul') {
+                        cerrarLista();
+                    }
+
+                    tipoLista = 'ul';
+
+                    lista.push(
+                        linea.replace(/^[-*]\s+/, '')
+                    );
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   LISTA NUMERADA
+                ========================= */
+
+
+                if (/^\d+\.\s+/.test(linea)) {
+
+                    cerrarParrafo();
+
+                    if (tipoLista && tipoLista !== 'ol') {
+                        cerrarLista();
+                    }
+
+                    tipoLista = 'ol';
+
+                    lista.push(
+                        linea.replace(/^\d+\.\s+/, '')
+                    );
+
+                    return;
+                }
+
+
+
+                /* =========================
+                   TEXTO NORMAL
+                ========================= */
+
+
+                if (lista.length) {
+                    cerrarLista();
+                }
+
+                parrafo.push(lineaOriginal);
+
+            });
+
+
+            cerrarParrafo();
+            cerrarLista();
+            cerrarBloqueEspecial();
+
+
+            return html;
+        }
+
+        function listaHTML(texto, claseItem = '') {
+
+            if (!texto.trim()) {
+                return '';
+            }
+
+
+            const elementos =
+                texto
+                    .split('\n')
+                    .map(x => x.trim())
+                    .filter(Boolean);
+
+
+            return elementos
+                .map(item =>
+                    `<div class="${claseItem}">${inlineMarkdown(item)}</div>`
                 )
-            )
-            .map(box => ({
-
-                titulo:
-                    box.querySelector(
-                        '[data-campo="titulo"]'
-                    )?.value.trim() || '',
-
-                cita:
-                    box.querySelector(
-                        '[data-campo="cita"]'
-                    )?.value.trim() || '',
-
-                original:
-                    box.querySelector(
-                        '[data-campo="original"]'
-                    )?.value.trim() || '',
-
-                significado:
-                    box.querySelector(
-                        '[data-campo="significado"]'
-                    )?.value.trim() || '',
-
-                uso:
-                    box.querySelector(
-                        '[data-campo="uso"]'
-                    )?.value.trim() || '',
-
-                conexion:
-                    box.querySelector(
-                        '[data-campo="conexion"]'
-                    )?.value.trim() || '',
-
-                verdad:
-                    box.querySelector(
-                        '[data-campo="verdad"]'
-                    )?.value.trim() || '',
-
-                error:
-                    box.querySelector(
-                        '[data-campo="error"]'
-                    )?.value.trim() || ''
-
-            }))
-            .filter(t =>
-                Object.values(t).some(Boolean)
-            );
-    }
-
-
-    /* ============================================================
-       PROCESAMIENTO DE TEXTO
-       ============================================================ */
-
-    function escaparHTML(str = '') {
-
-        return str
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
-    }
-
-
-    /*
-        Mini Markdown seguro.
-
-        **texto** → <strong>
-        *texto*   → <em>
-
-        Primero escapamos HTML para impedir
-        insertar código arbitrario.
-    */
-
-    function inlineMarkdown(str = '') {
-
-        let safe =
-            escaparHTML(str);
-
-
-        safe = safe.replace(
-            /\*\*(.+?)\*\*/g,
-            '<strong>$1</strong>'
-        );
-
-
-        safe = safe.replace(
-            /(^|[^\*])\*([^*\n]+?)\*/g,
-            '$1<em>$2</em>'
-        );
-
-
-        return safe;
-    }
-
-
-    /*
-        Convierte párrafos separados por líneas
-        vacías en <p>.
-
-        Si dentro de un mismo párrafo hay saltos
-        de línea simples, se convierten en <br>.
-    */
-
-    function textoHTML(str = '') {
-
-        if (!str.trim()) {
-            return '';
+                .join('\n');
         }
 
 
-        return str
-            .trim()
-            .split(/\n\s*\n/)
-            .map(parrafo => {
+        function listaUL(texto) {
 
-                const contenido =
-                    parrafo
-                        .trim()
-                        .split('\n')
-                        .map(linea =>
-                            inlineMarkdown(linea.trim())
-                        )
-                        .join('<br>');
-
-                return `<p>${contenido}</p>`;
-
-            })
-            .join('\n');
-    }
+            if (!texto.trim()) {
+                return '';
+            }
 
 
-    function listaHTML(texto, claseItem = '') {
-
-        if (!texto.trim()) {
-            return '';
-        }
-
-
-        const elementos =
-            texto
-                .split('\n')
-                .map(x => x.trim())
-                .filter(Boolean);
+            const elementos =
+                texto
+                    .split('\n')
+                    .map(x => x.trim())
+                    .filter(Boolean);
 
 
-        return elementos
-            .map(item =>
-                `<div class="${claseItem}">${inlineMarkdown(item)}</div>`
-            )
-            .join('\n');
-    }
-
-
-    function listaUL(texto) {
-
-        if (!texto.trim()) {
-            return '';
-        }
-
-
-        const elementos =
-            texto
-                .split('\n')
-                .map(x => x.trim())
-                .filter(Boolean);
-
-
-        return `
+            return `
 <ul>
 ${elementos.map(x =>
-    `    <li>${inlineMarkdown(x)}</li>`
-).join('\n')}
+                `    <li>${inlineMarkdown(x)}</li>`
+            ).join('\n')}
 </ul>`;
-    }
+        }
 
 
-    /* ============================================================
-       DATOS DEL FORMULARIO
-       ============================================================ */
+        /* ============================================================
+           DATOS DEL FORMULARIO
+           ============================================================ */
 
-    function valor(id) {
+        function valor(id) {
 
-        return document
-            .getElementById(id)
-            ?.value
-            .trim() || '';
-    }
-
-
-    function recolectarDatos() {
-
-        return {
-
-            titulo: valor('titulo'),
-            referencia: valor('referencia'),
-            subtitulo: valor('subtitulo'),
-            tema: valor('tema'),
-
-            escena: valor('escena'),
-            estructura_literaria:
-                valor('estructura_literaria'),
-            observacion_inicial:
-                valor('observacion_inicial'),
-
-            lugar: valor('lugar'),
-            fecha: valor('fecha'),
-            hora: valor('hora'),
-            personajes: valor('personajes'),
-            situacion: valor('situacion'),
-
-            contexto_historico:
-                valor('contexto_historico'),
-
-            contexto_cultural:
-                valor('contexto_cultural'),
-
-            contexto_teologico:
-                valor('contexto_teologico'),
-
-            conexiones_at:
-                recolectarConexiones('at'),
-
-            conexiones_nt:
-                recolectarConexiones('nt'),
-
-            antes: valor('antes'),
-            despues: valor('despues'),
-            funcion_libro:
-                valor('funcion_libro'),
-
-            dato_mentor_1:
-                valor('dato_mentor_1'),
-
-            terminos:
-                recolectarTerminos(),
-
-            sintesis_exegetica:
-                valor('sintesis_exegetica'),
-
-            dato_mentor_2:
-                valor('dato_mentor_2'),
-
-            verdad_central:
-                valor('verdad_central'),
-
-            punto_tension:
-                valor('punto_tension'),
-
-            devocional:
-                valor('devocional'),
-
-            examen_corazon:
-                valor('examen_corazon'),
-
-            pasos_practicos:
-                valor('pasos_practicos'),
-
-            idea_clave:
-                valor('idea_clave'),
-
-            oracion_final:
-                valor('oracion_final'),
-
-            dato_mentor_3:
-                valor('dato_mentor_3'),
-
-            pasajes_relacionados:
-                valor('pasajes_relacionados'),
-
-            preguntas_profundizar:
-                valor('preguntas_profundizar'),
-
-            conceptos_investigar:
-                valor('conceptos_investigar'),
-
-            bibliografia:
-                valor('bibliografia')
-
-        };
-    }
+            return document
+                .getElementById(id)
+                ?.value
+                .trim() || '';
+        }
 
 
-    /* ============================================================
-       GENERAR HTML
-       ============================================================ */
+        function recolectarDatos() {
 
-    function generar() {
+            return {
 
-        const datos =
-            recolectarDatos();
+                titulo: valor('titulo'),
+                referencia: valor('referencia'),
+                subtitulo: valor('subtitulo'),
+                tema: valor('tema'),
+
+                escena: valor('escena'),
+                estructura_literaria:
+                    valor('estructura_literaria'),
+                observacion_inicial:
+                    valor('observacion_inicial'),
+
+                lugar: valor('lugar'),
+                fecha: valor('fecha'),
+                hora: valor('hora'),
+                personajes: valor('personajes'),
+                situacion: valor('situacion'),
+
+                contexto_historico:
+                    valor('contexto_historico'),
+
+                contexto_cultural:
+                    valor('contexto_cultural'),
+
+                contexto_teologico:
+                    valor('contexto_teologico'),
+
+                conexiones_at:
+                    recolectarConexiones('at'),
+
+                conexiones_nt:
+                    recolectarConexiones('nt'),
+
+                antes: valor('antes'),
+                despues: valor('despues'),
+                funcion_libro:
+                    valor('funcion_libro'),
+
+                dato_mentor_1:
+                    valor('dato_mentor_1'),
+
+                terminos:
+                    recolectarTerminos(),
+
+                sintesis_exegetica:
+                    valor('sintesis_exegetica'),
+
+                extras_sintesis_exegetica:
+                    recolectarBloquesExtra(
+                        'extras-sintesis-exegetica'
+                    ),
+
+                dato_mentor_2:
+                    valor('dato_mentor_2'),
+
+                verdad_central:
+                    valor('verdad_central'),
+
+                punto_tension:
+                    valor('punto_tension'),
+
+                devocional:
+                    valor('devocional'),
+
+                examen_corazon:
+                    recolectarExamen(),
+
+                pasos_practicos:
+                    recolectarPasos(),
+
+                idea_clave:
+                    valor('idea_clave'),
+
+                oracion_final:
+                    valor('oracion_final'),
+
+                dato_mentor_3:
+                    valor('dato_mentor_3'),
+
+                pasajes_relacionados:
+                    valor('pasajes_relacionados'),
+
+                preguntas_profundizar:
+                    valor('preguntas_profundizar'),
+
+                conceptos_investigar:
+                    valor('conceptos_investigar'),
+
+                bibliografia:
+                    valor('bibliografia'),
+
+                ...recolectarEditoresFlexibles()
+
+            };
+        }
 
 
-        if (
-            !datos.titulo ||
-            !datos.referencia
+        /* ============================================================
+           GENERAR HTML
+           ============================================================ */
+
+        function generar() {
+
+            const datos =
+                recolectarDatos();
+
+
+            if (
+                !datos.titulo ||
+                !datos.referencia
+            ) {
+
+                alert(
+                    '⚠️ El título y el pasaje bíblico son obligatorios.'
+                );
+
+                return;
+            }
+
+
+            const html =
+                renderizar(datos);
+
+
+            document.getElementById(
+                'resultado'
+            ).value = html;
+
+
+            document.getElementById(
+                'output-area'
+            ).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+
+            guardarLocal(true);
+        }
+
+
+        /* ============================================================
+           RENDER DE CONEXIONES
+           ============================================================ */
+
+        function renderConexiones(
+            conexiones,
+            nt = false
         ) {
 
-            alert(
-                '⚠️ El título y el pasaje bíblico son obligatorios.'
-            );
-
-            return;
-        }
+            if (!conexiones.length) {
+                return '';
+            }
 
 
-        const html =
-            renderizar(datos);
-
-
-        document.getElementById(
-            'resultado'
-        ).value = html;
-
-
-        document.getElementById(
-            'output-area'
-        ).scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-
-
-        guardarLocal(true);
-    }
-
-
-    /* ============================================================
-       RENDER DE CONEXIONES
-       ============================================================ */
-
-    function renderConexiones(
-        conexiones,
-        nt = false
-    ) {
-
-        if (!conexiones.length) {
-            return '';
-        }
-
-
-        return conexiones
-            .map(c => `
+            return conexiones
+                .map(c => `
 
 <div class="conexion-item${nt ? ' nt' : ''}">
 
-    ${
-        c.referencia
-            ? `<span class="conexion-referencia">${inlineMarkdown(c.referencia)}</span>`
-            : ''
-    }
+    ${c.referencia
+                        ? `<span class="conexion-referencia">${inlineMarkdown(c.referencia)}</span>`
+                        : ''
+                    }
 
-    ${
-        c.titulo
-            ? `<span class="conexion-nombre">${inlineMarkdown(c.titulo)}</span>`
-            : ''
-    }
+    ${c.titulo
+                        ? `<span class="conexion-nombre">${inlineMarkdown(c.titulo)}</span>`
+                        : ''
+                    }
 
-    ${
-        c.explicacion
-            ? `<div class="conexion-explicacion">
+    ${c.explicacion
+                        ? `<div class="conexion-explicacion">
 ${textoHTML(c.explicacion)}
 </div>`
-            : ''
-    }
+                        : ''
+                    }
 
 </div>`)
 
-            .join('\n');
-    }
+                .join('\n');
+        }
 
 
-    /* ============================================================
-       RENDER PRINCIPAL
-       ============================================================ */
+        /* ============================================================
+           RENDER PRINCIPAL
+           ============================================================ */
 
-    function renderizar(d) {
+        function renderizarBloquesExtra(bloques = []) {
 
-        const hayProfundizar =
-            d.pasajes_relacionados ||
-            d.preguntas_profundizar ||
-            d.conceptos_investigar ||
-            d.bibliografia;
-
-
-        const tituloSeguro =
-            escaparHTML(d.titulo);
+            if (
+                !Array.isArray(bloques) ||
+                bloques.length === 0
+            ) {
+                return '';
+            }
 
 
-        return `<!DOCTYPE html>
+            return bloques
+                .map(bloque => {
+
+                    const titulo =
+                        bloque.titulo
+                            ? `
+                        <h3>
+                            ${inlineMarkdown(bloque.titulo)}
+                        </h3>
+                    `
+                            : '';
+
+
+                    const contenido =
+                        textoHTML(
+                            bloque.contenido || ''
+                        );
+
+
+                    return `
+                <div class="bloque-contenido-extra">
+
+                    ${titulo}
+
+                    ${contenido}
+
+                </div>
+            `;
+
+                })
+                .join('');
+        }
+
+
+        function renderizar(d) {
+
+            const hayProfundizar =
+                d.pasajes_relacionados ||
+                d.preguntas_profundizar ||
+                d.conceptos_investigar ||
+                d.bibliografia;
+
+            const tituloSeguro =
+                escaparHTML(d.titulo);
+
+            const extras = nombre =>
+                Array.isArray(d[nombre])
+                    ? d[nombre]
+                    : [];
+
+            const hayParte2 =
+                (Array.isArray(d.terminos) && d.terminos.length) ||
+                d.sintesis_exegetica ||
+                extras('extras_sintesis_exegetica').length ||
+                d.dato_mentor_2;
+
+            return `<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -2015,7 +3004,7 @@ ${textoHTML(c.explicacion)}
 
     <link
         rel="stylesheet"
-        href="../css/estilo-base.css"
+        href="../../../../../css/estilo-base.css"
     >
 
 </head>
@@ -2036,30 +3025,27 @@ ${textoHTML(c.explicacion)}
             ${inlineMarkdown(d.titulo)}
         </h1>
 
-        ${
-            d.subtitulo
-                ? `
+        ${d.subtitulo
+                    ? `
         <div class="estudio-subtitulo">
             ${inlineMarkdown(d.subtitulo)}
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
         <div class="estudio-referencia">
             ${inlineMarkdown(d.referencia)}
         </div>
 
-        ${
-            d.tema
-                ? `
+        ${d.tema
+                    ? `
         <span class="estudio-tema">
             ${inlineMarkdown(d.tema)}
         </span>`
-                : ''
-        }
+                    : ''
+                }
 
     </header>
-
 
 
     <!-- ========================================================
@@ -2081,30 +3067,31 @@ ${textoHTML(c.explicacion)}
 
         <!-- 1. EL TEXTO -->
 
-        ${
-            d.escena ||
-            d.estructura_literaria ||
-            d.observacion_inicial
-                ? `
+        ${d.escena ||
+                    d.estructura_literaria ||
+                    d.observacion_inicial ||
+                    extras('extras_escena').length ||
+                    extras('extras_estructura_literaria').length
+                    ? `
 
         <h2>
             1. 📖 El texto
         </h2>
 
 
-        ${
-            d.escena
-                ? `
+        ${d.escena
+                        ? `
         <div class="texto-escena">
 ${textoHTML(d.escena)}
         </div>`
-                : ''
-        }
+                        : ''
+                    }
+
+${renderizarBloquesExtra(extras('extras_escena'))}
 
 
-        ${
-            d.estructura_literaria
-                ? `
+        ${d.estructura_literaria
+                        ? `
         <h3>
             🔎 Estructura literaria
         </h3>
@@ -2112,13 +3099,14 @@ ${textoHTML(d.escena)}
         <div class="estructura-literaria">
 ${textoHTML(d.estructura_literaria)}
         </div>`
-                : ''
-        }
+                        : ''
+                    }
+
+${renderizarBloquesExtra(extras('extras_estructura_literaria'))}
 
 
-        ${
-            d.observacion_inicial
-                ? `
+        ${d.observacion_inicial
+                        ? `
         <div class="observacion-inicial">
 
             <strong>
@@ -2128,24 +3116,22 @@ ${textoHTML(d.estructura_literaria)}
 ${textoHTML(d.observacion_inicial)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 `
-                : ''
-        }
-
+                    : ''
+                }
 
 
         <!-- 2. MUNDO DEL TEXTO -->
 
-        ${
-            d.lugar ||
-            d.fecha ||
-            d.hora ||
-            d.personajes ||
-            d.situacion
-                ? `
+        ${d.lugar ||
+                    d.fecha ||
+                    d.hora ||
+                    d.personajes ||
+                    d.situacion
+                    ? `
 
         <h2>
             2. 🌍 El mundo del texto
@@ -2155,9 +3141,8 @@ ${textoHTML(d.observacion_inicial)}
         <div class="contexto-grid">
 
 
-            ${
-                d.lugar
-                    ? `
+            ${d.lugar
+                        ? `
             <div class="contexto-item">
 
                 <strong>
@@ -2167,13 +3152,12 @@ ${textoHTML(d.observacion_inicial)}
 ${textoHTML(d.lugar)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.fecha
-                    ? `
+            ${d.fecha
+                        ? `
             <div class="contexto-item">
 
                 <strong>
@@ -2183,13 +3167,12 @@ ${textoHTML(d.lugar)}
 ${textoHTML(d.fecha)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.hora
-                    ? `
+            ${d.hora
+                        ? `
             <div class="contexto-item">
 
                 <strong>
@@ -2199,13 +3182,12 @@ ${textoHTML(d.fecha)}
 ${textoHTML(d.hora)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.personajes
-                    ? `
+            ${d.personajes
+                        ? `
             <div class="contexto-item">
 
                 <strong>
@@ -2215,13 +3197,12 @@ ${textoHTML(d.hora)}
 ${textoHTML(d.personajes)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.situacion
-                    ? `
+            ${d.situacion
+                        ? `
             <div class="contexto-item">
 
                 <strong>
@@ -2231,72 +3212,85 @@ ${textoHTML(d.personajes)}
 ${textoHTML(d.situacion)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
         </div>`
 
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.contexto_historico
-                ? `
+        ${d.contexto_historico ||
+                    extras('extras_contexto_historico').length
+                    ? `
 
         <h2>
             3. 🏛️ Contexto histórico y político
         </h2>
 
+        ${d.contexto_historico
+                        ? `
         <div class="contexto-bloque contexto-historico">
 ${textoHTML(d.contexto_historico)}
         </div>`
+                        : ''
+                    }
 
-                : ''
-        }
+${renderizarBloquesExtra(extras('extras_contexto_historico'))}`
+
+                    : ''
+                }
 
 
-
-        ${
-            d.contexto_cultural
-                ? `
+        ${d.contexto_cultural ||
+                    extras('extras_contexto_cultural').length
+                    ? `
 
         <h2>
             4. 🏺 Contexto social y cultural
         </h2>
 
+        ${d.contexto_cultural
+                        ? `
         <div class="contexto-bloque contexto-cultural">
 ${textoHTML(d.contexto_cultural)}
         </div>`
+                        : ''
+                    }
 
-                : ''
-        }
+${renderizarBloquesExtra(extras('extras_contexto_cultural'))}`
+
+                    : ''
+                }
 
 
-
-        ${
-            d.contexto_teologico
-                ? `
+        ${d.contexto_teologico ||
+                    extras('extras_contexto_teologico').length
+                    ? `
 
         <h2>
             5. 🕍 Contexto religioso y teológico
         </h2>
 
+        ${d.contexto_teologico
+                        ? `
         <div class="contexto-bloque contexto-teologico">
 ${textoHTML(d.contexto_teologico)}
         </div>`
+                        : ''
+                    }
 
-                : ''
-        }
+${renderizarBloquesExtra(extras('extras_contexto_teologico'))}`
+
+                    : ''
+                }
 
 
-
-        ${
-            d.conexiones_at.length ||
-            d.conexiones_nt.length
-                ? `
+        ${d.conexiones_at.length ||
+                    d.conexiones_nt.length
+                    ? `
 
         <h2>
             6. 🔗 Conexiones literarias
@@ -2306,9 +3300,8 @@ ${textoHTML(d.contexto_teologico)}
         <div class="conexiones-grid">
 
 
-            ${
-                d.conexiones_at.length
-                    ? `
+            ${d.conexiones_at.length
+                        ? `
 
             <div class="conexion-columna">
 
@@ -2319,13 +3312,12 @@ ${textoHTML(d.contexto_teologico)}
 ${renderConexiones(d.conexiones_at)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.conexiones_nt.length
-                    ? `
+            ${d.conexiones_nt.length
+                        ? `
 
             <div class="conexion-columna nt">
 
@@ -2336,22 +3328,21 @@ ${renderConexiones(d.conexiones_at)}
 ${renderConexiones(d.conexiones_nt, true)}
 
             </div>`
-                    : ''
-            }
+                        : ''
+                    }
 
 
         </div>`
 
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.antes ||
-            d.despues ||
-            d.funcion_libro
-                ? `
+        ${d.antes ||
+                    d.despues ||
+                    d.funcion_libro ||
+                    extras('extras_funcion_libro').length
+                    ? `
 
         <h2>
             7. 🧭 Lugar del pasaje dentro del libro
@@ -2361,53 +3352,53 @@ ${renderConexiones(d.conexiones_nt, true)}
         <div class="lugar-libro">
 
 
-            ${
-                d.antes
-                    ? `
+            ${d.antes
+                        ? `
             <h3>
                 ⬅️ Qué viene antes
             </h3>
 
 ${textoHTML(d.antes)}`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.despues
-                    ? `
+            ${d.despues
+                        ? `
             <h3>
                 ➡️ Qué viene después
             </h3>
 
 ${textoHTML(d.despues)}`
-                    : ''
-            }
+                        : ''
+                    }
 
 
-            ${
-                d.funcion_libro
-                    ? `
+            ${d.funcion_libro
+                        ? `
             <h3>
                 🎯 Función dentro del libro
             </h3>
 
 ${textoHTML(d.funcion_libro)}`
-                    : ''
-            }
+                        : ''
+                    }
+
+${renderizarBloquesExtra(extras('extras_funcion_libro'))}
 
 
         </div>`
 
-                : ''
-        }
+                    : ''
+                }
 
 
+        ${d.dato_mentor_1 ||
+                    extras('extras_dato_mentor_1').length
+                    ? `
 
-        ${
-            d.dato_mentor_1
-                ? `
-
+        ${d.dato_mentor_1
+                        ? `
         <div class="dato-mentor">
 
             <span class="dato-mentor-titulo">
@@ -2417,184 +3408,24 @@ ${textoHTML(d.funcion_libro)}`
 ${textoHTML(d.dato_mentor_1)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
+
+${renderizarBloquesExtra(extras('extras_dato_mentor_1'))}`
+
+                    : ''
+                }
 
 
     </section>
-
-
-
-    <!-- ========================================================
-         RECURSOS OPCIONALES — PARTE 1
-         ========================================================
-
-    Podés mover cualquiera de estos bloques al lugar exacto
-    donde quieras mostrar el recurso.
-
-
-    ============================
-    IMAGEN
-    ============================
-
-    <figure class="figura-estudio">
-
-        <img
-            src="../imagenes/nombre-imagen.jpg"
-            alt="Descripción históricamente precisa de la imagen"
-            class="imagen-estudio"
-        >
-
-        <figcaption class="leyenda">
-            Explicación o contexto de la imagen.
-        </figcaption>
-
-    </figure>
-
-
-
-    ============================
-    IMAGEN SIN RECORTE
-    ============================
-
-    <figure class="figura-estudio">
-
-        <img
-            src="../imagenes/nombre-imagen.jpg"
-            alt="Descripción"
-            class="imagen-estudio contener"
-        >
-
-        <figcaption class="leyenda">
-            Descripción.
-        </figcaption>
-
-    </figure>
-
-
-
-    ============================
-    MAPA INTERACTIVO
-    ============================
-
-    <h3>
-        🗺️ Mapa del episodio
-    </h3>
-
-    <div
-        id="mapa-estudio"
-        class="mapa-estudio">
-    </div>
-
-    Luego agregar el JavaScript correspondiente
-    antes de </body>.
-
-
-
-    ============================
-    LÍNEA DE TIEMPO
-    ============================
-
-    <div class="linea-tiempo">
-
-        <div class="linea-tiempo-item">
-
-            <span class="linea-tiempo-fecha">
-                Jueves — tarde
-            </span>
-
-            <strong>
-                Evento
-            </strong>
-
-            <p>
-                Descripción del acontecimiento.
-            </p>
-
-        </div>
-
-        <div class="linea-tiempo-item">
-
-            <span class="linea-tiempo-fecha">
-                Jueves — noche
-            </span>
-
-            <strong>
-                Segundo evento
-            </strong>
-
-            <p>
-                Descripción.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    ============================
-    TABLA
-    ============================
-
-    <div class="tabla-wrapper">
-
-        <table class="tabla-estudio">
-
-            <thead>
-
-                <tr>
-                    <th>Columna 1</th>
-                    <th>Columna 2</th>
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Dato</td>
-                    <td>Dato</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-
-
-    ============================
-    RECURSO INTERACTIVO
-    ============================
-
-    <div class="recurso-interactivo">
-
-        <div class="recurso-interactivo-titulo">
-            🧩 Recurso interactivo
-        </div>
-
-        <div id="recurso-id">
-            Contenido generado por JavaScript.
-        </div>
-
-    </div>
-
-
-    ======================================================== -->
-
 
 
     <!-- ========================================================
          PARTE 2
          ======================================================== -->
 
-    ${
-        d.terminos.length ||
-        d.sintesis_exegetica ||
-        d.dato_mentor_2
-            ? `
+    ${hayParte2
+                    ? `
 
     <section>
 
@@ -2609,138 +3440,34 @@ ${textoHTML(d.dato_mentor_1)}
         </div>
 
 
-
-        ${
-            d.terminos
-                .map((t, index) => `
+        ${(d.terminos || [])
+                        .map((t, index) => `
 
         <article class="termino-exegetico">
 
-
+            ${t.titulo
+                                ? `
             <h2 class="termino-titulo">
-                ${index + 1}. ${inlineMarkdown(t.titulo || 'Término clave')}
-            </h2>
+                ${index + 1}. ${inlineMarkdown(t.titulo)}
+            </h2>`
+                                : ''
+                            }
 
-
-            ${
-                t.cita
-                    ? `
-            <div class="versiculo">
-
-                <strong>
-                    📖 ${inlineMarkdown(t.cita)}
-                </strong>
-
+            ${t.analisis
+                                ? `
+            <div class="analisis-exegetico">
+${textoHTML(t.analisis)}
             </div>`
-                    : ''
-            }
-
-
-            ${
-                t.original
-                    ? `
-            <div class="termino-original">
-
-                <strong>
-                    🔤 Término original
-                </strong>
-
-                ${inlineMarkdown(t.original)}
-
-            </div>`
-                    : ''
-            }
-
-
-            ${
-                t.significado
-                    ? `
-            <div class="analisis-termino">
-
-                <h3>
-                    🔎 Análisis del significado original
-                </h3>
-
-${textoHTML(t.significado)}
-
-            </div>`
-                    : ''
-            }
-
-
-            ${
-                t.uso
-                    ? `
-            <div class="uso-biblico">
-
-                <h3>
-                    📚 Uso bíblico y contextual
-                </h3>
-
-${textoHTML(t.uso)}
-
-            </div>`
-                    : ''
-            }
-
-
-            ${
-                t.conexion
-                    ? `
-            <div class="conexion-exegetica">
-
-                <h3>
-                    🔗 Conexión teológica / literaria
-                </h3>
-
-${textoHTML(t.conexion)}
-
-            </div>`
-                    : ''
-            }
-
-
-            ${
-                t.verdad
-                    ? `
-            <div class="verdad-exegetica">
-
-                <span class="verdad-exegetica-titulo">
-                    🎯 Verdad Exegética
-                </span>
-
-${textoHTML(t.verdad)}
-
-            </div>`
-                    : ''
-            }
-
-
-            ${
-                t.error
-                    ? `
-            <div class="error-interpretacion">
-
-                <span class="error-interpretacion-titulo">
-                    ⚠️ Error común de interpretación
-                </span>
-
-${textoHTML(t.error)}
-
-            </div>`
-                    : ''
-            }
-
+                                : ''
+                            }
 
         </article>`)
-                .join('\n')
-        }
+                        .join('\n')
+                    }
 
 
-
-        ${
-            d.sintesis_exegetica
-                ? `
+        ${d.sintesis_exegetica
+                        ? `
 
         <div class="sintesis-exegetica">
 
@@ -2751,14 +3478,14 @@ ${textoHTML(t.error)}
 ${textoHTML(d.sintesis_exegetica)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
+
+${renderizarBloquesExtra(extras('extras_sintesis_exegetica'))}
 
 
-
-        ${
-            d.dato_mentor_2
-                ? `
+        ${d.dato_mentor_2
+                        ? `
 
         <div class="dato-mentor">
 
@@ -2769,28 +3496,14 @@ ${textoHTML(d.sintesis_exegetica)}
 ${textoHTML(d.dato_mentor_2)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 
     </section>`
 
-            : ''
-    }
-
-
-
-    <!-- ========================================================
-         RECURSOS OPCIONALES — PARTE 2
-
-         También podés insertar aquí:
-         - diagramas lingüísticos
-         - imágenes de manuscritos
-         - comparaciones visuales
-         - gráficos de palabras
-         - recursos interactivos
-         ======================================================== -->
-
+                    : ''
+                }
 
 
     <!-- ========================================================
@@ -2810,10 +3523,8 @@ ${textoHTML(d.dato_mentor_2)}
         </div>
 
 
-
-        ${
-            d.verdad_central
-                ? `
+        ${d.verdad_central
+                    ? `
 
         <h2>
             🎯 Verdad Teológica Central
@@ -2822,14 +3533,12 @@ ${textoHTML(d.dato_mentor_2)}
         <div class="verdad-central">
 ${textoHTML(d.verdad_central)}
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.punto_tension
-                ? `
+        ${d.punto_tension
+                    ? `
 
         <h2>
             ⚖️ Punto de Tensión
@@ -2838,14 +3547,12 @@ ${textoHTML(d.verdad_central)}
         <div class="punto-tension">
 ${textoHTML(d.punto_tension)}
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.devocional
-                ? `
+        ${d.devocional
+                    ? `
 
         <h2>
             🌱 Devocional
@@ -2854,14 +3561,13 @@ ${textoHTML(d.punto_tension)}
         <div class="devocional">
 ${textoHTML(d.devocional)}
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.examen_corazon
-                ? `
+        ${d.examen_corazon &&
+                    d.examen_corazon.length
+                    ? `
 
         <h2>
             🔍 Examen del Corazón
@@ -2869,20 +3575,21 @@ ${textoHTML(d.devocional)}
 
         <div class="examen-corazon">
 
-${listaHTML(
-    d.examen_corazon,
-    'examen-pregunta'
-)}
+${d.examen_corazon
+                        .map(pregunta => `
+            <div class="examen-pregunta">
+${textoHTML(pregunta)}
+            </div>`)
+                        .join('\n')}
 
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.pasos_practicos
-                ? `
+        ${d.pasos_practicos &&
+                    d.pasos_practicos.length
+                    ? `
 
         <h2>
             👣 Pasos Prácticos
@@ -2890,20 +3597,20 @@ ${listaHTML(
 
         <div class="pasos-practicos">
 
-${listaHTML(
-    d.pasos_practicos,
-    'paso-practico'
-)}
+${d.pasos_practicos
+                        .map(paso => `
+            <div class="paso-practico">
+${textoHTML(paso)}
+            </div>`)
+                        .join('\n')}
 
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.idea_clave
-                ? `
+        ${d.idea_clave
+                    ? `
 
         <div class="idea-clave">
 
@@ -2914,14 +3621,12 @@ ${listaHTML(
 ${textoHTML(d.idea_clave)}
 
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.oracion_final
-                ? `
+        ${d.oracion_final
+                    ? `
 
         <div class="oracion-final">
 
@@ -2932,14 +3637,12 @@ ${textoHTML(d.idea_clave)}
 ${textoHTML(d.oracion_final)}
 
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
-
-        ${
-            d.dato_mentor_3
-                ? `
+        ${d.dato_mentor_3
+                    ? `
 
         <div class="dato-mentor">
 
@@ -2950,21 +3653,19 @@ ${textoHTML(d.oracion_final)}
 ${textoHTML(d.dato_mentor_3)}
 
         </div>`
-                : ''
-        }
+                    : ''
+                }
 
 
     </section>
-
 
 
     <!-- ========================================================
          PARA PROFUNDIZAR
          ======================================================== -->
 
-    ${
-        hayProfundizar
-            ? `
+    ${hayProfundizar
+                    ? `
 
     <section class="para-profundizar">
 
@@ -2973,9 +3674,8 @@ ${textoHTML(d.dato_mentor_3)}
         </h2>
 
 
-        ${
-            d.pasajes_relacionados
-                ? `
+        ${d.pasajes_relacionados
+                        ? `
         <div class="profundizar-bloque">
 
             <h3>
@@ -2985,13 +3685,12 @@ ${textoHTML(d.dato_mentor_3)}
 ${listaUL(d.pasajes_relacionados)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 
-        ${
-            d.preguntas_profundizar
-                ? `
+        ${d.preguntas_profundizar
+                        ? `
         <div class="profundizar-bloque">
 
             <h3>
@@ -3001,13 +3700,12 @@ ${listaUL(d.pasajes_relacionados)}
 ${listaUL(d.preguntas_profundizar)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 
-        ${
-            d.conceptos_investigar
-                ? `
+        ${d.conceptos_investigar
+                        ? `
         <div class="profundizar-bloque">
 
             <h3>
@@ -3017,13 +3715,12 @@ ${listaUL(d.preguntas_profundizar)}
 ${listaUL(d.conceptos_investigar)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 
-        ${
-            d.bibliografia
-                ? `
+        ${d.bibliografia
+                        ? `
         <div class="profundizar-bloque">
 
             <h3>
@@ -3033,14 +3730,13 @@ ${listaUL(d.conceptos_investigar)}
 ${listaUL(d.bibliografia)}
 
         </div>`
-                : ''
-        }
+                        : ''
+                    }
 
 
     </section>`
-            : ''
-    }
-
+                    : ''
+                }
 
 
     <!-- ========================================================
@@ -3064,451 +3760,515 @@ ${listaUL(d.bibliografia)}
 
 </div>
 
-
-
-<!-- ============================================================
-     JAVASCRIPT OPCIONAL DEL ESTUDIO
-
-     Cuando este estudio necesite mapas, gráficos,
-     líneas de tiempo interactivas, acordeones u otros
-     recursos, insertar aquí los scripts correspondientes.
-
-     Ejemplo:
-
-     <script src="../js/mapas.js"><\/script>
-
-     <script>
-         inicializarMapa(...);
-     <\/script>
-
-     ============================================================ -->
-
-
 </body>
 
 </html>`;
 
-    }
+        }
+
+        /* ============================================================
+           PORTAPAPELES
+           ============================================================ */
+
+        async function copiarResultado() {
+
+            const resultado =
+                document.getElementById('resultado');
 
 
-    /* ============================================================
-       PORTAPAPELES
-       ============================================================ */
+            if (!resultado.value.trim()) {
 
-    async function copiarResultado() {
+                alert(
+                    '⚠️ Primero generá el HTML.'
+                );
 
-        const resultado =
-            document.getElementById('resultado');
+                return;
+            }
 
 
-        if (!resultado.value.trim()) {
+            try {
 
-            alert(
-                '⚠️ Primero generá el HTML.'
-            );
+                await navigator.clipboard.writeText(
+                    resultado.value
+                );
 
-            return;
+                alert(
+                    '✅ HTML copiado.'
+                );
+
+            } catch {
+
+                resultado.select();
+
+                document.execCommand('copy');
+
+                alert(
+                    '✅ HTML copiado.'
+                );
+            }
         }
 
 
-        try {
+        /* ============================================================
+           DESCARGAR
+           ============================================================ */
 
-            await navigator.clipboard.writeText(
-                resultado.value
-            );
+        function descargarResultado() {
 
-            alert(
-                '✅ HTML copiado.'
-            );
+            const contenido =
+                document
+                    .getElementById('resultado')
+                    .value;
 
-        } catch {
 
-            resultado.select();
+            if (!contenido.trim()) {
 
-            document.execCommand('copy');
+                alert(
+                    '⚠️ Primero generá el HTML.'
+                );
 
-            alert(
-                '✅ HTML copiado.'
-            );
+                return;
+            }
+
+
+            const titulo =
+                valor('titulo') ||
+                'estudio';
+
+
+            const nombre =
+                slugify(titulo) + '.html';
+
+
+            const blob =
+                new Blob(
+                    [contenido],
+                    {
+                        type:
+                            'text/html;charset=utf-8'
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            const a =
+                document.createElement('a');
+
+
+            a.href = url;
+            a.download = nombre;
+
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            a.remove();
+
+
+            URL.revokeObjectURL(url);
         }
-    }
 
 
-    /* ============================================================
-       DESCARGAR
-       ============================================================ */
+        function slugify(texto) {
 
-    function descargarResultado() {
-
-        const contenido =
-            document
-                .getElementById('resultado')
-                .value;
-
-
-        if (!contenido.trim()) {
-
-            alert(
-                '⚠️ Primero generá el HTML.'
-            );
-
-            return;
+            return texto
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
         }
 
 
-        const titulo =
-            valor('titulo') ||
-            'estudio';
+        /* ============================================================
+           GUARDADO LOCAL
+           ============================================================ */
+
+        function guardarLocal(silencioso = false) {
+
+            const datos =
+                recolectarDatos();
 
 
-        const nombre =
-            slugify(titulo) + '.html';
+            try {
+
+                localStorage.setItem(
+                    'estudioBiblicoBorradorV3',
+                    JSON.stringify(datos)
+                );
 
 
-        const blob =
-            new Blob(
-                [contenido],
-                {
-                    type:
-                        'text/html;charset=utf-8'
+                if (!silencioso) {
+
+                    alert(
+                        '✅ Borrador guardado en este navegador.'
+                    );
+
                 }
-            );
+
+            } catch {
+
+                if (!silencioso) {
+
+                    alert(
+                        '⚠️ No se pudo guardar el borrador.'
+                    );
+
+                }
+            }
+        }
 
 
-        const url =
-            URL.createObjectURL(blob);
+        function cargarLocal() {
 
-
-        const a =
-            document.createElement('a');
-
-
-        a.href = url;
-        a.download = nombre;
-
-
-        document.body.appendChild(a);
-
-        a.click();
-
-        a.remove();
-
-
-        URL.revokeObjectURL(url);
-    }
-
-
-    function slugify(texto) {
-
-        return texto
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-    }
-
-
-    /* ============================================================
-       GUARDADO LOCAL
-       ============================================================ */
-
-    function guardarLocal(silencioso = false) {
-
-        const datos =
-            recolectarDatos();
-
-
-        try {
-
-            localStorage.setItem(
-                'estudioBiblicoBorradorV3',
-                JSON.stringify(datos)
-            );
-
-
-            if (!silencioso) {
-
-                alert(
-                    '✅ Borrador guardado en este navegador.'
+            const guardado =
+                localStorage.getItem(
+                    'estudioBiblicoBorradorV3'
                 );
 
-            }
 
-        } catch {
-
-            if (!silencioso) {
+            if (!guardado) {
 
                 alert(
-                    '⚠️ No se pudo guardar el borrador.'
+                    '⚠️ No hay ningún borrador guardado.'
                 );
 
-            }
-        }
-    }
-
-
-    function cargarLocal() {
-
-        const guardado =
-            localStorage.getItem(
-                'estudioBiblicoBorradorV3'
-            );
-
-
-        if (!guardado) {
-
-            alert(
-                '⚠️ No hay ningún borrador guardado.'
-            );
-
-            return;
-        }
-
-
-        try {
-
-            const d =
-                JSON.parse(guardado);
-
-
-            cargarDatos(d);
-
-
-            alert(
-                '✅ Borrador recuperado.'
-            );
-
-        } catch {
-
-            alert(
-                '⚠️ El borrador guardado está dañado.'
-            );
-        }
-    }
-
-
-    /* ============================================================
-       CARGAR DATOS
-       ============================================================ */
-
-    function cargarDatos(d = {}) {
-
-        const campos = [
-
-            'titulo',
-            'referencia',
-            'subtitulo',
-            'tema',
-
-            'escena',
-            'estructura_literaria',
-            'observacion_inicial',
-
-            'lugar',
-            'fecha',
-            'hora',
-            'personajes',
-            'situacion',
-
-            'contexto_historico',
-            'contexto_cultural',
-            'contexto_teologico',
-
-            'antes',
-            'despues',
-            'funcion_libro',
-
-            'dato_mentor_1',
-
-            'sintesis_exegetica',
-            'dato_mentor_2',
-
-            'verdad_central',
-            'punto_tension',
-            'devocional',
-            'examen_corazon',
-            'pasos_practicos',
-            'idea_clave',
-            'oracion_final',
-            'dato_mentor_3',
-
-            'pasajes_relacionados',
-            'preguntas_profundizar',
-            'conceptos_investigar',
-            'bibliografia'
-
-        ];
-
-
-        campos.forEach(campo => {
-
-            const elemento =
-                document.getElementById(campo);
-
-            if (elemento) {
-
-                elemento.value =
-                    d[campo] || '';
-
+                return;
             }
 
-        });
+
+            try {
+
+                const d =
+                    JSON.parse(guardado);
 
 
-        document.getElementById(
-            'conexiones-at-container'
-        ).innerHTML = '';
+                cargarDatos(d);
 
 
-        document.getElementById(
-            'conexiones-nt-container'
-        ).innerHTML = '';
+                alert(
+                    '✅ Borrador recuperado.'
+                );
 
+            } catch {
 
-        document.getElementById(
-            'terminos-container'
-        ).innerHTML = '';
-
-
-        contadorAT = 0;
-        contadorNT = 0;
-        contadorTerminos = 0;
-
-
-        (d.conexiones_at || [])
-            .forEach(c =>
-                agregarConexion('at', c)
-            );
-
-
-        (d.conexiones_nt || [])
-            .forEach(c =>
-                agregarConexion('nt', c)
-            );
-
-
-        (d.terminos || [])
-            .forEach(t =>
-                agregarTermino(t)
-            );
-
-
-        if (
-            !d.conexiones_at ||
-            !d.conexiones_at.length
-        ) {
-
-            agregarConexion('at');
-
+                alert(
+                    '⚠️ El borrador guardado está dañado.'
+                );
+            }
         }
 
 
-        if (
-            !d.conexiones_nt ||
-            !d.conexiones_nt.length
-        ) {
+        /* ============================================================
+           CARGAR DATOS
+           ============================================================ */
 
-            agregarConexion('nt');
+        function cargarDatos(d = {}) {
 
-        }
+            const campos = [
+
+                'titulo',
+                'referencia',
+                'subtitulo',
+                'tema',
+
+                'escena',
+                'estructura_literaria',
+                'observacion_inicial',
+
+                'lugar',
+                'fecha',
+                'hora',
+                'personajes',
+                'situacion',
+
+                'contexto_historico',
+                'contexto_cultural',
+                'contexto_teologico',
+
+                'antes',
+                'despues',
+                'funcion_libro',
+
+                'dato_mentor_1',
+
+                'sintesis_exegetica',
+                'dato_mentor_2',
+
+                'verdad_central',
+                'punto_tension',
+                'devocional',
+                'idea_clave',
+                'oracion_final',
+                'dato_mentor_3',
+
+                'pasajes_relacionados',
+                'preguntas_profundizar',
+                'conceptos_investigar',
+                'bibliografia'
+
+            ];
 
 
-        if (
-            !d.terminos ||
-            !d.terminos.length
-        ) {
+            campos.forEach(campo => {
 
-            agregarTermino();
-            agregarTermino();
-            agregarTermino();
+                const elemento =
+                    document.getElementById(campo);
 
-        }
-    }
+                if (elemento) {
 
+                    elemento.value =
+                        d[campo] || '';
 
-    /* ============================================================
-       LIMPIAR
-       ============================================================ */
+                }
 
-    function limpiarFormulario() {
-
-        const confirmar =
-            confirm(
-                '¿Seguro que querés limpiar todo el estudio?'
-            );
-
-
-        if (!confirmar) {
-            return;
-        }
-
-
-        document
-            .querySelectorAll(
-                'input[type="text"], textarea'
-            )
-            .forEach(el => {
-                el.value = '';
             });
 
 
-        document.getElementById(
-            'conexiones-at-container'
-        ).innerHTML = '';
+            document.getElementById(
+                'conexiones-at-container'
+            ).innerHTML = '';
 
 
-        document.getElementById(
-            'conexiones-nt-container'
-        ).innerHTML = '';
+            document.getElementById(
+                'conexiones-nt-container'
+            ).innerHTML = '';
 
 
-        document.getElementById(
-            'terminos-container'
-        ).innerHTML = '';
+            document.getElementById(
+                'terminos-container'
+            ).innerHTML = '';
+
+            document.getElementById(
+                'examen-container'
+            ).innerHTML = '';
 
 
-        document.getElementById(
-            'resultado'
-        ).value = '';
+            document.getElementById(
+                'pasos-container'
+            ).innerHTML = '';
 
 
-        contadorAT = 0;
-        contadorNT = 0;
-        contadorTerminos = 0;
+            contadorAT = 0;
+            contadorNT = 0;
+            contadorTerminos = 0;
+            contadorExamen = 0;
+            contadorPasos = 0;
 
 
-        agregarConexion('at');
-        agregarConexion('nt');
-
-        agregarTermino();
-        agregarTermino();
-        agregarTermino();
-    }
+            (d.conexiones_at || [])
+                .forEach(c =>
+                    agregarConexion('at', c)
+                );
 
 
-    /* ============================================================
-       INICIALIZACIÓN
-       ============================================================ */
+            (d.conexiones_nt || [])
+                .forEach(c =>
+                    agregarConexion('nt', c)
+                );
 
-    window.addEventListener(
-        'DOMContentLoaded',
-        () => {
 
-            agregarConexion('at');
-            agregarConexion('at');
+            (d.terminos || [])
+                .forEach(t =>
+                    agregarTermino(t)
+                );
 
-            agregarConexion('nt');
-            agregarConexion('nt');
+            (d.examen_corazon || [])
+                .forEach(pregunta =>
+                    agregarPreguntaExamen(pregunta)
+                );
 
-            agregarTermino();
-            agregarTermino();
-            agregarTermino();
+
+            (d.pasos_practicos || [])
+                .forEach(paso =>
+                    agregarPasoPractico(paso)
+                );
+
+
+            if (
+                !d.conexiones_at ||
+                !d.conexiones_at.length
+            ) {
+
+                agregarConexion('at');
+
+            }
+
+
+            if (
+                !d.conexiones_nt ||
+                !d.conexiones_nt.length
+            ) {
+
+                agregarConexion('nt');
+
+            }
+
+
+            if (
+                !d.terminos ||
+                !d.terminos.length
+            ) {
+
+                agregarTermino();
+                agregarTermino();
+                agregarTermino();
+
+            }
+
+            if (
+                !d.examen_corazon ||
+                !d.examen_corazon.length
+            ) {
+
+                agregarPreguntaExamen();
+                agregarPreguntaExamen();
+                agregarPreguntaExamen();
+
+            }
+
+
+            if (
+                !d.pasos_practicos ||
+                !d.pasos_practicos.length
+            ) {
+
+                agregarPasoPractico();
+                agregarPasoPractico();
+                agregarPasoPractico();
+
+            }
+
 
         }
-    );
 
-</script>
+
+        /* ============================================================
+           LIMPIAR
+           ============================================================ */
+
+        function limpiarFormulario() {
+
+            const confirmar =
+                confirm(
+                    '¿Seguro que querés limpiar todo el estudio?'
+                );
+
+
+            if (!confirmar) {
+                return;
+            }
+
+
+            document
+                .querySelectorAll(
+                    'input[type="text"], textarea'
+                )
+                .forEach(el => {
+                    el.value = '';
+                });
+
+
+            document.getElementById(
+                'conexiones-at-container'
+            ).innerHTML = '';
+
+
+            document.getElementById(
+                'conexiones-nt-container'
+            ).innerHTML = '';
+
+            document.getElementById(
+                'examen-container'
+            ).innerHTML = '';
+
+            document.getElementById(
+                'pasos-container'
+            ).innerHTML = '';
+
+            document.getElementById(
+                'resultado'
+            ).value = '';
+
+
+            contadorAT = 0;
+            contadorNT = 0;
+            contadorTerminos = 0;
+            contadorExamen = 0;
+            contadorPasos = 0;
+
+
+            agregarConexion('at');
+            agregarConexion('nt');
+
+            agregarTermino();
+            agregarTermino();
+            agregarTermino();
+
+            agregarPreguntaExamen();
+            agregarPreguntaExamen();
+            agregarPreguntaExamen();
+
+            agregarPasoPractico();
+            agregarPasoPractico();
+            agregarPasoPractico();
+        }
+
+
+        /* ============================================================
+           INICIALIZACIÓN
+           ============================================================ */
+
+        window.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                agregarConexion('at');
+                agregarConexion('at');
+
+                agregarConexion('nt');
+                agregarConexion('nt');
+
+                agregarTermino();
+                agregarTermino();
+                agregarTermino();
+
+                agregarPreguntaExamen();
+                agregarPreguntaExamen();
+                agregarPreguntaExamen();
+
+                agregarPasoPractico();
+                agregarPasoPractico();
+                agregarPasoPractico();
+
+                editoresFlexibles.forEach(editor => {
+
+                    activarEditorFlexible(
+                        editor.campo,
+                        editor.container
+                    );
+
+                });
+
+                editoresFormatoParte3.forEach(campo => {
+
+                    activarEditorFlexible(
+                        campo,
+                        null,
+                        false
+                    );
+
+                });
+
+            }
+        );
+
+    </script>
 
 </body>
+
 </html>
