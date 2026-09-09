@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generador Markdown → HTML — Estudios Bíblicos</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f1f5f9;
+            --white: #ffffff;
+            --text: #0f172a;
+            --text-2: #334155;
+            --muted: #64748b;
+            --border: #e2e8f0;
+
+            --blue: #3b82f6;
+            --blue-dark: #2563eb;
+            --green: #10b981;
+            --green-dark: #059669;
+            --red: #ef4444;
+            --violet: #8b5cf6;
+
+            --blue-soft: #eff6ff;
+            --green-soft: #ecfdf5;
+            --violet-soft: #f5f3ff;
+        }
+
+        body {
+            background: var(--bg);
+            font-family:
+                'Inter',
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                sans-serif;
+
+            color: var(--text);
+            padding: 30px 18px 60px;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .cabecera,
+        .panel,
+        .acciones {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
+        }
+
+        .cabecera {
+            padding: 28px 32px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .07);
+        }
+
+        .cabecera h1 {
+            font-size: 2rem;
+            margin-bottom: 7px;
+        }
+
+        .cabecera p {
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .version {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: var(--violet-soft);
+            color: #7c3aed;
+            font-size: .75rem;
+            font-weight: 800;
+        }
+
+        .panel {
+            padding: 26px 28px;
+            margin-bottom: 22px;
+        }
+
+        .panel-titulo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: .86rem;
+            font-weight: 800;
+            color: var(--text-2);
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: #fbfdff;
+            font: inherit;
+            color: var(--text);
+            transition: .2s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, .10);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 520px;
+            line-height: 1.55;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: .88rem;
+        }
+
+        #resultado {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-color: #0f172a;
+        }
+
+        .ayuda {
+            background: var(--blue-soft);
+            border-left: 4px solid var(--blue);
+            padding: 13px 16px;
+            border-radius: 0 10px 10px 0;
+            font-size: .82rem;
+            color: var(--text-2);
+            margin-bottom: 18px;
+            line-height: 1.65;
+        }
+
+        .ayuda code {
+            background: rgba(255,255,255,.8);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .opciones {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .check {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .85rem;
+            color: var(--text-2);
+            font-weight: 700;
+        }
+
+        .acciones {
+            padding: 22px 26px;
+            margin-bottom: 22px;
+        }
+
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 999px;
+            padding: 11px 20px;
+            font-weight: 800;
+            font-size: .86rem;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn.azul {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn.verde {
+            background: var(--green);
+            color: white;
+        }
+
+        .btn.violeta {
+            background: var(--violet);
+            color: white;
+        }
+
+        .btn.gris {
+            background: #64748b;
+            color: white;
+        }
+
+        .btn.rojo {
+            background: var(--red);
+            color: white;
+        }
+
+        .estado {
+            margin-top: 12px;
+            min-height: 20px;
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: .78rem;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 860px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            textarea {
+                min-height: 360px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 12px 8px 40px;
+            }
+
+            .cabecera,
+            .panel,
+            .acciones {
+                padding: 20px 16px;
+                border-radius: 14px;
+            }
+
+            .cabecera h1 {
+                font-size: 1.55rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <header class="cabecera">
+        <h1>🧩 Markdown → HTML</h1>
+
+        <p>
+            Pegá directamente el Markdown generado por ChatGPT y convertí
+            títulos, párrafos, listas, citas, énfasis, enlaces y separadores
+            a HTML limpio para tus estudios bíblicos.
+        </p>
+
+        <span class="version">Generador v4.0</span>
+    </header>
+
+    <section class="panel">
+
+        <div class="panel-titulo">
+            ⚙️ Opciones
+        </div>
+
+        <div class="campo">
+            <label for="tituloArchivo">
+                Nombre del archivo / estudio
+            </label>
+
+            <input
+                type="text"
+                id="tituloArchivo"
+                placeholder="Ej. Jesús maldice la higuera"
+            >
+        </div>
+
+        <div class="opciones">
+            <label class="check">
+                <input type="checkbox" id="htmlCompleto">
+                Generar documento HTML completo
+            </label>
+        </div>
+
+    </section>
+
+    <section class="panel">
+
+        <div class="ayuda">
+            Soporta:
+            <code># H1</code>,
+            <code>## H2</code>,
+            <code>### H3</code>,
+            <code>#### H4</code>,
+            <code>**negrita**</code>,
+            <code>*cursiva*</code>,
+            <code>&gt; cita</code>,
+            listas,
+            enlaces y
+            <code>---</code>.
+            <br><br>
+            También conserva dos bloques opcionales del generador anterior:
+            <code>:::versiculo</code> y <code>:::original</code>.
+        </div>
+
+        <div class="grid">
+
+            <div class="campo">
+                <label for="markdown">
+                    Markdown
+                </label>
+
+                <textarea
+                    id="markdown"
+                    placeholder="Pegá acá una Parte completa o un estudio entero en Markdown..."
+                ></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="resultado">
+                    HTML generado
+                </label>
+
+                <textarea
+                    id="resultado"
+                    readonly
+                    placeholder="Acá aparecerá el HTML..."
+                ></textarea>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="acciones">
+
+        <div class="botones">
+
+            <button class="btn verde" type="button" onclick="convertir()">
+                🚀 Convertir
+            </button>
+
+            <button class="btn azul" type="button" onclick="copiarResultado()">
+                📋 Copiar HTML
+            </button>
+
+            <button class="btn violeta" type="button" onclick="descargarResultado()">
+                ⬇️ Descargar
+            </button>
+
+            <button class="btn gris" type="button" onclick="guardarLocal()">
+                💾 Guardar Markdown
+            </button>
+
+            <button class="btn gris" type="button" onclick="cargarLocal()">
+                📂 Recuperar Markdown
+            </button>
+
+            <button class="btn rojo" type="button" onclick="limpiarTodo()">
+                🗑️ Limpiar
+            </button>
+
+        </div>
+
+        <div class="estado" id="estado"></div>
+
+    </section>
+
+    <div class="footer">
+        Generador de Estudios Bíblicos — Markdown → HTML v4.0
+    </div>
+
+</div>
+
+<script>
+
+    function escaparHTML(str = '') {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function escaparAtributo(str = '') {
+        return escaparHTML(str).replace(/'/g, '&#039;');
+    }
+
+    function inlineMarkdown(str = '') {
+
+        let safe = escaparHTML(str);
+
+        // Código inline
+        safe = safe.replace(
+            /`([^`\n]+)`/g,
+            '<code>$1</code>'
+        );
+
+        // Enlaces
+        safe = safe.replace(
+            /\[([^\]]+)\]\((https?:\/\/[^\s)]+|[^)\s]+)\)/g,
+            '<a href="$2">$1</a>'
+        );
+
+        // Negrita
+        safe = safe.replace(
+            /\*\*(.+?)\*\*/g,
+            '<strong>$1</strong>'
+        );
+
+        // Cursiva con *
+        safe = safe.replace(
+            /(^|[^\*])\*([^*\n]+?)\*/g,
+            '$1<em>$2</em>'
+        );
+
+        return safe;
+    }
+
+    function markdownAHTML(markdown = '') {
+
+        if (!markdown.trim()) {
+            return '';
+        }
+
+        const texto = markdown
+            .replace(/\r\n/g, '\n')
+            .replace(/\r/g, '\n');
+
+        const lineas = texto.split('\n');
+
+        let html = [];
+        let parrafo = [];
+        let lista = [];
+        let tipoLista = null;
+
+        let cita = [];
+        let dentroCita = false;
+
+        let bloqueEspecial = null;
+        let contenidoEspecial = [];
+
+        let bloqueCodigo = false;
+        let contenidoCodigo = [];
+        let lenguajeCodigo = '';
+
+        function procesarInline(texto) {
+            return inlineMarkdown(texto.trim());
+        }
+
+        function cerrarParrafo() {
+            if (!parrafo.length) return;
+
+            const contenido = parrafo
+                .map(l => l.trim())
+                .filter(Boolean)
+                .join(' ');
+
+            if (contenido) {
+                html.push(`<p>${procesarInline(contenido)}</p>`);
+            }
+
+            parrafo = [];
+        }
+
+        function cerrarLista() {
+            if (!lista.length) return;
+
+            const etiqueta = tipoLista === 'ol' ? 'ol' : 'ul';
+
+            html.push(`<${etiqueta}>`);
+
+            lista.forEach(item => {
+                html.push(`    <li>${procesarInline(item)}</li>`);
+            });
+
+            html.push(`</${etiqueta}>`);
+
+            lista = [];
+            tipoLista = null;
+        }
+
+        function cerrarCita() {
+            if (!dentroCita) return;
+
+            const contenido = cita.join('\n').trim();
+
+            html.push(`<blockquote class="versiculo">`);
+
+            if (contenido) {
+                const partes = contenido
+                    .split(/\n\s*\n/)
+                    .map(p => p.trim())
+                    .filter(Boolean);
+
+                partes.forEach(parte => {
+                    html.push(`    <p>${procesarInline(parte.replace(/\n/g, ' '))}</p>`);
+                });
+            }
+
+            html.push(`</blockquote>`);
+
+            cita = [];
+            dentroCita = false;
+        }
+
+        function cerrarBloqueEspecial() {
+            if (!bloqueEspecial) return;
+
+            const contenido = contenidoEspecial.join('\n').trim();
+
+            if (bloqueEspecial === 'versiculo') {
+                html.push(`<div class="versiculo">`);
+                html.push(`    <p>${procesarInline(contenido.replace(/\n/g, ' '))}</p>`);
+                html.push(`</div>`);
+            }
+
+            if (bloqueEspecial === 'original') {
+                html.push(`<div class="texto-original">`);
+                html.push(`    ${procesarInline(contenido.replace(/\n/g, ' '))}`);
+                html.push(`</div>`);
+            }
+
+            bloqueEspecial = null;
+            contenidoEspecial = [];
+        }
+
+        function cerrarCodigo() {
+            if (!bloqueCodigo) return;
+
+            const clase = lenguajeCodigo
+                ? ` class="language-${escaparAtributo(lenguajeCodigo)}"`
+                : '';
+
+            html.push(
+                `<pre><code${clase}>${escaparHTML(contenidoCodigo.join('\n'))}</code></pre>`
+            );
+
+            bloqueCodigo = false;
+            contenidoCodigo = [];
+            lenguajeCodigo = '';
+        }
+
+        for (let i = 0; i < lineas.length; i++) {
+
+            const lineaOriginal = lineas[i];
+            const linea = lineaOriginal.trim();
+
+            // Código fenced
+            if (linea.startsWith('```')) {
+
+                if (!bloqueCodigo) {
+                    cerrarParrafo();
+                    cerrarLista();
+                    cerrarCita();
+                    cerrarBloqueEspecial();
+
+                    bloqueCodigo = true;
+                    lenguajeCodigo = linea.slice(3).trim();
+                    contenidoCodigo = [];
+                } else {
+                    cerrarCodigo();
+                }
+
+                continue;
+            }
+
+            if (bloqueCodigo) {
+                contenidoCodigo.push(lineaOriginal);
+                continue;
+            }
+
+            // Bloques especiales
+            if (linea === ':::versiculo') {
+                cerrarParrafo();
+                cerrarLista();
+                cerrarCita();
+                cerrarBloqueEspecial();
+
+                bloqueEspecial = 'versiculo';
+                contenidoEspecial = [];
+                continue;
+            }
+
+            if (linea === ':::original') {
+                cerrarParrafo();
+                cerrarLista();
+                cerrarCita();
+                cerrarBloqueEspecial();
+
+                bloqueEspecial = 'original';
+                contenidoEspecial = [];
+                continue;
+            }
+
+            if (linea === ':::' && bloqueEspecial) {
+                cerrarBloqueEspecial();
+                continue;
+            }
+
+            if (bloqueEspecial) {
+                contenidoEspecial.push(lineaOriginal);
+                continue;
+            }
+
+            // Blockquotes
+            if (/^>\s?/.test(lineaOriginal)) {
+
+                cerrarParrafo();
+                cerrarLista();
+
+                dentroCita = true;
+
+                cita.push(
+                    lineaOriginal.replace(/^>\s?/, '')
+                );
+
+                continue;
+            }
+
+            if (dentroCita) {
+                cerrarCita();
+            }
+
+            // Línea vacía
+            if (!linea) {
+                cerrarParrafo();
+                cerrarLista();
+                continue;
+            }
+
+            // Separador
+            if (/^(\*\s*){3,}$/.test(linea) ||
+                /^(-\s*){3,}$/.test(linea) ||
+                /^(_\s*){3,}$/.test(linea)) {
+
+                cerrarParrafo();
+                cerrarLista();
+
+                html.push(`<hr class="separador">`);
+                continue;
+            }
+
+            // Encabezados
+            const heading = linea.match(/^(#{1,4})\s+(.+)$/);
+
+            if (heading) {
+                cerrarParrafo();
+                cerrarLista();
+
+                const nivel = heading[1].length;
+                const contenido = heading[2];
+
+                html.push(
+                    `<h${nivel}>${procesarInline(contenido)}</h${nivel}>`
+                );
+
+                continue;
+            }
+
+            // Lista no ordenada
+            if (/^[-+*]\s+/.test(linea)) {
+
+                cerrarParrafo();
+
+                if (tipoLista && tipoLista !== 'ul') {
+                    cerrarLista();
+                }
+
+                tipoLista = 'ul';
+
+                lista.push(
+                    linea.replace(/^[-+*]\s+/, '')
+                );
+
+                continue;
+            }
+
+            // Lista ordenada
+            if (/^\d+\.\s+/.test(linea)) {
+
+                cerrarParrafo();
+
+                if (tipoLista && tipoLista !== 'ol') {
+                    cerrarLista();
+                }
+
+                tipoLista = 'ol';
+
+                lista.push(
+                    linea.replace(/^\d+\.\s+/, '')
+                );
+
+                continue;
+            }
+
+            if (lista.length) {
+                cerrarLista();
+            }
+
+            // Texto normal
+            parrafo.push(lineaOriginal);
+        }
+
+        cerrarParrafo();
+        cerrarLista();
+        cerrarCita();
+        cerrarBloqueEspecial();
+        cerrarCodigo();
+
+        return html.join('\n\n');
+    }
+
+    function convertir() {
+
+        const markdown = document.getElementById('markdown').value;
+        const completo = document.getElementById('htmlCompleto').checked;
+        const titulo = document.getElementById('tituloArchivo').value.trim() || 'Estudio bíblico';
+
+        if (!markdown.trim()) {
+            mostrarEstado('⚠️ Pegá primero algún contenido Markdown.');
+            return;
+        }
+
+        const cuerpo = markdownAHTML(markdown);
+
+        let salida = cuerpo;
+
+        if (completo) {
+            salida = `<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>${escaparHTML(titulo)}</title>
+
+    <link rel="stylesheet" href="../../../../../css/estilo-base.css">
+
+</head>
+
+<body>
+
+    <div class="estudio-container">
+
+${indentar(cuerpo, 8)}
+
+    </div>
+
+</body>
+
+</html>`;
+        }
+
+        document.getElementById('resultado').value = salida;
+
+        guardarLocal(true);
+
+        mostrarEstado('✅ Conversión completada.');
+    }
+
+    function indentar(texto, espacios = 4) {
+        const prefijo = ' '.repeat(espacios);
+
+        return texto
+            .split('\n')
+            .map(linea => linea ? prefijo + linea : '')
+            .join('\n');
+    }
+
+    async function copiarResultado() {
+
+        const resultado = document.getElementById('resultado');
+
+        if (!resultado.value.trim()) {
+            mostrarEstado('⚠️ Primero convertí el Markdown.');
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(resultado.value);
+            mostrarEstado('✅ HTML copiado al portapapeles.');
+        } catch {
+            resultado.select();
+            document.execCommand('copy');
+            mostrarEstado('✅ HTML copiado al portapapeles.');
+        }
+    }
+
+    function descargarResultado() {
+
+        const contenido = document.getElementById('resultado').value;
+
+        if (!contenido.trim()) {
+            mostrarEstado('⚠️ Primero convertí el Markdown.');
+            return;
+        }
+
+        const titulo =
+            document.getElementById('tituloArchivo').value.trim() ||
+            'estudio';
+
+        const nombre = slugify(titulo) + '.html';
+
+        const blob = new Blob(
+            [contenido],
+            { type: 'text/html;charset=utf-8' }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+        a.download = nombre;
+
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        URL.revokeObjectURL(url);
+
+        mostrarEstado(`✅ Archivo preparado: ${nombre}`);
+    }
+
+    function slugify(texto) {
+        return texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function guardarLocal(silencioso = false) {
+
+        const datos = {
+            titulo: document.getElementById('tituloArchivo').value,
+            markdown: document.getElementById('markdown').value,
+            htmlCompleto: document.getElementById('htmlCompleto').checked
+        };
+
+        localStorage.setItem(
+            'generadorMarkdownEstudiosV4',
+            JSON.stringify(datos)
+        );
+
+        if (!silencioso) {
+            mostrarEstado('✅ Markdown guardado en este navegador.');
+        }
+    }
+
+    function cargarLocal() {
+
+        const guardado = localStorage.getItem(
+            'generadorMarkdownEstudiosV4'
+        );
+
+        if (!guardado) {
+            mostrarEstado('⚠️ No hay ningún borrador guardado.');
+            return;
+        }
+
+        try {
+            const datos = JSON.parse(guardado);
+
+            document.getElementById('tituloArchivo').value =
+                datos.titulo || '';
+
+            document.getElementById('markdown').value =
+                datos.markdown || '';
+
+            document.getElementById('htmlCompleto').checked =
+                !!datos.htmlCompleto;
+
+            mostrarEstado('✅ Borrador recuperado.');
+        } catch {
+            mostrarEstado('⚠️ No se pudo recuperar el borrador.');
+        }
+    }
+
+    function limpiarTodo() {
+
+        if (!confirm('¿Seguro que querés limpiar Markdown y HTML?')) {
+            return;
+        }
+
+        document.getElementById('tituloArchivo').value = '';
+        document.getElementById('markdown').value = '';
+        document.getElementById('resultado').value = '';
+        document.getElementById('htmlCompleto').checked = false;
+
+        mostrarEstado('🗑️ Campos limpiados.');
+    }
+
+    function mostrarEstado(mensaje) {
+        document.getElementById('estado').textContent = mensaje;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('markdown').addEventListener(
+            'keydown',
+            event => {
+                if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                    convertir();
+                }
+            }
+        );
+    });
+
+</script>
+
+</body>
+</html>
