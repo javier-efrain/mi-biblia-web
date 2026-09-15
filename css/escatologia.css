@@ -1,0 +1,402 @@
+/* ESCATOLOGÍA — identidad visual de la colección
+   Complementa colecciones.css sin modificar el diseño global. */
+
+.pagina-escatologia {
+  --esc-celeste: #9cc9d4;
+  --esc-azul: #172c38;
+  --esc-dorado: #d9ad70;
+  --esc-noche: #071015;
+}
+
+.hero-escatologia {
+  min-height: min(88vh, 880px);
+}
+
+.hero-escatologia__fondo {
+  background:
+    radial-gradient(circle at 75% 37%, rgba(233,190,112,.26), transparent 8%),
+    radial-gradient(circle at 73% 44%, rgba(117,174,191,.18), transparent 25%),
+    linear-gradient(135deg, #071015 0%, #102630 38%, #1f2d31 61%, #0d0f10 100%);
+}
+
+.hero-escatologia__fondo::before {
+  left: -4%;
+  right: -4%;
+  bottom: -2%;
+  height: 36%;
+  background: linear-gradient(180deg,#172126,#0d0f10);
+  clip-path: polygon(0 76%, 10% 60%, 20% 69%, 31% 42%, 41% 65%, 52% 50%, 63% 70%, 75% 38%, 86% 62%, 100% 46%, 100% 100%, 0 100%);
+}
+
+.hero-escatologia__fondo::after {
+  content: "";
+  position: absolute;
+  width: min(34vw, 440px);
+  aspect-ratio: 1;
+  right: 10%;
+  top: 19%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 0 0 45px rgba(255,255,255,.018),
+    0 0 0 90px rgba(255,255,255,.012);
+}
+
+.hero-escatologia__overlay {
+  background:
+    linear-gradient(90deg, rgba(5,10,13,.96), rgba(5,10,13,.73) 38%, rgba(5,10,13,.18) 78%),
+    linear-gradient(0deg, var(--col-bg), transparent 38%);
+}
+
+.hero-escatologia__lema {
+  margin: 16px 0 0;
+  color: var(--esc-celeste);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem,2vw,1.65rem);
+  line-height: 1.35;
+}
+
+.hero-escatologia__horizonte {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.estrella {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.68);
+  box-shadow: 0 0 12px rgba(255,255,255,.45);
+}
+.estrella--1 { top: 22%; right: 35%; }
+.estrella--2 { top: 31%; right: 18%; width: 2px; height: 2px; }
+.estrella--3 { top: 18%; right: 11%; }
+.estrella--4 { top: 45%; right: 29%; width: 2px; height: 2px; }
+.estrella--5 { top: 12%; right: 24%; width: 2px; height: 2px; }
+
+.biblioteca-escatologia {
+  max-width: 1280px;
+}
+
+.intro-escatologia {
+  padding: clamp(26px,4vw,48px);
+  border: 1px solid var(--col-borde);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(156,201,212,.08), transparent 45%),
+    var(--col-superficie);
+}
+
+.intro-escatologia__texto {
+  max-width: 850px;
+}
+
+.intro-escatologia h2,
+.temario-escatologia h2 {
+  margin: 5px 0 0;
+  color: #fff !important;
+  font-size: clamp(1.8rem,3.2vw,2.8rem);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.intro-escatologia__texto > p:last-child,
+.temario-escatologia__encabezado > p {
+  color: var(--col-suave);
+  line-height: 1.7;
+}
+
+.metodo-escatologia {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  margin-top: 32px;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.metodo-escatologia span {
+  flex: 0 0 auto;
+  padding: 12px 14px;
+  border: 1px solid rgba(156,201,212,.16);
+  border-radius: 10px;
+  background: rgba(7,16,21,.55);
+  color: #e8eeee;
+  font-size: .82rem;
+  font-weight: 720;
+}
+
+.metodo-escatologia b {
+  margin-right: 6px;
+  color: var(--esc-celeste);
+  font-size: .68rem;
+}
+
+.metodo-escatologia i {
+  color: rgba(255,255,255,.25);
+  font-style: normal;
+}
+
+.criterios-escatologia {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 9px 22px;
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid var(--col-borde);
+}
+
+.criterios-escatologia span {
+  color: var(--col-suave);
+  font-size: .79rem;
+  line-height: 1.5;
+}
+
+.criterios-escatologia b { color: #f4f1eb; }
+
+.temario-escatologia {
+  margin-top: clamp(70px,8vw,110px);
+}
+
+.temario-escatologia__encabezado {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(260px,420px);
+  align-items: end;
+  gap: 40px;
+}
+
+.temario-escatologia__encabezado > p {
+  margin: 0;
+  font-size: .9rem;
+}
+
+.modulos-rapidos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 38px;
+}
+
+.modulos-rapidos a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--col-borde);
+  border-radius: 50%;
+  color: var(--col-suave) !important;
+  text-decoration: none;
+  font-size: .75rem;
+  font-weight: 800;
+  transition: .2s ease;
+}
+
+.modulos-rapidos a:hover {
+  color: #fff !important;
+  border-color: rgba(156,201,212,.45);
+  background: rgba(156,201,212,.08);
+  transform: translateY(-2px);
+}
+
+.lista-modulos {
+  display: grid;
+  gap: 22px;
+}
+
+.modulo-escatologia {
+  scroll-margin-top: 28px;
+  overflow: hidden;
+  border: 1px solid var(--col-borde);
+  border-radius: 20px;
+  background: #141819;
+}
+
+.modulo-escatologia__cabecera {
+  display: grid;
+  grid-template-columns: 110px minmax(0,1fr);
+  gap: 24px;
+  padding: 27px 30px;
+  border-bottom: 1px solid var(--col-borde);
+  background:
+    linear-gradient(100deg, rgba(156,201,212,.075), transparent 42%),
+    #171b1d;
+}
+
+.modulo-escatologia__numero {
+  color: var(--esc-celeste);
+  font-size: .72rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+}
+
+.modulo-escatologia h2 {
+  margin: 0;
+  color: #fff !important;
+  font-size: clamp(1.35rem,2.5vw,1.9rem);
+  line-height: 1.1;
+}
+
+.modulo-escatologia__cabecera p {
+  margin: 8px 0 0;
+  color: var(--col-suave);
+  font-size: .86rem;
+  line-height: 1.55;
+}
+
+.modulo-escatologia__estudios {
+  display: grid;
+}
+
+.estudio-indice {
+  display: grid;
+  grid-template-columns: 58px minmax(0,1fr) 120px;
+  align-items: center;
+  gap: 16px;
+  min-height: 82px;
+  padding: 14px 26px;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+  color: inherit;
+  text-decoration: none;
+}
+
+.estudio-indice:last-child { border-bottom: 0; }
+
+.estudio-indice__numero {
+  color: rgba(255,255,255,.3);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+}
+
+.estudio-indice__texto {
+  display: grid;
+  gap: 5px;
+}
+
+.estudio-indice__texto strong {
+  color: #ece9e3;
+  font-size: .95rem;
+  line-height: 1.3;
+}
+
+.estudio-indice__texto small {
+  color: #858b8c;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.estudio-indice__estado {
+  justify-self: end;
+  color: #676d6f;
+  font-size: .72rem;
+  font-weight: 780;
+  text-align: right;
+}
+
+.estudio-indice--publicado {
+  position: relative;
+  background: linear-gradient(90deg, rgba(217,173,112,.08), rgba(156,201,212,.035));
+}
+
+.estudio-indice--publicado::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--esc-dorado);
+}
+
+.estudio-indice--publicado .estudio-indice__numero,
+.estudio-indice--publicado .estudio-indice__estado {
+  color: var(--esc-dorado);
+}
+
+.estudio-indice--publicado:hover {
+  background: linear-gradient(90deg, rgba(217,173,112,.14), rgba(156,201,212,.06));
+}
+
+.estudio-indice--publicado:hover .estudio-indice__texto strong {
+  color: #fff;
+}
+
+.estudio-indice--proximo {
+  opacity: .72;
+}
+
+.cierre-escatologia {
+  max-width: 920px;
+  margin: clamp(80px,9vw,130px) auto 20px;
+  text-align: center;
+}
+
+.cierre-escatologia blockquote {
+  margin: 15px 0 18px;
+  padding: 0;
+  border: 0;
+  color: #f2eee7;
+  background: transparent;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.55rem,3vw,2.5rem);
+  line-height: 1.35;
+}
+
+.cierre-escatologia > p:last-child {
+  max-width: 720px;
+  margin: auto;
+  color: var(--col-suave);
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .criterios-escatologia { grid-template-columns: 1fr; }
+
+  .temario-escatologia__encabezado {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .modulo-escatologia__cabecera {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 23px 20px;
+  }
+
+  .estudio-indice {
+    grid-template-columns: 44px minmax(0,1fr);
+    gap: 10px;
+    padding: 15px 18px;
+  }
+
+  .estudio-indice__estado {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: -2px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-escatologia {
+    min-height: 800px;
+  }
+
+  .hero-escatologia__lema {
+    font-size: 1.18rem;
+  }
+
+  .intro-escatologia {
+    padding: 24px 19px;
+  }
+
+  .metodo-escatologia i { display: none; }
+
+  .modulos-rapidos a {
+    width: 34px;
+    height: 34px;
+  }
+
+  .estudio-indice__texto small {
+    display: none;
+  }
+}
