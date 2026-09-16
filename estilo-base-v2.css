@@ -1591,7 +1591,7 @@ a.navegacion-estudio__indice:hover {
 }
 
 /* ============================================================
-   39. GRADOS DE CERTEZA ESCATOLÓGICA
+   GRADOS DE CERTEZA ESCATOLÓGICA
    ============================================================ */
 
 .tabla-certeza td:last-child {
@@ -1602,56 +1602,39 @@ a.navegacion-estudio__indice:hover {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-
     padding: 5px 10px;
     border-radius: 999px;
-
     font-size: 0.78rem;
     font-weight: 700;
     line-height: 1.35;
-
     white-space: nowrap;
 }
 
-/* 🟢 Muy fuerte */
 .grado-certeza--fuerte {
     color: #047857;
     background: var(--verde-suave);
     border: 1px solid #a7f3d0;
 }
 
-/* 🟡 Probable */
 .grado-certeza--probable {
     color: #b45309;
     background: var(--ambar-suave);
     border: 1px solid #fde68a;
 }
 
-/* 🟠 Disputado */
 .grado-certeza--disputado {
     color: #c2410c;
     background: #fff7ed;
     border: 1px solid #fed7aa;
 }
 
-/* 🔴 Especulativo */
 .grado-certeza--especulativo {
     color: #b91c1c;
     background: var(--rojo-suave);
     border: 1px solid #fecaca;
 }
 
-
-/* ---------- MOBILE ---------- */
-
 @media (max-width: 700px) {
-
-    .tabla-certeza td:last-child {
-        width: auto;
-    }
-
-    .grado-certeza {
-        font-size: 0.74rem;
-        padding: 4px 8px;
-    }
+    .tabla-certeza td:last-child { width: auto; }
+    .grado-certeza { font-size: 0.74rem; padding: 4px 8px; }
 }
