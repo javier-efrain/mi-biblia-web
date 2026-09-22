@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lunes — Semana de la Pasión</title>
+
+<style>
+
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --fondo: #07111f;
+    --fondo-secundario: #0b1829;
+
+    --texto: #f4f6f8;
+    --texto-suave: #9eacbd;
+
+    --dorado: #d9ad63;
+    --dorado-claro: #f0cf91;
+
+    --borde: rgba(255,255,255,.10);
+    --borde-suave: rgba(255,255,255,.065);
+
+    --ancho: 1060px;
+    --ancho-lectura: 760px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at 12% 0%,
+            rgba(47, 91, 137, .23),
+            transparent 31rem
+        ),
+        radial-gradient(
+            circle at 92% 25%,
+            rgba(190, 132, 55, .08),
+            transparent 28rem
+        ),
+        var(--fondo);
+
+    color: var(--texto);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    line-height: 1.7;
+}
+
+button {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+.contenedor {
+    width: min(var(--ancho), 91%);
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 62vh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 80px 24px 58px;
+
+    position: relative;
+    overflow: hidden;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: -180px;
+    top: -200px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(217,173,99,.14),
+            transparent 66%
+        );
+
+    pointer-events: none;
+}
+
+.hero-contenido {
+    width: min(var(--ancho), 100%);
+    margin: 0 auto;
+
+    position: relative;
+    z-index: 1;
+}
+
+.hero-etapa {
+    margin-bottom: 15px;
+
+    color: var(--dorado-claro);
+
+    font-size: .75rem;
+    font-weight: 800;
+
+    letter-spacing: .17em;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(3.3rem, 8vw, 6.2rem);
+    font-weight: 500;
+
+    line-height: .95;
+    letter-spacing: -.045em;
+}
+
+.hero-descripcion {
+    max-width: 650px;
+
+    margin: 24px 0 0;
+
+    color: var(--texto-suave);
+
+    font-size: clamp(1rem, 2vw, 1.13rem);
+}
+
+.hero-linea {
+    width: 65px;
+    height: 2px;
+
+    margin-top: 28px;
+
+    background: var(--dorado);
+}
+
+
+/* =========================================================
+   NAVEGACIÓN DEL DÍA
+========================================================= */
+
+.indice {
+    padding: 25px 0;
+
+    border-bottom: 1px solid var(--borde);
+
+    background: rgba(5,14,25,.44);
+
+    backdrop-filter: blur(12px);
+}
+
+.indice-label {
+    margin-bottom: 11px;
+
+    color: var(--texto-suave);
+
+    font-size: .69rem;
+    font-weight: 800;
+
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+.indice-links {
+    display: flex;
+    gap: 9px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+.indice-links::-webkit-scrollbar {
+    display: none;
+}
+
+.indice-links a {
+    flex: 0 0 auto;
+
+    padding: 8px 14px;
+
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+
+    color: #d6dee8;
+
+    font-size: .84rem;
+
+    text-decoration: none;
+
+    transition: .2s;
+}
+
+.indice-links a:hover {
+    color: var(--dorado-claro);
+
+    border-color: rgba(217,173,99,.55);
+
+    background: rgba(217,173,99,.06);
+}
+
+
+/* =========================================================
+   INTRODUCCIÓN A LA LECTURA
+========================================================= */
+
+.intro-lectura {
+    padding: 42px 0 12px;
+}
+
+.intro-contenido {
+    max-width: var(--ancho-lectura);
+}
+
+.intro-etiqueta {
+    margin-bottom: 8px;
+
+    color: var(--dorado);
+
+    font-size: .68rem;
+    font-weight: 800;
+
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.intro-lectura p {
+    margin: 0;
+
+    color: var(--texto-suave);
+
+    font-size: .91rem;
+    line-height: 1.7;
+}
+
+.intro-lectura strong {
+    color: #dce3eb;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RELATOS
+========================================================= */
+
+.relato {
+    padding: 38px 0 0;
+
+    scroll-margin-top: 20px;
+}
+
+
+/* =========================================================
+   CABECERA DEL RELATO
+========================================================= */
+
+.relato-cabecera {
+    max-width: var(--ancho-lectura);
+}
+
+.relato-superior {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
+}
+
+.relato-numero {
+    color: var(--dorado);
+
+    font-size: .72rem;
+    font-weight: 800;
+
+    letter-spacing: .13em;
+}
+
+.relato-lugar {
+    color: var(--texto-suave);
+
+    font-size: .68rem;
+    font-weight: 700;
+
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.relato-lugar::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 20px;
+    height: 1px;
+
+    margin-right: 12px;
+
+    vertical-align: middle;
+
+    background: rgba(255,255,255,.18);
+}
+
+.relato h2 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(2rem, 5vw, 3.35rem);
+    font-weight: 500;
+
+    line-height: 1.08;
+    letter-spacing: -.025em;
+}
+
+.relato-meta {
+    margin-top: 11px;
+
+    color: var(--texto-suave);
+
+    font-size: .85rem;
+}
+
+
+/* =========================================================
+   SELECTOR DE LECTURA
+========================================================= */
+
+.selector {
+    max-width: var(--ancho-lectura);
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 22px;
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid var(--borde);
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+.selector::-webkit-scrollbar {
+    display: none;
+}
+
+.selector button {
+    flex: 0 0 auto;
+
+    padding: 7px 11px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: var(--texto-suave);
+
+    font-size: .82rem;
+
+    cursor: pointer;
+
+    transition:
+        color .18s,
+        background .18s;
+}
+
+.selector button:hover {
+    color: white;
+
+    background: rgba(255,255,255,.05);
+}
+
+.selector button.activo {
+    color: var(--dorado-claro);
+
+    background: rgba(217,173,99,.11);
+}
+
+.selector-separador {
+    width: 1px;
+    height: 19px;
+
+    margin: 0 4px;
+
+    background: var(--borde);
+
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   CONTENIDO DEL RELATO
+========================================================= */
+
+.lector-contenido {
+    max-width: var(--ancho-lectura);
+
+    padding-top: 23px;
+}
+
+.modo {
+    display: none;
+}
+
+.modo.activo {
+    display: block;
+
+    animation: aparecer .24s ease;
+}
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modo-referencia {
+    margin-bottom: 16px;
+
+    color: var(--dorado);
+
+    font-size: .68rem;
+    font-weight: 800;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.texto-biblico {
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: #edf1f4;
+
+    font-size: clamp(1.08rem, 2vw, 1.22rem);
+
+    line-height: 1.88;
+}
+
+.texto-biblico p {
+    margin: 0 0 18px;
+}
+
+.texto-biblico p:last-child {
+    margin-bottom: 0;
+}
+
+.versiculo {
+    margin-right: 4px;
+
+    color: var(--dorado-claro);
+
+    font-family:
+        Inter,
+        system-ui,
+        sans-serif;
+
+    font-size: .6em;
+    font-weight: 800;
+
+    vertical-align: super;
+}
+
+
+/* =========================================================
+   ENLACE AL ESTUDIO
+========================================================= */
+
+.acciones-relato {
+    max-width: var(--ancho-lectura);
+
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 21px;
+}
+
+.estudio-link {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--dorado-claro);
+
+    font-size: .82rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        gap .2s,
+        color .2s;
+}
+
+.estudio-link:hover {
+    gap: 12px;
+    color: white;
+}
+
+
+/* =========================================================
+   SEPARADOR ENTRE RELATOS
+========================================================= */
+
+.separador-relato {
+    max-width: var(--ancho-lectura);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 32px;
+
+    color: rgba(217,173,99,.42);
+
+    font-size: .65rem;
+    letter-spacing: .25em;
+}
+
+
+/* =========================================================
+   CONTINUAR
+========================================================= */
+
+.continuar {
+    margin-top: 44px;
+
+    padding: 52px 0 85px;
+
+    border-top: 1px solid var(--borde-suave);
+}
+
+.continuar-label {
+    color: var(--texto-suave);
+
+    font-size: .68rem;
+    font-weight: 800;
+
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+.continuar a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    font-family: Georgia, serif;
+
+    color: white;
+
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+
+    text-decoration: none;
+}
+
+.continuar a span {
+    color: var(--dorado);
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .contenedor {
+        width: 90%;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 52vh;
+
+        padding:
+            65px 20px
+            40px;
+    }
+
+    .hero h1 {
+        font-size: clamp(3rem, 17vw, 4.7rem);
+    }
+
+    .hero-descripcion {
+        margin-top: 18px;
+
+        font-size: .97rem;
+    }
+
+
+    /* ÍNDICE */
+
+    .indice {
+        padding: 18px 0;
+    }
+
+
+    /* INTRO */
+
+    .intro-lectura {
+        padding: 30px 0 5px;
+    }
+
+    .intro-lectura p {
+        font-size: .84rem;
+    }
+
+
+    /* RELATO */
+
+    .relato {
+        padding-top: 30px;
+    }
+
+    .relato-superior {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .relato-lugar {
+        font-size: .61rem;
+    }
+
+    .relato-lugar::before {
+        width: 13px;
+        margin-right: 8px;
+    }
+
+    .relato h2 {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .relato-meta {
+        margin-top: 9px;
+        font-size: .78rem;
+    }
+
+
+    /* SELECTOR */
+
+    .selector {
+        margin-top: 17px;
+        padding-bottom: 9px;
+
+        gap: 3px;
+    }
+
+    .selector button {
+        padding: 7px 9px;
+
+        font-size: .77rem;
+    }
+
+
+    /* TEXTO */
+
+    .lector-contenido {
+        padding-top: 18px;
+    }
+
+    .modo-referencia {
+        margin-bottom: 12px;
+    }
+
+    .texto-biblico {
+        font-size: 1.07rem;
+        line-height: 1.8;
+    }
+
+    .texto-biblico p {
+        margin-bottom: 16px;
+    }
+
+
+    /* ESTUDIO */
+
+    .acciones-relato {
+        margin-top: 18px;
+    }
+
+    .estudio-link {
+        font-size: .78rem;
+    }
+
+
+    /* SEPARACIÓN */
+
+    .separador-relato {
+        margin-top: 25px;
+    }
+
+
+    /* CONTINUAR */
+
+    .continuar {
+        margin-top: 34px;
+        padding: 42px 0 65px;
+    }
+
+}
+
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .contenedor {
+        width: 92%;
+    }
+
+    .selector button {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     HERO
+======================================================= -->
+
+<header class="hero">
+
+    <div class="hero-contenido">
+
+        <div class="hero-etapa">
+            Vida de Jesús · Semana de la Pasión
+        </div>
+
+        <h1>Lunes</h1>
+
+        <p class="hero-descripcion">
+            Desde Betania hasta Jerusalén, los acontecimientos
+            comienzan a revelar con creciente intensidad el juicio,
+            la autoridad y la misión de Jesús.
+        </p>
+
+        <div class="hero-linea"></div>
+
+    </div>
+
+</header>
+
+
+<!-- ======================================================
+     ÍNDICE DEL DÍA
+======================================================= -->
+
+<nav class="indice">
+
+    <div class="contenedor">
+
+        <div class="indice-label">
+            Relatos de este día
+        </div>
+
+        <div class="indice-links">
+
+            <a href="#higuera">
+                01 · La higuera
+            </a>
+
+            <a href="#templo">
+                02 · Purificación del templo
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+
+<!-- ======================================================
+     ACLARACIÓN GENERAL
+======================================================= -->
+
+<section class="intro-lectura">
+
+    <div class="contenedor">
+
+        <div class="intro-contenido">
+
+            <div class="intro-etiqueta">
+                Cómo leer esta página
+            </div>
+
+            <p>
+                <strong>Relato unificado</strong> presenta una lectura
+                narrativa construida a partir de los Evangelios.
+                Podés consultar en cada episodio los relatos bíblicos
+                individuales de Mateo, Marcos, Lucas o Juan cuando
+                estén disponibles.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+     RELATO 01 — HIGUERA
+======================================================= -->
+
+<section
+    class="relato"
+    id="higuera"
+>
+
+<div class="contenedor">
+
+
+    <!-- CABECERA -->
+
+    <header class="relato-cabecera">
+
+        <div class="relato-superior">
+
+            <span class="relato-numero">
+                01
+            </span>
+
+            <span class="relato-lugar">
+                Camino de Betania a Jerusalén
+            </span>
+
+        </div>
+
+        <h2>
+            Jesús y la higuera
+        </h2>
+
+        <div class="relato-meta">
+            Mateo 21:18-22 · Marcos 11:12-14, 20-25
+        </div>
+
+    </header>
+
+
+    <!-- SELECTOR -->
+
+    <div class="selector">
+
+        <button
+            class="activo"
+            data-modo="unificado">
+            ✦ Unificado
+        </button>
+
+        <span class="selector-separador"></span>
+
+        <button data-modo="mateo">
+            Mateo
+        </button>
+
+        <button data-modo="marcos">
+            Marcos
+        </button>
+
+    </div>
+
+
+    <!-- CONTENIDO -->
+
+    <div class="lector-contenido">
+
+
+        <!-- UNIFICADO -->
+
+        <div
+            class="modo activo"
+            data-contenido="unificado">
+
+            <div class="modo-referencia">
+                Relato unificado
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    Al día siguiente, cuando Jesús y sus discípulos
+                    salieron de Betania rumbo a Jerusalén, Jesús
+                    tuvo hambre.
+                </p>
+
+                <p>
+                    A cierta distancia vio una higuera con hojas
+                    y se acercó buscando fruto. Al llegar, no
+                    encontró lo que buscaba.
+                </p>
+
+                <p>
+                    Jesús pronunció entonces palabras de juicio
+                    sobre la higuera. Los discípulos lo oyeron
+                    y continuaron hacia Jerusalén.
+                </p>
+
+                <p>
+                    Más tarde, al pasar nuevamente por aquel lugar,
+                    observaron lo ocurrido con el árbol. El episodio
+                    dio lugar a una enseñanza de Jesús dirigida a
+                    sus discípulos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATEO -->
+
+        <div
+            class="modo"
+            data-contenido="mateo">
+
+            <div class="modo-referencia">
+                Mateo 21:18-22
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    <sup class="versiculo">18</sup>
+                    Texto RVC de Mateo 21:18...
+                </p>
+
+                <p>
+                    <sup class="versiculo">19</sup>
+                    Texto RVC de Mateo 21:19...
+                </p>
+
+                <p>
+                    <sup class="versiculo">20</sup>
+                    Texto RVC de Mateo 21:20...
+                </p>
+
+                <p>
+                    <sup class="versiculo">21</sup>
+                    Texto RVC de Mateo 21:21...
+                </p>
+
+                <p>
+                    <sup class="versiculo">22</sup>
+                    Texto RVC de Mateo 21:22...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MARCOS -->
+
+        <div
+            class="modo"
+            data-contenido="marcos">
+
+            <div class="modo-referencia">
+                Marcos 11:12-14, 20-25
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    <sup class="versiculo">12</sup>
+                    Texto RVC de Marcos 11:12...
+                </p>
+
+                <p>
+                    <sup class="versiculo">13</sup>
+                    Texto RVC de Marcos 11:13...
+                </p>
+
+                <p>
+                    <sup class="versiculo">14</sup>
+                    Texto RVC de Marcos 11:14...
+                </p>
+
+                <p>
+                    <sup class="versiculo">20</sup>
+                    Texto RVC de Marcos 11:20...
+                </p>
+
+                <p>
+                    <sup class="versiculo">21</sup>
+                    Texto RVC de Marcos 11:21...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTUDIO -->
+
+    <div class="acciones-relato">
+
+        <a
+            class="estudio-link"
+            href="#">
+            Profundizar · Estudiar este relato
+            <span>→</span>
+        </a>
+
+    </div>
+
+
+    <!-- SEPARADOR -->
+
+    <div class="separador-relato">
+        · · ·
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     RELATO 02 — TEMPLO
+======================================================= -->
+
+<section
+    class="relato"
+    id="templo"
+>
+
+<div class="contenedor">
+
+
+    <!-- CABECERA -->
+
+    <header class="relato-cabecera">
+
+        <div class="relato-superior">
+
+            <span class="relato-numero">
+                02
+            </span>
+
+            <span class="relato-lugar">
+                Jerusalén · Recinto del templo
+            </span>
+
+        </div>
+
+        <h2>
+            Jesús purifica el templo
+        </h2>
+
+        <div class="relato-meta">
+            Mateo 21:12-17 · Marcos 11:15-19 · Lucas 19:45-48
+        </div>
+
+    </header>
+
+
+    <!-- SELECTOR -->
+
+    <div class="selector">
+
+        <button
+            class="activo"
+            data-modo="unificado">
+            ✦ Unificado
+        </button>
+
+        <span class="selector-separador"></span>
+
+        <button data-modo="mateo">
+            Mateo
+        </button>
+
+        <button data-modo="marcos">
+            Marcos
+        </button>
+
+        <button data-modo="lucas">
+            Lucas
+        </button>
+
+    </div>
+
+
+    <!-- CONTENIDO -->
+
+    <div class="lector-contenido">
+
+
+        <!-- UNIFICADO -->
+
+        <div
+            class="modo activo"
+            data-contenido="unificado">
+
+            <div class="modo-referencia">
+                Relato unificado
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    Jesús llegó a Jerusalén y entró en el recinto
+                    del templo.
+                </p>
+
+                <p>
+                    Allí confrontó las actividades comerciales
+                    que se desarrollaban en aquel espacio,
+                    expulsando a quienes compraban y vendían y
+                    trastornando las mesas relacionadas con
+                    aquellas transacciones.
+                </p>
+
+                <p>
+                    Su acción estuvo acompañada por una enseñanza
+                    basada en las Escrituras: el templo debía
+                    corresponder al propósito de Dios como casa
+                    de oración.
+                </p>
+
+                <p>
+                    Las autoridades religiosas observaron lo
+                    ocurrido y la tensión alrededor de Jesús
+                    continuó aumentando.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MATEO -->
+
+        <div
+            class="modo"
+            data-contenido="mateo">
+
+            <div class="modo-referencia">
+                Mateo 21:12-17
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    <sup class="versiculo">12</sup>
+                    Texto RVC de Mateo 21:12...
+                </p>
+
+                <p>
+                    <sup class="versiculo">13</sup>
+                    Texto RVC de Mateo 21:13...
+                </p>
+
+                <p>
+                    <sup class="versiculo">14</sup>
+                    Texto RVC de Mateo 21:14...
+                </p>
+
+                <p>
+                    <sup class="versiculo">15</sup>
+                    Texto RVC de Mateo 21:15...
+                </p>
+
+                <p>
+                    <sup class="versiculo">16</sup>
+                    Texto RVC de Mateo 21:16...
+                </p>
+
+                <p>
+                    <sup class="versiculo">17</sup>
+                    Texto RVC de Mateo 21:17...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MARCOS -->
+
+        <div
+            class="modo"
+            data-contenido="marcos">
+
+            <div class="modo-referencia">
+                Marcos 11:15-19
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    <sup class="versiculo">15</sup>
+                    Texto RVC de Marcos 11:15...
+                </p>
+
+                <p>
+                    <sup class="versiculo">16</sup>
+                    Texto RVC de Marcos 11:16...
+                </p>
+
+                <p>
+                    <sup class="versiculo">17</sup>
+                    Texto RVC de Marcos 11:17...
+                </p>
+
+                <p>
+                    <sup class="versiculo">18</sup>
+                    Texto RVC de Marcos 11:18...
+                </p>
+
+                <p>
+                    <sup class="versiculo">19</sup>
+                    Texto RVC de Marcos 11:19...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- LUCAS -->
+
+        <div
+            class="modo"
+            data-contenido="lucas">
+
+            <div class="modo-referencia">
+                Lucas 19:45-48
+            </div>
+
+            <div class="texto-biblico">
+
+                <p>
+                    <sup class="versiculo">45</sup>
+                    Texto RVC de Lucas 19:45...
+                </p>
+
+                <p>
+                    <sup class="versiculo">46</sup>
+                    Texto RVC de Lucas 19:46...
+                </p>
+
+                <p>
+                    <sup class="versiculo">47</sup>
+                    Texto RVC de Lucas 19:47...
+                </p>
+
+                <p>
+                    <sup class="versiculo">48</sup>
+                    Texto RVC de Lucas 19:48...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ESTUDIO -->
+
+    <div class="acciones-relato">
+
+        <a
+            class="estudio-link"
+            href="#">
+            Profundizar · Estudiar este relato
+            <span>→</span>
+        </a>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     CONTINUAR
+======================================================= -->
+
+<section class="continuar">
+
+    <div class="contenedor">
+
+        <div class="continuar-label">
+            Continuar la historia
+        </div>
+
+        <a href="#">
+            Martes <span>→</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- ======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+document.querySelectorAll(".relato").forEach(relato => {
+
+    const botones =
+        relato.querySelectorAll("[data-modo]");
+
+    const contenidos =
+        relato.querySelectorAll("[data-contenido]");
+
+
+    botones.forEach(boton => {
+
+        boton.addEventListener("click", () => {
+
+            const modo = boton.dataset.modo;
+
+
+            // Quitar selección actual
+
+            botones.forEach(b => {
+                b.classList.remove("activo");
+            });
+
+            contenidos.forEach(c => {
+                c.classList.remove("activo");
+            });
+
+
+            // Activar nueva selección
+
+            boton.classList.add("activo");
+
+            const contenido =
+                relato.querySelector(
+                    `[data-contenido="${modo}"]`
+                );
+
+            if (contenido) {
+                contenido.classList.add("activo");
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+
+</body>
+</html>
