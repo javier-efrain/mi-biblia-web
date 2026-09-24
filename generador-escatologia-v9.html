@@ -1,0 +1,150 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generador Escatología v9</title><style>
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#eef2f5;color:#17212b}.app{max-width:1500px;margin:auto;padding:20px}.top{background:#17212b;color:#fff;padding:18px 22px;border-radius:16px;margin-bottom:16px}.top h1{margin:0 0 6px}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.controls input,.controls select,textarea{width:100%;box-sizing:border-box;border:1px solid #cfd8df;border-radius:10px;padding:10px;font:inherit}.work{display:grid;grid-template-columns:1fr 1fr;gap:16px}textarea{height:70vh;resize:vertical;background:#fff}.preview{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #cfd8df}.preview iframe{width:100%;height:70vh;border:0}.buttons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.buttons button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#176b4d;color:white}.secondary{background:#fff}.status{font-size:.9rem;color:#53626d}.help{margin-top:16px;background:#fff;padding:16px;border-radius:14px}.help code{background:#eef2f5;padding:2px 5px;border-radius:5px}@media(max-width:900px){.work,.controls{grid-template-columns:1fr}.controls{gap:8px}}
+</style></head><body><main class="app"><div class="top"><h1>📖 Generador Escatología v9</h1><div>Renderizador de estudios: Markdown + biblioteca visual + reconocimiento de estudios anteriores.</div></div>
+<div class="controls"><input id="title" placeholder="Título del estudio"><input id="ref" placeholder="Referencia bíblica"><input id="cssBase" value="../../../css/estilo-base.css" aria-label="Ruta CSS base"><input id="cssUI" value="../../../css/escatologia-ui-v9.css" aria-label="Ruta CSS UI"></div>
+<div class="buttons"><button class="primary" onclick="renderNow()">Convertir / Vista previa</button><button class="secondary" onclick="loadDemo()">Cargar demo de componentes</button><button class="secondary" onclick="downloadHTML()">Descargar HTML completo</button><button class="secondary" onclick="downloadCSS()">Descargar CSS v9</button></div>
+<div class="work"><textarea id="src" placeholder="Pegá aquí el estudio completo..."></textarea><div class="preview"><iframe id="frame"></iframe></div></div><p class="status" id="status">Listo. El modo legado intenta reconocer automáticamente patrones de Estudios 1–18.</p>
+<div class="help"><b>Componentes soportados:</b> pregunta/idea/nota/advertencia/conclusión/cuestión abierta; grados de certeza; tarjetas; comparaciones; cronologías; barras; flujos; relaciones; árboles; procesos; tablas; estructura jerárquica; paralelos; hebreo/griego; fichas históricas; mapa escatológico; acordeones; pestañas; referencias; resúmenes; citas bíblicas e imágenes. Los componentes complejos pueden escribirse con bloques <code>:::tipo</code>. El reconocimiento legado cubre patrones frecuentes aunque el copiado desde ChatGPT haya aplanado parte del formato.</div></main>
+<script>
+const COMPONENT_CSS=`/* Escatologia UI v9 — complementa estilo-base.css */
+:root{--esc-bg:#f8fafc;--esc-line:#dbe4ea;--esc-text:#17212b;--esc-muted:#5c6b77;--esc-green:#176b4d;--esc-green-bg:#edf8f3;--esc-yellow:#8a6411;--esc-yellow-bg:#fff8df;--esc-orange:#9a4d13;--esc-orange-bg:#fff1e8;--esc-red:#a43b3b;--esc-red-bg:#fff0f0;--esc-blue:#315f8c;--esc-blue-bg:#eef6ff;--esc-purple:#674b8c;--esc-purple-bg:#f5f0fb}
+.esc-component{margin:1.5rem 0;border-radius:16px;box-sizing:border-box}.esc-callout{padding:1.15rem 1.25rem;border:1px solid var(--esc-line);border-left:5px solid var(--esc-blue);background:var(--esc-blue-bg)}.esc-callout h3{margin:.05rem 0 .55rem;font-size:1.05rem}.esc-callout p:last-child{margin-bottom:0}.esc-question{border-left-color:var(--esc-green);background:var(--esc-green-bg)}.esc-warning{border-left-color:var(--esc-orange);background:var(--esc-orange-bg)}.esc-conclusion{border-left-color:var(--esc-purple);background:var(--esc-purple-bg)}.esc-open{border-left-color:var(--esc-yellow);background:var(--esc-yellow-bg)}.esc-scripture{padding:1.25rem 1.4rem;border-left:5px solid var(--esc-green);background:#fbfcfa;font-size:1.04rem}.esc-original{padding:1rem 1.2rem;background:#f4f6f8;border:1px solid var(--esc-line)}
+.esc-certainty-grid,.esc-card-grid,.esc-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.35rem 0}.esc-card,.esc-certainty{padding:1rem 1.1rem;border:1px solid var(--esc-line);border-radius:14px;background:#fff}.esc-card h3,.esc-certainty h3{margin:0 0 .45rem}.esc-strong{background:var(--esc-green-bg);border-color:#b9ddcd}.esc-probable{background:var(--esc-yellow-bg);border-color:#eadba1}.esc-disputed{background:var(--esc-orange-bg);border-color:#ecc5a8}.esc-speculative{background:var(--esc-red-bg);border-color:#e8b7b7}.esc-badge{display:inline-block;padding:.18rem .55rem;border-radius:999px;font-weight:700;font-size:.88rem}.esc-badge.strong{background:var(--esc-green-bg);color:var(--esc-green)}.esc-badge.probable{background:var(--esc-yellow-bg);color:var(--esc-yellow)}.esc-badge.disputed{background:var(--esc-orange-bg);color:var(--esc-orange)}.esc-badge.speculative{background:var(--esc-red-bg);color:var(--esc-red)}
+.esc-timeline{position:relative;margin:1.4rem 0;padding-left:1.8rem}.esc-timeline:before{content:"";position:absolute;left:.42rem;top:.25rem;bottom:.25rem;width:3px;background:var(--esc-line)}.esc-time-item{position:relative;margin:0 0 1.2rem;padding:.1rem 0}.esc-time-item:before{content:"";position:absolute;left:-1.62rem;top:.38rem;width:.72rem;height:.72rem;border-radius:50%;background:var(--esc-blue)}.esc-time-item h3{margin:0 0 .25rem;font-size:1rem}.esc-time-item p{margin:.2rem 0;color:var(--esc-muted)}
+.esc-bars{padding:1.1rem 1.2rem;border:1px solid var(--esc-line);border-radius:16px;background:#fff}.esc-bars h3{margin:.1rem 0 1rem}.esc-bar-row{display:grid;grid-template-columns:minmax(150px,1fr) 3fr auto;gap:.75rem;align-items:center;margin:.7rem 0}.esc-bar-track{height:18px;background:#edf1f4;border-radius:999px;overflow:hidden}.esc-bar-fill{height:100%;background:var(--esc-green);border-radius:999px;min-width:3px}.esc-bar-value{font-weight:700}.esc-note{font-size:.9rem;color:var(--esc-muted);margin-top:.9rem}
+.esc-flow,.esc-relations{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center;margin:1.3rem 0}.esc-node{padding:.72rem .9rem;border:1px solid var(--esc-line);border-radius:12px;background:#fff;min-width:120px;text-align:center}.esc-arrow{font-size:1.25rem;color:var(--esc-muted)}.esc-tree{margin:1.3rem 0;padding:1rem;border:1px solid var(--esc-line);border-radius:16px}.esc-tree-root{text-align:center;font-weight:800;margin-bottom:1rem}.esc-tree-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}.esc-tree-branch{padding:.8rem;border-top:3px solid var(--esc-blue);background:#f8fafc;border-radius:10px}
+.esc-parallel{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch;margin:1.3rem 0}.esc-parallel-side{padding:1rem;border:1px solid var(--esc-line);border-radius:14px;background:#fff}.esc-parallel-link{align-self:center;font-size:1.4rem}.esc-language{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;padding:1rem 1.2rem;border:1px solid var(--esc-line);border-radius:14px;background:#f8fafc}.esc-language .term{font-size:1.45rem;font-weight:800}.esc-history{padding:1rem 1.2rem;border:1px solid var(--esc-line);border-radius:14px;background:#fff}.esc-history dl{display:grid;grid-template-columns:max-content 1fr;gap:.35rem 1rem;margin:.5rem 0}.esc-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.esc-map-item{padding:1rem;border:1px solid var(--esc-line);border-radius:14px;background:#fff}.esc-map-item[data-state="confirmado"]{border-top:4px solid var(--esc-green)}.esc-map-item[data-state="probable"]{border-top:4px solid var(--esc-yellow)}.esc-map-item[data-state="pendiente"],.esc-map-item[data-state="abierto"]{border-top:4px solid var(--esc-orange)}
+.esc-accordion{border:1px solid var(--esc-line);border-radius:12px;margin:.7rem 0;overflow:hidden}.esc-accordion summary{cursor:pointer;font-weight:700;padding:.9rem 1rem;background:#f8fafc}.esc-accordion-body{padding:1rem}.esc-tabs{border:1px solid var(--esc-line);border-radius:14px;overflow:hidden}.esc-tab-buttons{display:flex;flex-wrap:wrap;background:#f4f6f8}.esc-tab-buttons button{border:0;background:transparent;padding:.8rem 1rem;font-weight:700;cursor:pointer}.esc-tab-buttons button.active{background:#fff}.esc-tab-panel{display:none;padding:1rem}.esc-tab-panel.active{display:block}.esc-ref-list{display:flex;flex-wrap:wrap;gap:.45rem}.esc-ref{padding:.35rem .6rem;border-radius:999px;background:#eef3f7;border:1px solid var(--esc-line)}.esc-summary{padding:1.1rem 1.2rem;border:1px solid var(--esc-line);border-radius:16px;background:#fff}.esc-summary h3{margin-top:0}.esc-figure{margin:1.5rem auto;text-align:center}.esc-figure img{max-width:100%;height:auto;border-radius:12px}.esc-figure figcaption{font-size:.9rem;color:var(--esc-muted);margin-top:.45rem}.esc-section-kicker{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--esc-muted)}
+@media(max-width:700px){.esc-bar-row{grid-template-columns:1fr auto}.esc-bar-track{grid-column:1/-1}.esc-parallel{grid-template-columns:1fr}.esc-parallel-link{text-align:center;transform:rotate(90deg)}.esc-language,.esc-history dl{grid-template-columns:1fr}.esc-node{flex:1 1 100%}.esc-arrow{width:100%;text-align:center;transform:rotate(90deg)}}
+@media print{.esc-accordion-body{display:block!important}.esc-tab-panel{display:block!important}.esc-tab-buttons{display:none}.esc-component{break-inside:avoid}}
+`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/`(.+?)`/g,'<code>$1</code>');
+function blocks(text){let out=[],re=/^:::(\S+)(?:\s+([^\n]+))?\n([\s\S]*?)\n:::\s*$/gm,last=0,m;while((m=re.exec(text))){out.push({plain:text.slice(last,m.index)});out.push({type:m[1].toLowerCase(),title:(m[2]||'').trim(),body:m[3].trim()});last=re.lastIndex}out.push({plain:text.slice(last)});return out}
+function rows(body){return body.split(/\n+/).map(x=>x.trim()).filter(Boolean).map(x=>x.split('|').map(y=>y.trim()))}
+function component(b){let t=b.type,rs=rows(b.body),title=inline(b.title||'');
+ const call=(cls,label)=>`<aside class="esc-component esc-callout ${cls}"><h3>${title||label}</h3>${md(b.body)}</aside>`;
+ if(['pregunta','pregunta-central'].includes(t))return call('esc-question','La pregunta central'); if(['nota','idea','principio'].includes(t))return call('',t==='principio'?'Principio teológico':'Idea clave'); if(['advertencia','alerta'].includes(t))return call('esc-warning','Advertencia'); if(['conclusion','conclusion-provisional'].includes(t))return call('esc-conclusion','Conclusión'); if(['pregunta-abierta','abierto'].includes(t))return call('esc-open','❓ Cuestión abierta'); if(['versiculo','cita','escritura'].includes(t))return `<blockquote class="esc-component esc-scripture">${md(b.body)}</blockquote>`; if(['original','hebreo','griego'].includes(t))return `<div class="esc-component esc-original">${md(b.body)}</div>`;
+ if(['fuerte','probable','disputado','especulativo'].includes(t)){let map={fuerte:['esc-strong','🟢 Muy fuerte'],probable:['esc-probable','🟡 Probable'],disputado:['esc-disputed','🟠 Disputado'],especulativo:['esc-speculative','🔴 Especulativo']},x=map[t];return `<div class="esc-component esc-certainty ${x[0]}"><h3>${title||x[1]}</h3>${md(b.body)}</div>`}
+ if(['tarjetas','cards','comparacion'].includes(t))return `<section class="esc-component"><h3>${title}</h3><div class="${t==='comparacion'?'esc-compare':'esc-card-grid'}">${rs.map(r=>`<article class="esc-card"><h3>${inline(r[0])}</h3><p>${inline(r.slice(1).join(' | '))}</p></article>`).join('')}</div></section>`;
+ if(['cronologia','timeline','proceso'].includes(t))return `<section class="esc-component"><h3>${title}</h3><div class="esc-timeline">${rs.map(r=>`<div class="esc-time-item"><h3>${inline(r[0])}</h3><p>${inline(r.slice(1).join(' | '))}</p></div>`).join('')}</div></section>`;
+ if(t==='barras'){let data=rs.filter(r=>r[0].toLowerCase()!=='nota'&&!r[0].toLowerCase().startsWith('nota:')&&Number(String(r[1]).replace(/\D/g,''))),max=Math.max(...data.map(r=>+String(r[1]).replace(/\D/g,'')),1),note=rs.find(r=>r[0].toLowerCase().startsWith('nota'));return `<section class="esc-component esc-bars"><h3>${title}</h3>${data.map(r=>{let v=+String(r[1]).replace(/\D/g,'');return `<div class="esc-bar-row"><span>${inline(r[0])}</span><div class="esc-bar-track"><div class="esc-bar-fill" style="width:${(v/max*100).toFixed(2)}%"></div></div><span class="esc-bar-value">${inline(r[2]||r[1])}</span></div>`}).join('')}${note?`<p class="esc-note">${inline(note.join(' | ').replace(/^nota:?\s*/i,''))}</p>`:''}</section>`}
+ if(['flujo','diagrama','relaciones'].includes(t)){let nodes=b.body.split(/(?:\n|\s*->\s*|\s*→\s*)/).map(x=>x.trim()).filter(Boolean);return `<section class="esc-component"><h3>${title}</h3><div class="${t==='relaciones'?'esc-relations':'esc-flow'}">${nodes.map((n,i)=>`${i?'<span class="esc-arrow">→</span>':''}<div class="esc-node">${inline(n)}</div>`).join('')}</div></section>`}
+ if(t==='arbol'){return `<section class="esc-component esc-tree"><div class="esc-tree-root">${title||inline(rs[0]?.[0]||'')}</div><div class="esc-tree-branches">${rs.map(r=>`<div class="esc-tree-branch"><strong>${inline(r[0])}</strong><div>${inline(r.slice(1).join(' | '))}</div></div>`).join('')}</div></section>`}
+ if(t==='paralelo'){let a=rs[0]||[],c=rs[1]||[];return `<section class="esc-component esc-parallel"><div class="esc-parallel-side"><h3>${inline(a[0]||'A')}</h3><p>${inline(a.slice(1).join(' | '))}</p></div><div class="esc-parallel-link">↔</div><div class="esc-parallel-side"><h3>${inline(c[0]||'B')}</h3><p>${inline(c.slice(1).join(' | '))}</p></div></section>`}
+ if(['palabra','lengua'].includes(t)){return `<section class="esc-component esc-language"><div class="term">${inline(rs[0]?.[0]||title)}</div><div>${rs.map(r=>`<div><strong>${inline(r[0])}:</strong> ${inline(r.slice(1).join(' | '))}</div>`).join('')}</div></section>`}
+ if(['historico','ficha'].includes(t))return `<section class="esc-component esc-history"><h3>${title}</h3><dl>${rs.map(r=>`<dt><strong>${inline(r[0])}</strong></dt><dd>${inline(r.slice(1).join(' | '))}</dd>`).join('')}</dl></section>`;
+ if(['mapa','mapa-escatologico'].includes(t))return `<section class="esc-component"><h3>${title||'Mapa Escatológico'}</h3><div class="esc-map">${rs.map(r=>`<article class="esc-map-item" data-state="${esc((r[0]||'').toLowerCase())}"><div class="esc-section-kicker">${inline(r[0])}</div><h3>${inline(r[1]||'')}</h3><p>${inline(r.slice(2).join(' | '))}</p></article>`).join('')}</div></section>`;
+ if(t==='acordeon')return `<section class="esc-component">${rs.map(r=>`<details class="esc-accordion"><summary>${inline(r[0])}</summary><div class="esc-accordion-body">${inline(r.slice(1).join(' | '))}</div></details>`).join('')}</section>`;
+ if(t==='tabs'){let id='tabs'+Math.random().toString(36).slice(2);return `<section class="esc-component esc-tabs" id="${id}"><div class="esc-tab-buttons">${rs.map((r,i)=>`<button type="button" class="${i?'':'active'}" onclick="tab(this,${i})">${inline(r[0])}</button>`).join('')}</div>${rs.map((r,i)=>`<div class="esc-tab-panel ${i?'':'active'}"><h3>${inline(r[0])}</h3><p>${inline(r.slice(1).join(' | '))}</p></div>`).join('')}</section>`}
+ if(['referencias','refs'].includes(t))return `<section class="esc-component"><h3>${title}</h3><div class="esc-ref-list">${b.body.split(/[,;\n]/).map(x=>x.trim()).filter(Boolean).map(x=>`<span class="esc-ref">${inline(x)}</span>`).join('')}</div></section>`;
+ if(['resumen','sintesis'].includes(t))return `<section class="esc-component esc-summary"><h3>${title||'Síntesis'}</h3>${md(b.body)}</section>`;
+ return `<section class="esc-component esc-summary"><h3>${title||inline(t)}</h3>${md(b.body)}</section>`}
+function legacy(text){
+ // certainty paragraphs become styled cards inline
+ text=text.replace(/^(🟢\s*(?:Muy fuerte)?[:\-]?\s*)(.+)$/gm,':::fuerte\n$2\n:::').replace(/^(🟡\s*(?:Probable)?[:\-]?\s*)(.+)$/gm,':::probable\n$2\n:::').replace(/^(🟠\s*(?:Disputado)?[:\-]?\s*)(.+)$/gm,':::disputado\n$2\n:::').replace(/^(🔴\s*(?:Especulativo)?[:\-]?\s*)(.+)$/gm,':::especulativo\n$2\n:::');
+ // common question central pattern
+ text=text.replace(/^(#{1,3}\s*)?La pregunta central del estudio\s*\n+([^\n#][\s\S]*?)(?=\n\s*#{1,3}\s|\n\s*\n\s*#{1,3}\s)/im,(m,h,b)=>`:::pregunta-central La pregunta central del estudio\n${b.trim()}\n:::\n`);
+ text=text.replace(/^Conclusión provisional:\s*(.+)$/gmi,':::conclusion-provisional Conclusión provisional\n$1\n:::');
+ text=text.replace(/^❓\s*(.+)$/gm,':::pregunta-abierta\n$1\n:::');
+ // flattened Daniel 12 bars, narrowly recognized
+ text=text.replace(/(?:^#{1,3}\s*)?Los tres períodos de Daniel 12\s*\n+(?:Esquema comparativo[^\n]*\n+)?Un tiempo, tiempos y medio tiempo\s*\n+Daniel 12:7\s*\n+3½ tiempos\s*\n+1\.290 días\s*\n+Daniel 12:11\s*\n+1\.290 días\s*\n+1\.335 días\s*\n+Daniel 12:12\s*\n+1\.335 días\s*\n+([^\n]+)/gmi,(m,note)=>`:::barras Los tres períodos de Daniel 12\nUn tiempo, tiempos y medio tiempo | 1260 | 3½ tiempos\nDaniel 12:11 | 1290 | 1.290 días\nDaniel 12:12 | 1335 | 1.335 días\nnota | ${note.trim()}\n:::`);
+ return text}
+function md(text){let lines=text.trim().split('\n'),o='',list=null,table=[];const flushList=()=>{if(list){o+=`<${list.type}>${list.items.map(x=>`<li>${inline(x)}</li>`).join('')}</${list.type}>`;list=null}},flushTable=()=>{if(table.length){let r=table.filter(x=>!/^\s*\|?\s*:?-+/.test(x));if(r.length){let cells=r.map(x=>x.replace(/^\||\|$/g,'').split('|').map(y=>y.trim()));o+='<div class="tabla-wrapper"><table class="tabla-estudio"><thead><tr>'+cells[0].map(c=>`<th>${inline(c)}</th>`).join('')+'</tr></thead><tbody>'+cells.slice(1).map(rr=>'<tr>'+rr.map(c=>`<td>${inline(c)}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>'}table=[]}};for(let line of lines){if(/^\s*\|.*\|\s*$/.test(line)){flushList();table.push(line);continue}else flushTable();let m;if(!line.trim()){flushList();continue}if((m=line.match(/^(#{1,6})\s+(.+)/))){flushList();o+=`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`}else if((m=line.match(/^[-*]\s+(.+)/))){if(!list||list.type!=='ul'){flushList();list={type:'ul',items:[]}}list.items.push(m[1])}else if((m=line.match(/^\d+[.)]\s+(.+)/))){if(!list||list.type!=='ol'){flushList();list={type:'ol',items:[]}}list.items.push(m[1])}else if((m=line.match(/^!\[([^\]]*)\]\(([^)]+)\)/))){flushList();o+=`<figure class="esc-figure"><img loading="lazy" src="${esc(m[2])}" alt="${esc(m[1])}"><figcaption>${inline(m[1])}</figcaption></figure>`}else if(/^>\s?/.test(line)){flushList();o+=`<blockquote class="esc-scripture">${inline(line.replace(/^>\s?/,''))}</blockquote>`}else{o+=`<p>${inline(line)}</p>`}}flushList();flushTable();return o}
+function convert(text){text=legacy(text);return blocks(text).map(b=>b.plain!==undefined?md(b.plain):component(b)).join('\n')}
+function page(content){let title=document.getElementById('title').value.trim()||'Estudio de Escatología',ref=document.getElementById('ref').value.trim(),base=document.getElementById('cssBase').value.trim(),ui=document.getElementById('cssUI').value.trim();return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><link rel="stylesheet" href="${esc(base)}"><link rel="stylesheet" href="${esc(ui)}"></head><body><div class="estudio-container"><header class="estudio-header"><h1 class="estudio-titulo">${esc(title)}</h1>${ref?`<div class="estudio-referencia">${esc(ref)}</div>`:''}</header><main class="parte-estudio">${content}</main><footer class="estudio-footer"><p>Estudio bíblico</p><p><a href="../index.html">⬅️ Volver al índice</a></p></footer></div><script>function tab(btn,i){let root=btn.closest('.esc-tabs');root.querySelectorAll('button').forEach((b,n)=>b.classList.toggle('active',n===i));root.querySelectorAll('.esc-tab-panel').forEach((p,n)=>p.classList.toggle('active',n===i))}<\/script></body></html>`}
+function renderNow(){let c=convert(document.getElementById('src').value),doc=page(c),f=document.getElementById('frame');f.srcdoc=doc.replace(/<link rel="stylesheet"[^>]+>/g,'') .replace('</head>',`<style>${COMPONENT_CSS}</style></head>`);document.getElementById('status').textContent='Vista previa actualizada. El HTML descargado usa las rutas CSS indicadas arriba.';return doc}
+function save(name,data,type='text/html'){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function downloadHTML(){save('estudio-escatologia.html',renderNow())} function downloadCSS(){save('escatologia-ui-v9.css',COMPONENT_CSS,'text/css')}
+function loadDemo(){document.getElementById('title').value='Estudio de prueba — Biblioteca visual v9';document.getElementById('ref').value='Daniel 10–12';document.getElementById('src').value=`# Biblioteca visual
+
+## La pregunta central del estudio
+¿Cómo debemos interpretar una profecía compleja sin imponer previamente un sistema escatológico?
+
+:::nota Idea clave
+El texto y su contexto gobiernan la interpretación.
+:::
+
+:::tarjetas Estructura de la visión
+Daniel 10 | El mundo invisible
+Daniel 11 | El conflicto de los imperios
+Daniel 12 | Liberación y resurrección
+:::
+
+:::comparacion Interpretaciones
+Histórica | Referente inmediato en Antíoco IV
+Futurista | Proyección hacia un gobernante escatológico
+Histórico-tipológica | Referente histórico con reutilización posterior
+:::
+
+:::cronologia Secuencia
+Persia | Contexto inicial
+Grecia | Expansión helenística
+Antíoco IV | Crisis del siglo II a. C.
+Resurrección | Horizonte final de Daniel 12
+:::
+
+:::barras Los tres períodos de Daniel 12
+Tres tiempos y medio | 1260 | 1.260
+Daniel 12:11 | 1290 | 1.290
+Daniel 12:12 | 1335 | 1.335
+nota | Comparación ilustrativa; no fija un comienzo común.
+:::
+
+:::flujo Esperanza
+Persecución → perseverancia → intervención divina → resurrección
+:::
+
+:::arbol Daniel 11:36–45
+Antíoco IV | continuidad histórica
+Gobernante futuro | lectura futurista
+Patrón tipológico | reutilización posterior
+:::
+
+:::paralelo Paralelo bíblico
+Daniel 12:2 | despertar, vida y vergüenza
+Juan 5:28–29 | resurrección para vida y juicio
+:::
+
+:::palabra Hebreo útil
+Término | שַׂר (sar)
+Sentido | príncipe, jefe o gobernante
+Uso | el contexto determina el referente
+:::
+
+:::historico Antíoco IV
+Reinado | 175–164 a. C.
+Dinastía | Seléucida
+Relevancia | persecución y profanación del templo
+:::
+
+:::mapa-escatologico Mapa Escatológico
+confirmado | Resurrección | Daniel 12:2 anuncia el despertar de los muertos.
+probable | Persecución limitada | El sufrimiento tiene un límite bajo la soberanía divina.
+pendiente | Daniel 11:36–45 | Su alcance final sigue en estudio.
+abierto | Períodos de Daniel 12 | ❓ No se fija todavía una cronología completa.
+:::
+
+:::acordeon Argumentos ampliados
+Lectura histórica | Argumentos y dificultades de esta interpretación.
+Lectura futurista | Argumentos y dificultades de esta interpretación.
+:::
+
+:::tabs Perspectivas
+Histórica | El referente inmediato domina la lectura.
+Futurista | Parte del texto se proyecta al futuro escatológico.
+Tipológica | Un patrón histórico puede reutilizarse posteriormente.
+:::
+
+:::referencias Textos relacionados
+Daniel 7:25; Daniel 12:7; Mateo 24:15; Juan 5:28–29; Apocalipsis 12:14
+:::
+
+🟢 Muy fuerte: Daniel 10–12 forma una unidad literaria.
+🟡 Probable: el sufrimiento limitado es parte del mensaje de los períodos.
+🟠 Disputado: la identidad final de Daniel 11:36–45.
+🔴 Especulativo: calcular la fecha del regreso de Cristo.
+
+Conclusión provisional: debemos conservar abiertas las cuestiones que el texto no resuelve.`;renderNow()}
+window.addEventListener('load',loadDemo)
+</script></body></html>
