@@ -1,0 +1,87 @@
+/* ESCATOLOGIA-INDICE.CSS — índice/temario. Cargar después de colecciones.css */
+.pagina-escatologia{--ei-green:#173f36;--ei-green2:#285d50;--ei-gold:#d4ad6d;--ei-gold2:#f0d7a7;--ei-panel:#151b19;--ei-panel2:#1a2420;--ei-soft:#b6c0bc;--ei-line:rgba(255,255,255,.1);--ei-shadow:0 22px 55px rgba(0,0,0,.23)}
+.pagina-escatologia .hero-escatologia{min-height:min(88vh,880px);isolation:isolate}
+.pagina-escatologia .hero-escatologia__fondo{background:radial-gradient(circle at 74% 30%,rgba(214,177,112,.28),transparent 10%),radial-gradient(circle at 70% 48%,rgba(61,111,92,.28),transparent 27%),linear-gradient(135deg,#10251f,#183b31 35%,#172820 58%,#090e0c)}
+.pagina-escatologia .hero-escatologia__fondo::before{background:#101b17;opacity:.94;clip-path:polygon(0 76%,12% 60%,23% 68%,35% 43%,47% 61%,60% 31%,73% 55%,84% 38%,100% 67%,100% 100%,0 100%)}
+.pagina-escatologia .hero-escatologia__overlay{background:linear-gradient(90deg,rgba(5,12,10,.96),rgba(5,12,10,.72) 42%,rgba(5,12,10,.18) 78%),linear-gradient(0deg,var(--col-bg),rgba(13,15,16,.7) 12%,transparent 42%)}
+.pagina-escatologia .hero-coleccion__contenido{width:min(800px,100%)}
+.pagina-escatologia .hero-coleccion__eyebrow{color:var(--ei-gold2)}
+.pagina-escatologia .hero-escatologia h1{color:#fff!important;text-shadow:0 3px 30px rgba(0,0,0,.25)}
+.pagina-escatologia .hero-escatologia__lema{max-width:720px;margin:18px 0 0;color:#f1dfbd;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.25}
+.pagina-escatologia .hero-coleccion__subtitulo{max-width:760px}
+.pagina-escatologia .hero-coleccion__meta span{border-color:rgba(222,200,158,.22);background:rgba(12,34,28,.45);backdrop-filter:blur(8px)}
+.pagina-escatologia .hero-escatologia__horizonte{position:absolute;inset:0;z-index:1;pointer-events:none}
+.pagina-escatologia .estrella{position:absolute;width:3px;height:3px;border-radius:50%;background:#f4dfb5;box-shadow:0 0 12px rgba(244,223,181,.65);opacity:.7}
+.pagina-escatologia .estrella--1{top:20%;right:18%}.pagina-escatologia .estrella--2{top:29%;right:31%;width:2px;height:2px}.pagina-escatologia .estrella--3{top:17%;right:42%;width:2px;height:2px}.pagina-escatologia .estrella--4{top:38%;right:12%;width:2px;height:2px}.pagina-escatologia .estrella--5{top:46%;right:37%}
+
+/* Introducción y método */
+.pagina-escatologia .biblioteca-escatologia{padding-top:clamp(70px,8vw,120px)}
+.pagina-escatologia .intro-escatologia{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,80px);align-items:start;padding:clamp(26px,4vw,48px);border:1px solid var(--ei-line);border-radius:24px;background:linear-gradient(135deg,rgba(39,91,74,.17),transparent 48%),var(--ei-panel);box-shadow:var(--ei-shadow)}
+.pagina-escatologia .intro-escatologia__texto{position:sticky;top:28px}
+.pagina-escatologia .intro-escatologia .fila-contenido__eyebrow,.pagina-escatologia .temario-escatologia .fila-contenido__eyebrow,.pagina-escatologia .cierre-escatologia .fila-contenido__eyebrow{color:var(--ei-gold)}
+.pagina-escatologia .intro-escatologia h2,.pagina-escatologia .temario-escatologia h2{color:#fff!important;font-family:Georgia,"Times New Roman",serif;letter-spacing:-.035em}
+.pagina-escatologia .intro-escatologia h2{margin:7px 0 18px;font-size:clamp(2rem,4vw,3.35rem);line-height:1.04}
+.pagina-escatologia .intro-escatologia__texto>p:last-child{color:var(--ei-soft);line-height:1.75}
+.pagina-escatologia .metodo-escatologia{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+.pagina-escatologia .metodo-escatologia span{min-height:56px;display:flex;align-items:center;gap:12px;padding:11px 15px;border:1px solid var(--ei-line);border-radius:10px;background:rgba(255,255,255,.045);color:#eef3f0;font-size:.91rem;font-weight:700}
+.pagina-escatologia .metodo-escatologia span b{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;color:#17221e;background:var(--ei-gold);font-size:.68rem}
+.pagina-escatologia .metodo-escatologia i{color:rgba(255,255,255,.32);font-style:normal}
+.pagina-escatologia .criterios-escatologia{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:24px}
+.pagina-escatologia .criterios-escatologia span{padding:12px 13px;border:1px solid var(--ei-line);border-radius:9px;background:rgba(0,0,0,.14);color:var(--ei-soft);font-size:.77rem;line-height:1.45}
+.pagina-escatologia .criterios-escatologia b{display:block;margin-bottom:3px;color:#f5f2ea}
+
+/* Temario */
+.pagina-escatologia .temario-escatologia{margin-top:clamp(80px,9vw,135px)}
+.pagina-escatologia .temario-escatologia__encabezado{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.52fr);gap:30px;align-items:end;padding-bottom:25px;border-bottom:1px solid var(--ei-line)}
+.pagina-escatologia .temario-escatologia__encabezado h2{margin:5px 0 0;font-size:clamp(2.2rem,4.5vw,4rem);line-height:1}
+.pagina-escatologia .temario-escatologia__encabezado>p{margin:0;color:var(--ei-soft);font-size:.9rem;line-height:1.6}
+.pagina-escatologia .modulos-rapidos{position:sticky;top:12px;z-index:20;display:flex;justify-content:center;flex-wrap:wrap;gap:7px;width:max-content;max-width:100%;margin:25px auto 45px;padding:7px;border:1px solid var(--ei-line);border-radius:999px;background:rgba(14,18,17,.88);box-shadow:0 10px 35px rgba(0,0,0,.22);backdrop-filter:blur(14px)}
+.pagina-escatologia .modulos-rapidos a{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:#aeb8b4;text-decoration:none;font-size:.73rem;font-weight:800;transition:.18s}
+.pagina-escatologia .modulos-rapidos a:hover,.pagina-escatologia .modulos-rapidos a:focus-visible{color:#142019;background:var(--ei-gold);transform:translateY(-2px)}
+.pagina-escatologia .lista-modulos{display:grid;gap:clamp(42px,6vw,76px)}
+.pagina-escatologia .modulo-escatologia{scroll-margin-top:80px;overflow:hidden;border:1px solid var(--ei-line);border-radius:20px;background:var(--ei-panel);box-shadow:0 16px 45px rgba(0,0,0,.14)}
+.pagina-escatologia .modulo-escatologia__cabecera{display:grid;grid-template-columns:145px minmax(0,1fr);gap:25px;align-items:center;padding:clamp(23px,3vw,34px);border-bottom:1px solid var(--ei-line);background:linear-gradient(110deg,rgba(39,91,74,.25),transparent 58%),#17201d}
+.pagina-escatologia .modulo-escatologia__numero{color:var(--ei-gold);font-size:.73rem;font-weight:900;letter-spacing:.13em}
+.pagina-escatologia .modulo-escatologia__cabecera h2{margin:0;color:#fff!important;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.08}
+.pagina-escatologia .modulo-escatologia__cabecera p{margin:8px 0 0;color:var(--ei-soft);font-size:.9rem}
+.pagina-escatologia .modulo-escatologia__estudios{display:grid}
+.pagina-escatologia .estudio-indice{position:relative;min-height:92px;display:grid;grid-template-columns:72px minmax(0,1fr) 150px;gap:18px;align-items:center;padding:16px clamp(18px,2.5vw,30px);border-bottom:1px solid var(--ei-line);color:inherit;text-decoration:none}
+.pagina-escatologia .estudio-indice:last-child{border-bottom:0}
+.pagina-escatologia a.estudio-indice{transition:background .18s ease}
+.pagina-escatologia a.estudio-indice:hover{z-index:2;background:linear-gradient(90deg,rgba(43,100,81,.25),rgba(255,255,255,.025))}
+.pagina-escatologia .estudio-indice__numero{color:#68736e;font-family:Georgia,"Times New Roman",serif;font-size:1.55rem;transition:.18s}
+.pagina-escatologia a.estudio-indice:hover .estudio-indice__numero{color:#f2d49e;transform:translateX(3px)}
+.pagina-escatologia .estudio-indice__texto{min-width:0}.pagina-escatologia .estudio-indice__texto strong{display:block;color:#e9eeeb;font-size:.97rem;line-height:1.35}.pagina-escatologia .estudio-indice__texto small{display:block;margin-top:5px;color:#87918d;font-size:.79rem;line-height:1.45}
+.pagina-escatologia .estudio-indice__estado{justify-self:end;color:#727d78;font-size:.72rem;font-weight:800;white-space:nowrap}
+.pagina-escatologia .estudio-indice--publicado .estudio-indice__numero,.pagina-escatologia .estudio-indice--publicado .estudio-indice__estado{color:var(--ei-gold)}
+.pagina-escatologia .estudio-indice--publicado .estudio-indice__texto strong{color:#fff}
+.pagina-escatologia .estudio-indice--publicado::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:0 4px 4px 0;background:var(--ei-gold)}
+.pagina-escatologia .estudio-indice--proximo{background:rgba(0,0,0,.075)}
+.pagina-escatologia .estudio-indice--proximo .estudio-indice__texto strong{color:#a5adaa}.pagina-escatologia .estudio-indice--proximo .estudio-indice__texto small{color:#68716e}
+
+/* Cierre */
+.pagina-escatologia .cierre-escatologia{max-width:980px;margin:clamp(90px,10vw,150px) auto 0;padding:clamp(30px,5vw,60px);border-top:1px solid var(--ei-line);border-bottom:1px solid var(--ei-line);text-align:center}
+.pagina-escatologia .cierre-escatologia blockquote{margin:15px auto 22px;color:#f2eee6;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.55rem,3.5vw,2.65rem);line-height:1.32}
+.pagina-escatologia .cierre-escatologia>p:last-child{max-width:760px;margin:0 auto;color:var(--ei-soft);font-size:.92rem;line-height:1.7}
+.pagina-escatologia a:focus-visible{outline:3px solid rgba(212,173,109,.6);outline-offset:3px}
+
+@media(max-width:980px){
+ .pagina-escatologia .intro-escatologia{grid-template-columns:1fr}.pagina-escatologia .intro-escatologia__texto{position:static}
+ .pagina-escatologia .criterios-escatologia{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pagina-escatologia .temario-escatologia__encabezado{grid-template-columns:1fr;align-items:start}
+}
+@media(max-width:700px){
+ .pagina-escatologia .hero-escatologia{min-height:760px}.pagina-escatologia .hero-escatologia__lema{font-size:1.35rem}
+ .pagina-escatologia .intro-escatologia{padding:22px 18px;border-radius:16px}
+ .pagina-escatologia .metodo-escatologia{grid-template-columns:1fr}.pagina-escatologia .metodo-escatologia i{display:none}
+ .pagina-escatologia .criterios-escatologia{grid-template-columns:1fr}
+ .pagina-escatologia .modulos-rapidos{position:relative;top:auto;width:100%;border-radius:14px}
+ .pagina-escatologia .modulo-escatologia{border-radius:14px}.pagina-escatologia .modulo-escatologia__cabecera{grid-template-columns:1fr;gap:8px}
+ .pagina-escatologia .estudio-indice{grid-template-columns:46px minmax(0,1fr);gap:11px;padding:16px}
+ .pagina-escatologia .estudio-indice__estado{grid-column:2;justify-self:start;margin-top:-3px}.pagina-escatologia .estudio-indice__numero{align-self:start;padding-top:1px;font-size:1.3rem}
+}
+@media(max-width:430px){
+ .pagina-escatologia .modulos-rapidos{justify-content:flex-start}.pagina-escatologia .modulos-rapidos a{width:32px;height:32px}
+ .pagina-escatologia .hero-coleccion__meta{gap:6px}.pagina-escatologia .hero-coleccion__meta span{font-size:.7rem}
+}
+@media print{.pagina-escatologia .cabecera-coleccion,.pagina-escatologia .modulos-rapidos{display:none}.pagina-escatologia .modulo-escatologia{break-inside:avoid;box-shadow:none}}
