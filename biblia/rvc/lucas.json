@@ -1,0 +1,14 @@
+{
+  "version": "RVC",
+  "libro": "Lucas",
+  "abreviatura": "Lc",
+  "slug": "lucas",
+  "capitulos": {
+    "19": {
+      "45": "Después Jesús entró en el templo, y comenzó a echar de allí a todos los que vendían y compraban.",
+      "46": "Les decía: «Escrito está: “Mi casa es casa de oración.” ¡Pero ustedes han hecho de ella una cueva de ladrones!»",
+      "47": "Todos los días Jesús enseñaba en el templo, pero los principales sacerdotes, los escribas y los principales del pueblo procuraban matarlo.",
+      "48": "Sin embargo, no hallaban la manera de hacerlo, pues todo el pueblo estaba pendiente de lo que él decía."
+    }
+  }
+}
