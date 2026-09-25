@@ -390,3 +390,82 @@ async function cargarPasaje(
     }
 
 }
+
+/* =========================================================
+   CARGA AUTOMÁTICA DE PASAJES
+========================================================= */
+
+/**
+ * Busca en la página todos los elementos que tengan:
+ *
+ * data-biblia
+ *
+ * y carga automáticamente el pasaje indicado.
+ *
+ * Ejemplo:
+ *
+ * <div
+ *     data-biblia
+ *     data-libro="mateo"
+ *     data-capitulo="21"
+ *     data-versiculos="18-22">
+ * </div>
+ */
+async function cargarPasajesAutomaticos() {
+
+    const elementos =
+        document.querySelectorAll("[data-biblia]");
+
+
+    for (const elemento of elementos) {
+
+        const libro =
+            elemento.dataset.libro;
+
+        const capitulo =
+            elemento.dataset.capitulo;
+
+        const versiculos =
+            elemento.dataset.versiculos;
+
+
+        /*
+         * Si falta algún dato, no intentamos cargar
+         * el pasaje y dejamos un aviso en consola.
+         */
+
+        if (
+            !libro ||
+            !capitulo ||
+            !versiculos
+        ) {
+
+            console.warn(
+                "Pasaje bíblico incompleto:",
+                elemento
+            );
+
+            continue;
+        }
+
+
+        await cargarPasaje(
+            libro,
+            capitulo,
+            versiculos,
+            elemento
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INICIAR CARGA AUTOMÁTICA
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    cargarPasajesAutomaticos
+);
