@@ -10,7 +10,7 @@
  * Al comenzar con "/" siempre buscamos desde la raíz
  * del sitio, independientemente de dónde esté el HTML.
  */
-const RUTA_BIBLIA = "./biblia/rvc/";
+const RUTA_BIBLIA = "../biblia/rvc/";
 
 
 /**
