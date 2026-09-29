@@ -9,7 +9,6 @@
   <!-- Ajustá estas rutas solo si tu estructura global usa otro nivel -->
   <link rel="stylesheet" href="../../../css/estilo-base.css">
   <link rel="stylesheet" href="../../../css/escatologia.css">
-  <link rel="stylesheet" href="../../../css/escatologia-componentes.css">
 </head>
 
 <body class="estudio-page estudio-escatologia">
@@ -20,14 +19,15 @@
          PORTADA
     ========================================================== -->
     <header class="estudio-hero">
-      <img
-        src="recursos/estudio-20-contexto-discurso-monte-olivos.png"
-        alt="Jesús y sus discípulos contemplando Jerusalén y el templo desde el Monte de los Olivos"
-        class="estudio-hero__imagen"
-        width="1536"
-        height="1024"
-        fetchpriority="high"
-      >
+      <picture>
+        <source media="(max-width: 700px)" srcset="recursos/estudio-20-contexto-discurso-monte-olivos-mobile.png">
+        <img
+          src="recursos/estudio-20-contexto-discurso-monte-olivos.png"
+          alt="Jesús y sus discípulos contemplando Jerusalén y el templo desde el Monte de los Olivos"
+          class="estudio-hero__imagen"
+          fetchpriority="high"
+        >
+      </picture>
     </header>
 
     <article class="estudio-contenido">

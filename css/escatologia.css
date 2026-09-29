@@ -168,3 +168,101 @@ a{color:var(--esc-green-2);text-underline-offset:.17em}
   body{background:white;color:#000;font-size:11pt}.estudio{width:100%;padding:0}.estudio-hero{min-height:250px;box-shadow:none;break-after:page}
   .esc-tarjeta,.esc-callout,.esc-certeza,.esc-mapa,.esc-resumen,.esc-tabla-wrapper,.esc-figura{box-shadow:none;break-inside:avoid}
 }
+
+/* ==========================================================================
+   ESTUDIOS — COMPONENTES SEMÁNTICOS GENERALES
+   Desde el Estudio 20. Sin estilos locales por estudio.
+   ========================================================================== */
+.estudio-page{background:var(--esc-bg);color:var(--esc-ink)}
+.estudio-page .estudio{overflow:hidden}
+
+/* Portada como imagen completa (compatible con hero editorial del sistema) */
+.estudio-page .estudio-hero:not(:has(.estudio-hero__contenido)){display:block;min-height:0;width:min(1180px,calc(100% - 28px));margin:18px auto 34px;border-radius:24px;overflow:hidden;background:#102431;box-shadow:var(--esc-shadow)}
+.estudio-page .estudio-hero:not(:has(.estudio-hero__contenido))::before{display:none}
+.estudio-page .estudio-hero:not(:has(.estudio-hero__contenido)) picture,.estudio-page .estudio-hero:not(:has(.estudio-hero__contenido)) img{display:block;width:100%}
+.estudio-page .estudio-hero:not(:has(.estudio-hero__contenido)) .estudio-hero__imagen{position:static;inset:auto;width:100%;height:auto;object-fit:contain}
+
+/* Lectura y jerarquía */
+.estudio-page .estudio-contenido{width:min(920px,calc(100% - 32px));margin-inline:auto}
+.estudio-page .estudio-contenido>section{margin-block:3rem}
+.estudio-page .estudio-contenido p,.estudio-page .estudio-contenido li{color:#202824}
+.estudio-page .estudio-contenido>h1,.estudio-page .estudio-contenido section>h2,.estudio-page .proximo-estudio h2{color:#142f29}
+.estudio-page .estudio-contenido>h1{margin:.55rem 0 .65rem;font:700 clamp(2.15rem,5vw,3.7rem)/1.06 var(--esc-serif);letter-spacing:-.03em;text-wrap:balance}
+.estudio-page .estudio-contenido section>h2,.estudio-page .proximo-estudio h2{margin:0 0 1rem;font:700 clamp(1.65rem,3.7vw,2.25rem)/1.18 var(--esc-serif);letter-spacing:-.018em;text-wrap:balance}
+.estudio-page .estudio-contenido section>h2::after{content:"";display:block;width:54px;height:3px;margin-top:.65rem;border-radius:99px;background:var(--esc-gold)}
+.estudio-meta{display:flex;flex-wrap:wrap;gap:.55rem .8rem;align-items:center;color:#3f5149;font-size:.78rem;font-weight:850;letter-spacing:.07em;text-transform:uppercase}
+.estudio-numero{color:#765718}
+.estudio-bajada{margin:.3rem 0 1.7rem!important;color:#34443d!important;font:clamp(1.08rem,2.5vw,1.3rem)/1.5 var(--esc-serif)}
+.estudio-ficha{margin:1.5rem 0 2.5rem;padding:1.2rem 1.35rem;border:1px solid #d6d8d2;border-radius:18px;background:#fff;box-shadow:var(--esc-shadow-soft)}
+.estudio-ficha p{margin:.3rem 0!important}
+
+/* Citas bíblicas */
+.estudio-page .estudio-contenido blockquote{position:relative;margin:1.7rem 0;padding:1.45rem 1.5rem 1.3rem 1.75rem;border:1px solid #dec89e;border-left:5px solid #9a6819;border-radius:0 18px 18px 0;background:linear-gradient(135deg,#fff,#fff7e7);box-shadow:0 10px 28px rgba(79,55,18,.07)}
+.estudio-page .estudio-contenido blockquote::before{content:"“";position:absolute;top:.15rem;right:1rem;color:rgba(154,104,25,.16);font-family:Georgia,serif;font-size:5rem;line-height:1;pointer-events:none}
+.estudio-page .estudio-contenido blockquote p{position:relative;z-index:1;margin:0 0 .75rem;color:#211f1b;font:italic 1.12rem/1.72 var(--esc-serif)}
+.estudio-page .estudio-contenido blockquote cite{display:inline-flex;align-items:center;gap:.4rem;color:#68430b;font-size:.86rem;font-weight:850;font-style:normal}
+.estudio-page .estudio-contenido blockquote cite::before{content:"📖"}
+
+/* Niveles de certeza */
+.nivel{display:flex;gap:.8rem;align-items:flex-start;margin:1.15rem 0;padding:1rem 1.1rem;border:1px solid #d4d7d1;border-left-width:5px;border-radius:14px}
+.nivel p{margin:0!important;color:#1d2823!important}.nivel-icono{flex:0 0 auto}
+.nivel-fuerte{background:var(--fuerte-bg);border-color:#8dbca2}.nivel-probable{background:var(--probable-bg);border-color:#d3ba5c}.nivel-disputado{background:var(--disputado-bg);border-color:#db9867}.nivel-especulativo{background:var(--espec-bg);border-color:#d78d8d}.nivel-abierto{background:var(--abierto-bg);border-color:#afb4d4}
+
+/* Lenguas bíblicas, principios y preguntas */
+.termino-biblico,.principio-exegetico,.preguntas-abiertas{margin:1.4rem 0;padding:1.25rem 1.35rem;border:1px solid #d6d8d2;border-radius:18px;background:#fff}
+.termino-biblico{text-align:center}.termino-original{display:block;color:#142f29;font:700 clamp(1.55rem,4vw,2.15rem)/1.25 var(--esc-serif)}
+.termino-transliteracion{display:block;margin:.3rem 0 .7rem;color:#765718;font-weight:850}
+.principio-exegetico{border-left:5px solid var(--esc-gold);background:#fffaf0}
+.pregunta-destacada{color:#173f36!important;font:700 1.08rem/1.55 var(--esc-serif)}
+.preguntas-abiertas{border-color:#b9bfda;background:var(--abierto-bg)}
+.preguntas-abiertas p{margin:.55rem 0!important}.preguntas-abiertas p::before{content:"❓";margin-right:.55rem}
+
+/* Flujos / mapa textual */
+.flujo-textual,.mapa-textual{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.65rem;margin:1.4rem 0;padding:1.1rem;border:1px solid #d8d8d1;border-radius:18px;background:#ebeae4;color:#172a24;font-weight:800;text-align:center}
+.mapa-textual{flex-direction:column}.mapa-textual div{width:min(100%,620px);padding:.7rem 1rem;border:1px solid #d2d4ce;border-radius:10px;background:#fff}.mapa-textual span{color:#765718;font-weight:900}
+
+/* Recursos visuales */
+.recurso-visual{margin:2rem 0;padding:.65rem;border:1px solid #d6d8d2;border-radius:20px;background:#fff;box-shadow:var(--esc-shadow-soft)}
+.recurso-visual img{display:block;width:100%;height:auto;border-radius:14px}
+.recurso-visual figcaption{padding:.85rem .65rem .35rem;color:#46544d;font-size:.92rem;line-height:1.55;text-align:center}
+
+/* Tablas */
+.tabla-responsive{overflow-x:auto;margin:1.5rem 0;border:1px solid #d2d5cf;border-radius:16px;background:#fff;box-shadow:var(--esc-shadow-soft)}
+.tabla-responsive table{width:100%;min-width:680px;border-collapse:collapse}
+.tabla-responsive th,.tabla-responsive td{padding:.9rem 1rem;border-bottom:1px solid #d8dad5;text-align:left;vertical-align:top}
+.tabla-responsive th{background:#173f36;color:#fff}.tabla-responsive td{color:#202824}
+
+/* Tarjetas */
+.tarjetas-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}.tarjetas-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tarjeta{min-width:0;padding:1.2rem;border:1px solid #d4d7d1;border-radius:18px;background:#fff;box-shadow:var(--esc-shadow-soft)}
+.tarjeta h3{margin:.45rem 0 .7rem;color:#173f36;font:700 1.18rem/1.25 var(--esc-serif)}.tarjeta p{color:#26332d!important}.tarjeta p:last-child{margin-bottom:0!important}.tarjeta-icono{font-size:1.8rem}
+
+/* Conclusión y próximo estudio */
+.conclusion-cristocentrica{padding:clamp(1.3rem,4vw,2rem);border-radius:22px;background:linear-gradient(145deg,#132b25,#1d463b);color:#fff;box-shadow:0 16px 40px rgba(16,36,49,.17)}
+.estudio-page .conclusion-cristocentrica h2,.estudio-page .conclusion-cristocentrica p{color:#fff!important}.estudio-page .conclusion-cristocentrica h2::after{background:#e4bd78}
+.proximo-estudio{margin:3rem 0 4rem;padding:1.4rem;border:1px solid #ddc996;border-radius:20px;background:#fff8e8}
+.proximo-estudio__etiqueta{display:inline-block;margin-bottom:.45rem;color:#684a12;font-size:.75rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.estudio-page .proximo-estudio h2{font-size:clamp(1.4rem,3vw,1.9rem)}.estudio-page .proximo-estudio p{color:#2b302d}
+
+/* Móvil: contraste y legibilidad prioritaria */
+@media(max-width:760px){
+ body.estudio-page{font-size:17px;line-height:1.78}
+ .estudio-page .estudio{width:100%;padding-top:0}
+ .estudio-page .estudio-hero:not(:has(.estudio-hero__contenido)){width:100%;margin:0 0 26px;border-radius:0 0 22px 22px}
+ .estudio-page .estudio-contenido{width:min(100% - 28px,920px)}
+ .estudio-page .estudio-contenido>section{margin-block:2.6rem}
+ .estudio-page .estudio-contenido p,.estudio-page .estudio-contenido li{color:#17211d}
+ .estudio-page .estudio-contenido blockquote{padding:1.15rem 1rem 1.05rem 1.2rem}
+ .estudio-page .estudio-contenido blockquote p{font-size:1.08rem;line-height:1.7}
+ .tarjetas-grid,.tarjetas-grid--3{grid-template-columns:1fr}
+ .flujo-textual{flex-direction:column}
+ .recurso-visual{margin-inline:-4px;padding:.4rem}
+ .recurso-visual figcaption{color:#35443d;font-size:.91rem}
+ .estudio-meta{color:#33443c}.estudio-bajada{color:#263730!important}
+}
+@media(max-width:390px){
+ body.estudio-page{font-size:17px}
+ .estudio-page .estudio-contenido{width:calc(100% - 24px)}
+ .nivel{padding:.95rem .9rem}
+ .termino-biblico,.principio-exegetico,.preguntas-abiertas{padding:1.05rem}
+}
