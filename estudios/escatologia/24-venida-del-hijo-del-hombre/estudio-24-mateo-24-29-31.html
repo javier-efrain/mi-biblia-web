@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Estudio 24 de Escatología Bíblica: Mateo 24:29-31, el lenguaje cósmico de los profetas y la venida del Hijo del Hombre.">
+  <title>Estudio 24 — Mateo 24:29–31 | Sol, luna, estrellas y la venida del Hijo del Hombre</title>
+
+  <link rel="stylesheet" href="../../../css/estilo-base.css">
+  <link rel="stylesheet" href="../../../css/escatologia.css">
+
+  <!-- Estilos específicos del Estudio 24.
+       Si luego querés centralizarlos, este bloque puede moverse a escatologia.css. -->
+  <style>
+    .estudio-escatologia{
+      --e24-azul:#102b46;
+      --e24-azul-2:#173f64;
+      --e24-dorado:#c9973f;
+      --e24-dorado-suave:#f4e4bd;
+      --e24-crema:#fffaf0;
+      --e24-tinta:#17212b;
+      --e24-borde:rgba(16,43,70,.16);
+      color:var(--e24-tinta);
+    }
+
+    .estudio-escatologia .portada-estudio{
+      margin:0 0 1.5rem;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,.18);
+      background:#0c2033;
+    }
+    .estudio-escatologia .portada-estudio picture,
+    .estudio-escatologia .portada-estudio img{
+      display:block;
+      width:100%;
+    }
+    .estudio-escatologia .portada-estudio img{
+      height:auto;
+      object-fit:cover;
+    }
+
+    /* El título queda FUERA de la portada para no tapar la imagen. */
+    .estudio-escatologia .cabecera-estudio{
+      max-width:980px;
+      margin:0 auto 2rem;
+      text-align:center;
+      padding:0 1rem;
+    }
+    .estudio-escatologia .numero-estudio{
+      display:inline-block;
+      margin-bottom:.65rem;
+      padding:.35rem .8rem;
+      border-radius:999px;
+      background:var(--e24-dorado-suave);
+      color:#65470d;
+      font-weight:800;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+    .estudio-escatologia .cabecera-estudio h1{
+      margin:.15rem 0 .65rem;
+      line-height:1.08;
+    }
+    .estudio-escatologia .subtitulo-estudio{
+      max-width:760px;
+      margin:0 auto;
+      font-size:1.08rem;
+      opacity:.82;
+    }
+
+    .estudio-escatologia .pregunta-central,
+    .estudio-escatologia .conclusion-estudio,
+    .estudio-escatologia .nota-clave{
+      border:1px solid var(--e24-borde);
+      border-radius:18px;
+      padding:1.25rem 1.35rem;
+      margin:1.4rem 0;
+      background:linear-gradient(135deg,#fffaf0,#fff);
+      box-shadow:0 8px 26px rgba(16,43,70,.06);
+    }
+    .estudio-escatologia .pregunta-central{
+      border-left:5px solid var(--e24-dorado);
+    }
+    .estudio-escatologia .nota-clave{
+      border-left:5px solid var(--e24-azul-2);
+      background:linear-gradient(135deg,#f2f7fb,#fff);
+    }
+
+    .estudio-escatologia .versiculo{
+      position:relative;
+      margin:1.4rem 0;
+      padding:1.35rem 1.5rem 1.35rem 1.65rem;
+      border-radius:18px;
+      border:1px solid rgba(201,151,63,.28);
+      border-left:5px solid var(--e24-dorado);
+      background:
+        linear-gradient(135deg,rgba(244,228,189,.58),rgba(255,255,255,.95));
+      box-shadow:0 8px 25px rgba(44,35,15,.06);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:1.08rem;
+      line-height:1.75;
+    }
+    .estudio-escatologia .versiculo::before{
+      content:"“";
+      position:absolute;
+      top:-.18rem;
+      left:.65rem;
+      font-size:3.8rem;
+      line-height:1;
+      color:rgba(201,151,63,.22);
+      font-weight:700;
+    }
+    .estudio-escatologia .versiculo p{margin:.3rem 0;}
+    .estudio-escatologia .referencia{
+      display:block;
+      margin-top:.65rem;
+      font-family:system-ui,-apple-system,sans-serif;
+      font-size:.9rem;
+      font-weight:800;
+      color:#77571c;
+    }
+
+    .estudio-escatologia .texto-original{
+      margin:1rem 0;
+      padding:1rem 1.15rem;
+      border-radius:14px;
+      background:#102b46;
+      color:#fff;
+      box-shadow:0 8px 20px rgba(16,43,70,.14);
+    }
+    .estudio-escatologia .texto-original strong{
+      color:#f4cf7a;
+    }
+
+    .estudio-escatologia .secuencia{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+      align-items:center;
+      justify-content:center;
+      margin:1.25rem 0;
+      padding:1rem;
+      border-radius:16px;
+      background:#f4f7f9;
+    }
+    .estudio-escatologia .secuencia span{
+      padding:.48rem .72rem;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--e24-borde);
+      font-weight:700;
+    }
+    .estudio-escatologia .secuencia b{color:var(--e24-dorado);}
+
+    .estudio-escatologia .nivel{
+      margin:1rem 0;
+      padding:.9rem 1rem;
+      border-radius:14px;
+      border:1px solid transparent;
+      line-height:1.6;
+    }
+    .estudio-escatologia .muy-fuerte{background:#eef9f1;border-color:#b9e0c2;}
+    .estudio-escatologia .probable{background:#fff9e7;border-color:#eed991;}
+    .estudio-escatologia .disputado{background:#fff2e8;border-color:#efc19c;}
+    .estudio-escatologia .especulativo{background:#fff0f0;border-color:#e6b2b2;}
+    .estudio-escatologia .abierto{background:#f3efff;border-color:#cfc1f0;}
+
+    .estudio-escatologia .antecedentes-grid,
+    .estudio-escatologia .interpretaciones-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:1rem;
+      margin:1.25rem 0;
+    }
+    .estudio-escatologia .tarjeta{
+      padding:1.1rem 1.15rem;
+      border-radius:16px;
+      border:1px solid var(--e24-borde);
+      background:#fff;
+      box-shadow:0 7px 22px rgba(16,43,70,.055);
+    }
+    .estudio-escatologia .tarjeta h3{margin-top:0;}
+    .estudio-escatologia .interpretacion{
+      border-top:4px solid var(--e24-azul-2);
+    }
+
+    .estudio-escatologia .recurso-visual{
+      margin:2rem 0;
+      padding:0;
+    }
+    .estudio-escatologia .recurso-visual img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:18px;
+      box-shadow:0 14px 38px rgba(0,0,0,.14);
+    }
+    .estudio-escatologia .recurso-visual figcaption{
+      padding:.7rem .35rem 0;
+      font-size:.92rem;
+      opacity:.74;
+      text-align:center;
+    }
+
+    .estudio-escatologia .lista-clave{
+      padding-left:1.25rem;
+    }
+    .estudio-escatologia .lista-clave li{margin:.55rem 0;}
+
+    .estudio-escatologia .frase-central{
+      margin:1.6rem 0;
+      padding:1.2rem 1.3rem;
+      text-align:center;
+      font-size:1.2rem;
+      font-weight:800;
+      color:#fff;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--e24-azul),var(--e24-azul-2));
+      box-shadow:0 12px 28px rgba(16,43,70,.16);
+    }
+
+    .estudio-escatologia .mapa-textual{
+      margin:1.3rem 0;
+      padding:1.2rem;
+      border-radius:18px;
+      background:#f7f4ed;
+      border:1px solid rgba(201,151,63,.25);
+      text-align:center;
+      line-height:2;
+      font-weight:700;
+    }
+    .estudio-escatologia .mapa-textual .flecha{
+      color:var(--e24-dorado);
+      padding:0 .35rem;
+    }
+
+    .estudio-escatologia section{
+      scroll-margin-top:80px;
+    }
+    .estudio-escatologia section > h2{
+      margin-top:2.4rem;
+      padding-bottom:.5rem;
+      border-bottom:2px solid rgba(201,151,63,.25);
+    }
+
+    @media (max-width:760px){
+      .estudio-escatologia .antecedentes-grid,
+      .estudio-escatologia .interpretaciones-grid{
+        grid-template-columns:1fr;
+      }
+      .estudio-escatologia .portada-estudio{
+        border-radius:16px;
+      }
+      .estudio-escatologia .cabecera-estudio h1{
+        font-size:clamp(1.8rem,8vw,2.6rem);
+      }
+      .estudio-escatologia .versiculo{
+        padding:1.15rem 1.1rem 1.15rem 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<main class="estudio-escatologia">
+
+  <figure class="portada-estudio">
+    <picture>
+      <source media="(max-width: 700px)" srcset="recursos/estudio-24-mateo-24-29-31-portada-mobile.png">
+      <img src="recursos/estudio-24-mateo-24-29-31-portada.png"
+           alt="Mateo 24:29-31: el Hijo del Hombre entre nubes, con lenguaje cósmico y Jerusalén al fondo">
+    </picture>
+  </figure>
+
+  <header class="cabecera-estudio">
+    <span class="numero-estudio">Estudio 24</span>
+    <h1>Mateo 24:29–31 — Sol, luna, estrellas y la venida del Hijo del Hombre</h1>
+    <p class="subtitulo-estudio">¿Segunda Venida, juicio sobre Jerusalén, lenguaje profético… o una combinación de horizontes?</p>
+  </header>
+
+  <section>
+    <div class="pregunta-central">
+      <h2>🎯 Pregunta central</h2>
+      <p>Cuando Jesús anuncia que <strong>el sol se oscurecerá, la luna dejará de brillar, las estrellas caerán y el Hijo del Hombre vendrá sobre las nubes</strong>, ¿está describiendo literalmente el fin del cosmos y su Segunda Venida?</p>
+      <p>¿Está utilizando el lenguaje profético del Antiguo Testamento para anunciar el juicio sobre Jerusalén?</p>
+      <p>¿O el pasaje reúne elementos de ambos horizontes?</p>
+      <p><strong>No comenzaremos eligiendo una respuesta.</strong> Primero debemos escuchar cómo hablaba la Biblia antes de Mateo 24.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>1. 📜 El texto</h2>
+
+    <blockquote class="versiculo">
+      <p>Inmediatamente después de la aflicción de aquellos días, el sol se oscurecerá y la luna dejará de brillar, las estrellas caerán del cielo, y los poderes celestiales se estremecerán.</p>
+      <p>Entonces aparecerá en el cielo la señal del Hijo del Hombre, y todas las tribus de la tierra se lamentarán, y verán al Hijo del Hombre venir sobre las nubes del cielo, con gran poder y gloria.</p>
+      <p>Y enviará a sus ángeles con gran voz de trompeta, y de los cuatro vientos, desde un extremo al otro del cielo, ellos juntarán a sus elegidos.</p>
+      <cite class="referencia">Mateo 24:29–31 (RVC)</cite>
+    </blockquote>
+
+    <p>El movimiento del pasaje puede resumirse así:</p>
+
+    <div class="secuencia" aria-label="Secuencia de Mateo 24:29-31">
+      <span>Aflicción</span><b>→</b>
+      <span>Conmoción cósmica</span><b>→</b>
+      <span>Hijo del Hombre</span><b>→</b>
+      <span>Lamentación</span><b>→</b>
+      <span>Venida en las nubes</span><b>→</b>
+      <span>Reunión de los elegidos</span>
+    </div>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Mateo presenta estos acontecimientos como estrechamente relacionados. Pero todavía debemos descubrir qué significa cada imagen.</div>
+  </section>
+
+  <section>
+    <h2>2. ⏱️ «Inmediatamente después»</h2>
+
+    <p>Jesús comienza conectando el v.29 directamente con la aflicción descrita anteriormente.</p>
+
+    <div class="texto-original">
+      <strong>εὐθέως δὲ μετὰ — euthéōs de metá</strong><br>
+      «pero inmediatamente después…»
+    </div>
+
+    <p>No debemos estudiar Mateo 24:29–31 como si fuera una profecía aislada. En los estudios anteriores vimos la secuencia:</p>
+
+    <div class="secuencia">
+      <span>Abominación desoladora</span><b>→</b>
+      <span>Huida</span><b>→</b>
+      <span>Gran aflicción</span><b>→</b>
+      <span>Falsos cristos</span><b>→</b>
+      <span>«Inmediatamente después»</span>
+    </div>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> existe continuidad literaria entre Mateo 24:15–28 y Mateo 24:29–31.</div>
+    <div class="nivel abierto"><strong>❓ Cuestión abierta:</strong> ¿esa continuidad describe enteramente acontecimientos relacionados con Jerusalén, acontecimientos del final de la historia, o una secuencia donde el horizonte profético se amplía?</div>
+  </section>
+
+  <section>
+    <h2>3. 🌑 «El sol se oscurecerá»</h2>
+
+    <p>Nuestra primera reacción moderna puede ser imaginar un fenómeno astronómico literal. Pero Jesús está hablando como un <strong>profeta bíblico</strong>, y las imágenes que utiliza ya existían.</p>
+
+    <h3>Isaías 13</h3>
+    <p>Isaías anuncia juicio contra <strong>Babilonia</strong>. En ese contexto aparecen estrellas oscurecidas, sol sin luz, luna sin resplandor y cielos estremecidos.</p>
+
+    <div class="nota-clave">
+      <strong>🔎 Observación exegética:</strong> Isaías utiliza lenguaje cósmico para describir una catástrofe histórica de dimensiones políticas y teológicas enormes. Por eso, la presencia de imágenes cósmicas no demuestra por sí sola que el profeta esté describiendo la destrucción física del universo.
+    </div>
+
+    <figure class="recurso-visual">
+      <img src="recursos/recurso-1-cosmos-profetas.png"
+           alt="Comparación del lenguaje cósmico de Isaías, Ezequiel, Joel y Mateo 24:29"
+           loading="lazy">
+      <figcaption>Recurso 1 — Cuando el cosmos se oscurece en los profetas.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>4. 🌌 El lenguaje cósmico de los profetas</h2>
+
+    <div class="antecedentes-grid">
+      <article class="tarjeta">
+        <h3>📜 Isaías 13</h3>
+        <p><strong>Juicio contra Babilonia.</strong> Sol, luna y estrellas participan del lenguaje de juicio.</p>
+      </article>
+      <article class="tarjeta">
+        <h3>📜 Isaías 34</h3>
+        <p><strong>Juicio contra Edom.</strong> Los cielos son enrollados y su ejército cae.</p>
+      </article>
+      <article class="tarjeta">
+        <h3>📜 Ezequiel 32</h3>
+        <p><strong>Juicio contra Egipto y Faraón.</strong> Dios cubre los cielos y oscurece sus lumbreras.</p>
+      </article>
+      <article class="tarjeta">
+        <h3>📜 Joel 2</h3>
+        <p><strong>Día del Señor.</strong> Sol y luna oscurecidos y conmoción celestial.</p>
+      </article>
+    </div>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Mateo 24:29 utiliza vocabulario e imágenes provenientes del lenguaje profético del Antiguo Testamento.</div>
+
+    <div class="frase-central">La primera pregunta no es «¿cómo caerán literalmente las estrellas?», sino «¿qué comunicaba este lenguaje a una audiencia formada por las Escrituras?»</div>
+  </section>
+
+  <section>
+    <h2>5. ☀️ ¿Entonces nada será literal?</h2>
+
+    <p>Tampoco debemos ir al extremo contrario. Que una imagen tenga antecedentes simbólicos <strong>no demuestra automáticamente que todo el acontecimiento sea simbólico</strong>.</p>
+
+    <p>La literatura profética puede describir acontecimientos reales mediante imágenes cósmicas. El sol que se oscurece puede comunicar un juicio divino que trastorna radicalmente el orden establecido.</p>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> el trasfondo profético es muy sólido.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> que cada fenómeno de Mateo 24:29 deba interpretarse exclusivamente como un acontecimiento astronómico literal.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> que ninguno de estos fenómenos pueda tener además una manifestación cósmica real.</div>
+  </section>
+
+  <section>
+    <h2>6. 👑 «La señal del Hijo del Hombre»</h2>
+
+    <blockquote class="versiculo">
+      <p>Entonces aparecerá en el cielo la señal del Hijo del Hombre…</p>
+      <cite class="referencia">Mateo 24:30</cite>
+    </blockquote>
+
+    <p>¿Qué es exactamente esa señal? El texto <strong>no la identifica explícitamente</strong>.</p>
+
+    <p>A lo largo de la historia se han propuesto una cruz visible, una manifestación luminosa, alguna señal celestial, la propia aparición de Cristo o una señal que demuestra que el Hijo del Hombre ha sido entronizado.</p>
+
+    <div class="nivel especulativo"><strong>🔴 Especulativo:</strong> afirmar que Mateo identifica la señal como una cruz gigantesca visible en el cielo.</div>
+    <div class="nivel especulativo"><strong>🔴 Especulativo:</strong> identificarla con un eclipse, cometa, planeta u otro fenómeno concreto sin evidencia textual.</div>
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> la señal está relacionada con la manifestación y autoridad del <strong>Hijo del Hombre</strong>.</div>
+  </section>
+
+  <section>
+    <h2>7. ☁️ «Venir sobre las nubes»</h2>
+
+    <p>Aquí encontramos probablemente la clave más importante del pasaje. La expresión nos lleva directamente a <strong>Daniel 7:13–14</strong>.</p>
+
+    <blockquote class="versiculo">
+      <p>En la visión de Daniel, uno como hijo de hombre viene con las nubes del cielo, se acerca al Anciano de días y recibe dominio, gloria y reino.</p>
+      <cite class="referencia">Síntesis de Daniel 7:13–14</cite>
+    </blockquote>
+
+    <p>El detalle es crucial: en la visión de Daniel, el Hijo del Hombre no es presentado simplemente descendiendo del cielo hacia la Tierra. Se acerca al <strong>Anciano de días</strong> y recibe autoridad real.</p>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Jesús está evocando Daniel 7.</div>
+
+    <div class="nota-clave">
+      <strong>🔥 Consecuencia interpretativa:</strong> «venir sobre las nubes» posee un fuerte sentido de <strong>vindicación + entronización + autoridad real</strong>. Esto no demuestra por sí solo que Mateo 24:30 no pueda relacionarse con la Segunda Venida, pero impide definir la expresión sin comenzar por Daniel 7.
+    </div>
+
+    <figure class="recurso-visual">
+      <img src="recursos/recurso-2-hijo-del-hombre-daniel-7.png"
+           alt="Daniel 7: el Hijo del Hombre viene con las nubes hacia el Anciano de días y recibe el reino"
+           loading="lazy">
+      <figcaption>Recurso 2 — ¿Hacia dónde viene el Hijo del Hombre?</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>8. 👑 Jesús ya había utilizado esta imagen</h2>
+
+    <p>Durante su juicio, Jesús vuelve a utilizar el mismo lenguaje:</p>
+
+    <blockquote class="versiculo">
+      <p>De ahora en adelante verán ustedes al Hijo del Hombre sentado a la derecha del Poderoso, y viniendo en las nubes del cielo.</p>
+      <cite class="referencia">Mateo 26:64</cite>
+    </blockquote>
+
+    <p>Jesús combina aquí imágenes del <strong>Salmo 110</strong> y <strong>Daniel 7</strong>. El lenguaje de las nubes está profundamente relacionado con la exaltación y autoridad mesiánica de Jesús.</p>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Mateo interpreta a Jesús mediante la figura del Hijo del Hombre de Daniel 7.</div>
+  </section>
+
+  <section>
+    <h2>9. ☁️ Las nubes también pertenecen al lenguaje divino</h2>
+
+    <p>En el Antiguo Testamento, venir sobre las nubes no es una imagen cualquiera. Dios aparece repetidamente asociado con ellas. Isaías 19, por ejemplo, describe al Señor viniendo sobre una nube para juzgar a Egipto.</p>
+
+    <div class="frase-central">El punto principal no es meteorológico. Es cristológico: Jesús es el Hijo del Hombre que recibe el reino y ejerce autoridad.</div>
+  </section>
+
+  <section>
+    <h2>10. 😢 «Todas las tribus de la tierra se lamentarán»</h2>
+
+    <div class="texto-original">
+      <strong>γῆ — gē</strong><br>
+      Puede significar «tierra», «suelo», «territorio» o «país», según el contexto.
+    </div>
+
+    <p>La frase también recuerda a <strong>Zacarías 12</strong>, donde las familias de Israel hacen lamentación.</p>
+
+    <div class="interpretaciones-grid">
+      <article class="tarjeta">
+        <h3>🌍 Lectura global</h3>
+        <p>Todas las naciones del mundo lamentan ante la manifestación gloriosa de Cristo.</p>
+      </article>
+      <article class="tarjeta">
+        <h3>🏛️ Lectura centrada en Israel</h3>
+        <p>Las tribus de la tierra —particularmente Israel/Judea— lamentan cuando el juicio manifiesta la autoridad de Jesús.</p>
+      </article>
+    </div>
+
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> el alcance exacto de <em>gē</em> en Mateo 24:30. El contexto y los ecos de Zacarías deben formar parte de la decisión.</div>
+  </section>
+
+  <section>
+    <h2>11. 📯 «Gran voz de trompeta»</h2>
+
+    <p>Las trompetas acompañan acontecimientos decisivos relacionados con Dios: aparición divina, reunión del pueblo, guerra, proclamación, juicio y restauración.</p>
+
+    <p>Aquí la trompeta está directamente relacionada con la <strong>reunión de los elegidos</strong>. Esto recuerda especialmente a Isaías 27:13. El Nuevo Testamento también relacionará trompeta, resurrección y venida de Cristo en 1 Corintios 15:52 y 1 Tesalonicenses 4:16.</p>
+
+    <div class="nivel probable"><strong>🟡 Probable:</strong> Mateo utiliza la tradición bíblica de la gran reunión escatológica del pueblo de Dios.</div>
+    <div class="nivel abierto"><strong>❓ Cuestión abierta:</strong> determinar exactamente cuándo y cómo ocurre esa reunión.</div>
+  </section>
+
+  <section>
+    <h2>12. 🌍 «De los cuatro vientos»</h2>
+
+    <p>«Los cuatro vientos» expresa todas las direcciones del mundo. El énfasis está en la extensión de la reunión: los elegidos de Dios serán reunidos sin importar dónde estén dispersos.</p>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> el centro del v.31 es la reunión del pueblo elegido de Dios desde todos los extremos.</div>
+  </section>
+
+  <section>
+    <h2>13. 👼 ¿Quiénes son los «ángeles»?</h2>
+
+    <div class="texto-original">
+      <strong>ἄγγελος — angelos</strong><br>
+      Literalmente: «mensajero». Puede utilizarse para seres celestiales o mensajeros humanos.
+    </div>
+
+    <p>Algunos intérpretes han sugerido que Mateo 24:31 podría referirse a mensajeros humanos llevando el evangelio. Sin embargo, el contexto de Hijo del Hombre, cielo, gloria, trompeta y reunión escatológica hace muy natural la lectura tradicional.</p>
+
+    <div class="nivel probable"><strong>🟡 Probable:</strong> se trata de ángeles celestiales.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> algunos intérpretes entienden aquí mensajeros humanos asociados con la expansión del evangelio.</div>
+  </section>
+
+  <section>
+    <h2>14. 🧩 Tres grandes interpretaciones</h2>
+
+    <div class="interpretaciones-grid">
+      <article class="tarjeta interpretacion">
+        <h3>A. 🌅 Segunda Venida futura</h3>
+        <p>Entiende Mateo 24:29–31 como descripción directa del regreso visible y glorioso de Cristo al final de la historia.</p>
+        <p><strong>Argumentos:</strong> aparición gloriosa, alcance universal, ángeles, trompeta, reunión de los elegidos y paralelos con otros textos escatológicos del NT.</p>
+        <div class="nivel muy-fuerte"><strong>🟢 Fortaleza:</strong> posee conexiones importantes con la escatología futura del Nuevo Testamento.</div>
+        <div class="nivel disputado"><strong>🟠 Desafío:</strong> explicar el lenguaje de juicios históricos del AT y la conexión «inmediatamente después» con el contexto del discurso.</div>
+      </article>
+
+      <article class="tarjeta interpretacion">
+        <h3>B. 🏛️ Juicio sobre Jerusalén y vindicación</h3>
+        <p>Entiende el pasaje principalmente en relación con la destrucción de Jerusalén en el año 70 d.C.</p>
+        <ul class="lista-clave">
+          <li><strong>Sol, luna y estrellas:</strong> lenguaje profético de juicio.</li>
+          <li><strong>Nubes:</strong> Daniel 7, vindicación y entronización.</li>
+          <li><strong>Tribus de la tierra:</strong> Israel/Judea.</li>
+          <li><strong>Reunión:</strong> reunión y expansión del pueblo mesiánico.</li>
+        </ul>
+        <div class="nivel muy-fuerte"><strong>🟢 Fortaleza:</strong> explica el texto mediante categorías proféticas ya presentes en el AT.</div>
+        <div class="nivel disputado"><strong>🟠 Desafío:</strong> la reunión mediante ángeles y trompeta puede parecer más amplia que la destrucción de Jerusalén por sí sola.</div>
+      </article>
+
+      <article class="tarjeta interpretacion">
+        <h3>C. 🌄 Cumplimiento cercano con horizonte final</h3>
+        <p>Propone que la caída de Jerusalén sea un juicio histórico real que, a la vez, anticipe el juicio definitivo y la manifestación final de Cristo.</p>
+        <div class="nivel probable"><strong>🟡 Probable como posibilidad hermenéutica:</strong> los profetas pueden presentar acontecimientos históricos que funcionan como patrones de realidades posteriores.</div>
+        <div class="nivel disputado"><strong>🟠 Disputado:</strong> demostrar exactamente dónde termina un horizonte y comienza el otro en Mateo 24.</div>
+      </article>
+    </div>
+
+    <figure class="recurso-visual">
+      <img src="recursos/recurso-3-tres-lecturas-mateo-24.png"
+           alt="Comparación de tres interpretaciones de Mateo 24:29-31"
+           loading="lazy">
+      <figcaption>Recurso 3 — Tres lecturas de Mateo 24:29–31.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>15. ⚖️ ¿Qué podemos afirmar con mayor seguridad?</h2>
+
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Mateo 24:29 está construido con lenguaje profético del Antiguo Testamento.</div>
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> el oscurecimiento del sol, la luna y las estrellas no obliga por sí mismo a interpretar una destrucción literal del cosmos.</div>
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> Mateo 24:30 está profundamente relacionado con Daniel 7:13–14.</div>
+    <div class="nivel muy-fuerte"><strong>🟢 Muy fuerte:</strong> el centro teológico del pasaje es Jesús como Hijo del Hombre glorificado, vindicado y reinante.</div>
+    <div class="nivel probable"><strong>🟡 Probable:</strong> la trompeta y la reunión de los elegidos evocan la restauración y reunión escatológica del pueblo de Dios.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> si Mateo 24:29–31 se cumplió principalmente en torno al año 70.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> si describe directamente la Segunda Venida futura.</div>
+    <div class="nivel disputado"><strong>🟠 Disputado:</strong> si existe deliberadamente un horizonte cercano y otro final.</div>
+    <div class="nivel especulativo"><strong>🔴 Especulativo:</strong> identificar la «señal del Hijo del Hombre» con una cruz, planeta, eclipse, cometa u otro fenómeno específico que Mateo nunca identifica.</div>
+  </section>
+
+  <section>
+    <h2>16. 🔥 El centro del pasaje</h2>
+
+    <p>Es fácil convertir Mateo 24:29–31 exclusivamente en una discusión sobre <strong>preterismo vs. futurismo</strong>. Pero Mateo quiere que veamos algo mayor.</p>
+
+    <p>Las potencias tiemblan. Los reinos humanos caen. El cielo mismo parece estremecerse. Y en medio de todo aparece <strong>el Hijo del Hombre</strong>.</p>
+
+    <div class="frase-central">El mismo Jesús que será rechazado y crucificado aparece utilizando el lenguaje de Daniel 7: el aparente derrotado será vindicado.</div>
+
+    <p>Los imperios pueden parecer poderosos. Jerusalén puede parecer inconmovible. El templo puede parecer eterno. Pero el reino definitivo pertenece al <strong>Hijo del Hombre</strong>.</p>
+  </section>
+
+  <section>
+    <h2>17. 🧭 Mapa Escatológico — actualización</h2>
+
+    <div class="mapa-textual">
+      Daniel 7
+      <span class="flecha">→</span>
+      Hijo del Hombre recibe reino y autoridad
+      <span class="flecha">→</span>
+      Mateo 24:29–31
+      <span class="flecha">→</span>
+      lenguaje cósmico
+      <span class="flecha">→</span>
+      manifestación / vindicación
+      <span class="flecha">→</span>
+      juicio y lamentación
+      <span class="flecha">→</span>
+      reunión de los elegidos
+      <span class="flecha">→</span>
+      ❓ Jerusalén 70 d.C. / Segunda Venida
+      <span class="flecha">→</span>
+      Mateo 24:34
+    </div>
+
+    <figure class="recurso-visual">
+      <img src="recursos/recurso-4-mapa-escatologico.png"
+           alt="Mapa Escatológico actualizado de Daniel 7 a Mateo 24:29-31 y la cuestión de Jerusalén y la Segunda Venida"
+           loading="lazy">
+      <figcaption>Recurso 4 — Mapa Escatológico actualizado.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="conclusion-estudio">
+      <h2>🧠 Conclusión</h2>
+
+      <p>Mateo 24:29–31 no debería comenzar interpretándose mediante imágenes modernas de catástrofes astronómicas. Jesús está hablando con el vocabulario de <strong>Isaías, Ezequiel, Joel, Zacarías y especialmente Daniel</strong>.</p>
+
+      <p>El sol que se oscurece, la luna que pierde su luz y las estrellas que caen pertenecen al lenguaje profético de <strong>juicio y transformación del orden establecido</strong>. Y la figura central procede de Daniel 7: <strong>el Hijo del Hombre viniendo con las nubes y recibiendo autoridad</strong>.</p>
+
+      <div class="nivel muy-fuerte"><strong>🟢 Lo más seguro:</strong> Jesús anuncia una intervención decisiva de Dios que revelará la autoridad del Hijo del Hombre y culminará en la reunión de su pueblo.</div>
+
+      <div class="nivel abierto"><strong>❓ Lo que permanece abierto:</strong> la relación temporal exacta entre esa manifestación, la destrucción de Jerusalén y la Segunda Venida final de Cristo.</div>
+
+      <p>Y precisamente aquí aparece la siguiente declaración de Jesús:</p>
+
+      <blockquote class="versiculo">
+        <p>De cierto les digo, que no pasará esta generación hasta que todo esto acontezca.</p>
+        <cite class="referencia">Mateo 24:34</cite>
+      </blockquote>
+
+      <p><strong>Ese será el problema central del Estudio 25.</strong></p>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
