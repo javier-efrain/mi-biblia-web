@@ -13,7 +13,8 @@
       "media": "../recursos-globales/mapas/vida-de-jesus/monte-olivos-jerusalen-marcos-11.png",
       "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
       "leyenda": "El trazado exacto del recorrido es aproximado; las ubicaciones generales son históricamente reconocibles.",
-      "estado": "activo"
+      "estado": "activo",
+      "modo": "tarjeta"
     },
     {
       "id": "mc11-higuera",
@@ -21,11 +22,12 @@
       "tipo": "naturaleza",
       "titulo": "La higuera: hojas y fruto",
       "descripcion": "Ayuda a reconocer visualmente una higuera y a comprender por qué la presencia de hojas forma parte de la escena de Marcos 11:12-14.",
-      "accion": "Ver la higuera",
-      "media": null,
-      "alt": null,
+      "accion": "🌿 Ver recurso visual",
+      "media": "../recursos-globales/mapas/vida-de-jesus/monte-olivos-jerusalen-marcos-11.png",
+      "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
       "leyenda": "Recurso botánico y contextual; no pretende reconstruir la higuera concreta del relato.",
-      "estado": "pendiente_vincular_recurso"
+      "estado": "activo_prueba",
+      "modo": "linea"
     },
     {
       "id": "mc11-complejo-templo",
@@ -34,10 +36,11 @@
       "titulo": "El complejo del templo en tiempos de Jesús",
       "descripcion": "Permite dimensionar el recinto del templo y situar de manera históricamente plausible la escena de Marcos 11:15-19.",
       "accion": "Explorar el templo",
-      "media": null,
-      "alt": null,
+      "media": "../recursos-globales/mapas/vida-de-jesus/monte-olivos-jerusalen-marcos-11.png",
+      "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
       "leyenda": "Reconstrucción históricamente plausible. La localización precisa de cada acción narrada no puede establecerse con certeza.",
-      "estado": "pendiente_vincular_recurso"
+      "estado": "activo_prueba",
+      "modo": "desplegado"
     },
     {
       "id": "mc11-estructura-higuera-templo",
@@ -45,11 +48,12 @@
       "tipo": "diagrama",
       "titulo": "Higuera → templo → higuera",
       "descripcion": "Hace visible la estructura narrativa de Marcos: la escena de la higuera rodea la acción de Jesús en el templo y ayuda a leer ambos episodios en relación.",
-      "accion": "Ver estructura",
-      "media": null,
-      "alt": null,
+      "accion": "Ver recurso",
+      "media": "../recursos-globales/mapas/vida-de-jesus/monte-olivos-jerusalen-marcos-11.png",
+      "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
       "leyenda": "El diagrama representa la disposición literaria del relato, no una secuencia añadida al texto.",
-      "estado": "pendiente_vincular_recurso"
+      "estado": "activo_prueba",
+      "modo": "miniatura"
     }
   ]
 }
