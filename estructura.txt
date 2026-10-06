@@ -1,0 +1,360 @@
+Listado de rutas de carpetas
+El número de serie del volumen es 9029-B301
+C:.
+|   estilo-base-v2.css
+|   estructura.txt
+|   generador-biblia-json-v3.html
+|   generador-escatologia-v9.html
+|   generador-v4.html
+|   generador-v5.html
+|   generador-v6.html
+|   index.html
+|   plantilla base estudio.html
+|   prueba-biblia.html
+|   
++---biblia
+|   \---rvc
+|           lucas.json
+|           marcos.json
+|           mateo.json
+|           
++---biblia-visual-higuera-prototipo
+|   \---biblia-visual-higuera
+|       |   index.html
+|       |   
+|       \---assets
+|               01-camino-betania-jerusalen.png
+|               02-mapa-betania-jerusalen.png
+|               03-higuera-templo-higuera.png
+|               04-higuera-fruto-hojas.png
+|               05-del-arbol-al-templo.png
+|               
++---biblia-visual-higuera-v2
+|   \---biblia-visual-higuera-v2
+|       |   index.html
+|       |   
+|       \---assets
+|               01-camino-betania-jerusalen.png
+|               02-mapa-betania-jerusalen.png
+|               03-higuera-templo-higuera.png
+|               04-higuera-fruto-hojas.png
+|               05-del-arbol-al-templo.png
+|               
++---css
+|       colecciones.css
+|       escatologia-indice.css
+|       escatologia.css
+|       estilo-base.css
+|       inicio.css
+|       lector-cronologico.css
+|       
++---desarrollo
++---enciclopedia
++---estudios
+|   |   domingo-ramos.html
+|   |   jesus-lava-los-pies.html
+|   |   judas-remordimiento.html
+|   |   la-traicion-de-judas.html
+|   |   prueba-lector-cronologico-v2.html
+|   |   
+|   +---escatologia
+|   |   |   index.html
+|   |   |   
+|   |   +---01-fundamentos-de-la-escatologia-biblica
+|   |   |   |   fundamentos-de-la-escatologia-biblica.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-01-creacion-caida-redencion-consumacion.png
+|   |   |           estudio-01-las-dos-eras-ya-todavia-no.png
+|   |   |           estudio-01-mapa-escatologico-v1.png
+|   |   |           
+|   |   +---02-los-ultimos-dias
+|   |   |   |   los-ultimos-dias.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           hebreos-1-1-2-de-los-profetas-al-hijo.png
+|   |   |           infografia-ya-pero-todavia-no.png
+|   |   |           mapa-escatologico-2-0-estudio-2.png
+|   |   |           ya-pero-todavia-no-dos-eras-superpuesta.png
+|   |   |           
+|   |   +---03-el-lenguaje-profetico
+|   |   |   |   el-lenguaje-profetico.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-03-guia-provisional-lenguaje-profetico.png
+|   |   |           estudio-03-isaias-34-apocalipsis-6.png
+|   |   |           estudio-03-lenguaje-cosmico-juicio-profetico.png
+|   |   |           estudio-03-metodo-interpretar-imagen-profetica.png
+|   |   |           estudio-03-movimiento-daniel-7-13.png
+|   |   |           estudio-03-venir-sobre-las-nubes.png
+|   |   |           
+|   |   +---10-la-resurreccion-en-el-antiguo-testamento
+|   |   |   |   la-resurreccion-en-el-antiguo-testamento.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           daniel-12-2-3-resurreccion-juicio-vida-eterna.png
+|   |   |           del-polvo-a-la-resurreccion-antiguo-testamento.png
+|   |   |           muerte-devorada-victoria-resurreccion-biblica.png
+|   |   |           resucitacion-vs-resurreccion-escatologica.png
+|   |   |           
+|   |   +---11-el-juicio-de-las-naciones
+|   |   |   |   el-juicio-de-las-naciones.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-11-arco-biblico-naciones.png
+|   |   |           estudio-11-daniel-7-mateo-25.png
+|   |   |           estudio-11-juicio-restauracion-profetas.png
+|   |   |           estudio-11-mapa-escatologico-actualizacion.png
+|   |   |           
+|   |   +---12-cielos-nuevos-tierra-nueva
+|   |   |   |   cielos-nuevos-tierra-nueva.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-12-genesis-nueva-creacion.png
+|   |   |           estudio-12-isaias-apocalipsis-nueva-creacion.png
+|   |   |           estudio-12-mapa-escatologico-nueva-creacion.png
+|   |   |           estudio-12-reemplazo-o-renovacion-creacion.png
+|   |   |           
+|   |   +---13-como-interpretar-daniel
+|   |   |   |   como-interpretar-daniel.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-13-como-interpretar-daniel.png
+|   |   |           estudio-13-estructura-daniel-2-7.png
+|   |   |           estudio-13-estructura-libro-daniel.png
+|   |   |           estudio-13-metodo-interpretar-daniel.png
+|   |   |           
+|   |   +---14-la-estatua-y-los-4-imperios
+|   |   |   |   la-estatua-y-los-4-imperios.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-14-cuatro-reinos-texto-identificacion.png
+|   |   |           estudio-14-estatua-daniel-2-cuatro-imperios.png
+|   |   |           estudio-14-piedra-montana-reino-de-dios.png
+|   |   |           estudio-14-ya-todavia-no-reino-de-dios.png
+|   |   |           
+|   |   +---15-las-cuatro-bestias
+|   |   |   |   las-cuatro-bestias.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           daniel-2-daniel-7-comparacion-reinos.png
+|   |   |           daniel-7-cuatro-bestias-cuatro-reinos.png
+|   |   |           daniel-7-reino-bestial-reino-hijo-del-hombre.png
+|   |   |           daniel-7-tribunal-celestial-hijo-del-hombre.png
+|   |   |           
+|   |   +---16-el-carnero-el macho-cabrio
+|   |   |   |   el-carnero-el macho-cabrio.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           ChatGPT Image 17 sept 2026, 04_50_57 p.m..png
+|   |   |           daniel-8-2300-tardes-mananas.png
+|   |   |           daniel-8-carnero-macho-cabrio-cuerno-pequeno.png
+|   |   |           daniel-8-mundo-helenistico-campanas-antioco-iv.png
+|   |   |           
+|   |   +---17-las-setenta-semanas
+|   |   |   |   las-setenta-semanas.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           daniel-9-70-anos-70-semanas-jeremias.png
+|   |   |           daniel-9-cuatro-interpretaciones-setenta-semanas.png
+|   |   |           daniel-9-setenta-semanas-linea-temporal.png
+|   |   |           daniel-apocalipsis-tres-tiempos-medio.png
+|   |   |           mapa-escatologico-actualizado-estudio-17.png
+|   |   |           
+|   |   +---18-la-gran-vision-final
+|   |   |   |   18-la-gran-vision-final.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           18-cronologia-daniel-11.png
+|   |   |           18-esperanza-resurreccion.png
+|   |   |           18-estructura-daniel-10-12.png
+|   |   |           18-mapa-escatologico.png
+|   |   |           18-portada-daniel-10-12.png
+|   |   |           18-rey-del-norte-rey-del-sur.png
+|   |   |           
+|   |   +---19-la-abominacion-desoladora
+|   |   |   |   la-abominacion-desoladora.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           abominacion-desoladora-linea-temporal.png
+|   |   |           abominacion-desoladora-textos-paralelos.png
+|   |   |           mapa-escatologico-abominacion-desoladora.png
+|   |   |           mapa-escatologico-despues-de-daniel.png
+|   |   |           
+|   |   +---20-contexto-discurso-monte-olivos
+|   |   |   |   estudio-20-contexto-discurso-monte-olivos.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           del-templo-al-monte-de-los-olivos.png
+|   |   |           estudio-20-contexto-discurso-monte-olivos-mobile.png
+|   |   |           estudio-20-contexto-discurso-monte-olivos.png
+|   |   |           mapa-escatologico-estudio-20.png
+|   |   |           mateo-marcos-lucas-frente-a-frente.png
+|   |   |           pregunta-que-abre-mateo-24.png
+|   |   |           
+|   |   +---21-guerras-hambres-persecuciones
+|   |   |   |   estudio-21-mateo-24-guerras-hambres-persecuciones.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-21-mapa-escatologico-mateo-24-1-14.png
+|   |   |           estudio-21-mateo-24-guerras-hambres-persecuciones-portada-movil.png
+|   |   |           estudio-21-mateo-24-guerras-hambres-persecuciones-portada.png
+|   |   |           estudio-21-progresion-mateo-24-4-14.png
+|   |   |           estudio-21-siglo-i-futuro-o-ambos.png
+|   |   |           estudio-21-todavia-no-sera-el-fin.png
+|   |   |           
+|   |   +---22-la-gran-tribulacion
+|   |   |   |   la-gran-tribulacion.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           22-cuando-vean-huyan-a-los-montes.png
+|   |   |           22-daniel-antioco-jesus-abominacion-desoladora.png
+|   |   |           22-mapa-escatologico-mateo-24-15-22.png
+|   |   |           22-mateo-24-15-22-gran-tribulacion-portada-movil.png
+|   |   |           22-mateo-24-15-22-gran-tribulacion-portada.png
+|   |   |           22-mateo-lucas-frente-a-frente.png
+|   |   |           
+|   |   +---23-falsos-cristos
+|   |   |   |   falsos-cristos.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-23-falso-mesias-vs-parousia.png
+|   |   |           estudio-23-falsos-cristos-portada-mobile.png
+|   |   |           estudio-23-falsos-cristos-portada.png
+|   |   |           estudio-23-mapa-escatologico.png
+|   |   |           estudio-23-senales-no-igual-verdad.png
+|   |   |           estudio-23-significado-aguilas-mateo-24-28.png
+|   |   |           
+|   |   +---24-venida-del-hijo-del-hombre
+|   |   |   |   estudio-24-mateo-24-29-31.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-24-mateo-24-29-31-portada-mobile.png
+|   |   |           estudio-24-mateo-24-29-31-portada.png
+|   |   |           recurso-1-cosmos-profetas.png
+|   |   |           recurso-2-hijo-del-hombre-daniel-7.png
+|   |   |           recurso-3-tres-lecturas-mateo-24.png
+|   |   |           recurso-4-mapa-escatologico.png
+|   |   |           
+|   |   +---25-esta-generacion-no-pasara
+|   |   |   |   estudio-25-esta-generacion-no-pasara.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-25-de-mateo-23-a-mateo-24.png
+|   |   |           estudio-25-esta-generacion-en-mateo.png
+|   |   |           estudio-25-esta-generacion-no-pasara-portada-mobile.png
+|   |   |           estudio-25-esta-generacion-no-pasara-portada.png
+|   |   |           estudio-25-mapa-escatologico.png
+|   |   |           estudio-25-que-significa-esta-generacion.png
+|   |   |           
+|   |   +---26-nadie-sabe-el-dia-ni-la-hora
+|   |   |   |   estudio-26-mateo-24-36-51.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-26-nadie-sabe-el-dia-ni-la-hora-portada-celular.png
+|   |   |           estudio-26-nadie-sabe-el-dia-ni-la-hora-portada-pc.png
+|   |   |           recurso-1-nadie-sabe-el-dia-ni-la-hora.png
+|   |   |           recurso-2-como-en-los-dias-de-noe.png
+|   |   |           recurso-3-uno-sera-tomado-y-otro-dejado.png
+|   |   |           recurso-4-mapa-escatologico-estudio-26.png
+|   |   |           
+|   |   +---27-la-destruccion-de-jerusalen
+|   |   |   |   estudio-27-lucas-21-destruccion-jerusalen.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           del-ano-70-a-la-venida-del-hijo-del-hombre.png
+|   |   |           estudio-27-lucas-21-destruccion-jerusalen-mobile.png
+|   |   |           estudio-27-lucas-21-destruccion-jerusalen.png
+|   |   |           jerusalen-rodeada-de-ejercitos.png
+|   |   |           mapa-escatologico-estudio-27.png
+|   |   |           mateo-24-y-lucas-21-frente-a-frente.png
+|   |   |           
+|   |   +---28-que-ocurrio-en-el-año-70
+|   |   |   |   estudio-28-que-ocurrio-realmente-ano-70.html
+|   |   |   |   
+|   |   |   \---recursos
+|   |   |           estudio-28-ano-70-portada-celular.png
+|   |   |           estudio-28-ano-70-portada.png
+|   |   |           estudio-28-jesus-anuncio-ano-70-ocurrio.png
+|   |   |           estudio-28-linea-tiempo-66-70.png
+|   |   |           estudio-28-mapa-escatologico.png
+|   |   |           estudio-28-sitio-jerusalen.png
+|   |   |           
+|   |   \---prueba
+|   |           estudio-escatologia.html
+|   |           
+|   \---vida-de-jesus
+|       |   index.html
+|       |   
+|       \---08-semana-de-la-pasion
+|           |   index.html
+|           |   
+|           +---00-introduccion-y-cronologia
+|           +---01-domingo
+|           |   \---01-entrada-triunfal-en-jerusalen
+|           |       |   entrada-triunfal-en-jerusalen.html
+|           |       |   
+|           |       \---recursos
+|           |               entrada-triunfal-aclamaciones-multitud.png
+|           |               entrada-triunfal-cronologia-cuatro-evangelios.png
+|           |               entrada-triunfal-jesus-llora-jerusalen.png
+|           |               entrada-triunfal-mapa-betania-jerusalen.png
+|           |               entrada-triunfal-reconstruccion-historica.png
+|           |               entrada-triunfal-rey-esperado-rey-que-llega.png
+|           |               
+|           +---02-lunes
+|           |   +---01-jesus-maldice-la-higuera
+|           |   |   |   jesus-maldice-la-higuera.html
+|           |   |   |   
+|           |   |   \---recursos
+|           |   |           info.png
+|           |   |           mapa-betania.png
+|           |   |           sandwich.png
+|           |   |           secuencia.png
+|           |   |           
+|           |   \---02-jesus-purifica-el-templo
+|           |       |   jesus-purifica-el-templo.html
+|           |       |   
+|           |       \---recursos
+|           |               cueva-de-ladrones-jeremias-7.png
+|           |               higuera-templo-higuera-marcos-11.png
+|           |               isaias-56-jeremias-7-marcos-11-17.png
+|           |               juicio-restauracion-templo-mateo-21.png
+|           |               templo-jerusalen-tiempos-jesus.png
+|           |               vendedores-cambistas-templo-jerusalen.png
+|           |               
+|           +---03-martes
+|           +---04-miercoles
+|           +---05-jueves
+|           |   +---arresto
+|           |   +---getsemani
+|           |   \---ultima-cena
+|           +---06-viernes
+|           |   +---crucifixion
+|           |   +---procesos-de-jesus
+|           |   \---sepultura
+|           \---07-sabado
++---idiomas-biblicos
++---imagenes
+|       Comida-formal-en-la-Judea-del-siglo-I.png
+|       infografia-lavado-de-pies.png
+|       jesus-lava-pies.png
+|       la-luz-y-las-tinieblas.png
+|       la-progresion-de-judas.png
+|       la-traicion-de-judas.infografia.png
+|       lo-que-saben.png
+|       sintesis-exegetica-juan-13.png
+|       tabla-de-conexiones.png
+|       
++---js
+|       lector-biblico.js
+|       lector-cronologico.js
+|       mapas.js
+|       
++---recursos-globales
+|   +---diagramas
+|   +---iconos
+|   +---lineas-de-tiempo
+|   +---mapas
+|   \---reconstrucciones
+\---teologia

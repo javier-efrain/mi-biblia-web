@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generador Biblia → JSON</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#172033;background:#f5f7fb}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1200px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #dfe5ef;border-radius:14px;padding:18px;margin:0 0 16px;box-shadow:0 3px 14px #1720330d}h1{margin:0 0 8px;font-size:1.8rem}h2{font-size:1.1rem;margin:0 0 12px}.muted{color:#667085}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}label{font-size:.85rem;font-weight:650;display:block;margin-bottom:5px}input,textarea,button{font:inherit}input,textarea{width:100%;border:1px solid #cfd7e5;border-radius:9px;padding:10px;background:#fff}textarea{min-height:280px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.84rem}button{border:0;border-radius:9px;padding:10px 14px;cursor:pointer;background:#243b67;color:white;font-weight:650}button.secondary{background:#e9eef7;color:#243b67}button.danger{background:#a83a3a}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.status{padding:11px 13px;border-radius:9px;margin:7px 0}.ok{background:#eaf8ef;color:#176536}.warn{background:#fff5d9;color:#765500}.err{background:#fdeaea;color:#8a2424}.preview{max-height:440px;overflow:auto;border:1px solid #e1e6ee;border-radius:9px}.verse{padding:9px 11px;border-bottom:1px solid #edf0f5;display:grid;grid-template-columns:50px 1fr;gap:8px}.verse:last-child{border-bottom:0}.vn{font-weight:750;color:#526078}.bookchap{display:flex;flex-wrap:wrap;gap:8px}.chip{background:#edf2f8;border-radius:999px;padding:7px 10px;font-size:.9rem}.json{min-height:330px}.small{font-size:.82rem}.hidden{display:none}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.wrap{padding:12px}}@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<div class="card"><h1>Generador Biblia → JSON</h1><div class="muted">Pega el <b>outerHTML</b> del capítulo. El generador extrae los <code>span.text</code>, elimina numeración y referencias cruzadas, agrupa fragmentos del mismo versículo y construye el libro.</div></div>
+
+<div class="card"><h2>1. Datos del libro</h2><div class="grid">
+<div><label>Versión</label><input id="version" value="RVC"></div>
+<div><label>Libro</label><input id="libro" value="Lucas"></div>
+<div><label>Abreviatura</label><input id="abbr" value="Lc"></div>
+<div><label>Slug</label><input id="slug" value="lucas"></div>
+<div><label>Capítulo esperado</label><input id="capitulo" type="number" min="1" value="1"></div>
+</div><div class="actions"><button class="secondary" id="cargarJSON">Cargar JSON existente</button><input id="archivoJSON" type="file" accept="application/json,.json" class="hidden"></div><div class="small muted" style="margin-top:8px">Podés retomar un libro ya iniciado. El archivo cargado conserva sus capítulos y los nuevos se agregan sin perderlos.</div></div>
+
+<div class="card"><h2>2. HTML de Bible Gateway</h2><textarea id="source" placeholder="Pega aquí Copy → Copy outerHTML del contenedor passage-text..."></textarea><div class="actions"><button id="procesar">Procesar capítulo</button><button class="secondary" id="limpiarEntrada">Limpiar entrada</button></div></div>
+
+<div class="card"><h2>3. Diagnóstico</h2><div id="diagnostico" class="muted">Todavía no se procesó ningún capítulo.</div></div>
+
+<div class="card"><h2>4. Vista previa</h2><div id="preview" class="preview"><div class="verse muted">Aquí aparecerán los versículos detectados.</div></div><div class="actions"><button id="agregar" disabled>Agregar / reemplazar capítulo</button></div></div>
+
+<div class="card"><h2>5. Libro en construcción</h2><div id="capitulos" class="bookchap muted">Sin capítulos agregados.</div><div class="actions"><button class="secondary" id="copiar">Copiar JSON</button><button id="descargar">Descargar JSON</button><button class="danger" id="reiniciar">Reiniciar libro</button></div><textarea id="output" class="json" readonly></textarea></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let libroJSON={version:'RVC',libro:'Lucas',abreviatura:'Lc',slug:'lucas',capitulos:{}};
+let ultimo=null;
+const esperado={Lucas:{1:80,2:52,3:38,4:44,5:39,6:49,7:50,8:56,9:62,10:42,11:54,12:59,13:35,14:35,15:32,16:31,17:37,18:43,19:48,20:47,21:38,22:71,23:56,24:53}};
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function meta(){return {version:$('version').value.trim(),libro:$('libro').value.trim(),abreviatura:$('abbr').value.trim(),slug:$('slug').value.trim(),capitulo:String(parseInt($('capitulo').value,10)||'')}}
+function parse(){
+ const raw=$('source').value; const m=meta(); const msgs=[];
+ if(!raw.trim()){diag(['❌ No hay HTML para procesar.'],'err');return}
+ const doc=new DOMParser().parseFromString(raw,'text/html');
+ const root=doc.querySelector('.passage-text')||doc.body;
+ root.querySelectorAll('.crossrefs,.resources-section').forEach(x=>x.remove());
+ const spans=[...root.querySelectorAll('span.text')].filter(sp=>!sp.closest('h1,h2,h3,h4,h5,h6')); // excluir títulos editoriales de Bible Gateway
+ if(!spans.length){diag(['❌ No encontré elementos <span class="text …">. ¿Copiaste el outerHTML del texto bíblico?'],'err');return}
+ const map=new Map(), structural=[]; let detectedBook=null,detectedChapter=null;
+ for(const sp of spans){
+   const cls=[...sp.classList].find(c=>/^.+-\d+-\d+$/.test(c)&&c!=='text'); if(!cls)continue;
+   const mm=cls.match(/^(.+)-(\d+)-(\d+)$/); if(!mm)continue;
+   const [,book,ch,v]=mm; detectedBook??=book; detectedChapter??=ch;
+   const clone=sp.cloneNode(true); clone.querySelectorAll('.versenum,.chapternum,.crossreference,.footnote,.footnotes').forEach(x=>x.remove());
+   let txt=clone.textContent.replace(/\u00a0/g,' ').replace(/[ \t\r\n]+/g,' ').trim();
+   if(!txt)continue;
+   if(!map.has(+v))map.set(+v,[]); map.get(+v).push(txt);
+ }
+ const nums=[...map.keys()].sort((a,b)=>a-b); if(!nums.length){diag(['❌ Encontré spans, pero no pude obtener clases Libro-capítulo-versículo.'],'err');return}
+ for(let i=nums[0];i<=nums.at(-1);i++)if(!map.has(i))structural.push(i);
+ const verses={}; nums.forEach(n=>verses[n]=map.get(n).join(' '));
+ if(detectedChapter!==m.capitulo)msgs.push(`⚠️ El HTML parece ser del capítulo ${detectedChapter}, pero indicaste capítulo ${m.capitulo}.`);
+ const exp=esperado[m.libro]?.[+m.capitulo];
+ msgs.push(`✓ Versículos detectados: ${nums.length} (${nums[0]}–${nums.at(-1)}).`);
+ msgs.push(structural.length?`❌ Faltan números dentro de la secuencia: ${structural.join(', ')}.`:'✓ Numeración interna consecutiva.');
+ if(exp) msgs.push(nums.length===exp&&nums[0]===1&&nums.at(-1)===exp?`✓ Coincide con los ${exp} versículos esperados para ${m.libro} ${m.capitulo}.`:`⚠️ Se esperaban ${exp} versículos para ${m.libro} ${m.capitulo}.`);
+ msgs.push(`✓ Títulos editoriales, referencias cruzadas y numeración HTML excluidos del texto.`);
+ ultimo={capitulo:m.capitulo,verses,nums}; renderPreview(verses); diag(msgs,structural.length?'err':(msgs.some(x=>x.startsWith('⚠️'))?'warn':'ok')); $('agregar').disabled=false;
+}
+function diag(msgs,type){$('diagnostico').innerHTML=msgs.map(x=>`<div class="status ${type}">${esc(x)}</div>`).join('')}
+function renderPreview(v){$('preview').innerHTML=Object.entries(v).map(([n,t])=>`<div class="verse"><div class="vn">${n}</div><div>${esc(t)}</div></div>`).join('')}
+function syncMeta(){const m=meta();libroJSON.version=m.version;libroJSON.libro=m.libro;libroJSON.abreviatura=m.abreviatura;libroJSON.slug=m.slug;renderJSON()}
+function add(){if(!ultimo)return;syncMeta(); const c=ultimo.capitulo;if(libroJSON.capitulos[c]&&!confirm(`El capítulo ${c} ya existe. ¿Reemplazarlo?`))return;libroJSON.capitulos[c]=ultimo.verses;renderJSON();guardarLocal();diag([`✓ Capítulo ${c} agregado al libro.`],'ok')}
+function validarJSONImportado(data){
+ if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('El archivo no contiene un objeto JSON válido.');
+ for(const k of ['version','libro','abreviatura','slug','capitulos'])if(!(k in data))throw new Error(`Falta la propiedad obligatoria "${k}".`);
+ if(!data.capitulos||typeof data.capitulos!=='object'||Array.isArray(data.capitulos))throw new Error('"capitulos" debe ser un objeto.');
+ for(const [c,vs] of Object.entries(data.capitulos)){if(!/^\d+$/.test(c)||!vs||typeof vs!=='object'||Array.isArray(vs))throw new Error(`Estructura inválida en capítulo ${c}.`);for(const [v,t] of Object.entries(vs))if(!/^\d+$/.test(v)||typeof t!=='string')throw new Error(`Versículo inválido en ${c}:${v}.`)}
+ return data;
+}
+function cargarLibro(data){libroJSON={version:data.version,libro:data.libro,abreviatura:data.abreviatura,slug:data.slug,capitulos:data.capitulos};$('version').value=data.version;$('libro').value=data.libro;$('abbr').value=data.abreviatura;$('slug').value=data.slug;ultimo=null;$('agregar').disabled=true;renderJSON();guardarLocal();const ks=Object.keys(data.capitulos);diag([`✓ JSON cargado: ${data.libro} (${data.version}).`,`✓ Capítulos conservados: ${ks.length?ks.sort((a,b)=>+a-+b).join(', '):'ninguno'}.`,`Ahora elegí el próximo capítulo, pegá su HTML y procesalo.`],'ok')}
+function guardarLocal(){try{localStorage.setItem('bibliaJsonEnConstruccion',JSON.stringify(libroJSON))}catch(e){}}
+function renderJSON(){const ordered={};Object.keys(libroJSON.capitulos).sort((a,b)=>+a-+b).forEach(k=>ordered[k]=libroJSON.capitulos[k]);libroJSON.capitulos=ordered;$('output').value=JSON.stringify(libroJSON,null,2);const ks=Object.keys(ordered);$('capitulos').innerHTML=ks.length?ks.map(k=>`<span class="chip">Cap. ${k} ✓ ${Object.keys(ordered[k]).length} vers.</span>`).join(''):'Sin capítulos agregados.'}
+$('procesar').onclick=parse;$('agregar').onclick=add;
+$('cargarJSON').onclick=()=>$('archivoJSON').click();
+$('archivoJSON').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const data=validarJSONImportado(JSON.parse(await f.text()));if(Object.keys(libroJSON.capitulos).length&&!confirm('Ya hay capítulos en esta sesión. ¿Cargar el archivo y reemplazar el libro actual en memoria?')){e.target.value='';return}cargarLibro(data)}catch(err){diag([`❌ No pude cargar el JSON: ${err.message}`],'err')}finally{e.target.value=''}};$('limpiarEntrada').onclick=()=>{$('source').value='';ultimo=null;$('agregar').disabled=true};
+$('copiar').onclick=async()=>{syncMeta();await navigator.clipboard.writeText($('output').value);alert('JSON copiado.')};
+$('descargar').onclick=()=>{syncMeta();const blob=new Blob([$('output').value],{type:'application/json;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(libroJSON.slug||'libro')+'.json';a.click();URL.revokeObjectURL(a.href)};
+$('reiniciar').onclick=()=>{if(confirm('¿Borrar todos los capítulos cargados?')){libroJSON.capitulos={};ultimo=null;$('agregar').disabled=true;renderJSON();guardarLocal()}};
+['version','libro','abbr','slug'].forEach(id=>$(id).addEventListener('input',()=>{syncMeta();guardarLocal()}));renderJSON();
+</script></body></html>
