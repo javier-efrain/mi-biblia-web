@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "libro": "marcos",
+  "capitulo": 11,
+  "recursos": [
+    {
+      "id": "mc11-recorrido-entrada-jerusalen",
+      "despues_de": 11,
+      "tipo": "mapa",
+      "titulo": "Del monte de los Olivos a Jerusalén",
+      "descripcion": "Ubica Betania, Betfagé, el monte de los Olivos y Jerusalén para visualizar el escenario y el recorrido de Marcos 11:1-11.",
+      "accion": "Ver mapa",
+      "media": "../recursos-globales/mapas/vida-de-jesus/monte-olivos-jerusalen-marcos-11.png",
+      "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
+      "leyenda": "El trazado exacto del recorrido es aproximado; las ubicaciones generales son históricamente reconocibles.",
+      "estado": "activo"
+    },
+    {
+      "id": "mc11-higuera",
+      "despues_de": 14,
+      "tipo": "naturaleza",
+      "titulo": "La higuera: hojas y fruto",
+      "descripcion": "Ayuda a reconocer visualmente una higuera y a comprender por qué la presencia de hojas forma parte de la escena de Marcos 11:12-14.",
+      "accion": "Ver la higuera",
+      "media": null,
+      "alt": null,
+      "leyenda": "Recurso botánico y contextual; no pretende reconstruir la higuera concreta del relato.",
+      "estado": "pendiente_vincular_recurso"
+    },
+    {
+      "id": "mc11-complejo-templo",
+      "despues_de": 19,
+      "tipo": "reconstruccion",
+      "titulo": "El complejo del templo en tiempos de Jesús",
+      "descripcion": "Permite dimensionar el recinto del templo y situar de manera históricamente plausible la escena de Marcos 11:15-19.",
+      "accion": "Explorar el templo",
+      "media": null,
+      "alt": null,
+      "leyenda": "Reconstrucción históricamente plausible. La localización precisa de cada acción narrada no puede establecerse con certeza.",
+      "estado": "pendiente_vincular_recurso"
+    },
+    {
+      "id": "mc11-estructura-higuera-templo",
+      "despues_de": 26,
+      "tipo": "diagrama",
+      "titulo": "Higuera → templo → higuera",
+      "descripcion": "Hace visible la estructura narrativa de Marcos: la escena de la higuera rodea la acción de Jesús en el templo y ayuda a leer ambos episodios en relación.",
+      "accion": "Ver estructura",
+      "media": null,
+      "alt": null,
+      "leyenda": "El diagrama representa la disposición literaria del relato, no una secuencia añadida al texto.",
+      "estado": "pendiente_vincular_recurso"
+    }
+  ]
+}
