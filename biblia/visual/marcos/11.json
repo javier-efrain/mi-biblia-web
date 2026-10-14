@@ -14,7 +14,7 @@
       "alt": "Mapa del entorno de Jerusalén con el monte de los Olivos, Betfagé, Betania, el valle del Cedrón y un recorrido aproximado hacia Jerusalén.",
       "leyenda": "El trazado exacto del recorrido es aproximado; las ubicaciones generales son históricamente reconocibles.",
       "estado": "activo",
-      "modo": "tarjeta"
+      "modo": "explorador"
     },
     {
       "id": "mc11-higuera",
