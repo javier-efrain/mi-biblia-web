@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "libro": "marcos",
+  "capitulo": 11,
+  "nota_editorial": "Reconstrucciones artísticas orientativas, no restituciones arqueológicas. El mapa panorámico no es cartografía a escala. Versículos de demostración, no RVC autorizada.",
+  "bloques": [
+    {
+      "id": "entrada",
+      "desde": 1,
+      "hasta": 11,
+      "rango": "Marcos 11:1-11",
+      "titulo": "La entrada de Jesús en Jerusalén",
+      "media": "./assets/marcos11/portada_entrada_pc.webp",
+      "media_movil": "./assets/marcos11/portada_entrada_movil.webp",
+      "alt": "Escena artística de Jesús montado sobre un pollino, acompañado por la multitud",
+      "leyenda": "Reconstrucción artística del relato; los rostros y detalles urbanos son aproximados."
+    },
+    {
+      "id": "higuera",
+      "desde": 12,
+      "hasta": 14,
+      "rango": "Marcos 11:12-14",
+      "titulo": "Jesús y la higuera",
+      "media": "./assets/marcos11/higuera.webp",
+      "alt": "Jesús junto a una higuera sin fruto, con discípulos",
+      "leyenda": "Escena artística; no se conoce la ubicación precisa de la higuera."
+    },
+    {
+      "id": "templo",
+      "desde": 15,
+      "hasta": 19,
+      "rango": "Marcos 11:15-19",
+      "titulo": "Jesús en el templo",
+      "media": "./assets/marcos11/jesus_templo.webp",
+      "alt": "Representación artística de Jesús volcando una mesa de cambistas",
+      "leyenda": "Interpretación narrativa; la distribución y los detalles arquitectónicos no están verificados."
+    },
+    {
+      "id": "autoridad",
+      "desde": 27,
+      "hasta": 33,
+      "rango": "Marcos 11:27-33",
+      "titulo": "La autoridad de Jesús es cuestionada",
+      "media": "./assets/marcos11/autoridad.webp",
+      "alt": "Jesús dialoga con dirigentes religiosos en un patio del templo",
+      "leyenda": "Escena recreada artísticamente; la ubicación exacta del diálogo no está identificada."
+    }
+  ],
+  "recursos": [
+    {
+      "id": "MAP-001",
+      "despues_de": 1,
+      "tipo": "mapa",
+      "titulo": "El entorno oriental de Jerusalén",
+      "media": "./assets/marcos11/mapa_camino.webp",
+      "alt": "Panorámica artística con Jerusalén a la izquierda, un valle y una elevación al este",
+      "leyenda": "Panorámica artística NO cartográfica. Los puntos señalan áreas visuales aproximadas, no coordenadas verificadas. Betania y Betfagé no se señalan porque esta imagen no permite ubicarlas con rigor.",
+      "puntos": [
+        {
+          "nombre": "Jerusalén (representación)",
+          "x": 21,
+          "y": 36,
+          "texto": "Jerusalén se encuentra al oeste del valle del Cedrón. La ciudad y el templo aquí representados son reconstrucciones artísticas."
+        },
+        {
+          "nombre": "Valle del Cedrón (representación)",
+          "x": 36,
+          "y": 75,
+          "texto": "El valle del Cedrón separa Jerusalén del Monte de los Olivos; su trazado en esta imagen es interpretativo."
+        },
+        {
+          "nombre": "Monte de los Olivos (representación)",
+          "x": 65,
+          "y": 36,
+          "texto": "Elevación al este de Jerusalén, mencionada en Marcos 11:1. El relieve mostrado es aproximado."
+        }
+      ]
+    },
+    {
+      "id": "REC-003",
+      "despues_de": 2,
+      "tipo": "imagen",
+      "titulo": "Betania y el Monte de los Olivos",
+      "media": "./assets/marcos11/betania_monte.webp",
+      "alt": "Aldea de piedra y olivares en una ladera de Judea, representación artística",
+      "leyenda": "Paisaje ilustrativo de una aldea de Judea; no es una reconstrucción topográfica comprobada de Betania."
+    },
+    {
+      "id": "GAL-001",
+      "despues_de": 7,
+      "tipo": "galeria",
+      "titulo": "El pollino y la bienvenida a Jesús",
+      "leyenda": "Escenas artísticas inspiradas en Marcos 11:2-10.",
+      "items": [
+        {
+          "etiqueta": "El pollino",
+          "titulo": "Preparación del pollino",
+          "media": "./assets/marcos11/pollino.webp",
+          "alt": "Personas junto a un pollino en una aldea",
+          "descripcion": "Marcos 11:2-7. La escena representa de forma ilustrativa la preparación del animal."
+        },
+        {
+          "etiqueta": "Mantos y ramas",
+          "titulo": "Los mantos y las ramas en el camino",
+          "media": "./assets/marcos11/mantos_ramas.webp",
+          "alt": "Multitud extendiendo mantos y ramas al paso de Jesús",
+          "descripcion": "Marcos 11:8-10. Los gestos y el entorno son recreaciones artísticas."
+        }
+      ]
+    },
+    {
+      "id": "REC-006",
+      "despues_de": 11,
+      "tipo": "imagen",
+      "titulo": "Jerusalén y el Segundo Templo",
+      "media": "./assets/marcos11/segundo_templo.webp",
+      "alt": "Reconstrucción artística panorámica del complejo del Segundo Templo",
+      "leyenda": "Representación interpretativa del templo herodiano; no es una restitución arqueológica exacta."
+    },
+    {
+      "id": "GAL-002",
+      "despues_de": 19,
+      "tipo": "galeria",
+      "titulo": "El comercio en el entorno del templo",
+      "leyenda": "La ilustración reúne cambistas y vendedores para explicar el contexto del pasaje; no documenta la distribución precisa de los puestos.",
+      "items": [
+        {
+          "etiqueta": "Comercio",
+          "titulo": "Cambistas y comerciantes",
+          "media": "./assets/marcos11/comercio_monedas.webp",
+          "alt": "Comerciantes, monedas y animales en un patio antiguo",
+          "descripcion": "Escena contextual ilustrativa de Marcos 11:15-17."
+        },
+        {
+          "etiqueta": "Intervención de Jesús",
+          "titulo": "Jesús expulsa a los vendedores",
+          "media": "./assets/marcos11/jesus_templo.webp",
+          "alt": "Jesús vuelca una mesa de cambistas",
+          "descripcion": "Representación narrativa de Marcos 11:15-17."
+        }
+      ]
+    },
+    {
+      "id": "REC-007",
+      "despues_de": 21,
+      "tipo": "imagen",
+      "titulo": "La higuera y la enseñanza de Jesús",
+      "media": "./assets/marcos11/higuera.webp",
+      "alt": "Jesús y sus discípulos junto a una higuera",
+      "leyenda": "Imagen reutilizada de la escena de la higuera; Marcos 11:20-21 retoma este episodio."
+    }
+  ]
+}
