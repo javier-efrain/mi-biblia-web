@@ -57,7 +57,7 @@ function makeResource(b){
  <div class="viewport" aria-label="Imagen ampliable con dos dedos" tabindex="0"><div class="inner"><img loading="lazy" src="assets/${r.file}" alt="Recurso educativo: ${r.title}"></div></div>
  <div class="image-overlay" ${freeMap?'hidden':''}><span class="counter">1 / ${r.count}</span><button class="overlay-prev" aria-label="Imagen anterior">‹</button><button class="overlay-next" aria-label="Imagen siguiente">›</button></div>
  <div class="zoom"><label>Zoom</label><button class="minus" aria-label="Reducir zoom">−</button><input class="range" aria-label="Nivel de zoom" type="range" min="100" max="400" step="10" value="100"><button class="plus" aria-label="Aumentar zoom">+</button><output>100 %</output></div>
- <p class="gesture-help">Separá o juntá dos dedos para ampliar o reducir. Deslizá la página normalmente con un dedo.</p>
+ 
  <p class="map-help" ${freeMap?'':'hidden'}>Arrastrá el mapa hacia los lados con el dedo. Usá «Restablecer» para volver al comienzo.</p>
  <div class="nav" ${freeMap?'hidden':''}><button class="prev">← Anterior</button><small class="sectionlabel"></small><button class="next">Siguiente →</button></div>
  </div><div class="study"><div class="tabs"><button data-tab="contexto">Contexto</button><button data-tab="exegesis">Exégesis</button><button data-tab="aplicacion">Aplicación</button></div>
@@ -93,7 +93,7 @@ function makeResource(b){
  function paintImage(){
    const w=vp.clientWidth||360,z=st.zoom/100;
    // Fixed, moderately landscape-friendly viewport: 5:6 (between 4:5 and 16:9).
-   const h=freeMap?w*r.count/r.ratio:w*6/5,inner=q('.inner'),im=q('img');
+   const h=freeMap?w*r.count/r.ratio:w*3/2,inner=q('.inner'),im=q('img');
    vp.style.height=h+'px';
    const panelW=freeMap?w:Math.min(w,h*r.ratio/r.count);
    inner.style.width=w*z+'px';inner.style.height=h*z+'px';
