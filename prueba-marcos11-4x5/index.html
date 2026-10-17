@@ -2,13 +2,13 @@
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#26312b;background:#f5f2eb}*{box-sizing:border-box}body{margin:0}header{background:#203d34;color:#fff;padding:20px 16px}header>div,main{max-width:900px;margin:auto}h1{margin:0;font-size:clamp(25px,4vw,34px)}header p{margin:6px 0 0;color:#dce8df}main{padding:20px 14px 65px}.mode{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 22px}.mode button{flex:1}.notice{padding:12px 14px;border-left:4px solid #ae8044;background:#fff7e9;border-radius:7px;font-size:14px;line-height:1.5}button{font:inherit;font-weight:650;background:#fff;border:1px solid #bdc7c0;color:#244036;padding:9px 12px;border-radius:10px;cursor:pointer}button.active{background:#234f3d;color:white;border-color:#234f3d}button:disabled{opacity:.38;cursor:default}.block{padding:24px 0 14px;border-bottom:1px solid #d9d7cf}.block h2{font-size:clamp(21px,3vw,26px);margin:0 0 4px}.ref{color:#607067;font-size:13px}.summary{font-size:17px;line-height:1.75;margin:14px 0}.demo{color:#846337;font-size:12px;font-weight:700}.resource{background:white;border:1px solid #d9dfd9;border-radius:15px;padding:14px;margin:18px 0 12px;box-shadow:0 5px 20px #0000000a}.resource h3{margin:0 0 5px;font-size:20px}.subtitle{font-size:14px;color:#58665f;line-height:1.5;margin:0 0 13px}.viewer{max-width:440px;margin:auto}.viewport{overflow:auto;aspect-ratio:4/5;background:#dce0d9;border-radius:10px;overscroll-behavior:contain;touch-action:pan-x pan-y;scrollbar-width:thin}.inner{position:relative}.inner img{position:absolute;left:0;top:0;max-width:none;pointer-events:none;user-select:none}.nav{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:10px 0}.nav small{font-size:12px;text-align:center;color:#53665a}.zoom{display:grid;grid-template-columns:auto 32px minmax(0,1fr) 32px 44px;align-items:center;gap:5px;padding:9px 5px;background:#f1f5f2;border-radius:10px;margin-top:10px}.zoom label{font-size:12px;font-weight:700}.zoom button{width:32px;padding:5px 0}.zoom input{width:100%;min-width:0;accent-color:#23654c}.zoom output{font-size:12px;text-align:right;font-variant-numeric:tabular-nums}.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:16px 0 12px}.tabs button{font-size:13px;padding:10px 3px}.tabs [data-tab=contexto].active{background:#22664b;border-color:#22664b}.tabs [data-tab=exegesis].active{background:#28599e;border-color:#28599e}.tabs [data-tab=aplicacion].active{background:#a54c32;border-color:#a54c32}.chips{display:flex;gap:7px;flex-wrap:wrap}.chips button{font-size:13px;padding:8px 10px}.detail{border:2px solid #75aa91;background:#eaf5ee;color:#173c2d;padding:14px;border-radius:10px;margin-top:12px;line-height:1.6}.detail h4{margin:0 0 7px;font-size:16px}.detail p{margin:0}.detail small{display:block;margin-top:9px;font-weight:650}.resource[data-active-tab=exegesis] .chips button.active{background:#28599e;border-color:#28599e}.resource[data-active-tab=exegesis] .detail{background:#e7efff;border-color:#5683c7;color:#143867}.resource[data-active-tab=exegesis] .chips button:not(.active){border-color:#82a1cf;color:#1d4b8b;background:#f5f8ff}.resource[data-active-tab=aplicacion] .chips button.active{background:#a54c32;border-color:#a54c32}.resource[data-active-tab=aplicacion] .detail{background:#fff0e8;border-color:#c9866b;color:#713720}.resource[data-active-tab=aplicacion] .chips button:not(.active){border-color:#d9a18c;color:#8a3f2b;background:#fff8f4}.resource[data-active-tab=contexto] .chips button.active{background:#22664b;border-color:#22664b}.muted{font-size:13px;color:#64746a;line-height:1.55}.resource[hidden],.block[hidden]{display:none!important}.end{margin-top:22px;font-size:13px;color:#617067} @media(min-width:720px){.resource-grid{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:22px;align-items:start}.tabs{margin-top:0}}@media(max-width:360px){.nav button{padding:8px 6px;font-size:12px}.zoom{gap:3px}.tabs button{font-size:12px}}
 .chapter-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:thin}.chapter-nav a{white-space:nowrap;border:1px solid #c9d4ce;color:#275343;background:#fff;padding:8px 12px;border-radius:999px;font-size:13px;text-decoration:none;font-weight:650}.chapter-nav a:focus-visible,button:focus-visible{outline:3px solid #d7a765;outline-offset:2px}.resource[data-active-tab=exegesis] .detail{background:#f2f6ff;border-color:#2c5b9b;color:#173d70}.resource[data-active-tab=exegesis] .detail h4{color:#10386f}.resource[data-active-tab=exegesis] .chips button.active{background:#164a89;color:white}.resource[data-active-tab=aplicacion] .detail{background:#fff4ed;border-color:#a54c32}.notice{margin-bottom:16px}@media(max-width:480px){.resource{padding:10px}.nav small{max-width:45%;line-height:1.3}.chapter-nav{margin:0 -2px}}
 .scripture{font-family:Georgia,"Times New Roman",serif;font-size:clamp(18px,2.5vw,21px);line-height:1.78;color:#202a24;margin:16px 0 24px}.scripture .verse{margin:0 0 9px}.verse-number{font:700 12px system-ui,sans-serif;color:#946c35;margin-right:8px;vertical-align:super}.block{scroll-margin-top:16px}.resource{margin-top:25px}body.plain .chapter-nav{display:none}@media(max-width:480px){.scripture{font-size:19px;line-height:1.8}}
-.cover{margin:18px 0 14px}.cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:13px}.cover figcaption{font-size:12px;color:#637267;margin-top:6px}.resource .viewer{width:100%}.resource.map-free .viewport{overflow:auto;touch-action:pan-x pan-y;scroll-behavior:auto}.resource.map-free .inner{overflow:visible}.resource.map-free .nav{display:none}.resource.map-free .map-help{font-size:13px;color:#476252;margin:8px 0 0;line-height:1.5}.resource .viewport{aspect-ratio:auto}.resource .inner{overflow:hidden}.resource .inner img{display:block}.resource .detail p{white-space:pre-line;line-height:1.75}.resource .chips button{min-height:40px}.resource .nav button{min-height:42px}.resource .tabs button{min-height:44px}.resource .subtitle{font-size:14px}@media(max-width:600px){main{padding:12px 11px 50px}.block{padding-top:20px}.resource{margin:18px -2px 12px}.cover{margin:14px 0}.chapter-nav{gap:6px}.scripture{font-size:19px}}
+.cover{margin:18px 0 14px}.cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:13px}.cover figcaption{font-size:12px;color:#637267;margin-top:6px}.resource .viewer{width:100%}.resource.map-free .viewport{overflow:auto;touch-action:pan-x pan-y;scroll-behavior:auto}.resource.map-free .inner{overflow:visible}.resource.map-free .nav{display:none}.resource.map-free .map-help{font-size:13px;color:#476252;margin:8px 0 0;line-height:1.5}.resource .viewport{aspect-ratio:auto}.resource .inner{overflow:visible}.resource .inner img{display:block}.resource .detail p{white-space:pre-line;line-height:1.75}.resource .chips button{min-height:40px}.resource .nav button{min-height:42px}.resource .tabs button{min-height:44px}.resource .subtitle{font-size:14px}@media(max-width:600px){main{padding:12px 11px 50px}.block{padding-top:20px}.resource{margin:18px -2px 12px}.cover{margin:14px 0}.chapter-nav{gap:6px}.scripture{font-size:19px}}
 </style>
 <style>
 .resource .viewer{position:relative}
 .resource .viewport{touch-action:pan-y;overscroll-behavior-x:contain;overflow:auto;scrollbar-width:thin}
 .resource.map-free .viewport{touch-action:pan-x pan-y}
-.resource .inner{overflow:hidden}
+.resource .inner{overflow:visible}
 .resource.map-free .inner{overflow:visible}
 .image-overlay{pointer-events:none;position:absolute;left:0;right:0;top:43%;display:flex;justify-content:space-between;align-items:center;padding:0 5px}
 .image-overlay[hidden]{display:none!important}
@@ -31,7 +31,7 @@
 .resource[data-active-tab=exegesis] .study-progress span.current{background:#28599e}
 .resource[data-active-tab=aplicacion] .study-page{background:#fff5ef;border-color:#d9ad9b}
 .resource[data-active-tab=aplicacion] .study-progress span.current{background:#a54c32}
-.resource .chips{display:none}
+.resource .chips{display:none}.resource .subtitle,.resource .nav,.resource .map-help{display:none!important}.resource .image-overlay .counter{pointer-events:none}
 .resource.map-free .nav{display:none}
 @media(max-width:600px){.resource .viewer{max-width:none}.resource:not(.map-free) .viewport{max-height:78vh}}
 </style>
@@ -52,20 +52,20 @@ function makeResource(b){
  const st=state[id],el=document.createElement('section');
  el.className='resource'+(freeMap?' map-free':'');
  el.dataset.activeTab='contexto';
- el.innerHTML=`<h3>${r.title}</h3><p class="subtitle">${r.subtitle}</p>
+ el.innerHTML=`<h3>${r.title}</h3>
  <div class="resource-grid"><div class="viewer">
  <div class="viewport" aria-label="Imagen ampliable con dos dedos" tabindex="0"><div class="inner"><img loading="lazy" src="assets/${r.file}" alt="Recurso educativo: ${r.title}"></div></div>
- <div class="image-overlay" ${freeMap?'hidden':''}><span class="counter">1 / ${r.count}</span><button class="overlay-prev" aria-label="Imagen anterior">‹</button><button class="overlay-next" aria-label="Imagen siguiente">›</button></div>
+ <div class="image-overlay"><span class="counter">1 / ${r.count}</span><button class="overlay-prev" aria-label="Imagen anterior">‹</button><button class="overlay-next" aria-label="Imagen siguiente">›</button></div>
  <div class="zoom"><label>Zoom</label><button class="minus" aria-label="Reducir zoom">−</button><input class="range" aria-label="Nivel de zoom" type="range" min="100" max="400" step="10" value="100"><button class="plus" aria-label="Aumentar zoom">+</button><output>100 %</output></div>
  
- <p class="map-help" ${freeMap?'':'hidden'}>Arrastrá el mapa hacia los lados con el dedo. Usá «Restablecer» para volver al comienzo.</p>
- <div class="nav" ${freeMap?'hidden':''}><button class="prev">← Anterior</button><small class="sectionlabel"></small><button class="next">Siguiente →</button></div>
+ 
+ 
  </div><div class="study"><div class="tabs"><button data-tab="contexto">Contexto</button><button data-tab="exegesis">Exégesis</button><button data-tab="aplicacion">Aplicación</button></div>
  <div class="study-page"><div class="study-head"><strong class="study-title"></strong><span class="study-count"></span></div><div class="detail" aria-live="polite"></div><div class="study-progress"></div></div>
  <div class="study-nav"><button class="study-prev">← Anterior</button><button class="study-next">Seguir leyendo →</button></div></div></div>`;
  const q=x=>el.querySelector(x),vp=q('.viewport');
  const textPages=()=>{
-   let source=st.tab==='contexto'?r.contexto[st.panel]:r[st.tab];
+   let source=st.tab==='contexto'?r.contexto.flat():r[st.tab];
    // Existing editorial content is retained, but each paragraph becomes a page instead of a sub-button.
    let pages=[];
    (source||[]).forEach(item=>{
@@ -92,8 +92,8 @@ function makeResource(b){
  }
  function paintImage(){
    const w=vp.clientWidth||360,z=st.zoom/100;
-   // Fixed, moderately landscape-friendly viewport: 5:6 (between 4:5 and 16:9).
-   const h=freeMap?w*r.count/r.ratio:w*5/4,inner=q('.inner'),im=q('img');
+   // Approved 2:3 infographic viewport; map stays panoramic.
+   const h=freeMap?w*r.count/r.ratio:w*3/2,inner=q('.inner'),im=q('img');
    vp.style.height=h+'px';
    const panelW=freeMap?w:Math.min(w,h*r.ratio/r.count);
    inner.style.width=w*z+'px';inner.style.height=h*z+'px';
@@ -103,23 +103,29 @@ function makeResource(b){
    im.style.left=freeMap?'0px':((w-panelW)*z/2-st.panel*panelW*z)+'px';
    q('.range').value=st.zoom;q('output').textContent=st.zoom+' %';
    q('.counter').textContent=`${st.panel+1} / ${r.count}`;
-   q('.sectionlabel').textContent=`${st.panel+1}/${r.count} · ${(r.names?.[st.panel]||'Imagen '+(st.panel+1))}`;
-   for(const c of ['prev','overlay-prev'])q('.'+c).disabled=st.panel===0;
-   for(const c of ['next','overlay-next'])q('.'+c).disabled=st.panel===r.count-1;
+   
+   q('.overlay-prev').disabled=st.panel===0;
+   q('.overlay-next').disabled=st.panel===r.count-1;
  }
  function paint(){paintImage();paintStudy()}
  function changeZoom(next,cx,cy){
    const old=st.zoom,newZoom=clamp(Math.round(next/10)*10,100,400);
    if(old===newZoom)return;
    let oldX=vp.scrollLeft,oldY=vp.scrollTop,ratio=newZoom/old;
-   st.zoom=newZoom;paintImage();
+   st.zoom=newZoom;vp.style.touchAction=newZoom>100?'pan-x pan-y':'pan-y';if(freeMap)vp.style.touchAction='pan-x pan-y';paintImage();
    vp.scrollLeft=(oldX+cx)*ratio-cx;vp.scrollTop=(oldY+cy)*ratio-cy;
  }
  function move(n){
    if(n<0||n>=r.count)return;
-   st.panel=n;st.zoom=100;st.page=0;paint();vp.scrollTo({left:0,top:0});
+   if(freeMap){
+     st.panel=n;
+     vp.scrollTo({left:(vp.scrollWidth-vp.clientWidth)*n/(r.count-1),behavior:'smooth'});
+     q('.counter').textContent=`${n+1} / ${r.count}`;
+   }else{
+     st.panel=n;st.zoom=100;paintImage();vp.scrollTo({left:0,top:0});
+   }
  }
- q('.prev').onclick=()=>move(st.panel-1);q('.next').onclick=()=>move(st.panel+1);
+ 
  q('.overlay-prev').onclick=()=>move(st.panel-1);q('.overlay-next').onclick=()=>move(st.panel+1);
  q('.range').oninput=e=>changeZoom(+e.target.value,vp.clientWidth/2,vp.clientHeight/2);
  q('.minus').onclick=()=>changeZoom(st.zoom-10,vp.clientWidth/2,vp.clientHeight/2);
@@ -151,12 +157,12 @@ function makeResource(b){
    swipe=null;
  },{passive:true});
  if(freeMap){
-   const reset=document.createElement('button');reset.textContent='↺ Restablecer mapa';reset.className='map-reset';q('.map-help').after(reset);
-   reset.onclick=()=>{st.zoom=100;st.panel=0;st.page=0;paint();vp.scrollTo({left:0,top:0})};
+   const reset=document.createElement('button');reset.textContent='↺ Restablecer mapa';reset.className='map-reset';q('.zoom').after(reset);
+   reset.onclick=()=>{st.zoom=100;st.panel=0;paint();vp.scrollTo({left:0,top:0})};
    let pending=false;
    vp.addEventListener('scroll',()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;
      const max=Math.max(1,vp.scrollWidth-vp.clientWidth),panel=clamp(Math.round(vp.scrollLeft/max*(r.count-1)),0,r.count-1);
-     if(panel!==st.panel){st.panel=panel;if(st.tab==='contexto'){st.page=0;paintStudy()}}
+     if(panel!==st.panel){st.panel=panel;q('.counter').textContent=`${panel+1} / ${r.count}`;q('.overlay-prev').disabled=panel===0;q('.overlay-next').disabled=panel===r.count-1}
    })},{passive:true});
  }
  instances[id]=paint;requestAnimationFrame(paint);return el;
