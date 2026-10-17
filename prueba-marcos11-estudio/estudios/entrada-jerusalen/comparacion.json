@@ -1,0 +1,46 @@
+{
+  "columnas": [
+    "tema",
+    "mateo",
+    "marcos",
+    "lucas",
+    "juan"
+  ],
+  "filas": [
+    [
+      "Preparativos",
+      "Dos discípulos; asna y pollino",
+      "Dos discípulos; pollino sin montar",
+      "Dos discípulos; pollino sin montar",
+      "Relata que Jesús encontró un asnillo, sin narrar el envío"
+    ],
+    [
+      "Profecía de Zacarías",
+      "Cita expresamente Zacarías 9:9",
+      "No cita expresamente Zacarías en esta escena",
+      "No cita expresamente Zacarías en esta escena",
+      "Cita expresamente Zacarías 9:9"
+    ],
+    [
+      "Mantos y ramas",
+      "Mantos y ramas cortadas de árboles",
+      "Mantos y ramas cortadas en los campos",
+      "Mantos tendidos en el camino; no menciona ramas",
+      "Ramas de palmera; no menciona mantos sobre el camino"
+    ],
+    [
+      "Aclamación",
+      "Hosanna al Hijo de David",
+      "Hosanna; reino venidero de David",
+      "Bendito el Rey; paz en el cielo",
+      "Hosanna; Rey de Israel"
+    ],
+    [
+      "Rasgo propio",
+      "La ciudad se conmueve y pregunta quién es Jesús",
+      "Jesús inspecciona el templo y regresa a Betania",
+      "Fariseos, piedras que clamarían, llanto por Jerusalén",
+      "Recuerdo posterior de los discípulos; reacción de fariseos"
+    ]
+  ]
+}
