@@ -1,7 +1,7 @@
-MARCOS 11 — PRUEBA CORREGIDA v2
+PRUEBA DE MAPA CON DESPLAZAMIENTO LIBRE
 
-Incluye mapa panorámico dividido en tres secciones navegables, corrección del error JavaScript que impedía mostrar textos educativos y sincronización del control de zoom con el porcentaje.
+Se conserva el lector de Marcos 11. El mapa es una imagen panorámica continua: deslizar lateralmente con el dedo, ampliar mediante la barra o botones y restablecer vista. Las infografías conservan sus botones Anterior/Siguiente.
 
-Abrir desde GitHub Pages (recomendado) o un servidor local. No sustituye la versión principal.
+Subir el CONTENIDO de esta carpeta a la carpeta de prueba en GitHub, manteniendo assets/ y los demás archivos.
 
-AVISO: El mapa es una ilustración aproximada, NO cartografía arqueológica verificada. Los rótulos y citas integrados en las imágenes requieren revisión editorial. Verificar condiciones de licencia de la RVC antes de publicación definitiva.
+Mapa ilustrativo: ruta, puerta específica y escala son aproximadas; no usar como cartografía arqueológica exacta. Revisar licencia RVC antes de publicación definitiva.
