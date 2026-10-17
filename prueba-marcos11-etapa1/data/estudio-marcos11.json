@@ -1,0 +1,411 @@
+{
+  "mapa": {
+    "title": "Mapa del recorrido hacia Jerusalén",
+    "subtitle": "Reconstrucción ilustrativa. La ruta es aproximada y la ubicación de la higuera es desconocida.",
+    "file": "mapa-entrada.webp",
+    "count": 1,
+    "contexto": [
+      [
+        {
+          "t": "Betania y Betfagé",
+          "d": "Marcos sitúa la aproximación a Jerusalén cerca de Betfagé y Betania, frente al monte de los Olivos. Betania se encontraba al este de Jerusalén; la localización exacta de Betfagé sigue siendo discutida. El mapa representa una relación geográfica general, no un trazado arqueológicamente comprobado.",
+          "r": "Marcos 11:1"
+        },
+        {
+          "t": "Monte de los Olivos y Cedrón",
+          "d": "El monte de los Olivos se levanta al este de Jerusalén, separado de la ciudad por el valle del Cedrón. El relieve ayuda a imaginar el acercamiento a la ciudad. Las pendientes, caminos y puertas concretas del dibujo son aproximaciones artísticas.",
+          "r": "Marcos 11:1"
+        },
+        {
+          "t": "La higuera en el mapa",
+          "d": "Marcos relata el encuentro con la higuera al día siguiente de la entrada, cuando Jesús salía de Betania. No identifica el punto donde crecía. Su símbolo en el mapa sirve para relacionar los relatos, no para señalar un sitio conocido.",
+          "r": "Marcos 11:12–14; 20–21"
+        }
+      ]
+    ],
+    "exegesis": [
+      {
+        "t": "Una secuencia de jornadas",
+        "d": "Marcos distingue la entrada, la salida a Betania, la higuera y la intervención en el templo. Observar esa sucesión ayuda a no mezclar acontecimientos de distintos días.",
+        "r": "Marcos 11:1–21"
+      },
+      {
+        "t": "El camino y la narración",
+        "d": "El mapa ayuda a ubicar lugares, pero el énfasis del evangelista está en los actos y enseñanzas de Jesús. Ninguna ruta ilustrada puede reemplazar los detalles que el texto sí proporciona.",
+        "r": "Marcos 11:1–11"
+      }
+    ],
+    "aplicacion": [
+      {
+        "t": "Leer con atención",
+        "d": "Compará el mapa con los versículos: ¿qué lugares nombra Marcos expresamente y cuáles aparecen solo como reconstrucción? Esa diferencia nos ayuda a leer responsablemente.",
+        "r": "Ejercicio de lectura: Marcos 11:1–14"
+      },
+      {
+        "t": "El contexto importa",
+        "d": "Conocer el terreno puede enriquecer la lectura sin convertir cada detalle ilustrado en una certeza. ¿Qué cambia en tu comprensión al distinguir evidencia de hipótesis?",
+        "r": "Reflexión de estudio"
+      }
+    ],
+    "ratio": 1.776833
+  },
+  "entrada": {
+    "title": "El burrito, la multitud y la llegada al templo",
+    "subtitle": "Tres paneles educativos. Deslizá para recorrer cada escena y explorá sus explicaciones.",
+    "file": "infografia-entrada.webp",
+    "count": 3,
+    "contexto": [
+      [
+        {
+          "t": "El animal que nadie montó",
+          "d": "Marcos especifica que los discípulos debían encontrar un burrito atado, todavía no montado por nadie. El detalle pertenece al propio relato; su tamaño, color y aparejos exactos no están descritos. La imagen es una recreación probable del ambiente, no un retrato del animal histórico.",
+          "r": "Marcos 11:2–7"
+        },
+        {
+          "t": "Mantos sobre el burrito",
+          "d": "Los discípulos colocaron sus mantos sobre el animal antes de que Jesús se montara. Esos mantos son distintos de los que otras personas extendieron por el camino. La escena sugiere una recepción honorífica, aunque Marcos no explica directamente el simbolismo de cada gesto.",
+          "r": "Marcos 11:7–8"
+        },
+        {
+          "t": "Un rey humilde",
+          "d": "Zacarías 9:9 presenta a un rey que llega montado en un asno. La relación es una lectura bíblica significativa de la entrada, aunque Marcos no cita expresamente a Zacarías en estos versículos.",
+          "r": "Zacarías 9:9; Marcos 11:1–7"
+        }
+      ],
+      [
+        {
+          "t": "Mantos extendidos",
+          "d": "Marcos distingue a quienes extendían sus mantos sobre el camino de quienes esparcían ramas. Los mantos podían ser prendas valiosas y el gesto expresa reconocimiento público; el texto no dice que todos participaran de la misma manera.",
+          "r": "Marcos 11:8"
+        },
+        {
+          "t": "¿Ramas de palma?",
+          "d": "Marcos dice que se cortaron ramas en los campos, pero no identifica su especie. Juan 12:13 sí menciona ramas de palmera. Por eso no conviene presentar las palmas como una precisión botánica del relato de Marcos.",
+          "r": "Marcos 11:8; Juan 12:13"
+        },
+        {
+          "t": "¡Hosanna!",
+          "d": "La aclamación remite al lenguaje de súplica y alabanza del Salmo 118. En Marcos también se menciona el reino venidero de David, lo que introduce expectativas relacionadas con el reinado prometido.",
+          "r": "Marcos 11:9–10; Salmo 118:25–26"
+        }
+      ],
+      [
+        {
+          "t": "Jesús observa el templo",
+          "d": "Marcos dice que Jesús entró en Jerusalén, fue al templo y miró todo a su alrededor. Luego salió con los Doce hacia Betania porque ya era tarde. No afirma que la multitud lo acompañara al interior del templo.",
+          "r": "Marcos 11:11"
+        },
+        {
+          "t": "El complejo de Herodes",
+          "d": "El templo del siglo I incluía un recinto extenso con patios, pórticos y áreas de acceso restringido. Las reconstrucciones combinan datos históricos y arqueológicos con hipótesis sobre elementos que no se conservan.",
+          "r": "Contexto histórico del Segundo Templo"
+        },
+        {
+          "t": "Un detalle que prepara lo siguiente",
+          "d": "La observación del templo al final de la jornada precede a la intervención narrada en Marcos 11:15–19. Esta relación narrativa ayuda a comprender la secuencia sin afirmar motivos que Marcos no explicita.",
+          "r": "Marcos 11:11; 15–19"
+        }
+      ]
+    ],
+    "exegesis": [
+      {
+        "t": "¿Qué clase de entrada?",
+        "d": "La escena reúne señales de reconocimiento y expectativas reales: un animal preparado, mantos, aclamaciones y referencias al reino de David. Una lectura cristiana la relaciona con la figura del rey humilde de Zacarías, pero debemos distinguir las palabras explícitas de Marcos de las conexiones entre libros.",
+        "r": "Marcos 11:1–11; Zacarías 9:9"
+      },
+      {
+        "t": "El Salmo 118",
+        "d": "Las expresiones de bienvenida evocan el Salmo 118, utilizado en contextos de alabanza y celebración. Su presencia aporta una resonancia litúrgica a la escena y ayuda a entender por qué la multitud habla del que viene en el nombre del Señor.",
+        "r": "Salmo 118:25–26; Marcos 11:9–10"
+      },
+      {
+        "t": "La mirada al templo",
+        "d": "El versículo 11 puede parecer una conclusión tranquila, pero prepara el siguiente movimiento del relato. Jesús observa el recinto antes de que Marcos narre su intervención. La secuencia merece leerse como una unidad narrativa más amplia.",
+        "r": "Marcos 11:11–19"
+      }
+    ],
+    "aplicacion": [
+      {
+        "t": "Expectativas sobre Jesús",
+        "d": "La multitud expresa esperanza y entusiasmo. ¿Cuánto de nuestra imagen de Jesús proviene de lo que el texto realmente dice y cuánto de expectativas que le atribuimos?",
+        "r": "Reflexión sobre Marcos 11:1–11"
+      },
+      {
+        "t": "Honrar con acciones",
+        "d": "Los mantos y las aclamaciones son gestos públicos. Podemos preguntarnos cómo se relaciona lo que decimos creer con la manera concreta en que tratamos a otras personas.",
+        "r": "Reflexión temática"
+      },
+      {
+        "t": "Observar antes de concluir",
+        "d": "Marcos registra que Jesús miró el templo antes de actuar al día siguiente. Sin convertir esto en una regla universal, la escena invita a valorar una lectura atenta y sin conclusiones precipitadas.",
+        "r": "Marcos 11:11"
+      }
+    ],
+    "ratio": 1.5
+  },
+  "higuera": {
+    "title": "La higuera: hojas, fruto y sequedad",
+    "subtitle": "La misma infografía se reutiliza en las dos apariciones de la higuera.",
+    "file": "higuera.webp",
+    "count": 2,
+    "contexto": [
+      [
+        {
+          "t": "Hojas y frutos",
+          "d": "La higuera puede producir hojas y frutos en diferentes etapas según las condiciones y la variedad. Marcos contrapone la apariencia frondosa con la ausencia de higos, pero no ofrece una explicación botánica detallada del episodio.",
+          "r": "Marcos 11:12–13"
+        },
+        {
+          "t": "No era tiempo de higos",
+          "d": "Esta aclaración aparece explícitamente en Marcos y plantea una dificultad interpretativa. Algunos comentaristas sugieren la búsqueda de frutos tempranos; es una hipótesis, no una información afirmada por el evangelista.",
+          "r": "Marcos 11:13"
+        },
+        {
+          "t": "¿Dónde estaba?",
+          "d": "El episodio sucede cuando Jesús sale de Betania. No sabemos dónde estaba exactamente el árbol; los puntos que aparecen en mapas educativos solo pueden ser orientativos.",
+          "r": "Marcos 11:12"
+        }
+      ],
+      [
+        {
+          "t": "Seca desde la raíz",
+          "d": "Al volver a pasar, los discípulos ven que la higuera se ha secado desde las raíces. Marcos subraya el contraste con la escena anterior y presenta a Pedro recordando las palabras de Jesús.",
+          "r": "Marcos 11:20–21"
+        },
+        {
+          "t": "Dos mañanas",
+          "d": "La primera escena ocurre al salir de Betania; la segunda, después de la jornada en el templo. Entre ambas se desarrolla la intervención de Jesús en el recinto.",
+          "r": "Marcos 11:12–21"
+        },
+        {
+          "t": "Fe, oración y perdón",
+          "d": "Tras la observación de Pedro, Jesús enseña sobre confiar en Dios, orar y perdonar. El contenido de su respuesta debe leerse completo, no aislando únicamente la imagen del monte.",
+          "r": "Marcos 11:22–26"
+        }
+      ]
+    ],
+    "exegesis": [
+      {
+        "t": "Higuera–templo–higuera",
+        "d": "Marcos coloca el episodio del templo entre dos escenas de la higuera. Esta técnica narrativa, llamada intercalación, invita a leer los relatos en relación. Muchos intérpretes encuentran una dimensión profética de juicio, aunque existen debates sobre sus matices.",
+        "r": "Marcos 11:12–25"
+      },
+      {
+        "t": "La dificultad de la estación",
+        "d": "La mención de que no era temporada de higos impide reducir el relato a una simple lección sobre productividad agrícola. El carácter simbólico del gesto y su conexión con el templo son elementos importantes de la interpretación.",
+        "r": "Marcos 11:13–14"
+      },
+      {
+        "t": "La fe no es una fórmula",
+        "d": "Las palabras sobre la oración no deben tratarse como una técnica para obtener cualquier deseo. El pasaje habla de fe en Dios y conecta la oración con el perdón; su interpretación debe considerar el conjunto de la enseñanza bíblica.",
+        "r": "Marcos 11:22–26"
+      }
+    ],
+    "aplicacion": [
+      {
+        "t": "Apariencia y realidad",
+        "d": "El contraste entre hojas y fruto puede invitarnos a examinar la coherencia entre lo visible y lo profundo. Es una aplicación posible del símbolo, no una frase literal de Jesús sobre la vida moderna.",
+        "r": "Reflexión sobre Marcos 11:12–21"
+      },
+      {
+        "t": "Orar con confianza",
+        "d": "¿Cómo cultivar confianza en Dios sin confundirla con la certeza de que todo ocurrirá exactamente como deseamos? El texto invita a pensar la oración como una relación de fe.",
+        "r": "Marcos 11:22–24"
+      },
+      {
+        "t": "Practicar el perdón",
+        "d": "Jesús incluye el perdón en su enseñanza sobre la oración. ¿Hay algún resentimiento que necesite reconocer y trabajar de manera responsable? Perdonar no significa negar el daño ni abandonar límites necesarios.",
+        "r": "Marcos 11:25–26"
+      }
+    ],
+    "ratio": 1.59879
+  },
+  "templo": {
+    "title": "El templo: comercio, monedas y espacios",
+    "subtitle": "Tres paneles sobre la actividad y la arquitectura del recinto en el siglo I.",
+    "file": "templo.webp",
+    "count": 3,
+    "contexto": [
+      [
+        {
+          "t": "Las palomas",
+          "d": "Marcos menciona vendedores de palomas. Estas aves se utilizaban en determinadas ofrendas previstas en la Ley, entre ellas las asociadas a personas con menos recursos. El texto no especifica el precio ni acusa individualmente a cada vendedor de fraude.",
+          "r": "Marcos 11:15; Levítico 5:7; 12:8"
+        },
+        {
+          "t": "Otros animales",
+          "d": "Otros textos del Nuevo Testamento mencionan ovejas y bueyes en el entorno del templo. La presencia de animales en esta ilustración aporta contexto general, pero Marcos 11 menciona específicamente palomas.",
+          "r": "Juan 2:14; Marcos 11:15"
+        },
+        {
+          "t": "¿Dónde comerciaban?",
+          "d": "El evangelio no identifica el punto exacto de cada puesto. Las escenas de mercado dentro del recinto son reconstrucciones orientativas y no deben confundirse con un plano arqueológico comprobado.",
+          "r": "Marcos 11:15"
+        }
+      ],
+      [
+        {
+          "t": "Los cambistas",
+          "d": "El intercambio de monedas tenía usos prácticos para peregrinos y pagos vinculados con el culto. Marcos narra que Jesús volcó sus mesas, pero no detalla el sistema monetario empleado por cada cambista.",
+          "r": "Marcos 11:15"
+        },
+        {
+          "t": "Monedas y balanzas",
+          "d": "Monedas de plata y herramientas de pesaje formaban parte del comercio antiguo. Su representación es educativa: no conocemos los objetos exactos que había sobre las mesas mencionadas por Marcos.",
+          "r": "Contexto histórico del siglo I"
+        },
+        {
+          "t": "Una crítica profética",
+          "d": "Jesús cita textos de Isaías y Jeremías al denunciar la situación. Su acción no debe reducirse automáticamente a una acusación de que todo cambio de moneda era ilegítimo.",
+          "r": "Isaías 56:7; Jeremías 7:11; Marcos 11:17"
+        }
+      ],
+      [
+        {
+          "t": "El recinto del templo",
+          "d": "El Segundo Templo ampliado bajo Herodes contaba con una gran explanada, pórticos y zonas de acceso regulado. Los detalles de las reconstrucciones arquitectónicas pueden variar entre especialistas.",
+          "r": "Contexto histórico del templo herodiano"
+        },
+        {
+          "t": "Los patios",
+          "d": "El acceso a distintas áreas del recinto dependía de reglas religiosas y sociales. Los nombres tradicionales de los patios son útiles para estudiar el complejo, aunque no todos aparecen en el relato de Marcos.",
+          "r": "Marcos 11:15–17"
+        },
+        {
+          "t": "Todas las naciones",
+          "d": "Jesús cita Isaías 56:7 y destaca el propósito de una casa de oración para todas las naciones. La frase orienta la interpretación de la escena más allá de la descripción de un mercado.",
+          "r": "Isaías 56:7; Marcos 11:17"
+        }
+      ]
+    ],
+    "exegesis": [
+      {
+        "t": "Dos citas proféticas",
+        "d": "Jesús combina la promesa de Isaías de una casa de oración para todos los pueblos con la denuncia de Jeremías de una cueva de ladrones. Ambas referencias sitúan su acción en la tradición profética de Israel.",
+        "r": "Isaías 56:7; Jeremías 7:11"
+      },
+      {
+        "t": "Intercalación con la higuera",
+        "d": "El episodio está rodeado por las dos escenas de la higuera. Esta organización permite interpretar el gesto en el templo junto con el contraste entre apariencia y fruto, sin agotar todos sus sentidos posibles.",
+        "r": "Marcos 11:12–25"
+      },
+      {
+        "t": "¿Qué estaba cuestionando?",
+        "d": "Se han propuesto interpretaciones que destacan abusos concretos, crítica a la organización del culto o un gesto profético de juicio. Marcos ofrece las acciones de Jesús y sus citas; algunas conclusiones históricas requieren cautela.",
+        "r": "Marcos 11:15–18"
+      }
+    ],
+    "aplicacion": [
+      {
+        "t": "Integridad y adoración",
+        "d": "¿Nuestras prácticas religiosas expresan justicia y honestidad? La pregunta nace de la denuncia profética, pero no autoriza a condenar automáticamente todo intercambio económico.",
+        "r": "Reflexión sobre Marcos 11:15–17"
+      },
+      {
+        "t": "Una casa abierta",
+        "d": "La expresión «todas las naciones» invita a examinar si nuestros espacios de fe acogen con respeto a personas de distintos orígenes.",
+        "r": "Isaías 56:7"
+      },
+      {
+        "t": "Escuchar la crítica",
+        "d": "Las palabras de Jesús confrontan prácticas establecidas. ¿Cómo reaccionamos cuando una crítica fundamentada nos obliga a revisar costumbres que damos por sentadas?",
+        "r": "Reflexión temática"
+      }
+    ],
+    "ratio": 2.75
+  },
+  "autoridad": {
+    "title": "¿Con qué autoridad?",
+    "subtitle": "Tres paneles sobre los dirigentes, la contrapregunta de Jesús y su dilema.",
+    "file": "infografia-autoridad.webp",
+    "count": 3,
+    "contexto": [
+      [
+        {
+          "t": "Los principales sacerdotes",
+          "d": "Este grupo estaba vinculado con el liderazgo del culto y la administración del templo. No todos los sacerdotes ejercían las mismas responsabilidades; la expresión de Marcos se refiere a dirigentes sacerdotales.",
+          "r": "Marcos 11:27"
+        },
+        {
+          "t": "Los escribas",
+          "d": "Eran especialistas en la interpretación y enseñanza de las Escrituras y las tradiciones legales. No constituían simplemente un cargo idéntico al de los sacerdotes.",
+          "r": "Marcos 11:27"
+        },
+        {
+          "t": "Los ancianos",
+          "d": "La expresión designa a dirigentes reconocidos de la comunidad. En este pasaje aparecen junto a sacerdotes y escribas, pero Marcos los nombra como grupos distintos.",
+          "r": "Marcos 11:27–28"
+        }
+      ],
+      [
+        {
+          "t": "La pregunta de Jesús",
+          "d": "Jesús responde preguntando si el bautismo de Juan procedía del cielo o de los hombres. El contraste pone en cuestión cómo sus interlocutores reconocían la autoridad religiosa.",
+          "r": "Marcos 11:29–30"
+        },
+        {
+          "t": "Juan el Bautista",
+          "d": "Marcos presenta a Juan predicando un bautismo de arrepentimiento. Su ministerio aparece al inicio del evangelio, de modo que la pregunta remite a una historia que el lector ya conoce.",
+          "r": "Marcos 1:4–11; 11:30"
+        },
+        {
+          "t": "¿Qué significa «del cielo»?",
+          "d": "En este contexto, la expresión contrapone el origen divino y el origen meramente humano. No se refiere a una ubicación geográfica, sino al fundamento de la misión de Juan.",
+          "r": "Marcos 11:30"
+        }
+      ],
+      [
+        {
+          "t": "La deliberación",
+          "d": "Las autoridades consideran dos respuestas y las consecuencias de cada una. Marcos explica expresamente que temían a la multitud, que consideraba a Juan un profeta.",
+          "r": "Marcos 11:31–32"
+        },
+        {
+          "t": "«No sabemos»",
+          "d": "Su respuesta evita tomar posición sobre el origen del bautismo de Juan. Jesús concluye que tampoco les dirá con qué autoridad hace esas cosas.",
+          "r": "Marcos 11:33"
+        },
+        {
+          "t": "Vestimenta reconstruida",
+          "d": "La imagen representa a los dirigentes con vestimentas artísticas inspiradas en la Antigüedad. No existe evidencia para identificar el atuendo preciso de cada participante en esta conversación.",
+          "r": "Nota histórica sobre la ilustración"
+        }
+      ]
+    ],
+    "exegesis": [
+      {
+        "t": "¿Autoridad de quién?",
+        "d": "La pregunta del versículo 28 sigue a la intervención de Jesús en el templo. Los dirigentes cuestionan la legitimidad de sus acciones; Jesús los lleva a examinar cómo juzgan el origen de la misión de Juan.",
+        "r": "Marcos 11:15–18; 27–30"
+      },
+      {
+        "t": "Una contrapregunta reveladora",
+        "d": "La respuesta de Jesús no es una evasión trivial. Expone el dilema de sus interlocutores: reconocer el origen divino del ministerio de Juan implicaría explicar por qué no le creyeron.",
+        "r": "Marcos 11:29–32"
+      },
+      {
+        "t": "Lo que Marcos afirma",
+        "d": "El texto indica que las autoridades temían la reacción de la gente. Atribuirles otros motivos internos —como rivalidad personal o temor a perder poder— puede ser una hipótesis, pero no debe presentarse como dato explícito del pasaje.",
+        "r": "Marcos 11:31–33"
+      }
+    ],
+    "aplicacion": [
+      {
+        "t": "Preguntar con sinceridad",
+        "d": "¿Hacemos preguntas para comprender o solo para defender una posición? El intercambio invita a revisar nuestras motivaciones al dialogar, sin asumir que conocemos el corazón de los personajes históricos.",
+        "r": "Reflexión sobre Marcos 11:27–33"
+      },
+      {
+        "t": "La presión de la opinión pública",
+        "d": "El relato muestra cómo el temor a la reacción de la multitud influye en la respuesta de los dirigentes. ¿Cuándo permitimos que el miedo a la opinión ajena determine lo que reconocemos como verdadero?",
+        "r": "Marcos 11:31–32"
+      },
+      {
+        "t": "Reconocer los límites",
+        "d": "Responder «no sabemos» puede ser honesto en otros contextos, pero aquí Marcos presenta una deliberación estratégica. La aplicación consiste en cultivar honestidad intelectual, no en condenar toda incertidumbre.",
+        "r": "Marcos 11:33"
+      }
+    ],
+    "ratio": 1.5
+  }
+}
