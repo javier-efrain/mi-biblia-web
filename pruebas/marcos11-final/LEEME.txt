@@ -1,0 +1,9 @@
+MARCOS 11 — VERSIÓN CANDIDATA PARA PRUEBAS
+
+Abrir index.html desde PC o celular. Para acceder desde el celular en la misma red, iniciar en esta carpeta: python -m http.server 8000 --bind 0.0.0.0
+
+El lector funciona sin internet y contiene los 33 versículos del archivo RVC usado en la prueba anterior. No publicar como edición definitiva sin verificar derechos de la traducción, citas incrustadas en las imágenes y detalles históricos.
+
+Los textos de estudio editables están en data/estudio-marcos11.json. El HTML contiene una copia para funcionar sin servidor. Si se cambia el JSON, habrá que sincronizarlo con el HTML al integrar a la web.
+
+La imagen de la higuera se reutiliza. Portadas en 16:9, infografías y mapa optimizados a WebP. Esta entrega NO modifica GitHub.
