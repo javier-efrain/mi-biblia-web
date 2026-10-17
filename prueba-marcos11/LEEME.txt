@@ -1,0 +1,7 @@
+MARCOS 11 — PRUEBA CORREGIDA v2
+
+Incluye mapa panorámico dividido en tres secciones navegables, corrección del error JavaScript que impedía mostrar textos educativos y sincronización del control de zoom con el porcentaje.
+
+Abrir desde GitHub Pages (recomendado) o un servidor local. No sustituye la versión principal.
+
+AVISO: El mapa es una ilustración aproximada, NO cartografía arqueológica verificada. Los rótulos y citas integrados en las imágenes requieren revisión editorial. Verificar condiciones de licencia de la RVC antes de publicación definitiva.
