@@ -1,0 +1,6 @@
+BVI - Recursos prototipo Estudio 4 (Marcos 11:27-33)
+
+Abrir diagrama-autoridad.html en el navegador para probar el diagrama interactivo.
+Las dos ilustraciones son recortes individuales de una composicion generada; no son reconstrucciones verificadas y NO sustituyen automaticamente los recursos existentes.
+Formato vertical compatible con visor 2:3 mediante ajuste sin deformacion. La escena del templo necesita revision historica antes de aprobacion.
+Este ZIP es un paquete de recursos de prueba, NO el ZIP final del capitulo ni una modificacion del sitio principal.

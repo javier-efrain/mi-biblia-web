@@ -1,0 +1,9 @@
+PRUEBA DE MAPA CON DESPLAZAMIENTO LIBRE
+
+Se conserva el lector de Marcos 11. El mapa es una imagen panorámica continua: deslizar lateralmente con el dedo, ampliar mediante la barra o botones y restablecer vista. Las infografías conservan sus botones Anterior/Siguiente.
+
+Subir el CONTENIDO de esta carpeta a la carpeta de prueba en GitHub, manteniendo assets/ y los demás archivos.
+
+Mapa ilustrativo: ruta, puerta específica y escala son aproximadas; no usar como cartografía arqueológica exacta. Revisar licencia RVC antes de publicación definitiva.
+
+ETAPA 1: visor de mapa 2:3 con panorama horizontal sin recortar, deslizamiento suave entre paneles, transición sutil en pestañas y páginas de estudio. Los textos e imágenes siguen siendo demostrativos. Probar en móvil antes de aprobar.

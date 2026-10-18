@@ -1,0 +1,28 @@
+{
+  "estado": "prototipo visual pendiente de revision historica",
+  "capitulo": "Marcos 11",
+  "estudio": "estudio-04",
+  "recursos": [
+    {
+      "id": "m11-e4-templo",
+      "archivo": "assets/templo-reconstruccion.webp",
+      "tipo": "reconstruccion artistica",
+      "versiculos": "Marcos 11:27-33",
+      "nota": "Reconstruccion aproximada; disposicion arquitectonica y actividad comercial no comprobadas en detalle."
+    },
+    {
+      "id": "m11-e4-juan",
+      "archivo": "assets/juan-bautista-jordan.webp",
+      "tipo": "escena narrativa",
+      "versiculos": "Marcos 11:29-32; Marcos 1:4-8",
+      "nota": "Escena ilustrativa del ministerio de Juan, no representa un bautismo individual documentado."
+    },
+    {
+      "id": "m11-e4-decision",
+      "archivo": "diagrama-autoridad.html",
+      "tipo": "diagrama interactivo",
+      "versiculos": "Marcos 11:29-33",
+      "nota": "Las dos respuestas que evaluaron los dirigentes y su respuesta final."
+    }
+  ]
+}

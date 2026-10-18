@@ -1,0 +1,28 @@
+{
+  "estado": "prueba funcional pendiente de aprobación editorial, histórica y licencia bíblica",
+  "estudios": [
+    {
+      "id": "m11-e02",
+      "archivo": "estudios/higuera-templo/estudio.json",
+      "pasaje": "Marcos 11:12–21"
+    },
+    {
+      "id": "m11-e03",
+      "archivo": "estudios/fe-oracion-perdon/estudio.json",
+      "pasaje": "Marcos 11:22–26"
+    },
+    {
+      "id": "m11-e04",
+      "archivo": "estudios/autoridad/estudio.json",
+      "pasaje": "Marcos 11:27–33"
+    }
+  ],
+  "estudio1": "estudios/entrada-jerusalen/estudio.json",
+  "interfaz": "index.html",
+  "notas": [
+    "No modificar sitio principal sin probar",
+    "Imágenes del prototipo E4 no reemplazan recursos aprobados",
+    "La lectura bíblica RVC requiere verificación de licencia",
+    "La interfaz usa fetch: servir desde GitHub Pages o servidor local"
+  ]
+}

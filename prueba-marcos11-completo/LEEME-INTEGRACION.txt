@@ -1,0 +1,10 @@
+PRUEBA MARCOS 11 - ESTUDIO COMPARTIDO
+
+Subir todo el contenido de este ZIP a una carpeta NUEVA del repositorio: prueba-marcos11-estudio
+Mantener la carpeta estudios/entrada-jerusalen con sus archivos.
+No reemplazar prueba-marcos11-etapa1.
+El lector carga estudios/entrada-jerusalen/estudio.json mediante fetch.
+En la infografia de la entrada (Marcos 11:1-11), Contexto, Exegesis y Aplicacion muestran el estudio comparado. El mapa mantiene sus notas geograficas propias.
+El resto del capitulo conserva el contenido de prueba.
+La pagina debe servirse desde GitHub Pages (abrir index.html localmente puede impedir fetch).
+BORRADOR editorial: pendiente revision de fuentes y derechos del texto biblico.

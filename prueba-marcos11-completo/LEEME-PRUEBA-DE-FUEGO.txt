@@ -1,0 +1,9 @@
+BVI · MARCOS 11 · PRUEBA DE FUEGO
+
+Subí el CONTENIDO de esta carpeta a una carpeta nueva de prueba en GitHub (sin reemplazar el sitio principal). Abrí index.html mediante GitHub Pages.
+
+Se conserva la interfaz de marcos11-estudio-integrado-v1, el visor y los recursos existentes. Se agregan estudios completos en JSON para higuera/templo, fe/oración/perdón y autoridad. Se actualiza la Aplicación del estudio de entrada. El esquema interactivo aparece bajo el episodio de autoridad.
+
+NOTA: la versión sigue siendo un prototipo. Antes de publicación definitiva comprobar licencia de la RVC, fidelidad de los versículos, precisión histórica de imágenes y comportamiento en celular.
+
+Las imágenes adicionales del estudio 4 se conservan en recursos-estudio4-prototipos/ para evaluación; no reemplazan las aprobadas.
