@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 54,
-      "aprobadas": 54,
+      "total": 60,
+      "aprobadas": 60,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -38,6 +38,10 @@
         },
         {
           "nombre": "No se aceptan URLs de imágenes externas",
+          "ok": true
+        },
+        {
+          "nombre": "Las páginas de marcador rechazan vacíos y duplicados y aceptan párrafos heredados",
           "ok": true
         },
         {
@@ -150,6 +154,26 @@
         },
         {
           "nombre": "Un error de imagen tiene alternativa y conserva la lectura",
+          "ok": true
+        },
+        {
+          "nombre": "Los nombres y puntos sincronizan selección y conservan páginas independientes",
+          "ok": true
+        },
+        {
+          "nombre": "Ocultar puntos deja imagen y descripción general y recupera selección y página",
+          "ok": true
+        },
+        {
+          "nombre": "El gesto horizontal pagina el marcador, el vertical no cambia página ni se cancela",
+          "ok": true
+        },
+        {
+          "nombre": "La imagen 2:3 queda completa en el marco 3:4 y mantiene coordenadas al desplazar zoom",
+          "ok": true
+        },
+        {
+          "nombre": "Los paneles heredados de una página y recursos sin puntos siguen siendo compatibles",
           "ok": true
         },
         {
@@ -228,8 +252,8 @@
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 54,
-      "aprobadas": 54,
+      "total": 60,
+      "aprobadas": 60,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -261,6 +285,10 @@
         },
         {
           "nombre": "No se aceptan URLs de imágenes externas",
+          "ok": true
+        },
+        {
+          "nombre": "Las páginas de marcador rechazan vacíos y duplicados y aceptan párrafos heredados",
           "ok": true
         },
         {
@@ -373,6 +401,26 @@
         },
         {
           "nombre": "Un error de imagen tiene alternativa y conserva la lectura",
+          "ok": true
+        },
+        {
+          "nombre": "Los nombres y puntos sincronizan selección y conservan páginas independientes",
+          "ok": true
+        },
+        {
+          "nombre": "Ocultar puntos deja imagen y descripción general y recupera selección y página",
+          "ok": true
+        },
+        {
+          "nombre": "El gesto horizontal pagina el marcador, el vertical no cambia página ni se cancela",
+          "ok": true
+        },
+        {
+          "nombre": "La imagen 2:3 queda completa en el marco 3:4 y mantiene coordenadas al desplazar zoom",
+          "ok": true
+        },
+        {
+          "nombre": "Los paneles heredados de una página y recursos sin puntos siguen siendo compatibles",
           "ok": true
         },
         {
@@ -477,31 +525,31 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:39749/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:39749/motor-visual/css/motor.css",
-        "http://127.0.0.1:39749/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:39749/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:39749/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:39749/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:37569/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:37569/motor-visual/css/motor.css",
+        "http://127.0.0.1:37569/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:37569/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:37569/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:37569/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
       ],
       "errores": []
     },
@@ -531,31 +579,31 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:39749/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:39749/motor-visual/css/motor.css",
-        "http://127.0.0.1:39749/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:39749/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:39749/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:39749/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:39749/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:39749/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:39749/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:39749/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:37569/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:37569/motor-visual/css/motor.css",
+        "http://127.0.0.1:37569/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:37569/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:37569/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:37569/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:37569/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:37569/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:37569/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:37569/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
       ],
       "errores": []
     }
@@ -838,8 +886,66 @@
       "errores": []
     }
   },
+  "explorador": {
+    "escritorio": {
+      "comprobaciones": [
+        "Selección desde botón sincroniza marcador",
+        "Paginar conserva marcador seleccionado",
+        "Ocultar elimina puntos y nombres de la vista",
+        "Imagen limpia con descripción general",
+        "Enfoque y ocultación conservan página y selección",
+        "Selección desde punto sincroniza botón y página independiente",
+        "Sin desbordamiento de documento a 8 px",
+        "Explicación sin recorte horizontal a 8 px",
+        "Botones táctiles a 8 px",
+        "Sin desbordamiento de documento a 20 px",
+        "Explicación sin recorte horizontal a 20 px",
+        "Botones táctiles a 20 px",
+        "Sin desbordamiento de documento a 30 px",
+        "Explicación sin recorte horizontal a 30 px",
+        "Botones táctiles a 30 px",
+        "Arrastre con ratón desplaza imagen ampliada",
+        "Marcadores alineados después de zoom y desplazamiento",
+        "Cambiar enfoque conserva zoom",
+        "Restaurar devuelve el origen",
+        "Imagen completa 2:3 dentro de visor 3:4",
+        "Modal opcional conserva controles sincronizados",
+        "Sin errores JavaScript del explorador"
+      ],
+      "errores": []
+    },
+    "movil": {
+      "comprobaciones": [
+        "Selección desde botón sincroniza marcador",
+        "Paginar conserva marcador seleccionado",
+        "Ocultar elimina puntos y nombres de la vista",
+        "Imagen limpia con descripción general",
+        "Enfoque y ocultación conservan página y selección",
+        "Selección desde punto sincroniza botón y página independiente",
+        "Sin desbordamiento de documento a 8 px",
+        "Explicación sin recorte horizontal a 8 px",
+        "Botones táctiles a 8 px",
+        "Sin desbordamiento de documento a 20 px",
+        "Explicación sin recorte horizontal a 20 px",
+        "Botones táctiles a 20 px",
+        "Sin desbordamiento de documento a 30 px",
+        "Explicación sin recorte horizontal a 30 px",
+        "Botones táctiles a 30 px",
+        "Gesto horizontal real pagina sin cambiar selección",
+        "Gesto vertical real desplaza la página sin paginar",
+        "Arrastre táctil real desplaza imagen ampliada",
+        "Marcadores alineados después de zoom y desplazamiento",
+        "Cambiar enfoque conserva zoom",
+        "Restaurar devuelve el origen",
+        "Imagen completa 2:3 dentro de visor 3:4",
+        "Modal opcional conserva controles sincronizados",
+        "Sin errores JavaScript del explorador"
+      ],
+      "errores": []
+    }
+  },
   "chromium": "154.0.8037.57",
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "33f1ecc9be8d9b7d5eec87dfb2d864ad290041f4"
+  "commit_base": "9c081a6245449ffeb9269a36544e2bd53b33cc19"
 }

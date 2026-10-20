@@ -107,3 +107,12 @@
 .mv-hoja, .mv-titulo-relato { scroll-margin-top:160px; }
 @media(min-width:700px) { .mv-hoja, .mv-titulo-relato { scroll-margin-top:110px; } }
 .mv-barra-lector .mv-ajustes button { padding-inline:4px; }
+
+/* Explorador compartido: controles táctiles y páginas sin anchos rígidos. */
+.mv [hidden] { display:none !important; }
+.mv .mv-marcador { width:44px; height:44px; border-radius:50%; padding:2px; }
+.mv-elementos { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+.mv-panel .mv-estudio { margin:0; padding:0; border:0; background:transparent; }
+.mv-panel .mv-hoja { padding:0; }
+.mv-panel .mv-controles { font-size:12px; line-height:1.45; }
+.mv-puntos { margin-top:4px; }

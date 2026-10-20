@@ -42,20 +42,46 @@
               "x": 0.25,
               "y": 0.5,
               "titulo": "Punto A",
-              "parrafos": [
-                "Demostración 1: este marcador pertenece al uso del recurso, no a la imagen compartida."
-              ],
-              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto A",
+                  "parrafos": [
+                    "Demostración 1: este marcador pertenece al uso del recurso, no a la imagen compartida."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto A · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             },
             {
               "id": "punto-b",
               "x": 0.75,
               "y": 0.5,
               "titulo": "Punto B",
-              "parrafos": [
-                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
-              ],
-              "certezaHistorica": "Demostración técnica."
+              "certezaHistorica": "Demostración técnica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto B",
+                  "parrafos": [
+                    "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto B · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -102,20 +128,46 @@
               "x": 0.25,
               "y": 0.5,
               "titulo": "Punto A",
-              "parrafos": [
-                "Demostración 2: este marcador pertenece al uso del recurso, no a la imagen compartida."
-              ],
-              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto A",
+                  "parrafos": [
+                    "Demostración 2: este marcador pertenece al uso del recurso, no a la imagen compartida."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto A · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             },
             {
               "id": "punto-b",
               "x": 0.75,
               "y": 0.5,
               "titulo": "Punto B",
-              "parrafos": [
-                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
-              ],
-              "certezaHistorica": "Demostración técnica."
+              "certezaHistorica": "Demostración técnica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto B",
+                  "parrafos": [
+                    "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto B · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -175,20 +227,46 @@
               "x": 0.25,
               "y": 0.5,
               "titulo": "Punto A",
-              "parrafos": [
-                "Demostración 3: este marcador pertenece al uso del recurso, no a la imagen compartida."
-              ],
-              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto A",
+                  "parrafos": [
+                    "Demostración 3: este marcador pertenece al uso del recurso, no a la imagen compartida."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto A · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             },
             {
               "id": "punto-b",
               "x": 0.75,
               "y": 0.5,
               "titulo": "Punto B",
-              "parrafos": [
-                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
-              ],
-              "certezaHistorica": "Demostración técnica."
+              "certezaHistorica": "Demostración técnica.",
+              "paginas": [
+                {
+                  "id": "introduccion",
+                  "titulo": "Punto B",
+                  "parrafos": [
+                    "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+                  ]
+                },
+                {
+                  "id": "detalle",
+                  "titulo": "Punto B · Detalle DEMO",
+                  "parrafos": [
+                    "DEMO: explicación sintética ampliada. Esta página permite explorar el mismo elemento sin cambiar la selección. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. El diagrama es una composición geométrica de prueba; no representa contenido bíblico ni histórico. "
+                  ]
+                }
+              ]
             }
           ]
         }

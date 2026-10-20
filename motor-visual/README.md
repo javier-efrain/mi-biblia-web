@@ -141,6 +141,17 @@ Las URLs anteriores siguen siendo válidas; sin el parámetro nuevo se utiliza E
 
 Los ejemplos antiguos de tipo `aplicacion` siguen siendo compatibles. El contrato también acepta `ensenanzas`; los tres estudios sintéticos actuales usan esa categoría. La barra compacta muestra **↺ 8 px** para restablecer el tamaño, con nombre accesible y descripción completos. Las preferencias anteriores siguen funcionando.
 
-No se han incorporado textos, imágenes, versículos ni recursos definitivos de V15. No se han añadido las mejoras del explorador de la etapa 3. No hay páginas HTML por relato: todos utilizan `demo.html` y el mismo motor.
+No se han incorporado textos, imágenes, versículos ni recursos definitivos de V15. En esa etapa todavía no se habían añadido las mejoras del explorador. No hay páginas HTML por relato: todos utilizan `demo.html` y el mismo motor.
 
-[COMPOSICION.md](COMPOSICION.md) contiene el informe vigente, las pruebas y la actualización de Codespaces. Los informes anteriores documentan sus fases respectivas. El comparador opcional de densidad utiliza ahora una referencia completa en el navegador y guarda la medición actual en `pruebas/densidad-editorial.json`, preservando `pruebas/densidad.json` como evidencia histórica.
+[COMPOSICION.md](COMPOSICION.md) contiene el informe de la etapa 2, las pruebas y la actualización de Codespaces. Los informes anteriores documentan sus fases respectivas. El comparador opcional de densidad utiliza ahora una referencia completa en el navegador y guarda la medición actual en `pruebas/densidad-editorial.json`, preservando `pruebas/densidad.json` como evidencia histórica.
+
+
+## Explorador educativo · Etapa 3
+
+El visor integrado ahora incluye puntos numerados y botones con sus nombres, selección sincronizada, Mostrar/Ocultar puntos y descripción general. Cada marcador conserva su propia página explicativa al alternar elementos o enfoques. Se reutiliza el paginador de contexto y cierre; no hay interfaces separadas por relato.
+
+El zoom de 100–400 %, el desplazamiento táctil nativo, el arrastre con ratón y Restablecer mantienen las coordenadas relativas sobre el plano de imagen. Una nueva geometría sintética 2:3 permite comprobar su encuadre completo en el visor 3:4. El SVG horizontal anterior permanece disponible.
+
+Los marcadores pueden declarar `paginas` (id, título y párrafos) para explicaciones extensas; el contrato sigue aceptando los `parrafos` anteriores como una página. La descripción general utiliza la `leyenda` del recurso. Ocultar puntos conserva selección, página y zoom, ocultando también los botones de elementos. La memoria dura durante la instancia del visor; no se guarda contenido educativo en localStorage.
+
+[EXPLORADOR.md](EXPLORADOR.md) documenta la implementación, las pruebas y cómo actualizar Codespaces. Los informes anteriores conservan el historial de sus respectivas etapas.

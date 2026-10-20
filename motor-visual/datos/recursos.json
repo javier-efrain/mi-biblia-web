@@ -23,13 +23,13 @@
       "demostracion": true,
       "id": "diagrama-demo",
       "tipo": "diagrama",
-      "src": "recursos/diagrama-demo.svg",
+      "src": "recursos/diagrama-vertical-demo.svg",
       "alt": "DEMO · Diagrama de puntos A y B",
       "dimensiones": {
-        "ancho": 1600,
-        "alto": 900
+        "ancho": 800,
+        "alto": 1200
       },
-      "leyenda": "Geometría sintética de demostración. No representa lugares ni acontecimientos reales.",
+      "leyenda": "DEMO: composición geométrica vertical. Dos círculos dorados señalan los elementos A y B, unidos por una línea. No representa lugares ni acontecimientos reales.",
       "autoria": "Prototipo técnico Mi Biblia Web",
       "derechos": "Recurso geométrico creado para esta demostración."
     }

@@ -444,6 +444,118 @@ def probar_composicion(browser, origen, configuracion, nombre):
     return {'comprobaciones':checks,'alto_cabecera':cabecera['height'],'errores':errores}
 
 
+def probar_explorador(browser, origen, configuracion, nombre):
+    contexto = browser.new_context(**configuracion)
+    pagina = contexto.new_page()
+    errores, checks = [], []
+    pagina.on('pageerror', lambda e: errores.append(str(e)))
+    def comprobar(valor, descripcion):
+        assert valor, f'{nombre}: {descripcion}'
+        checks.append(descripcion)
+    pagina.goto(origen+'/motor-visual/demo.html?relato=demo-dos&modo=visual')
+    r = pagina.locator('.mv-recurso').first
+    r.wait_for()
+    punto = r.locator('[data-marcador="punto-b"]')
+    boton = r.locator('[data-elemento="punto-b"]')
+    boton.click()
+    expect(punto).to_have_attribute('aria-pressed','true')
+    expect(boton).to_have_attribute('aria-pressed','true')
+    checks.append('Selección desde botón sincroniza marcador')
+    r.locator('.mv-panel nav button').last.click()
+    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    expect(punto).to_have_attribute('aria-pressed','true')
+    checks.append('Paginar conserva marcador seleccionado')
+    r.locator('[data-control="puntos"]').click()
+    comprobar(r.locator('[data-marcador]:visible').count()==0 and r.locator('[data-elemento]:visible').count()==0,'Ocultar elimina puntos y nombres de la vista')
+    comprobar(r.locator('img').is_visible() and 'DEMO' in r.locator('.mv-panel p').inner_text(),'Imagen limpia con descripción general')
+    pagina.get_by_role('button',name='Devocional',exact=True).click()
+    expect(r.locator('[data-control="puntos"]')).to_have_text('Mostrar puntos')
+    r.locator('[data-control="puntos"]').click()
+    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    checks.append('Enfoque y ocultación conservan página y selección')
+    r.locator('[data-marcador="punto-a"]').click()
+    expect(r.locator('[data-elemento="punto-a"]')).to_have_attribute('aria-pressed','true')
+    expect(r.locator('.mv-panel output')).to_have_text('1 / 2')
+    checks.append('Selección desde punto sincroniza botón y página independiente')
+    pagina.get_by_role('button',name='Estudio',exact=True).click()
+    for tamano in [8,20,30]:
+        pagina.evaluate('(n)=>document.body.style.setProperty("--mv-tamano-lectura",n+"px")',tamano)
+        comprobar(pagina.evaluate('document.documentElement.scrollWidth<=innerWidth'),f'Sin desbordamiento de documento a {tamano} px')
+        comprobar(r.locator('.mv-panel .mv-hoja').evaluate('(e)=>e.scrollWidth<=e.clientWidth'),f'Explicación sin recorte horizontal a {tamano} px')
+        comprobar(r.locator('.mv-elementos button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().height>=44&&b.getBoundingClientRect().width>=44)'),f'Botones táctiles a {tamano} px')
+    pagina.evaluate('document.body.style.removeProperty("--mv-tamano-lectura")')
+    if nombre == 'movil':
+        hoja = r.locator('.mv-panel .mv-hoja')
+        hoja.scroll_into_view_if_needed()
+        # Eventos reales del dispositivo emulado: pan-y libera el scroll vertical.
+        cdp = contexto.new_cdp_session(pagina)
+        def gesto(dx,dy):
+            caja = hoja.bounding_box()
+            x = min(caja['x']+caja['width']*.75,350)
+            y = min(max(caja['y']+30,150),650)
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
+            for paso in range(1,7):
+                cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+dx*paso/6,'y':y+dy*paso/6}]})
+                pagina.wait_for_timeout(25)
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+            pagina.wait_for_timeout(250)
+        gesto(-140,2)
+        expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+        expect(r.locator('[data-elemento="punto-a"]')).to_have_attribute('aria-pressed','true')
+        checks.append('Gesto horizontal real pagina sin cambiar selección')
+        hoja.scroll_into_view_if_needed()
+        previo = pagina.evaluate('scrollY')
+        gesto(2,-120)
+        expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+        comprobar(pagina.evaluate('scrollY')>previo+20,'Gesto vertical real desplaza la página sin paginar')
+        cdp.detach()
+    rango = r.locator('input[type="range"]')
+    rango.fill('300'); rango.dispatch_event('input')
+    v = r.locator('.mv-viewport')
+    v.scroll_into_view_if_needed()
+    if nombre == 'escritorio':
+        v.evaluate('(e)=>e.scrollTo(0,0)')
+        caja=v.bounding_box()
+        pagina.mouse.move(caja['x']+caja['width']*.8,caja['y']+caja['height']*.6)
+        pagina.mouse.down()
+        pagina.mouse.move(caja['x']+caja['width']*.4,caja['y']+caja['height']*.4,steps=8)
+        pagina.mouse.up()
+        comprobar(v.evaluate('(e)=>e.scrollLeft>20&&e.scrollTop>20'),'Arrastre con ratón desplaza imagen ampliada')
+    else:
+        v.evaluate('(e)=>e.scrollTo(0,0)')
+        caja=v.bounding_box()
+        x=caja['x']+caja['width']*.75; y=max(140,caja['y']+caja['height']*.5)
+        cdp=contexto.new_cdp_session(pagina)
+        cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y}]})
+        for paso in range(1,7):
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-100*paso/6,'y':y-40*paso/6}]})
+            pagina.wait_for_timeout(25)
+        cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+        pagina.wait_for_timeout(250)
+        comprobar(v.evaluate('(e)=>e.scrollLeft>20'),'Arrastre táctil real desplaza imagen ampliada')
+        cdp.detach()
+    comprobar(r.evaluate('''e=>{const p=e.querySelector('.mv-plano').getBoundingClientRect(),b=e.querySelector('[data-marcador="punto-b"]').getBoundingClientRect();return Math.abs((b.x+b.width/2-p.x)/p.width-.75)<.01&&Math.abs((b.y+b.height/2-p.y)/p.height-.5)<.01;}'''),'Marcadores alineados después de zoom y desplazamiento')
+    pagina.get_by_role('button',name='Devocional',exact=True).click()
+    expect(rango).to_have_value('300')
+    checks.append('Cambiar enfoque conserva zoom')
+    r.get_by_role('button',name='Restablecer',exact=True).click()
+    comprobar(v.evaluate('(e)=>e.scrollLeft===0&&e.scrollTop===0'),'Restaurar devuelve el origen')
+    expect(rango).to_have_value('100')
+    comprobar(r.evaluate('''e=>{const v=e.querySelector('.mv-viewport').getBoundingClientRect(),p=e.querySelector('.mv-plano').getBoundingClientRect();return Math.abs(p.width/p.height-2/3)<.01&&p.width<=v.width+1&&p.height<=v.height+1;}'''),'Imagen completa 2:3 dentro de visor 3:4')
+    r.locator('[data-elemento="punto-b"]').click()
+    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    r.locator(':scope > button').click()
+    expect(r.locator('dialog')).to_be_visible()
+    comprobar(r.locator('dialog [data-elemento="punto-b"]').is_visible(),'Modal opcional conserva controles sincronizados')
+    r.get_by_role('button',name='Cerrar visor').click()
+    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    r.screenshot(path=str(SALIDA/'capturas'/f'explorador-{nombre}.png'),animations='disabled',
+                 style='.mv-barra-lector { position:static !important; }')
+    comprobar(not errores,'Sin errores JavaScript del explorador')
+    contexto.close()
+    return {'comprobaciones':checks,'errores':errores}
+
+
 def main():
     baseline = originales()
     total_esquemas = validar_esquemas()
@@ -451,7 +563,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),handler)
     threading.Thread(target=server.serve_forever,daemon=True).start()
     origen = f'http://127.0.0.1:{server.server_port}'
-    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{}}
+    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{},'explorador':{}}
     try:
         with sync_playwright() as p:
             ejecutable = os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -477,6 +589,7 @@ def main():
                 resultado['accesibilidad'][nombre] = probar_accesibilidad(browser,origen,config,nombre)
                 resultado['compactacion'][nombre] = probar_compactacion(browser,origen,config,nombre)
                 resultado['composicion'][nombre] = probar_composicion(browser,origen,config,nombre)
+                resultado['explorador'][nombre] = probar_explorador(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -496,6 +609,7 @@ def main():
                       'accesibilidad':{k:len(v['comprobaciones']) for k,v in resultado['accesibilidad'].items()},
                       'compactacion':{k:len(v['comprobaciones']) for k,v in resultado['compactacion'].items()},
                       'composicion':{k:len(v['comprobaciones']) for k,v in resultado['composicion'].items()},
+                      'explorador':{k:len(v['comprobaciones']) for k,v in resultado['explorador'].items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 
 

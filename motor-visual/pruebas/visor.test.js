@@ -58,3 +58,85 @@ test('Un error de imagen tiene alternativa y conserva la lectura', async () => {
     assert(root.querySelectorAll('[data-versiculo]').length===2);
   });
 });
+test('Los nombres y puntos sincronizan selección y conservan páginas independientes', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual');
+    const recurso=root.querySelector('.mv-recurso');
+    recurso.querySelector('[data-elemento="punto-b"]').click();
+    assert(recurso.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
+    recurso.querySelector('.mv-panel nav button:last-child').click();
+    assert(recurso.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(recurso.querySelector('[data-elemento="punto-b"]').getAttribute('aria-pressed')==='true');
+    recurso.querySelector('[data-marcador="punto-a"]').click();
+    assert(recurso.querySelector('[data-elemento="punto-a"]').getAttribute('aria-pressed')==='true');
+    assert(recurso.querySelector('.mv-panel output').textContent==='1 / 2');
+    recurso.querySelector('[data-elemento="punto-b"]').click();
+    assert(recurso.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-cierre output').textContent==='1 / 2');
+  });
+});
+test('Ocultar puntos deja imagen y descripción general y recupera selección y página', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual');
+    const r=root.querySelector('.mv-recurso'), img=r.querySelector('img');
+    r.querySelector('[data-elemento="punto-b"]').click();
+    r.querySelector('.mv-panel nav button:last-child').click();
+    const control=r.querySelector('[data-control="puntos"]'); control.click();
+    assert([...r.querySelectorAll('[data-marcador]')].every(b=>b.hidden));
+    assert(r.querySelector('.mv-elementos').hidden);
+    assert(r.querySelector('.mv-panel p').textContent.includes('DEMO'));
+    assert(r.querySelector('img')===img && img.isConnected);
+    await motor.cambiarEnfoque('devocional');
+    assert(control.textContent==='Mostrar puntos');
+    control.click();
+    assert(r.querySelector('[data-elemento="punto-b"]').getAttribute('aria-pressed')==='true');
+    assert(r.querySelector('.mv-panel output').textContent==='2 / 2');
+  });
+});
+test('El gesto horizontal pagina el marcador, el vertical no cambia página ni se cancela', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual'); root.querySelector('[data-elemento="punto-a"]').click();
+    const hoja=root.querySelector('.mv-panel .mv-hoja');
+    function gesto(x,y) {
+      hoja.dispatchEvent(new PointerEvent('pointerdown',{pointerType:'touch',isPrimary:true,clientX:200,clientY:100,bubbles:true}));
+      const e=new PointerEvent('pointerup',{pointerType:'touch',isPrimary:true,clientX:x,clientY:y,bubbles:true,cancelable:true});
+      hoja.dispatchEvent(e); assert(!e.defaultPrevented);
+    }
+    gesto(190,250); assert(root.querySelector('.mv-panel output').textContent==='1 / 2');
+    gesto(80,105); assert(root.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(root.querySelector('[data-marcador="punto-a"]').getAttribute('aria-pressed')==='true');
+    hoja.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
+    assert(root.querySelector('.mv-panel output').textContent==='1 / 2');
+  });
+});
+test('La imagen 2:3 queda completa en el marco 3:4 y mantiene coordenadas al desplazar zoom', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual'); await frame();
+    const v=root.querySelector('.mv-viewport'),p=root.querySelector('.mv-plano');
+    const marco=v.getBoundingClientRect(),plano=p.getBoundingClientRect();
+    assert(Math.abs(plano.width/plano.height-2/3)<.01);
+    assert(plano.width<=marco.width+1 && plano.height<=marco.height+1);
+    assert(plano.left>=marco.left-1 && plano.top>=marco.top-1);
+    const rango=root.querySelector('input[type="range"]'); rango.value='300';rango.dispatchEvent(new Event('input'));
+    v.scrollTo(80,120); await frame();
+    const q=p.getBoundingClientRect(),b=root.querySelector('[data-marcador="punto-b"]').getBoundingClientRect();
+    assert(Math.abs((b.x+b.width/2-q.x)/q.width-.75)<.01);
+    assert(Math.abs((b.y+b.height/2-q.y)/q.height-.5)<.01);
+    [...root.querySelectorAll('button')].find(b=>b.textContent==='Restablecer').click();
+    assert(v.scrollLeft===0 && v.scrollTop===0 && rango.value==='100');
+  });
+});
+test('Los paneles heredados de una página y recursos sin puntos siguen siendo compatibles', async () => {
+  const {crearExplorador}=await import('../js/componentes/explorador.js');
+  const abort=new AbortController(),root=document.createElement('div'); root.className='mv';document.body.append(root);
+  const recurso={src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>',alt:'DEMO',leyenda:'DEMO: descripción general',dimensiones:{ancho:1600,alto:900}};
+  try {
+    const el=crearExplorador(recurso,{id:'anterior',marcadores:[{id:'viejo',x:.5,y:.5,titulo:'Anterior',parrafos:['DEMO heredada.'],certezaHistorica:'Demostración.'}]},{signal:abort.signal});
+    root.append(el);el.querySelector('[data-elemento]').click();
+    assert(el.querySelector('.mv-panel p').textContent==='DEMO heredada.');
+    assert(el.querySelector('.mv-panel nav').hidden);
+    const sinPuntos=crearExplorador(recurso,{id:'limpio',marcadores:[]},{signal:abort.signal}); root.append(sinPuntos);
+    assert(!sinPuntos.querySelector('[data-control="puntos"]'));
+    assert(sinPuntos.querySelector('.mv-panel p').textContent===recurso.leyenda);
+  } finally {abort.abort();root.remove();}
+});

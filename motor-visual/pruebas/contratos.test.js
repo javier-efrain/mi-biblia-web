@@ -43,3 +43,12 @@ test('No se aceptan URLs de imágenes externas', async () => {
   const servicio = crearServicioContenidos({ baseURL:new URL('../datos/',import.meta.url),fetcher:async url => ({ ok:true,json:async () => String(url).endsWith('recursos.json') ? { schemaVersion:1,recursos:d.recursos.map(r => ({ ...r,src:'https://example.com/a.svg' })) } : d.estudio }) });
   await rechaza(() => servicio.cargarVisuales(catalogo.relatos[0]));
 });
+test('Las páginas de marcador rechazan vacíos y duplicados y aceptan párrafos heredados', async () => {
+  const {catalogo}=await datos(); const m=catalogo.relatos[0].recursos[0].marcadores[0];
+  const paginas=m.paginas;
+  m.paginas=[]; await rechaza(()=>validarCatalogo(catalogo));
+  m.paginas=[paginas[0],paginas[0]]; await rechaza(()=>validarCatalogo(catalogo));
+  delete m.paginas; m.parrafos=['DEMO: panel anterior de una sola página.'];
+  validarCatalogo(catalogo);
+  m.parrafos=[]; await rechaza(()=>validarCatalogo(catalogo));
+});

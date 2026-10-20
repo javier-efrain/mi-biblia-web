@@ -191,6 +191,37 @@
                 "certezaHistorica": {
                   "type": "string",
                   "minLength": 1
+                },
+                "paginas": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "titulo": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "parrafos": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 1
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "titulo",
+                      "parrafos"
+                    ],
+                    "additionalProperties": false
+                  }
                 }
               },
               "required": [
@@ -198,10 +229,21 @@
                 "x",
                 "y",
                 "titulo",
-                "parrafos",
                 "certezaHistorica"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "anyOf": [
+                {
+                  "required": [
+                    "parrafos"
+                  ]
+                },
+                {
+                  "required": [
+                    "paginas"
+                  ]
+                }
+              ]
             },
             "minItems": 0
           }

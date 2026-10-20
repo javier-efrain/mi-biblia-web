@@ -31,7 +31,14 @@ export function validarCatalogo(catalogo) {
       for (const m of uso.marcadores) {
         exigir(texto(m.id) && !marcadores.has(m.id), 'Marcador duplicado.'); marcadores.add(m.id);
         exigir([m.x, m.y].every(n => Number.isFinite(n) && n >= 0 && n <= 1), 'Coordenadas inválidas.');
-        exigir(texto(m.titulo) && texto(m.certezaHistorica) && Array.isArray(m.parrafos) && m.parrafos.length && m.parrafos.every(texto), 'Panel inválido.');
+        exigir(texto(m.titulo) && texto(m.certezaHistorica), 'Panel inválido.');
+        const paginas = m.paginas ?? [{id:'unica',titulo:m.titulo,parrafos:m.parrafos}];
+        exigir(Array.isArray(paginas) && paginas.length > 0, 'Panel vacío.');
+        const idsPaginas = new Set();
+        for (const p of paginas) {
+          exigir(texto(p.id) && !idsPaginas.has(p.id) && texto(p.titulo) && Array.isArray(p.parrafos) && p.parrafos.length && p.parrafos.every(texto), 'Página de marcador inválida.');
+          idsPaginas.add(p.id);
+        }
       }
     }
   }
