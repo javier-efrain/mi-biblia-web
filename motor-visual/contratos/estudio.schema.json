@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contrato estudio v1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "estadoEditorial": {
+      "enum": [
+        "borrador",
+        "en_revision",
+        "aprobado"
+      ]
+    },
+    "demostracion": {
+      "type": "boolean"
+    },
+    "relatoId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "fuentes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "secciones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "minLength": 1
+          },
+          "tipo": {
+            "enum": [
+              "contexto",
+              "exegesis",
+              "aplicacion",
+              "devocional"
+            ]
+          },
+          "titulo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "paginas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$",
+                  "minLength": 1
+                },
+                "titulo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "parrafos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "referencias": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "id",
+                "titulo",
+                "parrafos",
+                "referencias"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "tipo",
+          "titulo",
+          "paginas"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "estadoEditorial",
+    "demostracion",
+    "relatoId",
+    "fuentes",
+    "secciones"
+  ],
+  "additionalProperties": false
+}

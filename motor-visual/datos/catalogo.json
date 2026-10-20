@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "relatos": [
+    {
+      "schemaVersion": 1,
+      "estadoEditorial": "borrador",
+      "demostracion": true,
+      "id": "demo-uno",
+      "titulo": "DEMO · Formas y puntos",
+      "presentacion": "Una imagen compartida junto a una línea de demostración.",
+      "referenciaEtiqueta": "Referencia sintética · Demostración 1:1–2",
+      "referencia": {
+        "version": "DEMO",
+        "libro": "contenido-sintetico",
+        "rangos": [
+          {
+            "capitulo": 1,
+            "desde": 1,
+            "hasta": 2
+          }
+        ]
+      },
+      "estudioId": "piloto-tecnico",
+      "portadaId": "portada-demo",
+      "coleccionId": "laboratorio",
+      "orden": 0,
+      "recursos": [
+        {
+          "id": "demo-uno-imagen",
+          "recursoId": "diagrama-demo",
+          "presentacion": "interactivo",
+          "anclajeBiblico": {
+            "version": "DEMO",
+            "libro": "contenido-sintetico",
+            "capitulo": 1,
+            "versiculo": 1,
+            "posicion": "despues"
+          },
+          "marcadores": [
+            {
+              "id": "punto-a",
+              "x": 0.25,
+              "y": 0.5,
+              "titulo": "Punto A",
+              "parrafos": [
+                "Demostración 1: este marcador pertenece al uso del recurso, no a la imagen compartida."
+              ],
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+            },
+            {
+              "id": "punto-b",
+              "x": 0.75,
+              "y": 0.5,
+              "titulo": "Punto B",
+              "parrafos": [
+                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+              ],
+              "certezaHistorica": "Demostración técnica."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "estadoEditorial": "borrador",
+      "demostracion": true,
+      "id": "demo-dos",
+      "titulo": "DEMO · Un recorrido geométrico",
+      "presentacion": "El mismo motor reutiliza recursos con otros anclajes.",
+      "referenciaEtiqueta": "Referencia sintética · Demostración 1:3–4",
+      "referencia": {
+        "version": "DEMO",
+        "libro": "contenido-sintetico",
+        "rangos": [
+          {
+            "capitulo": 1,
+            "desde": 3,
+            "hasta": 4
+          }
+        ]
+      },
+      "estudioId": "piloto-tecnico-dos",
+      "portadaId": "portada-demo",
+      "coleccionId": "laboratorio",
+      "orden": 1,
+      "recursos": [
+        {
+          "id": "demo-dos-imagen",
+          "recursoId": "diagrama-demo",
+          "presentacion": "interactivo",
+          "anclajeBiblico": {
+            "version": "DEMO",
+            "libro": "contenido-sintetico",
+            "capitulo": 1,
+            "versiculo": 3,
+            "posicion": "despues"
+          },
+          "marcadores": [
+            {
+              "id": "punto-a",
+              "x": 0.25,
+              "y": 0.5,
+              "titulo": "Punto A",
+              "parrafos": [
+                "Demostración 2: este marcador pertenece al uso del recurso, no a la imagen compartida."
+              ],
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+            },
+            {
+              "id": "punto-b",
+              "x": 0.75,
+              "y": 0.5,
+              "titulo": "Punto B",
+              "parrafos": [
+                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+              ],
+              "certezaHistorica": "Demostración técnica."
+            }
+          ]
+        },
+        {
+          "id": "demo-dos-segunda-imagen",
+          "recursoId": "diagrama-demo",
+          "presentacion": "educativo",
+          "anclajeBiblico": {
+            "version": "DEMO",
+            "libro": "contenido-sintetico",
+            "capitulo": 1,
+            "versiculo": 4,
+            "posicion": "despues"
+          },
+          "marcadores": []
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "estadoEditorial": "borrador",
+      "demostracion": true,
+      "id": "demo-tres",
+      "titulo": "DEMO · Otra perspectiva",
+      "presentacion": "Otro capítulo sintético sin reconstruir la interfaz.",
+      "referenciaEtiqueta": "Referencia sintética · Demostración 2:1–3",
+      "referencia": {
+        "version": "DEMO",
+        "libro": "contenido-sintetico",
+        "rangos": [
+          {
+            "capitulo": 2,
+            "desde": 1,
+            "hasta": 3
+          }
+        ]
+      },
+      "estudioId": "piloto-tecnico-tres",
+      "portadaId": "portada-demo",
+      "coleccionId": "laboratorio",
+      "orden": 2,
+      "recursos": [
+        {
+          "id": "demo-tres-imagen",
+          "recursoId": "diagrama-demo",
+          "presentacion": "interactivo",
+          "anclajeBiblico": {
+            "version": "DEMO",
+            "libro": "contenido-sintetico",
+            "capitulo": 2,
+            "versiculo": 1,
+            "posicion": "despues"
+          },
+          "marcadores": [
+            {
+              "id": "punto-a",
+              "x": 0.25,
+              "y": 0.5,
+              "titulo": "Punto A",
+              "parrafos": [
+                "Demostración 3: este marcador pertenece al uso del recurso, no a la imagen compartida."
+              ],
+              "certezaHistorica": "Ejemplo geométrico sintético. Sin afirmación histórica."
+            },
+            {
+              "id": "punto-b",
+              "x": 0.75,
+              "y": 0.5,
+              "titulo": "Punto B",
+              "parrafos": [
+                "Este segundo panel comprueba que el zoom conserva la posición de los marcadores."
+              ],
+              "certezaHistorica": "Demostración técnica."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

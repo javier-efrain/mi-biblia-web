@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contrato relato v1",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "estadoEditorial": {
+      "enum": [
+        "borrador",
+        "en_revision",
+        "aprobado"
+      ]
+    },
+    "demostracion": {
+      "type": "boolean"
+    },
+    "titulo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "presentacion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "referenciaEtiqueta": {
+      "type": "string",
+      "minLength": 1
+    },
+    "referencia": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "enum": [
+            "DEMO",
+            "RVC"
+          ]
+        },
+        "libro": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "rangos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "capitulo": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "desde": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "hasta": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 200
+              }
+            },
+            "required": [
+              "capitulo",
+              "desde",
+              "hasta"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "version",
+        "libro",
+        "rangos"
+      ],
+      "additionalProperties": false
+    },
+    "estudioId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "portadaId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "coleccionId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "orden": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "recursos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "minLength": 1
+          },
+          "recursoId": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "minLength": 1
+          },
+          "anclajeBiblico": {
+            "type": "object",
+            "properties": {
+              "version": {
+                "enum": [
+                  "DEMO",
+                  "RVC"
+                ]
+              },
+              "libro": {
+                "type": "string",
+                "minLength": 1
+              },
+              "capitulo": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "versiculo": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "posicion": {
+                "const": "despues"
+              }
+            },
+            "required": [
+              "version",
+              "libro",
+              "capitulo",
+              "versiculo",
+              "posicion"
+            ],
+            "additionalProperties": false
+          },
+          "presentacion": {
+            "enum": [
+              "educativo",
+              "interactivo"
+            ]
+          },
+          "marcadores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$",
+                  "minLength": 1
+                },
+                "x": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "y": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "titulo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "parrafos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "certezaHistorica": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "x",
+                "y",
+                "titulo",
+                "parrafos",
+                "certezaHistorica"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "recursoId",
+          "anclajeBiblico",
+          "presentacion",
+          "marcadores"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "estadoEditorial",
+    "demostracion",
+    "titulo",
+    "presentacion",
+    "referenciaEtiqueta",
+    "referencia",
+    "estudioId",
+    "portadaId",
+    "coleccionId",
+    "orden",
+    "recursos"
+  ],
+  "additionalProperties": false
+}

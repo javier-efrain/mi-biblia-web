@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,">
+<title>Pruebas locales · Motor visual</title><link rel="stylesheet" href="../css/motor.css">
+</head>
+<body class="mv">
+<header class="mv-cabecera"><h1>Pruebas del motor compartido</h1><p id="resumen" role="status">Ejecutando…</p><ol id="resultados"></ol></header>
+<div id="sandbox" class="mv-motor"></div>
+<script type="module">
+import './contratos.test.js';
+import './biblia.test.js';
+import './modos.test.js';
+import './navegacion.test.js';
+import './visor.test.js';
+import { ejecutar } from './harness.js';
+await ejecutar();
+</script>
+</body></html>

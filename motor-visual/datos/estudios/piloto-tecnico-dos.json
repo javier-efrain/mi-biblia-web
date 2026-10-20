@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "estadoEditorial": "borrador",
+  "demostracion": true,
+  "id": "piloto-tecnico-dos",
+  "relatoId": "demo-dos",
+  "fuentes": [
+    "Texto sintético preparado exclusivamente para la prueba técnica."
+  ],
+  "secciones": [
+    {
+      "id": "contexto",
+      "tipo": "contexto",
+      "titulo": "Contexto",
+      "paginas": [
+        {
+          "id": "contexto-uno",
+          "titulo": "DEMOSTRACIÓN 2 · Contexto",
+          "parrafos": [
+            "Contenido sintético para comprobar el componente compartido. No es un estudio bíblico ni un devocional aprobado.",
+            "El propósito de esta página es verificar la lectura horizontal y la separación entre el texto de origen y la explicación educativa."
+          ],
+          "referencias": [
+            "Referencia de prueba; sin cita bíblica."
+          ]
+        },
+        {
+          "id": "contexto-dos",
+          "titulo": "Una explicación extensa de demostración",
+          "parrafos": [
+            "Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. ",
+            "La altura de la página se adapta al contenido. El desplazamiento vertical del documento continúa disponible."
+          ],
+          "referencias": []
+        }
+      ]
+    },
+    {
+      "id": "exegesis",
+      "tipo": "exegesis",
+      "titulo": "Explicación de prueba",
+      "paginas": [
+        {
+          "id": "exegesis-uno",
+          "titulo": "DEMOSTRACIÓN 2 · Explicación de prueba",
+          "parrafos": [
+            "Contenido sintético para comprobar el componente compartido. No es un estudio bíblico ni un devocional aprobado.",
+            "El propósito de esta página es verificar la lectura horizontal y la separación entre el texto de origen y la explicación educativa."
+          ],
+          "referencias": [
+            "Referencia de prueba; sin cita bíblica."
+          ]
+        },
+        {
+          "id": "exegesis-dos",
+          "titulo": "Una explicación extensa de demostración",
+          "parrafos": [
+            "Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. ",
+            "La altura de la página se adapta al contenido. El desplazamiento vertical del documento continúa disponible."
+          ],
+          "referencias": []
+        }
+      ]
+    },
+    {
+      "id": "aplicacion",
+      "tipo": "aplicacion",
+      "titulo": "Aplicación",
+      "paginas": [
+        {
+          "id": "aplicacion-uno",
+          "titulo": "DEMOSTRACIÓN 2 · Aplicación",
+          "parrafos": [
+            "Contenido sintético para comprobar el componente compartido. No es un estudio bíblico ni un devocional aprobado.",
+            "El propósito de esta página es verificar la lectura horizontal y la separación entre el texto de origen y la explicación educativa."
+          ],
+          "referencias": [
+            "Referencia de prueba; sin cita bíblica."
+          ]
+        },
+        {
+          "id": "aplicacion-dos",
+          "titulo": "Una explicación extensa de demostración",
+          "parrafos": [
+            "Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. ",
+            "La altura de la página se adapta al contenido. El desplazamiento vertical del documento continúa disponible."
+          ],
+          "referencias": []
+        }
+      ]
+    },
+    {
+      "id": "devocional",
+      "tipo": "devocional",
+      "titulo": "Devocional de prueba",
+      "paginas": [
+        {
+          "id": "devocional-uno",
+          "titulo": "DEMOSTRACIÓN 2 · Devocional de prueba",
+          "parrafos": [
+            "Contenido sintético para comprobar el componente compartido. No es un estudio bíblico ni un devocional aprobado.",
+            "El propósito de esta página es verificar la lectura horizontal y la separación entre el texto de origen y la explicación educativa."
+          ],
+          "referencias": [
+            "Referencia de prueba; sin cita bíblica."
+          ]
+        },
+        {
+          "id": "devocional-dos",
+          "titulo": "Una explicación extensa de demostración",
+          "parrafos": [
+            "Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. Este párrafo sintético permite revisar que el contenido largo se adapte al ancho de la pantalla y permanezca legible sin recortes. ",
+            "La altura de la página se adapta al contenido. El desplazamiento vertical del documento continúa disponible."
+          ],
+          "referencias": []
+        }
+      ]
+    }
+  ]
+}
