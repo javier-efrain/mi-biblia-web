@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 36,
-      "aprobadas": 36,
+      "total": 43,
+      "aprobadas": 43,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -150,14 +150,42 @@
         },
         {
           "nombre": "Un error de imagen tiene alternativa y conserva la lectura",
+          "ok": true
+        },
+        {
+          "nombre": "La apariencia inicial es oscura y la lectura empieza en 20 px",
+          "ok": true
+        },
+        {
+          "nombre": "El tamaño se limita a 16–32 px y los botones reflejan sus límites",
+          "ok": true
+        },
+        {
+          "nombre": "Apariencia y tamaño se recuperan del almacenamiento sin guardar contenido",
+          "ok": true
+        },
+        {
+          "nombre": "Preferencias corruptas o fuera de rango usan valores cómodos",
+          "ok": true
+        },
+        {
+          "nombre": "Bloquear el almacenamiento no impide ajustar la lectura durante la sesión",
+          "ok": true
+        },
+        {
+          "nombre": "Los ajustes preservan los nodos de lectura y exponen su estado accesible",
+          "ok": true
+        },
+        {
+          "nombre": "Ambas apariencias mantienen contraste AA en texto, paneles y controles",
           "ok": true
         }
       ],
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 36,
-      "aprobadas": 36,
+      "total": 43,
+      "aprobadas": 43,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -301,6 +329,34 @@
         },
         {
           "nombre": "Un error de imagen tiene alternativa y conserva la lectura",
+          "ok": true
+        },
+        {
+          "nombre": "La apariencia inicial es oscura y la lectura empieza en 20 px",
+          "ok": true
+        },
+        {
+          "nombre": "El tamaño se limita a 16–32 px y los botones reflejan sus límites",
+          "ok": true
+        },
+        {
+          "nombre": "Apariencia y tamaño se recuperan del almacenamiento sin guardar contenido",
+          "ok": true
+        },
+        {
+          "nombre": "Preferencias corruptas o fuera de rango usan valores cómodos",
+          "ok": true
+        },
+        {
+          "nombre": "Bloquear el almacenamiento no impide ajustar la lectura durante la sesión",
+          "ok": true
+        },
+        {
+          "nombre": "Los ajustes preservan los nodos de lectura y exponen su estado accesible",
+          "ok": true
+        },
+        {
+          "nombre": "Ambas apariencias mantienen contraste AA en texto, paneles y controles",
           "ok": true
         }
       ],
@@ -333,27 +389,29 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:39983/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:39983/motor-visual/css/motor.css",
-        "http://127.0.0.1:39983/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:39983/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:39983/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:39983/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:39983/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:39983/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:39983/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:39983/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:42541/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:42541/motor-visual/css/motor.css",
+        "http://127.0.0.1:42541/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:42541/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:42541/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:42541/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:42541/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:42541/motor-visual/datos/recursos/diagrama-demo.svg"
       ],
       "errores": []
     },
@@ -383,27 +441,97 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:39983/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:39983/motor-visual/css/motor.css",
-        "http://127.0.0.1:39983/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:39983/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:39983/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:39983/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:39983/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:39983/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:39983/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:39983/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:39983/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:39983/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:42541/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:42541/motor-visual/css/motor.css",
+        "http://127.0.0.1:42541/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:42541/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:42541/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:42541/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:42541/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:42541/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:42541/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:42541/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:42541/motor-visual/datos/recursos/diagrama-demo.svg"
+      ],
+      "errores": []
+    }
+  },
+  "accesibilidad": {
+    "escritorio": {
+      "comprobaciones": [
+        "Oscuro predeterminado en navegador sin preferencias",
+        "Texto de lectura inicial a 20 px",
+        "Controles A− y A+ visibles",
+        "Aumentar texto no reconstruye el estudio",
+        "Se conserva la página de explicación al ampliar",
+        "Texto a 32 px: .mv-texto > p",
+        "Texto a 32 px: .mv-hoja p",
+        "Texto a 32 px: .mv-panel p",
+        "Párrafos extensos a 32 px sin recortes ni scroll horizontal",
+        "Controles de apariencia de al menos 48 × 48 px",
+        "Foco visible al usar teclado",
+        "Apariencia clara seleccionable con teclado",
+        "Modo claro a 32 px sin desbordamiento",
+        "Apariencia recuperada al recargar",
+        "Tamaño recuperado al recargar",
+        "Se guardan solo apariencia y tamaño",
+        "Tamaño mínimo 16 px sin desbordamiento",
+        "Devocional a 32 px",
+        "Explicación del mapa a 32 px",
+        "El zoom sigue funcionando con texto a 32 px",
+        "El panel modal hereda el tamaño de lectura",
+        "Modal sin scroll horizontal de párrafos a 32 px",
+        "Visuales, panel y devocional sin recortes a 32 px",
+        "Solo texto conserva 32 px sin montar visuales",
+        "Ajustes disponibles en Solo texto",
+        "Navegar conserva tamaño y apariencia",
+        "Sin errores JavaScript durante los ajustes"
+      ],
+      "errores": []
+    },
+    "movil": {
+      "comprobaciones": [
+        "Oscuro predeterminado en navegador sin preferencias",
+        "Texto de lectura inicial a 20 px",
+        "Controles A− y A+ visibles",
+        "Aumentar texto no reconstruye el estudio",
+        "Se conserva la página de explicación al ampliar",
+        "Texto a 32 px: .mv-texto > p",
+        "Texto a 32 px: .mv-hoja p",
+        "Texto a 32 px: .mv-panel p",
+        "Párrafos extensos a 32 px sin recortes ni scroll horizontal",
+        "Controles de apariencia de al menos 48 × 48 px",
+        "Foco visible al usar teclado",
+        "Apariencia clara seleccionable con teclado",
+        "Modo claro a 32 px sin desbordamiento",
+        "Apariencia recuperada al recargar",
+        "Tamaño recuperado al recargar",
+        "Se guardan solo apariencia y tamaño",
+        "Tamaño mínimo 16 px sin desbordamiento",
+        "Devocional a 32 px",
+        "Explicación del mapa a 32 px",
+        "El zoom sigue funcionando con texto a 32 px",
+        "El panel modal hereda el tamaño de lectura",
+        "Modal sin scroll horizontal de párrafos a 32 px",
+        "Visuales, panel y devocional sin recortes a 32 px",
+        "Solo texto conserva 32 px sin montar visuales",
+        "Ajustes disponibles en Solo texto",
+        "Navegar conserva tamaño y apariencia",
+        "Pantalla estrecha de 320 px con lectura a 32 px",
+        "Visuales a 320 px de ancho y letra a 32 px",
+        "Sin errores JavaScript durante los ajustes"
       ],
       "errores": []
     }
@@ -411,5 +539,5 @@
   "chromium": "154.0.8037.57",
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "7e11f6c4d47bd20b7a19b98193500c73ba312d44"
+  "commit_base": "72f17a435a42674b362f6e47f95639d9c75e2e7b"
 }

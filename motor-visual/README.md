@@ -89,3 +89,15 @@ Ver [RESULTADOS.md](RESULTADOS.md) y [pruebas/resultados.json](pruebas/resultado
 - La navegación por capítulo recorre capítulos disponibles en el catálogo de la colección y del mismo libro/versión. No es todavía una interfaz para leer capítulos completos de toda la Biblia.
 - Se verificó Chromium en escritorio y dispositivo móvil simulado, no Safari, Firefox ni teléfonos físicos. El gesto horizontal se comprobó mediante eventos táctiles sintéticos; no hay zoom personalizado de pinza de dos dedos.
 - No se implementan buscador, administración editorial, autenticación, catálogo público ni despliegue. `noindex` es una precaución de la demo, no una barrera de acceso ni autorización para publicarla.
+
+## Apariencia y accesibilidad visual
+
+La apariencia inicial es oscura (gris muy oscuro, texto claro y acentos dorados). El botón **Modo oscuro** permite alternar con la apariencia clara y expone su estado con `aria-pressed`.
+
+Los botones **A− / A+** ajustan el tamaño de lectura de **16 a 32 px**, en pasos de 2 px, partiendo de **20 px**. El ajuste alcanza el texto de lectura, las explicaciones de estudios, devocionales y paneles informativos, incluidos los paneles dentro del visor modal. Los controles mantienen un tamaño estable para no confundir el aumento de letra con el zoom de imágenes.
+
+Las preferencias se guardan en `localStorage`, exclusivamente bajo `mi-biblia-web:motor-visual:preferencias:v1`. No se almacena texto ni contenido educativo. Se recuperan al recargar en el mismo navegador y origen. Si el almacenamiento está bloqueado, los ajustes siguen funcionando durante la sesión. La configuración no se transfiere automáticamente entre la URL Cloud y la URL de Codespaces.
+
+El cambio tipográfico se aplica mediante una variable CSS, sin reconstruir la lectura ni reiniciar su página o zoom. Los controles tienen al menos 48 × 48 px, foco visible y manejo por teclado. La paleta verifica un contraste mínimo de 4,5:1 para los pares de texto probados; esto no constituye una auditoría completa de conformidad WCAG.
+
+Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md) para resultados e instrucciones de actualización en Codespaces.

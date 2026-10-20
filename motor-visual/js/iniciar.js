@@ -2,8 +2,12 @@ import { crearServicioBiblia } from './servicios/biblia.js';
 import { crearServicioContenidos } from './servicios/contenidos.js';
 import { crearMotor } from './estado/lectura.js';
 import { leerRuta } from './estado/navegacion.js';
+import { crearPreferencias } from './estado/preferencias.js';
+import { crearControlesPreferencias } from './componentes/preferencias.js';
 
 const root = document.querySelector('#motor');
+const preferencias = crearPreferencias();
+document.querySelector('#preferencias').append(crearControlesPreferencias(preferencias).el);
 try {
   const contenidos = crearServicioContenidos({ baseURL:new URL('../datos/',import.meta.url) });
   const catalogo = await contenidos.cargarCatalogo();

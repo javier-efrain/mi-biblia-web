@@ -149,6 +149,111 @@ def probar_demo(browser, origen, configuracion, nombre):
     return {'comprobaciones':checks,'solicitudes':solicitudes,'errores':errores}
 
 
+
+def probar_accesibilidad(browser, origen, configuracion, nombre):
+    contexto = browser.new_context(**configuracion)
+    pagina = contexto.new_page()
+    errores, checks = [], []
+    pagina.on('pageerror', lambda e: errores.append(str(e)))
+    url = origen + '/motor-visual/demo.html?relato=demo-dos&modo=visual'
+
+    def comprobar(condicion, descripcion):
+        if not condicion:
+            raise AssertionError(f'{nombre}, accesibilidad: {descripcion}')
+        checks.append(descripcion)
+
+    def sin_recortes():
+        return pagina.evaluate("""() => {
+          if (document.documentElement.scrollWidth > innerWidth) return false;
+          return [...document.querySelectorAll('.mv-texto > p,.mv-hoja p,.mv-panel p')].every(p => {
+            if (!p.getBoundingClientRect().height) return true;
+            const c=getComputedStyle(p);
+            return p.scrollWidth <= p.clientWidth+1 && p.scrollHeight <= p.clientHeight+1 &&
+              c.overflowX !== 'hidden' && c.overflowY !== 'hidden';
+          });
+        }""")
+
+    pagina.goto(url)
+    pagina.wait_for_selector('#motor[data-listo="true"]')
+    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'oscuro', 'Oscuro predeterminado en navegador sin preferencias')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '20px', 'Texto de lectura inicial a 20 px')
+    aumentar = pagina.get_by_role('button', name='Aumentar tamaño de letra', exact=True)
+    reducir = pagina.get_by_role('button', name='Reducir tamaño de letra', exact=True)
+    comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Controles A− y A+ visibles')
+    pagina.locator('[data-marcador="punto-b"]').first.click()
+    pagina.locator('.mv-hoja').focus()
+    pagina.keyboard.press('ArrowRight')
+    expect(pagina.locator('.mv-estudio output')).to_have_text('2 / 2')
+    pagina.evaluate('window.__hojaAntes = document.querySelector(".mv-hoja")')
+    for _ in range(6):
+        aumentar.focus()
+        pagina.keyboard.press('Enter')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('32 px')
+    expect(aumentar).to_be_disabled()
+    comprobar(pagina.evaluate('window.__hojaAntes === document.querySelector(".mv-hoja")'), 'Aumentar texto no reconstruye el estudio')
+    comprobar(pagina.locator('.mv-estudio output').inner_text() == '2 / 2', 'Se conserva la página de explicación al ampliar')
+    for selector in ['.mv-texto > p', '.mv-hoja p', '.mv-panel p']:
+        comprobar(pagina.locator(selector).first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', f'Texto a 32 px: {selector}')
+    comprobar(sin_recortes(), 'Párrafos extensos a 32 px sin recortes ni scroll horizontal')
+    botones = pagina.locator('.mv-preferencias button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().width>=48 && b.getBoundingClientRect().height>=48)')
+    comprobar(botones, 'Controles de apariencia de al menos 48 × 48 px')
+    tema = pagina.get_by_role('button',name='Modo oscuro',exact=True)
+    tema.focus()
+    foco = tema.evaluate('(b)=>getComputedStyle(b).outlineStyle')
+    comprobar(foco != 'none', 'Foco visible al usar teclado')
+    tema.press('Space')
+    expect(tema).to_have_attribute('aria-pressed','false')
+    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia clara seleccionable con teclado')
+    comprobar(sin_recortes(), 'Modo claro a 32 px sin desbordamiento')
+    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-claro-32.png'),full_page=True)
+    pagina.reload()
+    pagina.wait_for_selector('#motor[data-listo="true"]')
+    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia recuperada al recargar')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Tamaño recuperado al recargar')
+    guardado = pagina.evaluate('JSON.parse(localStorage.getItem("mi-biblia-web:motor-visual:preferencias:v1"))')
+    comprobar(guardado == {'apariencia':'claro','tamano':32}, 'Se guardan solo apariencia y tamaño')
+    for _ in range(8):
+        reducir.click()
+    expect(reducir).to_be_disabled()
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('16 px')
+    comprobar(sin_recortes(), 'Tamaño mínimo 16 px sin desbordamiento')
+    for _ in range(8):
+        aumentar.click()
+    tema.click()
+    pagina.get_by_role('button',name='Devocional de prueba',exact=True).click()
+    comprobar(pagina.locator('.mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Devocional a 32 px')
+    pagina.locator('[data-marcador="punto-b"]').first.click()
+    comprobar(pagina.locator('.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Explicación del mapa a 32 px')
+    pagina.locator('input[type=range]').first.fill('250')
+    pagina.locator('input[type=range]').first.dispatch_event('input')
+    comprobar(pagina.locator('.mv-visor output').first.inner_text() == '250 %', 'El zoom sigue funcionando con texto a 32 px')
+    pagina.get_by_role('button', name='Ampliar visor',exact=True).first.click()
+    comprobar(pagina.locator('dialog[open] .mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'El panel modal hereda el tamaño de lectura')
+    comprobar(pagina.locator('dialog[open]').evaluate('(d)=>d.scrollWidth<=d.clientWidth+1'), 'Modal sin scroll horizontal de párrafos a 32 px')
+    pagina.keyboard.press('Escape')
+    pagina.wait_for_timeout(50)
+    comprobar(sin_recortes(), 'Visuales, panel y devocional sin recortes a 32 px')
+    pagina.locator('input[type=range]').first.fill('100')
+    pagina.locator('input[type=range]').first.dispatch_event('input')
+    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-oscuro-32.png'),full_page=True)
+    pagina.get_by_role('button',name='Solo texto bíblico',exact=True).click()
+    expect(pagina.locator('#motor [data-educativo],#motor img')).to_have_count(0)
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Solo texto conserva 32 px sin montar visuales')
+    comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Ajustes disponibles en Solo texto')
+    pagina.get_by_role('button',name='Relato siguiente:',exact=False).click()
+    expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-tres')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Navegar conserva tamaño y apariencia')
+    if nombre == 'movil':
+        pagina.set_viewport_size({'width':320,'height':740})
+        comprobar(sin_recortes(), 'Pantalla estrecha de 320 px con lectura a 32 px')
+        pagina.get_by_role('button',name='Con recursos visuales',exact=True).click()
+        pagina.wait_for_selector('.mv-estudio')
+        comprobar(sin_recortes(), 'Visuales a 320 px de ancho y letra a 32 px')
+    comprobar(not errores, 'Sin errores JavaScript durante los ajustes')
+    contexto.close()
+    return {'comprobaciones':checks,'errores':errores}
+
+
 def main():
     baseline = originales()
     total_esquemas = validar_esquemas()
@@ -156,7 +261,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),handler)
     threading.Thread(target=server.serve_forever,daemon=True).start()
     origen = f'http://127.0.0.1:{server.server_port}'
-    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{}}
+    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{}}
     try:
         with sync_playwright() as p:
             ejecutable = os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -179,6 +284,7 @@ def main():
                 assert suite['total'] == suite['aprobadas'] and not errores, suite
                 contexto.close()
                 resultado['demo'][nombre] = probar_demo(browser,origen,config,nombre)
+                resultado['accesibilidad'][nombre] = probar_accesibilidad(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -195,6 +301,7 @@ def main():
     print(json.dumps({'ok':resultado['ok'],'chromium':resultado['chromium'],'esquemas':total_esquemas,
                       'suites':{k:f"{v['aprobadas']}/{v['total']}" for k,v in resultado['suites'].items()},
                       'demo':{k:len(v['comprobaciones']) for k,v in resultado['demo'].items()},
+                      'accesibilidad':{k:len(v['comprobaciones']) for k,v in resultado['accesibilidad'].items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 
 
