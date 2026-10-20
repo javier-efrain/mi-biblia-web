@@ -86,3 +86,24 @@
   .mv-tarjetas { grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
 }
 @media(prefers-reduced-motion:reduce) { .mv * { scroll-behavior:auto !important; } }
+/* Composición editorial compartida: selectores, capítulo y relato. */
+.mv-barra-lector { position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:4px; background:var(--mv-fondo); border:1px solid var(--mv-borde); border-radius:6px; }
+.mv-selectores { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; flex:1 1 310px; min-width:0; }
+.mv-enfoques, .mv-barra-lector .mv-modos { display:flex; gap:2px; margin:0; }
+.mv-enfoques button, .mv-barra-lector .mv-modos button { flex:1; padding:4px; }
+.mv-barra-lector .mv-preferencias { flex:1 1 310px; min-width:0; margin:0; padding:0; border:0; background:transparent; }
+.mv-barra-lector .mv-ajustes { gap:3px; }
+.mv-barra-lector button { font-size:11px; }
+.mv-capitulo { min-width:0; margin:6px 0; }
+.mv-libro { margin:2px 0; color:var(--mv-secundario); font-size:11px; overflow-wrap:anywhere; }
+.mv-capitulo h1 { font:600 16px/1.3 Georgia,serif; margin:2px 0 4px; }
+.mv-indice { display:flex; gap:4px; overflow-x:auto; padding:3px; overscroll-behavior-x:contain; }
+.mv-indice button { flex:none; max-width:240px; text-align:left; }
+.mv-indice [aria-current="true"] { border-color:var(--mv-acento); color:var(--mv-acento); box-shadow:inset 0 -2px var(--mv-acento); }
+.mv-titulo-relato { font:600 17px/1.3 Georgia,serif; margin:8px 0 4px; overflow-wrap:anywhere; }
+.mv-relato { min-width:0; }
+.mv-titulo-seccion { font-size:12px; margin:0 0 6px; color:var(--mv-acento); }
+.mv-portada > .mv-solo-lectores { padding:0; margin:-1px; }
+.mv-hoja, .mv-titulo-relato { scroll-margin-top:160px; }
+@media(min-width:700px) { .mv-hoja, .mv-titulo-relato { scroll-margin-top:110px; } }
+.mv-barra-lector .mv-ajustes button { padding-inline:4px; }

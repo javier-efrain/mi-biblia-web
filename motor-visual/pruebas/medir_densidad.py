@@ -1,6 +1,6 @@
 """Comparación opcional con la fase anterior, a igual lectura de 20 px.
 Requiere Chromium, Playwright y el commit histórico disponible en Git.
-No cambia archivos fuente ni ramas; escribe únicamente densidad.json.
+No cambia archivos fuente ni ramas; escribe únicamente densidad-editorial.json.
 """
 import json
 import subprocess
@@ -13,7 +13,10 @@ from playwright.sync_api import sync_playwright
 MOTOR = Path(__file__).resolve().parents[1]
 REPO = MOTOR.parent
 BASE = '1aa04866d70f26bd11944c638ada43fe7f6474e0'
-PATHS = ['css/motor.css', 'js/estado/preferencias.js', 'js/componentes/preferencias.js']
+# Restaurar las respuestas de la referencia completa, también cuando cambia la composición.
+PATHS = [n.decode().removeprefix('motor-visual/') for n in subprocess.check_output(
+    ['git','ls-tree','-rz','--name-only',BASE,'--','motor-visual'],cwd=REPO).split(b'\0')
+    if n and Path(n.decode()).suffix in ['.html','.js','.css','.json','.svg']]
 
 
 class Silencioso(SimpleHTTPRequestHandler):
@@ -40,13 +43,14 @@ def main():
                     context.add_init_script("localStorage.setItem('mi-biblia-web:motor-visual:preferencias:v1',JSON.stringify({apariencia:'oscuro',tamano:20}))")
                     if version == 'anterior':
                         for path, content in old.items():
-                            context.route('**/motor-visual/' + path, partial(responder, body=content, mime='text/css' if path.endswith('.css') else 'text/javascript'))
+                            mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml'}[Path(path).suffix]
+                            context.route('**/motor-visual/' + path + '*', partial(responder, body=content, mime=mime))
                     page = context.new_page()
                     page.goto(f'http://127.0.0.1:{server.server_port}/motor-visual/demo.html?relato=demo-dos&modo=visual')
                     page.wait_for_selector('#motor[data-listo="true"]')
                     page.wait_for_timeout(100)
                     result['mediciones'][name][version] = page.evaluate('''() => ({
-                      cabecera:document.querySelector('.mv-cabecera').getBoundingClientRect().height,
+                      cabecera:document.querySelector('.mv-cabecera').getBoundingClientRect().height+(document.querySelector('.mv-barra-lector')?.getBoundingClientRect().height||0),
                       ancho_visor:document.querySelector('.mv-viewport').getBoundingClientRect().width,
                       alto_visor:document.querySelector('.mv-viewport').getBoundingClientRect().height,
                       inicio_visor:document.querySelector('.mv-viewport').getBoundingClientRect().top,
@@ -62,7 +66,7 @@ def main():
     finally:
         server.shutdown()
         server.server_close()
-    (MOTOR / 'pruebas/densidad.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
+    (MOTOR / 'pruebas/densidad-editorial.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(result, ensure_ascii=False))
 
 

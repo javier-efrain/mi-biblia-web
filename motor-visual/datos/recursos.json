@@ -7,7 +7,7 @@
       "demostracion": true,
       "id": "portada-demo",
       "tipo": "portada",
-      "src": "recursos/diagrama-demo.svg",
+      "src": "recursos/portada-demo.svg",
       "alt": "DEMO · Portada geométrica 16:9",
       "dimensiones": {
         "ancho": 1600,

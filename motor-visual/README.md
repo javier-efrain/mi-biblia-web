@@ -118,3 +118,29 @@ python motor-visual/pruebas/medir_densidad.py
 ```
 
 Esta comparación requiere el commit histórico `1aa04866d70f26bd11944c638ada43fe7f6474e0` disponible en Git y Chromium en `/usr/bin/chromium`. No cambia la rama ni los archivos fuente; sustituye las respuestas antiguas solo en el navegador de prueba.
+
+
+## Composición editorial · Etapa 2
+
+La composición actual conserva la apariencia compacta y aplica la organización visual de referencia usando exclusivamente datos sintéticos:
+
+1. Cabecera del lector con los grupos independientes **Estudio / Devocional** y **Visual / Solo texto**, además de los ajustes tipográficos.
+2. Libro, capítulo, índice horizontal con el relato activo y la navegación anterior/siguiente existente.
+3. Título y referencia del relato en HTML y portada 16:9 sin letras dibujadas. El pie de la portada se mantiene accesible, sin repetirse visualmente.
+4. Contexto antes del texto en Estudio, con paginación propia.
+5. Versículos y recursos intercalados mediante los anclajes existentes, con visor integrado 3:4.
+6. Cierre de Exégesis / Enseñanzas en Estudio, o Devocional en el enfoque alternativo.
+
+Cambiar el enfoque solo actualiza los paneles educativos: conserva la instancia del visor, su zoom y su marcador seleccionado. Contexto, secciones del estudio y devocional conservan páginas independientes en memoria durante la sesión del motor. Solo texto desmonta el contenido suplementario y no solicita estudios, recursos ni módulos visuales al iniciarse en ese modo, cualquiera sea el enfoque elegido.
+
+Las URLs anteriores siguen siendo válidas; sin el parámetro nuevo se utiliza Estudio. Ejemplo alternativo:
+
+```text
+/motor-visual/demo.html?relato=demo-dos&modo=visual&enfoque=devocional
+```
+
+Los ejemplos antiguos de tipo `aplicacion` siguen siendo compatibles. El contrato también acepta `ensenanzas`; los tres estudios sintéticos actuales usan esa categoría. La barra compacta muestra **↺ 8 px** para restablecer el tamaño, con nombre accesible y descripción completos. Las preferencias anteriores siguen funcionando.
+
+No se han incorporado textos, imágenes, versículos ni recursos definitivos de V15. No se han añadido las mejoras del explorador de la etapa 3. No hay páginas HTML por relato: todos utilizan `demo.html` y el mismo motor.
+
+[COMPOSICION.md](COMPOSICION.md) contiene el informe vigente, las pruebas y la actualización de Codespaces. Los informes anteriores documentan sus fases respectivas. El comparador opcional de densidad utiliza ahora una referencia completa en el navegador y guarda la medición actual en `pruebas/densidad-editorial.json`, preservando `pruebas/densidad.json` como evidencia histórica.

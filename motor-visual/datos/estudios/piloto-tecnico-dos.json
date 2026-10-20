@@ -38,7 +38,7 @@
     {
       "id": "exegesis",
       "tipo": "exegesis",
-      "titulo": "Explicación de prueba",
+      "titulo": "Exégesis",
       "paginas": [
         {
           "id": "exegesis-uno",
@@ -63,13 +63,13 @@
       ]
     },
     {
-      "id": "aplicacion",
-      "tipo": "aplicacion",
-      "titulo": "Aplicación",
+      "id": "ensenanzas",
+      "tipo": "ensenanzas",
+      "titulo": "Enseñanzas",
       "paginas": [
         {
           "id": "aplicacion-uno",
-          "titulo": "DEMOSTRACIÓN 2 · Aplicación",
+          "titulo": "DEMOSTRACIÓN 2 · Enseñanzas",
           "parrafos": [
             "Contenido sintético para comprobar el componente compartido. No es un estudio bíblico ni un devocional aprobado.",
             "El propósito de esta página es verificar la lectura horizontal y la separación entre el texto de origen y la explicación educativa."

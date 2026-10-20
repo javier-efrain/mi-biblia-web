@@ -18,7 +18,7 @@ test('La navegación por botones cambia el relato sin duplicar el lector', async
     siguiente.focus(); siguiente.click();
     await new Promise(r => setTimeout(r,30));
     assert(motor.obtenerEstado().relatoId==='demo-dos'); assert(root.querySelectorAll('.mv-texto').length===1);
-    assert(document.activeElement===root.querySelector('h2'), 'El foco debe continuar en el relato nuevo');
+    assert(document.activeElement===root.querySelector('.mv-titulo-relato'), 'El foco debe continuar en el relato nuevo');
   });
 });
 test('No se puede seleccionar un relato inexistente', async () => {

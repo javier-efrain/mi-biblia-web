@@ -32,13 +32,13 @@ test('El visor modal devuelve el foco al disparador', async () => {
 });
 test('La lectura horizontal admite teclado, texto extenso y cambio de sección', async () => {
   await conMotor(async ({ root,motor }) => {
-    await motor.cambiarModo('visual'); const hoja=root.querySelector('.mv-hoja');
+    await motor.cambiarModo('visual'); const hoja=root.querySelector('.mv-cierre .mv-hoja');
     hoja.dispatchEvent(new KeyboardEvent('keydown',{ key:'ArrowRight',bubbles:true }));
-    assert(root.querySelector('.mv-estudio output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-cierre output').textContent==='2 / 2');
     assert(hoja.textContent.length>1500); assert(hoja.scrollHeight>=hoja.clientHeight);
-    const siguiente=root.querySelector('.mv-estudio nav button:last-child'); assert(siguiente.disabled);
-    [...root.querySelectorAll('.mv-pestanas button')].find(b => b.textContent==='Devocional de prueba').click();
-    assert(root.querySelector('.mv-estudio output').textContent==='1 / 2');
+    const siguiente=root.querySelector('.mv-cierre nav button:last-child'); assert(siguiente.disabled);
+    [...root.querySelectorAll('.mv-cierre .mv-pestanas button')].find(b => b.textContent==='Enseñanzas').click();
+    assert(root.querySelector('.mv-cierre output').textContent==='1 / 2');
   });
 });
 test('El cierre tardío del modal no roba el foco a la lectura', async () => {

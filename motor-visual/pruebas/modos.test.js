@@ -11,7 +11,7 @@ test('Tres relatos se renderizan con el mismo motor y anclajes correctos', async
     await motor.cambiarModo('visual');
     for (const r of catalogo.relatos) {
       await motor.seleccionar(r.id);
-      assert(root.querySelectorAll('.mv-estudio').length===1);
+      assert(root.querySelectorAll('.mv-contexto').length===1 && root.querySelectorAll('.mv-cierre').length===1);
       assert(root.querySelectorAll('.mv-portada:not(.mv-tarjeta .mv-portada)').length===1);
       for (const uso of r.recursos) {
         const recurso=root.querySelector(`[data-uso="${uso.id}"]`);

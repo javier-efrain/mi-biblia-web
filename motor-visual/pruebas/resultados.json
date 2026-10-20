@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 45,
-      "aprobadas": 45,
+      "total": 54,
+      "aprobadas": 54,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -186,14 +186,50 @@
         },
         {
           "nombre": "Los 32 px anteriores se adaptan a 30 px sin perder la apariencia elegida",
+          "ok": true
+        },
+        {
+          "nombre": "La composición ordena cabecera, capítulo, título, referencia, portada, contexto, lectura y cierre",
+          "ok": true
+        },
+        {
+          "nombre": "La portada mantiene el pie accesible sin repetir visualmente el título",
+          "ok": true
+        },
+        {
+          "nombre": "El índice horizontal muestra solo los relatos del capítulo y señala el activo",
+          "ok": true
+        },
+        {
+          "nombre": "Contexto y cierre mantienen páginas independientes",
+          "ok": true
+        },
+        {
+          "nombre": "Devocional sustituye contexto y estudio sin reconstruir el visor ni perder su zoom",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque",
+          "ok": true
+        },
+        {
+          "nombre": "Un enfoque elegido durante la carga visual se aplica al terminar sin montar el contexto",
+          "ok": true
+        },
+        {
+          "nombre": "Los enlaces antiguos mantienen Estudio como enfoque y los nuevos aceptan Devocional",
+          "ok": true
+        },
+        {
+          "nombre": "Los ejemplos con Aplicación conservan su cierre y no necesitan otro HTML",
           "ok": true
         }
       ],
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 45,
-      "aprobadas": 45,
+      "total": 54,
+      "aprobadas": 54,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -373,6 +409,42 @@
         },
         {
           "nombre": "Los 32 px anteriores se adaptan a 30 px sin perder la apariencia elegida",
+          "ok": true
+        },
+        {
+          "nombre": "La composición ordena cabecera, capítulo, título, referencia, portada, contexto, lectura y cierre",
+          "ok": true
+        },
+        {
+          "nombre": "La portada mantiene el pie accesible sin repetir visualmente el título",
+          "ok": true
+        },
+        {
+          "nombre": "El índice horizontal muestra solo los relatos del capítulo y señala el activo",
+          "ok": true
+        },
+        {
+          "nombre": "Contexto y cierre mantienen páginas independientes",
+          "ok": true
+        },
+        {
+          "nombre": "Devocional sustituye contexto y estudio sin reconstruir el visor ni perder su zoom",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque",
+          "ok": true
+        },
+        {
+          "nombre": "Un enfoque elegido durante la carga visual se aplica al terminar sin montar el contexto",
+          "ok": true
+        },
+        {
+          "nombre": "Los enlaces antiguos mantienen Estudio como enfoque y los nuevos aceptan Devocional",
+          "ok": true
+        },
+        {
+          "nombre": "Los ejemplos con Aplicación conservan su cierre y no necesitan otro HTML",
           "ok": true
         }
       ],
@@ -405,29 +477,31 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:42155/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:42155/motor-visual/css/motor.css",
-        "http://127.0.0.1:42155/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:42155/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:42155/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:42155/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:42155/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:42155/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:39749/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:39749/motor-visual/css/motor.css",
+        "http://127.0.0.1:39749/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:39749/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:39749/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:39749/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos/diagrama-demo.svg"
       ],
       "errores": []
     },
@@ -457,29 +531,31 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:42155/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:42155/motor-visual/css/motor.css",
-        "http://127.0.0.1:42155/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:42155/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:42155/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:42155/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:42155/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:42155/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:42155/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:42155/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:42155/motor-visual/datos/recursos/diagrama-demo.svg"
+        "http://127.0.0.1:39749/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:39749/motor-visual/css/motor.css",
+        "http://127.0.0.1:39749/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:39749/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:39749/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:39749/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:39749/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:39749/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/descubrimiento.js",
+        "http://127.0.0.1:39749/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:39749/motor-visual/datos/recursos/diagrama-demo.svg"
       ],
       "errores": []
     }
@@ -694,8 +770,76 @@
       "errores": []
     }
   },
+  "composicion": {
+    "escritorio": {
+      "comprobaciones": [
+        "Enlace directo con enfoque Devocional",
+        "Solo texto + Devocional sin cargar contenido suplementario",
+        "Solo texto + Devocional sin descargar componentes visuales",
+        "Solo texto + Devocional sin montaje educativo",
+        "Cambiar enfoque en Solo texto no carga estudios",
+        "Dos grupos independientes en la cabecera",
+        "Controles tipográficos dentro de la cabecera",
+        "Cabecera compacta: hasta 110 px móvil y 60 px escritorio",
+        "Índice del capítulo con dos relatos sintéticos",
+        "Relato activo indicado en el índice",
+        "El índice muestra completo el relato activo sin desplazar el documento",
+        "Orden editorial completo: portada, contexto, versículos y cierre",
+        "Cierre de Estudio con Exégesis y Enseñanzas",
+        "Contexto paginado sin cambiar el cierre",
+        "Cierre paginado sin cambiar el contexto",
+        "Cambiar enfoque conserva la misma instancia del visor",
+        "Cambiar enfoque conserva el zoom",
+        "Cambiar enfoque conserva el marcador seleccionado",
+        "Cambiar enfoque no vuelve a solicitar los datos visuales",
+        "Atrás restaura Estudio sin reconstruir el visor",
+        "Adelante restaura el enfoque Devocional",
+        "Solo texto conserva la elección de enfoque",
+        "Índice actualizado al navegar al otro capítulo",
+        "Navegación conserva el enfoque",
+        "Volver al relato recupera su página de contexto",
+        "Sin errores JavaScript en las cuatro combinaciones"
+      ],
+      "alto_cabecera": 54,
+      "errores": []
+    },
+    "movil": {
+      "comprobaciones": [
+        "Enlace directo con enfoque Devocional",
+        "Solo texto + Devocional sin cargar contenido suplementario",
+        "Solo texto + Devocional sin descargar componentes visuales",
+        "Solo texto + Devocional sin montaje educativo",
+        "Cambiar enfoque en Solo texto no carga estudios",
+        "Dos grupos independientes en la cabecera",
+        "Controles tipográficos dentro de la cabecera",
+        "Cabecera compacta: hasta 110 px móvil y 60 px escritorio",
+        "Índice del capítulo con dos relatos sintéticos",
+        "Relato activo indicado en el índice",
+        "El índice muestra completo el relato activo sin desplazar el documento",
+        "Orden editorial completo: portada, contexto, versículos y cierre",
+        "Cierre de Estudio con Exégesis y Enseñanzas",
+        "Contexto paginado sin cambiar el cierre",
+        "Cierre paginado sin cambiar el contexto",
+        "Cambiar enfoque conserva la misma instancia del visor",
+        "Cambiar enfoque conserva el zoom",
+        "Cambiar enfoque conserva el marcador seleccionado",
+        "Cambiar enfoque no vuelve a solicitar los datos visuales",
+        "Atrás restaura Estudio sin reconstruir el visor",
+        "Adelante restaura el enfoque Devocional",
+        "Solo texto conserva la elección de enfoque",
+        "Índice actualizado al navegar al otro capítulo",
+        "Navegación conserva el enfoque",
+        "Volver al relato recupera su página de contexto",
+        "Cabecera compacta también a 320 px",
+        "Sin desbordamiento horizontal del documento a 320 px",
+        "Sin errores JavaScript en las cuatro combinaciones"
+      ],
+      "alto_cabecera": 102,
+      "errores": []
+    }
+  },
   "chromium": "154.0.8037.57",
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "1aa04866d70f26bd11944c638ada43fe7f6474e0"
+  "commit_base": "33f1ecc9be8d9b7d5eec87dfb2d864ad290041f4"
 }

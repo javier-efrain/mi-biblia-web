@@ -43,7 +43,7 @@ export function validarEstudio(estudio) {
   const ids = new Set();
   for (const seccion of estudio.secciones) {
     exigir(texto(seccion.id) && !ids.has(seccion.id), 'Sección duplicada.'); ids.add(seccion.id);
-    exigir(['contexto', 'exegesis', 'aplicacion', 'devocional'].includes(seccion.tipo) && texto(seccion.titulo), 'Sección inválida.');
+    exigir(['contexto', 'exegesis', 'ensenanzas', 'aplicacion', 'devocional'].includes(seccion.tipo) && texto(seccion.titulo), 'Sección inválida.');
     exigir(Array.isArray(seccion.paginas) && seccion.paginas.length, 'Sección vacía.');
     const paginas = new Set();
     for (const pagina of seccion.paginas) {

@@ -2,13 +2,36 @@ import { nodo, boton } from '../componentes/dom.js';
 export function leerRuta(search, catalogo) {
   const p = new URLSearchParams(search);
   const relato = catalogo.relatos.find(r => r.id === p.get('relato')) || catalogo.relatos[0];
-  return { relatoId: relato.id, modo: p.get('modo') === 'visual' ? 'visual' : 'texto' };
+  return { relatoId: relato.id, modo: p.get('modo') === 'visual' ? 'visual' : 'texto', enfoque:p.get('enfoque') === 'devocional' ? 'devocional' : 'estudio' };
 }
 export function escribirRuta(estado, { reemplazar = false } = {}) {
   const url = new URL(location.href);
   url.searchParams.set('relato', estado.relatoId);
   url.searchParams.set('modo', estado.modo);
+  url.searchParams.set('enfoque', estado.enfoque || 'estudio');
   if (url.href !== location.href) history[reemplazar ? 'replaceState' : 'pushState'](null, '', url);
+}
+export function crearIndiceCapitulo(catalogo, id, seleccionar) {
+  const actual = catalogo.relatos.find(r => r.id === id);
+  const ref = actual.referencia, capitulo = ref.rangos[0].capitulo;
+  const relatos = catalogo.relatos.filter(r => r.coleccionId === actual.coleccionId &&
+    r.referencia.version === ref.version && r.referencia.libro === ref.libro &&
+    r.referencia.rangos.some(x => x.capitulo === capitulo)).sort((a,b) => a.orden-b.orden);
+  const bloque = nodo('section', { className:'mv-capitulo', 'aria-label':'Libro, capítulo y relatos' },
+    nodo('p', { className:'mv-libro' },ref.libro.replaceAll('-',' ')),
+    nodo('h1', {},`Capítulo ${capitulo}`),
+    nodo('nav', { className:'mv-indice', 'aria-label':'Índice de relatos del capítulo' },
+      ...relatos.map(r => boton(r.titulo, () => seleccionar(r.id), {
+        'data-relato-indice':r.id, 'aria-current':r.id === id ? 'true' : 'false', title:r.referenciaEtiqueta
+      }))));
+  requestAnimationFrame(() => {
+    if (!bloque.isConnected) return;
+    const indice = bloque.querySelector('.mv-indice'), activo = indice.querySelector('[aria-current="true"]');
+    const a = activo.getBoundingClientRect(), n = indice.getBoundingClientRect();
+    // Desplazar únicamente el índice; no mover la posición vertical del lector.
+    indice.scrollLeft += a.left - n.left - (indice.clientWidth-a.width)/2;
+  });
+  return bloque;
 }
 export function vecinos(catalogo, id) {
   const actual = catalogo.relatos.find(r => r.id === id);
