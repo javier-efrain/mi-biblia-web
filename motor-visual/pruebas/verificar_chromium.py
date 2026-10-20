@@ -77,7 +77,7 @@ def probar_demo(browser, origen, configuracion, nombre):
     comprobar(pagina.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'Sin desbordamiento horizontal inicial')
     capturas = SALIDA / 'capturas'
     capturas.mkdir(exist_ok=True)
-    pagina.screenshot(path=str(capturas / f'{nombre}-texto.png'), full_page=True)
+    pagina.screenshot(path=str(capturas / f'{nombre}-texto.png'), full_page=True,animations="disabled")
 
     pagina.get_by_role('button', name='Con recursos visuales', exact=True).click()
     pagina.wait_for_selector('.mv-estudio')
@@ -88,7 +88,7 @@ def probar_demo(browser, origen, configuracion, nombre):
     portada = pagina.locator('.mv-portada img').first.evaluate('(e) => ({ w:e.clientWidth, h:e.clientHeight })')
     comprobar(abs(portada['w'] / portada['h'] - 16 / 9) < .01, 'Portada 16:9')
     comprobar(pagina.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'Sin desbordamiento horizontal visual')
-    pagina.screenshot(path=str(capturas / f'{nombre}-visual.png'), full_page=True)
+    pagina.screenshot(path=str(capturas / f'{nombre}-visual.png'), full_page=True,animations="disabled")
 
     slider = pagina.locator('input[type=range]').first
     slider.fill('250')
@@ -176,7 +176,7 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     pagina.goto(url)
     pagina.wait_for_selector('#motor[data-listo="true"]')
     comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'oscuro', 'Oscuro predeterminado en navegador sin preferencias')
-    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '20px', 'Texto de lectura inicial a 20 px')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '8px', 'Texto de lectura experimental inicial a 8 px')
     aumentar = pagina.get_by_role('button', name='Aumentar tamaño de letra', exact=True)
     reducir = pagina.get_by_role('button', name='Reducir tamaño de letra', exact=True)
     comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Controles A− y A+ visibles')
@@ -185,18 +185,18 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     pagina.keyboard.press('ArrowRight')
     expect(pagina.locator('.mv-estudio output')).to_have_text('2 / 2')
     pagina.evaluate('window.__hojaAntes = document.querySelector(".mv-hoja")')
-    for _ in range(6):
+    for _ in range(11):
         aumentar.focus()
         pagina.keyboard.press('Enter')
-    expect(pagina.locator('.mv-preferencias output')).to_have_text('32 px')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('30 px')
     expect(aumentar).to_be_disabled()
     comprobar(pagina.evaluate('window.__hojaAntes === document.querySelector(".mv-hoja")'), 'Aumentar texto no reconstruye el estudio')
     comprobar(pagina.locator('.mv-estudio output').inner_text() == '2 / 2', 'Se conserva la página de explicación al ampliar')
     for selector in ['.mv-texto > p', '.mv-hoja p', '.mv-panel p']:
-        comprobar(pagina.locator(selector).first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', f'Texto a 32 px: {selector}')
-    comprobar(sin_recortes(), 'Párrafos extensos a 32 px sin recortes ni scroll horizontal')
-    botones = pagina.locator('.mv-preferencias button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().width>=48 && b.getBoundingClientRect().height>=48)')
-    comprobar(botones, 'Controles de apariencia de al menos 48 × 48 px')
+        comprobar(pagina.locator(selector).first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', f'Texto a 30 px: {selector}')
+    comprobar(sin_recortes(), 'Párrafos extensos a 30 px sin recortes ni scroll horizontal')
+    botones = pagina.locator('.mv-preferencias button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().width>=44 && b.getBoundingClientRect().height>=44)')
+    comprobar(botones, 'Controles de apariencia de al menos 44 × 44 px')
     tema = pagina.get_by_role('button',name='Modo oscuro',exact=True)
     tema.focus()
     foco = tema.evaluate('(b)=>getComputedStyle(b).outlineStyle')
@@ -204,54 +204,141 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     tema.press('Space')
     expect(tema).to_have_attribute('aria-pressed','false')
     comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia clara seleccionable con teclado')
-    comprobar(sin_recortes(), 'Modo claro a 32 px sin desbordamiento')
-    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-claro-32.png'),full_page=True)
+    comprobar(sin_recortes(), 'Modo claro a 30 px sin desbordamiento')
+    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-claro-30.png'),full_page=True,animations="disabled")
     pagina.reload()
     pagina.wait_for_selector('#motor[data-listo="true"]')
     comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia recuperada al recargar')
-    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Tamaño recuperado al recargar')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Tamaño recuperado al recargar')
     guardado = pagina.evaluate('JSON.parse(localStorage.getItem("mi-biblia-web:motor-visual:preferencias:v1"))')
-    comprobar(guardado == {'apariencia':'claro','tamano':32}, 'Se guardan solo apariencia y tamaño')
-    for _ in range(8):
+    comprobar(guardado == {'apariencia':'claro','tamano':30}, 'Se guardan solo apariencia y tamaño')
+    for _ in range(11):
         reducir.click()
     expect(reducir).to_be_disabled()
-    expect(pagina.locator('.mv-preferencias output')).to_have_text('16 px')
-    comprobar(sin_recortes(), 'Tamaño mínimo 16 px sin desbordamiento')
-    for _ in range(8):
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('8 px')
+    comprobar(sin_recortes(), 'Tamaño mínimo 8 px sin desbordamiento')
+    for _ in range(11):
         aumentar.click()
     tema.click()
     pagina.get_by_role('button',name='Devocional de prueba',exact=True).click()
-    comprobar(pagina.locator('.mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Devocional a 32 px')
+    comprobar(pagina.locator('.mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Devocional a 30 px')
     pagina.locator('[data-marcador="punto-b"]').first.click()
-    comprobar(pagina.locator('.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Explicación del mapa a 32 px')
+    comprobar(pagina.locator('.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Explicación del mapa a 30 px')
     pagina.locator('input[type=range]').first.fill('250')
     pagina.locator('input[type=range]').first.dispatch_event('input')
-    comprobar(pagina.locator('.mv-visor output').first.inner_text() == '250 %', 'El zoom sigue funcionando con texto a 32 px')
+    comprobar(pagina.locator('.mv-visor output').first.inner_text() == '250 %', 'El zoom sigue funcionando con texto a 30 px')
     pagina.get_by_role('button', name='Ampliar visor',exact=True).first.click()
-    comprobar(pagina.locator('dialog[open] .mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'El panel modal hereda el tamaño de lectura')
-    comprobar(pagina.locator('dialog[open]').evaluate('(d)=>d.scrollWidth<=d.clientWidth+1'), 'Modal sin scroll horizontal de párrafos a 32 px')
+    comprobar(pagina.locator('dialog[open] .mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'El panel modal hereda el tamaño de lectura')
+    comprobar(pagina.locator('dialog[open]').evaluate('(d)=>d.scrollWidth<=d.clientWidth+1'), 'Modal sin scroll horizontal de párrafos a 30 px')
     pagina.keyboard.press('Escape')
     pagina.wait_for_timeout(50)
-    comprobar(sin_recortes(), 'Visuales, panel y devocional sin recortes a 32 px')
+    comprobar(sin_recortes(), 'Visuales, panel y devocional sin recortes a 30 px')
     pagina.locator('input[type=range]').first.fill('100')
     pagina.locator('input[type=range]').first.dispatch_event('input')
-    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-oscuro-32.png'),full_page=True)
+    pagina.screenshot(path=str(SALIDA / 'capturas' / f'{nombre}-oscuro-30.png'),full_page=True,animations="disabled")
     pagina.get_by_role('button',name='Solo texto bíblico',exact=True).click()
     expect(pagina.locator('#motor [data-educativo],#motor img')).to_have_count(0)
-    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Solo texto conserva 32 px sin montar visuales')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Solo texto conserva 30 px sin montar visuales')
     comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Ajustes disponibles en Solo texto')
     pagina.get_by_role('button',name='Relato siguiente:',exact=False).click()
     expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-tres')
-    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '32px', 'Navegar conserva tamaño y apariencia')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Navegar conserva tamaño y apariencia')
     if nombre == 'movil':
         pagina.set_viewport_size({'width':320,'height':740})
-        comprobar(sin_recortes(), 'Pantalla estrecha de 320 px con lectura a 32 px')
+        comprobar(sin_recortes(), 'Pantalla estrecha de 320 px con lectura a 30 px')
         pagina.get_by_role('button',name='Con recursos visuales',exact=True).click()
         pagina.wait_for_selector('.mv-estudio')
-        comprobar(sin_recortes(), 'Visuales a 320 px de ancho y letra a 32 px')
+        comprobar(sin_recortes(), 'Visuales a 320 px de ancho y letra a 30 px')
     comprobar(not errores, 'Sin errores JavaScript durante los ajustes')
     contexto.close()
     return {'comprobaciones':checks,'errores':errores}
+
+
+
+def probar_compactacion(browser, origen, configuracion, nombre):
+    contexto = browser.new_context(**configuracion)
+    contexto.add_init_script("""if (!localStorage.getItem('mi-biblia-web:motor-visual:preferencias:v1')) {
+      localStorage.setItem('mi-biblia-web:motor-visual:preferencias:v1', JSON.stringify({apariencia:'oscuro',tamano:20}));
+    }""")
+    pagina = contexto.new_page()
+    checks, errores, muestras = [], [], []
+    pagina.on('pageerror',lambda e: errores.append(str(e)))
+
+    def comprobar(condicion, descripcion):
+        if not condicion:
+            raise AssertionError(f'{nombre}, compactación: {descripcion}')
+        checks.append(descripcion)
+
+    def disposicion_valida():
+        return pagina.evaluate("""() => {
+          if (document.documentElement.scrollWidth > innerWidth) return false;
+          const parrafos=[...document.querySelectorAll('.mv-texto > p,.mv-hoja p,.mv-panel p')];
+          if (!parrafos.every(p=>p.scrollWidth<=p.clientWidth+1 && p.scrollHeight<=p.clientHeight+1)) return false;
+          return [...document.querySelectorAll('.mv-ajustes,.mv-navegacion,.mv-controles,.mv-pestanas')].every(g=>{
+            const rects=[...g.children].map(e=>e.getBoundingClientRect()).filter(r=>r.width && r.height);
+            return rects.every((a,i)=>rects.slice(i+1).every(b=>
+              Math.min(a.right,b.right)-Math.max(a.left,b.left)<=1 || Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)<=1));
+          });
+        }""")
+
+    pagina.goto(origen + '/motor-visual/demo.html?relato=demo-dos&modo=visual')
+    pagina.wait_for_selector('#motor[data-listo="true"]')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('20 px')
+    checks.append('Se recuperan los 20 px guardados antes de esta fase')
+    restablecer=pagina.get_by_role('button',name='Restablecer tamaño de letra a 8 px',exact=True)
+    restablecer.focus(); restablecer.press('Enter')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('8 px')
+    pagina.reload(); pagina.wait_for_selector('#motor[data-listo="true"]')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('8 px')
+    checks.append('Restablecer por teclado guarda 8 px y persiste al recargar')
+    aumentar=pagina.get_by_role('button',name='Aumentar tamaño de letra',exact=True)
+    for tamano in [8,20,30]:
+        restablecer.click()
+        for _ in range((tamano-8)//2):
+            aumentar.click()
+        for modo in ['visual','texto']:
+            pagina.get_by_role('button',name='Con recursos visuales' if modo=='visual' else 'Solo texto bíblico',exact=True).click()
+            if modo=='visual':
+                pagina.wait_for_selector('.mv-estudio')
+                pagina.locator('[data-marcador="punto-b"]').first.click()
+                pagina.get_by_role('button',name='Contexto',exact=True).click()
+                pagina.locator('.mv-hoja').focus(); pagina.keyboard.press('ArrowRight')
+                comprobar(pagina.locator('.mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Estudio extenso a {tamano} px')
+                comprobar(disposicion_valida(), f'Estudio a {tamano} px sin recortes, superposición ni scroll horizontal')
+                pagina.get_by_role('button',name='Devocional de prueba',exact=True).click()
+                comprobar(pagina.locator('.mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Devocional a {tamano} px')
+                comprobar(pagina.locator('.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Panel de mapa a {tamano} px')
+                v=pagina.locator('.mv-viewport').first.bounding_box()
+                minimo=450 if nombre=='escritorio' else configuracion['viewport']['width']-50
+                comprobar(v['width']>=minimo and abs(v['width']/v['height']-.75)<.01, f'Visor amplio y 3:4 con lectura a {tamano} px')
+                muestras.append({'tamano':tamano,'visor_ancho':round(v['width'],2),'visor_alto':round(v['height'],2)})
+                # La tipografía no debe agrandar ni achicar el área del visor.
+                comprobar(abs(muestras[-1]['visor_ancho']-muestras[0]['visor_ancho'])<1, f'Visor independiente de letra a {tamano} px')
+                pagina.screenshot(path=str(SALIDA/'capturas'/f'compacto-{nombre}-{tamano}.png'),full_page=True,animations="disabled")
+            else:
+                expect(pagina.locator('#motor [data-educativo],#motor img')).to_have_count(0)
+                checks.append(f'Solo texto a {tamano} px sin montar recursos')
+            comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Lectura {modo} a {tamano} px')
+            comprobar(disposicion_valida(), f'Disposición {modo} válida a {tamano} px')
+            tactiles=pagina.locator('button,input[type=range]').evaluate_all("""es=>es.every(e=>{
+              const r=e.getBoundingClientRect(); return !r.width || !r.height || (r.width>=44 && r.height>=44);
+            })""")
+            comprobar(tactiles, f'Controles independientes de {tamano} px: áreas de al menos 44 × 44 px en {modo}')
+        # También comprobar la apariencia clara sin recortar párrafos en cada tamaño.
+        tema=pagina.get_by_role('button',name='Modo oscuro',exact=True)
+        tema.click(); comprobar(disposicion_valida(), f'Apariencia clara sin desbordamiento a {tamano} px'); tema.click()
+    if nombre=='movil':
+        pagina.set_viewport_size({'width':320,'height':740})
+        for tamano in [8,20,30]:
+            restablecer.click()
+            for _ in range((tamano-8)//2): aumentar.click()
+            pagina.get_by_role('button',name='Con recursos visuales',exact=True).click()
+            pagina.wait_for_selector('.mv-estudio')
+            comprobar(disposicion_valida(), f'Pantalla 320 px: sin superposiciones a {tamano} px')
+            comprobar(pagina.locator('.mv-viewport').first.bounding_box()['width']>=270, f'Pantalla 320 px: visor útil a {tamano} px')
+    comprobar(not errores, 'Sin errores JavaScript en la matriz 8, 20 y 30 px')
+    contexto.close()
+    return {'comprobaciones':checks,'muestras':muestras,'errores':errores}
 
 
 def main():
@@ -261,7 +348,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),handler)
     threading.Thread(target=server.serve_forever,daemon=True).start()
     origen = f'http://127.0.0.1:{server.server_port}'
-    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{}}
+    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{}}
     try:
         with sync_playwright() as p:
             ejecutable = os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -285,6 +372,7 @@ def main():
                 contexto.close()
                 resultado['demo'][nombre] = probar_demo(browser,origen,config,nombre)
                 resultado['accesibilidad'][nombre] = probar_accesibilidad(browser,origen,config,nombre)
+                resultado['compactacion'][nombre] = probar_compactacion(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -302,6 +390,7 @@ def main():
                       'suites':{k:f"{v['aprobadas']}/{v['total']}" for k,v in resultado['suites'].items()},
                       'demo':{k:len(v['comprobaciones']) for k,v in resultado['demo'].items()},
                       'accesibilidad':{k:len(v['comprobaciones']) for k,v in resultado['accesibilidad'].items()},
+                      'compactacion':{k:len(v['comprobaciones']) for k,v in resultado['compactacion'].items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 
 

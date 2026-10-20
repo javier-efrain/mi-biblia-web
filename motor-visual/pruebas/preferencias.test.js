@@ -13,45 +13,45 @@ function montaje(almacen = memoria()) {
   return { raiz, preferencias, almacen, destruir() { controles.destruir(); raiz.remove(); } };
 }
 
-test('La apariencia inicial es oscura y la lectura empieza en 20 px', () => {
+test('La apariencia inicial es oscura y la lectura empieza en 8 px', () => {
   const m=montaje();
-  try { assert(m.raiz.dataset.apariencia==='oscuro'); assert(m.raiz.style.getPropertyValue('--mv-tamano-lectura')==='20px'); }
+  try { assert(m.raiz.dataset.apariencia==='oscuro'); assert(m.raiz.style.getPropertyValue('--mv-tamano-lectura')==='8px'); }
   finally { m.destruir(); }
 });
-test('El tamaño se limita a 16–32 px y los botones reflejan sus límites', () => {
+test('El tamaño se limita a 8–30 px y los botones reflejan sus límites', () => {
   const m=montaje();
   try {
-    m.preferencias.ajustarTamano(999); assert(m.preferencias.obtener().tamano===32);
+    m.preferencias.ajustarTamano(999); assert(m.preferencias.obtener().tamano===30);
     assert(m.raiz.querySelector('[aria-label="Aumentar tamaño de letra"]').disabled);
-    m.preferencias.ajustarTamano(-999); assert(m.preferencias.obtener().tamano===16);
+    m.preferencias.ajustarTamano(-999); assert(m.preferencias.obtener().tamano===8);
     assert(m.raiz.querySelector('[aria-label="Reducir tamaño de letra"]').disabled);
-    m.preferencias.ajustarTamano(NaN); assert(m.preferencias.obtener().tamano===16);
+    m.preferencias.ajustarTamano(NaN); assert(m.preferencias.obtener().tamano===8);
   } finally { m.destruir(); }
 });
 test('Apariencia y tamaño se recuperan del almacenamiento sin guardar contenido', () => {
   const almacen=memoria(), m=montaje(almacen);
   try {
-    m.preferencias.cambiarApariencia(); m.preferencias.ajustarTamano(12);
+    m.preferencias.cambiarApariencia(); m.preferencias.ajustarTamano(22);
     const guardado=JSON.parse(almacen.getItem());
     assert(Object.keys(guardado).sort().join(',')==='apariencia,tamano');
     const otro=montaje(almacen);
-    try { assert(otro.preferencias.obtener().apariencia==='claro' && otro.preferencias.obtener().tamano===32); }
+    try { assert(otro.preferencias.obtener().apariencia==='claro' && otro.preferencias.obtener().tamano===30); }
     finally { otro.destruir(); }
   } finally { m.destruir(); }
 });
-test('Preferencias corruptas o fuera de rango usan valores cómodos', () => {
+test('Preferencias corruptas o fuera de rango usan los valores experimentales', () => {
   for (const valor of ['{roto','null','32','{"tamano":900,"apariencia":"otra"}']) {
     const m=montaje(memoria(valor));
-    try { assert(m.preferencias.obtener().tamano===20 && m.preferencias.obtener().apariencia==='oscuro'); }
+    try { assert(m.preferencias.obtener().tamano===8 && m.preferencias.obtener().apariencia==='oscuro'); }
     finally { m.destruir(); }
   }
-  assert(normalizarPreferencias({ tamano:'32' }).tamano===20);
+  assert(normalizarPreferencias({ tamano:'30' }).tamano===8);
 });
 test('Bloquear el almacenamiento no impide ajustar la lectura durante la sesión', () => {
   const m=montaje({ getItem() { throw new Error('Bloqueado'); }, setItem() { throw new Error('Bloqueado'); } });
   try {
     m.raiz.querySelector('[aria-label="Aumentar tamaño de letra"]').click();
-    assert(m.preferencias.obtener().tamano===22);
+    assert(m.preferencias.obtener().tamano===10);
     assert(m.raiz.querySelector('output').textContent.includes('Solo esta sesión'));
   } finally { m.destruir(); }
 });
@@ -65,7 +65,7 @@ test('Los ajustes preservan los nodos de lectura y exponen su estado accesible',
     m.raiz.querySelector('[aria-label="Aumentar tamaño de letra"]').click();
     assert(m.raiz.lastChild===parrafo && parrafo.isConnected);
     for (const boton of m.raiz.querySelectorAll('button')) {
-      const r=boton.getBoundingClientRect(); assert(r.width>=48 && r.height>=48);
+      const r=boton.getBoundingClientRect(); assert(r.width>=44 && r.height>=44);
     }
   } finally { m.destruir(); }
 });
@@ -94,4 +94,21 @@ test('Ambas apariencias mantienen contraste AA en texto, paneles y controles', (
       muestra.remove();
     }
   } finally { m.destruir(); }
+});
+
+test('Las preferencias anteriores de 20 px se conservan hasta restablecer la lectura', () => {
+  const almacen=memoria(JSON.stringify({ apariencia:'claro',tamano:20 })), m=montaje(almacen);
+  try {
+    assert(m.preferencias.obtener().tamano===20 && m.preferencias.obtener().apariencia==='claro');
+    m.raiz.querySelector('[aria-label="Restablecer tamaño de letra a 8 px"]').click();
+    assert(m.preferencias.obtener().tamano===8 && m.preferencias.obtener().apariencia==='claro');
+    const otro=montaje(almacen);
+    try { assert(otro.preferencias.obtener().tamano===8 && otro.preferencias.obtener().apariencia==='claro'); }
+    finally { otro.destruir(); }
+  } finally { m.destruir(); }
+});
+test('Los 32 px anteriores se adaptan a 30 px sin perder la apariencia elegida', () => {
+  const m=montaje(memoria(JSON.stringify({ apariencia:'claro',tamano:32 })));
+  try { assert(m.preferencias.obtener().tamano===30 && m.preferencias.obtener().apariencia==='claro'); }
+  finally { m.destruir(); }
 });

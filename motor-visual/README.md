@@ -94,10 +94,27 @@ Ver [RESULTADOS.md](RESULTADOS.md) y [pruebas/resultados.json](pruebas/resultado
 
 La apariencia inicial es oscura (gris muy oscuro, texto claro y acentos dorados). El botón **Modo oscuro** permite alternar con la apariencia clara y expone su estado con `aria-pressed`.
 
-Los botones **A− / A+** ajustan el tamaño de lectura de **16 a 32 px**, en pasos de 2 px, partiendo de **20 px**. El ajuste alcanza el texto de lectura, las explicaciones de estudios, devocionales y paneles informativos, incluidos los paneles dentro del visor modal. Los controles mantienen un tamaño estable para no confundir el aumento de letra con el zoom de imágenes.
+Los botones **A− / A+** ajustan el tamaño de lectura de **8 a 30 px**, en pasos de 2 px, partiendo de **8 px** durante esta fase experimental. El ajuste alcanza el texto de lectura, las explicaciones de estudios, devocionales y paneles informativos, incluidos los paneles dentro del visor modal. Los controles mantienen un tamaño estable para no confundir el aumento de letra con el zoom de imágenes.
 
 Las preferencias se guardan en `localStorage`, exclusivamente bajo `mi-biblia-web:motor-visual:preferencias:v1`. No se almacena texto ni contenido educativo. Se recuperan al recargar en el mismo navegador y origen. Si el almacenamiento está bloqueado, los ajustes siguen funcionando durante la sesión. La configuración no se transfiere automáticamente entre la URL Cloud y la URL de Codespaces.
 
-El cambio tipográfico se aplica mediante una variable CSS, sin reconstruir la lectura ni reiniciar su página o zoom. Los controles tienen al menos 48 × 48 px, foco visible y manejo por teclado. La paleta verifica un contraste mínimo de 4,5:1 para los pares de texto probados; esto no constituye una auditoría completa de conformidad WCAG.
+El cambio tipográfico se aplica mediante una variable CSS, sin reconstruir la lectura ni reiniciar su página o zoom. Los controles tienen al menos 44 × 44 px, foco visible y manejo por teclado. La paleta verifica un contraste mínimo de 4,5:1 para los pares de texto probados; esto no constituye una auditoría completa de conformidad WCAG.
 
-Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md) para resultados e instrucciones de actualización en Codespaces.
+Ver [COMPACTACION.md](COMPACTACION.md) para la fase actual y las instrucciones de actualización en Codespaces. [ACCESIBILIDAD.md](ACCESIBILIDAD.md) conserva el informe histórico de la fase anterior.
+
+
+## Interfaz compacta · Fase experimental
+
+La interfaz se diseña primero para celular: encabezados y tarjetas menores, márgenes laterales de 10 px, separaciones de 4–8 px y navegación en una barra de cuatro botones. El visor conserva su proporción 3:4 y hasta 480 px de ancho; en celular se aprovecha más ancho disponible. Los controles no heredan los 8 px: mantienen tipografía propia y superficies táctiles de al menos 44 × 44 px.
+
+La clave de almacenamiento se conserva para respetar las preferencias existentes. Un valor guardado de 20 px sigue siendo 20 px; los antiguos 31/32 px se ajustan a 30 px. **Restablecer 8 px** vuelve al tamaño inicial experimental y lo guarda, conservando el tema elegido. A− y A+ siguen variando de 2 en 2 px. No hace falta borrar los datos del navegador.
+
+La suite ahora incluye comprobaciones a **8, 20 y 30 px** en estudios extensos, devocionales, paneles, ambos modos de lectura y pantallas estrechas. Las capturas actuales se encuentran en `pruebas/capturas/compacto-*.png`; las capturas de 32 px se conservan como evidencia histórica.
+
+Comparación opcional de densidad con la fase anterior, con lectura a 20 px en ambas versiones:
+
+```sh
+python motor-visual/pruebas/medir_densidad.py
+```
+
+Esta comparación requiere el commit histórico `1aa04866d70f26bd11944c638ada43fe7f6474e0` disponible en Git y Chromium en `/usr/bin/chromium`. No cambia la rama ni los archivos fuente; sustituye las respuestas antiguas solo en el navegador de prueba.

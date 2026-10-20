@@ -1,5 +1,7 @@
 # Accesibilidad visual del prototipo
 
+Informe histórico de la fase anterior (16–32 px). Para los valores vigentes de 8–30 px y el diseño compacto, ver [COMPACTACION.md](COMPACTACION.md).
+
 ## Cambios
 
 - Apariencia oscura por defecto, con fondo gris muy oscuro, texto claro y acentos dorados. Apariencia clara opcional.

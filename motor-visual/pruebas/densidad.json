@@ -1,0 +1,40 @@
+{
+  "referencia_anterior": "1aa04866d70f26bd11944c638ada43fe7f6474e0",
+  "tamano_comun": 20,
+  "mediciones": {
+    "escritorio": {
+      "anterior": {
+        "cabecera": 393.921875,
+        "ancho_visor": 480,
+        "alto_visor": 640,
+        "inicio_visor": 1617.28125,
+        "font_lectura": "20px"
+      },
+      "compacta": {
+        "cabecera": 155.6875,
+        "ancho_visor": 480,
+        "alto_visor": 640,
+        "inicio_visor": 1087.859375,
+        "font_lectura": "20px"
+      },
+      "reduccion_cabecera_porcentaje": 60.5
+    },
+    "movil": {
+      "anterior": {
+        "cabecera": 509.265625,
+        "ancho_visor": 332,
+        "alto_visor": 442.65625,
+        "inicio_visor": 1565.90625,
+        "font_lectura": "20px"
+      },
+      "compacta": {
+        "cabecera": 181.671875,
+        "ancho_visor": 352,
+        "alto_visor": 469.328125,
+        "inicio_visor": 780.40625,
+        "font_lectura": "20px"
+      },
+      "reduccion_cabecera_porcentaje": 64.3
+    }
+  }
+}
