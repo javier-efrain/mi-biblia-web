@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 68,
-      "aprobadas": 68,
+      "total": 75,
+      "aprobadas": 75,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -278,14 +278,42 @@
         },
         {
           "nombre": "La paginación conserva altura y permite acceder a cada carácter del texto completo",
+          "ok": true
+        },
+        {
+          "nombre": "El capítulo monta todos sus relatos, versículos ordenados y una sola cabecera",
+          "ok": true
+        },
+        {
+          "nombre": "El índice cambia el destino y conserva todos los nodos, zoom y páginas del capítulo",
+          "ok": true
+        },
+        {
+          "nombre": "El orden del capítulo sigue los versículos aunque el catálogo llegue invertido",
+          "ok": true
+        },
+        {
+          "nombre": "Pantalla completa traslada el mismo explorador y restaura foco, zoom y selección",
+          "ok": true
+        },
+        {
+          "nombre": "Los visores cambian la acción táctil según el zoom y la restauran al 100 %",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto ofrece un botón reconocible y reutiliza el mismo explorador bajo demanda",
+          "ok": true
+        },
+        {
+          "nombre": "Cambiar de modo con pantalla completa abierta cancela y desmonta todos los recursos",
           "ok": true
         }
       ],
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 68,
-      "aprobadas": 68,
+      "total": 75,
+      "aprobadas": 75,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -557,6 +585,34 @@
         },
         {
           "nombre": "La paginación conserva altura y permite acceder a cada carácter del texto completo",
+          "ok": true
+        },
+        {
+          "nombre": "El capítulo monta todos sus relatos, versículos ordenados y una sola cabecera",
+          "ok": true
+        },
+        {
+          "nombre": "El índice cambia el destino y conserva todos los nodos, zoom y páginas del capítulo",
+          "ok": true
+        },
+        {
+          "nombre": "El orden del capítulo sigue los versículos aunque el catálogo llegue invertido",
+          "ok": true
+        },
+        {
+          "nombre": "Pantalla completa traslada el mismo explorador y restaura foco, zoom y selección",
+          "ok": true
+        },
+        {
+          "nombre": "Los visores cambian la acción táctil según el zoom y la restauran al 100 %",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto ofrece un botón reconocible y reutiliza el mismo explorador bajo demanda",
+          "ok": true
+        },
+        {
+          "nombre": "Cambiar de modo con pantalla completa abierta cancela y desmonta todos los recursos",
           "ok": true
         }
       ],
@@ -589,31 +645,33 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:41405/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:41405/motor-visual/css/motor.css",
-        "http://127.0.0.1:41405/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:41405/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:41405/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:41405/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos.json"
+        "http://127.0.0.1:42221/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:42221/motor-visual/css/motor.css",
+        "http://127.0.0.1:42221/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:42221/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:42221/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json"
       ],
       "errores": []
     },
@@ -643,31 +701,33 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:41405/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:41405/motor-visual/css/motor.css",
-        "http://127.0.0.1:41405/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:41405/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:41405/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:41405/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:41405/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:41405/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:41405/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
-        "http://127.0.0.1:41405/motor-visual/datos/recursos.json"
+        "http://127.0.0.1:42221/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:42221/motor-visual/css/motor.css",
+        "http://127.0.0.1:42221/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:42221/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:42221/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:42221/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:42221/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:42221/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
+        "http://127.0.0.1:42221/motor-visual/datos/recursos.json"
       ],
       "errores": []
     }
@@ -1286,7 +1346,7 @@
         "Separar dos dedos amplía la imagen",
         "Dos dedos desplazan la imagen ampliada sin mover la lectura",
         "Marcadores alineados después de pellizco y desplazamiento",
-        "Un dedo vertical sigue desplazando la página con zoom activo",
+        "Un dedo vertical mueve la imagen ampliada sin desplazar la página",
         "Juntar dos dedos reduce hasta 100 %",
         "Solo texto monta únicamente iconos anclados",
         "El modal carga únicamente el recurso elegido",
@@ -1309,7 +1369,79 @@
     }
   },
   "chromium": "154.0.8037.57",
+  "bloque3": {
+    "escritorio": {
+      "comprobaciones": [
+        "Dos relatos consecutivos montados en el capítulo",
+        "Orden bíblico y versículos completos sin duplicación",
+        "Una cabecera y un índice por capítulo",
+        "Tarjetas con título y referencia",
+        "El índice conserva todos los nodos demo-dos",
+        "El índice no carga documentos ni datos demo-dos",
+        "Destino visible tras desplazamiento suave demo-dos",
+        "El índice conserva todos los nodos demo-uno",
+        "El índice no carga documentos ni datos demo-uno",
+        "Destino visible tras desplazamiento suave demo-uno",
+        "Índice no fijo",
+        "Pantalla completa usa exactamente el mismo visor",
+        "La superposición aprovecha todo el navegador",
+        "Pantalla completa sin límite 3:4",
+        "Zoom conservado al ampliar la vista",
+        "Selección conservada al ampliar la vista",
+        "Explicaciones siguen paginando en pantalla completa",
+        "Imagen completa y proporcionada en pantalla completa",
+        "Marcadores alineados en pantalla completa",
+        "Cerrar pantalla completa restaura la posición de lectura",
+        "El mismo recurso vuelve al relato",
+        "Vuelve el marco integrado 3:4",
+        "Capítulo continuo en Solo texto sin contenido visual montado",
+        "Accesos reconocibles con símbolo y texto",
+        "Solo se carga el recurso elegido",
+        "Cerrar devuelve posición y mantiene Solo texto",
+        "Modal desmontado completamente",
+        "Índice respeta movimiento reducido",
+        "Sin errores JavaScript del Bloque 3"
+      ],
+      "errores": []
+    },
+    "movil": {
+      "comprobaciones": [
+        "Dos relatos consecutivos montados en el capítulo",
+        "Orden bíblico y versículos completos sin duplicación",
+        "Una cabecera y un índice por capítulo",
+        "Tarjetas con título y referencia",
+        "El índice conserva todos los nodos demo-dos",
+        "El índice no carga documentos ni datos demo-dos",
+        "Destino visible tras desplazamiento suave demo-dos",
+        "El índice conserva todos los nodos demo-uno",
+        "El índice no carga documentos ni datos demo-uno",
+        "Destino visible tras desplazamiento suave demo-uno",
+        "Índice no fijo",
+        "Pantalla completa usa exactamente el mismo visor",
+        "La superposición aprovecha todo el navegador",
+        "Pantalla completa sin límite 3:4",
+        "Zoom conservado al ampliar la vista",
+        "Selección conservada al ampliar la vista",
+        "Explicaciones siguen paginando en pantalla completa",
+        "Imagen completa y proporcionada en pantalla completa",
+        "Marcadores alineados en pantalla completa",
+        "Cerrar pantalla completa restaura la posición de lectura",
+        "El mismo recurso vuelve al relato",
+        "Vuelve el marco integrado 3:4",
+        "Un dedo mueve ambos ejes de la imagen ampliada sin desplazar la lectura",
+        "Restablecer recupera el desplazamiento vertical de página",
+        "Capítulo continuo en Solo texto sin contenido visual montado",
+        "Accesos reconocibles con símbolo y texto",
+        "Solo se carga el recurso elegido",
+        "Cerrar devuelve posición y mantiene Solo texto",
+        "Modal desmontado completamente",
+        "Índice respeta movimiento reducido",
+        "Sin errores JavaScript del Bloque 3"
+      ],
+      "errores": []
+    }
+  },
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "f4f63330ba445508de4d372783274f5ad82440b0"
+  "commit_base": "8542114e12b01ba17942d898465c2faf39616dd2"
 }

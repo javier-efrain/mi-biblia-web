@@ -27,6 +27,8 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
     const alto = recurso.dimensiones.alto * factor * zoom;
     escena.style.width = `${w * zoom}px`; escena.style.height = `${h * zoom}px`;
     Object.assign(plano.style, { width:`${ancho}px`, height:`${alto}px`, left:`${(w * zoom - ancho)/2}px`, top:`${(h * zoom - alto)/2}px` });
+    viewport.style.touchAction=zoom>1?'none':'pan-y';
+    viewport.dataset.ampliado=String(zoom>1);
     rango.value = Math.round(zoom * 100); salida.textContent = `${Math.round(zoom * 100)} %`;
   }
   function ampliar(valor) {
@@ -68,7 +70,7 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
   viewport.addEventListener('pointerup', terminarArrastre, {signal:localSignal});
   viewport.addEventListener('pointercancel', terminarArrastre, {signal:localSignal});
   // Un dedo vertical conserva el scroll nativo de la lectura. Dos dedos controlan
-  // zoom y desplazamiento del plano; el gesto horizontal de un dedo solo mueve X.
+  // zoom y desplazamiento del plano. Con zoom, un dedo mueve ambos ejes.
   let tacto = null, suprimirClickHasta = 0;
   function centro(touches) {
     const r = viewport.getBoundingClientRect(), a = touches[0], b = touches[1];
@@ -81,7 +83,7 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
       tacto = {...c,zoom,left:viewport.scrollLeft,top:viewport.scrollTop,pinza:true};
       if (e.cancelable) e.preventDefault();
     } else if (e.touches.length === 1) {
-      tacto = {x:e.touches[0].clientX,y:e.touches[0].clientY,left:viewport.scrollLeft,pinza:false};
+      tacto = {x:e.touches[0].clientX,y:e.touches[0].clientY,left:viewport.scrollLeft,top:viewport.scrollTop,pinza:false};
     } else tacto = null;
   }, {passive:false,signal:localSignal});
   viewport.addEventListener('touchmove', e => {
@@ -96,9 +98,9 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
       suprimirClickHasta = performance.now()+350;
     } else if (e.touches.length === 1 && !tacto.pinza && zoom > 1) {
       const dx = e.touches[0].clientX-tacto.x, dy = e.touches[0].clientY-tacto.y;
-      if (Math.abs(dx)>10 && Math.abs(dx)>Math.abs(dy)*1.5) {
+      if (Math.hypot(dx,dy)>5) {
         if (e.cancelable) e.preventDefault();
-        viewport.scrollLeft = tacto.left-dx; suprimirClickHasta = performance.now()+350;
+        viewport.scrollLeft = tacto.left-dx; viewport.scrollTop=tacto.top-dy; suprimirClickHasta = performance.now()+350;
       }
     }
   }, {passive:false,signal:localSignal});

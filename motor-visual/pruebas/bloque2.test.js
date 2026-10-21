@@ -36,7 +36,7 @@ test('La navegación de capítulos queda después de la lectura en ambos modos',
       const articulo=root.querySelector('.mv-relato'),nav=root.querySelector('.mv-navegacion');
       assert(Boolean(articulo.compareDocumentPosition(nav)&Node.DOCUMENT_POSITION_FOLLOWING));
       assert(root.lastElementChild===nav && nav.querySelectorAll('button').length===2);
-      assert(!root.querySelector('.mv-recurso > button'));
+      assert(![...root.querySelectorAll('.mv-recurso > button')].some(b=>b.textContent==='Ampliar visor'));
     }
   });
 });

@@ -1,4 +1,4 @@
-import { nodo, boton } from './dom.js';
+import { nodo, boton, abrirDialogoRecurso } from './dom.js';
 import { crearVisor } from './visor.js';
 import { crearLecturaHorizontal } from './lectura-horizontal.js';
 export function crearExplorador(recurso, uso, { signal } = {}) {
@@ -41,6 +41,9 @@ export function crearExplorador(recurso, uso, { signal } = {}) {
   const cuerpo = nodo('div', { className:'mv-explorador' }, visor.el, panel);
   signal?.addEventListener('abort', () => { paginasAbort?.abort(); visor.destruir(); }, {once:true});
   descripcionGeneral();
-  el.append(nodo('h3', {}, recurso.alt), cuerpo);
+  const ampliar=boton('Pantalla completa',()=>abrirDialogoRecurso({
+    contenedor:el.closest('.mv-motor')||el.closest('.mv')||document.body,signal,contenido:el,completa:true
+  }),{className:'mv-abrir-completa'});
+  el.append(nodo('h3', {}, recurso.alt),ampliar,cuerpo);
   return el;
 }

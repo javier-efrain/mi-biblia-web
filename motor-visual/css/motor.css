@@ -123,3 +123,20 @@
 .mv-modal-abierto { overflow:hidden; }
 .mv-dialogo { overscroll-behavior:contain; }
 .mv-dialogo > button { margin-bottom:8px; }
+
+/* Bloque 3: capítulo continuo e índice que no permanece fijo. */
+.mv-indice button { display:flex; flex-direction:column; justify-content:center; gap:2px; }
+.mv-indice button small { font-size:10px; line-height:1.3; }
+.mv-capitulo-lectura > .mv-relato + .mv-relato { margin-top:16px; padding-top:10px; border-top:1px solid var(--mv-borde); }
+.mv .mv-acceso-recurso { font:12px/1.35 system-ui,sans-serif; padding:3px 7px; }
+.mv-abrir-completa { margin:0 0 6px; }
+.mv-dialogo .mv-abrir-completa { display:none; }
+.mv-completa { width:100vw; max-width:100vw; height:100dvh; max-height:100dvh; margin:0; border:0; border-radius:0; padding:8px; }
+.mv-completa > button { position:sticky; top:0; z-index:3; }
+.mv-completa .mv-explorador { grid-template-columns:minmax(0,1fr); }
+.mv-completa .mv-visor { max-width:none; }
+.mv-completa .mv-viewport { aspect-ratio:auto; height:clamp(240px,60dvh,900px); }
+@media(min-width:760px) {
+  .mv-completa .mv-explorador { grid-template-columns:minmax(0,2fr) minmax(260px,1fr); }
+  .mv-completa .mv-viewport { height:calc(100dvh - 240px); min-height:280px; }
+}

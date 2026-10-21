@@ -59,7 +59,7 @@ test('Un error de imagen tiene alternativa y conserva la lectura', async () => {
     root.querySelector('.mv-plano img').dispatchEvent(new Event('error'));
     assert(root.textContent.includes('Portada no disponible'));
     assert(root.textContent.includes('Imagen no disponible'));
-    assert(root.querySelectorAll('[data-versiculo]').length===2);
+    assert(root.querySelectorAll('[data-versiculo]').length===4);
   });
 });
 test('Los nombres y puntos sincronizan selección y conservan páginas independientes', async () => {

@@ -1,112 +1,67 @@
-import { nodo, mensaje, boton } from '../componentes/dom.js';
+import { nodo, mensaje, boton, abrirDialogoRecurso } from '../componentes/dom.js';
 import { crearLector, claveVersiculo } from '../componentes/lector.js';
 import { crearSelectorModo } from '../componentes/selector-modo.js';
 import { crearSelectorEnfoque } from '../componentes/selector-enfoque.js';
-import { crearNavegacion, crearIndiceCapitulo, leerRuta, escribirRuta } from './navegacion.js';
+import { crearNavegacion, crearIndiceCapitulo, relatosDelCapitulo, leerRuta, escribirRuta } from './navegacion.js';
 
-// Los módulos visuales no forman parte de la ruta inicial de Solo texto.
 export async function crearMotor({ root, catalogo, biblia, contenidos, inicial, usarHistorial = false, controlesPreferencias }) {
   let estado = { relatoId:catalogo.relatos[0].id, modo:'texto', enfoque:'estudio', ...inicial };
-  let generacion = 0, carga = null, destruido = false, pintarEducacion = null;
-  const eventos = new AbortController(), memorias = new Map();
-  function enfocarInicio(titulo) {
-    titulo.focus({ preventScroll:true });
-    titulo.scrollIntoView({ block:'start', behavior:'instant' });
+  let generacion=0,carga,destruido=false,listo=Promise.resolve();
+  const eventos=new AbortController(),memorias=new Map(),educadores=new Set();
+  function posicionLectura() {
+    const candidatos=[...root.querySelectorAll('[data-versiculo],.mv-titulo-relato')];
+    const el=candidatos.find(e=>e.getBoundingClientRect().bottom>0) || candidatos[0];
+    return el && {versiculo:el.dataset.versiculo,relato:el.closest('[data-relato-contenido]').dataset.relatoContenido,top:el.getBoundingClientRect().top};
   }
-  function cambiarEnfoque(enfoque, { historial = true } = {}) {
-    if (!['estudio','devocional'].includes(enfoque)) throw new Error('Enfoque inválido.');
-    if (destruido || estado.enfoque === enfoque) return;
-    estado = { ...estado, enfoque }; root.dataset.enfoque = enfoque;
-    root.querySelectorAll('[data-enfoque]').forEach(b => b.setAttribute('aria-pressed',String(b.dataset.enfoque === enfoque)));
-    if (usarHistorial && historial) escribirRuta(estado);
-    // Cambiar el enfoque no recarga ni reconstruye versículos, imágenes o visores.
-    pintarEducacion?.();
+  function restaurarPosicion(p) {
+    if(!p)return;
+    const relato=root.querySelector(`[data-relato-contenido="${p.relato}"]`);
+    const el=p.versiculo?relato?.querySelector(`[data-versiculo="${p.versiculo}"]`):relato?.querySelector('.mv-titulo-relato');
+    if(el)scrollBy(0,el.getBoundingClientRect().top-p.top);
   }
-  async function renderizar(proximo = estado, { historial = true, irAlInicio = false } = {}) {
-    if (destruido) return;
-    const enfoque = proximo.enfoque ?? 'estudio';
-    if (!['texto','visual'].includes(proximo.modo)) throw new Error('Modo inválido.');
-    if (!['estudio','devocional'].includes(enfoque)) throw new Error('Enfoque inválido.');
-    const relato = catalogo.relatos.find(r => r.id === proximo.relatoId);
-    if (!relato) throw new Error('Relato inexistente.');
-    const tituloActual = root.querySelector('.mv-titulo-relato');
-    if (irAlInicio && tituloActual && proximo.relatoId === estado.relatoId && proximo.modo === estado.modo && enfoque === estado.enfoque) {
-      // Volver al relato activo no debe reiniciar su visor ni sus páginas.
-      enfocarInicio(tituloActual); return;
-    }
-    if (proximo.relatoId === estado.relatoId && proximo.modo === estado.modo && enfoque !== estado.enfoque) {
-      cambiarEnfoque(enfoque,{ historial }); return;
-    }
-    const focoDentro = root.contains(document.activeElement);
-    const focoModo = focoDentro && document.activeElement?.dataset.modo;
-    carga?.abort(); carga = new AbortController(); pintarEducacion = null;
-    const { signal } = carga;
-    const turno = ++generacion;
-    estado = { relatoId:relato.id, modo:proximo.modo, enfoque };
-    if (usarHistorial && historial) escribirRuta(estado);
-    const vigente = () => !destruido && !signal.aborted && turno === generacion;
-    root.dataset.modo = estado.modo; root.dataset.relato = relato.id; root.dataset.enfoque = enfoque;
-    const titulo = nodo('h2', { className:'mv-titulo-relato', tabindex:-1 }, relato.titulo);
-    const referencia = nodo('p', { className:'mv-referencia' }, relato.referenciaEtiqueta);
-    const cuerpo = nodo('div', { className:'mv-cuerpo' }, mensaje('Cargando texto…'));
-    const cambiarModo = modo => renderizar({ ...estado, modo });
-    const seleccionar = relatoId => renderizar({ ...estado, relatoId },{ irAlInicio:true });
-    const cabecera = nodo('header', { className:'mv-barra-lector', 'aria-label':'Controles del lector' },
-      nodo('div', { className:'mv-selectores' }, crearSelectorEnfoque(enfoque,cambiarEnfoque),crearSelectorModo(estado.modo,cambiarModo)));
-    if (controlesPreferencias) cabecera.append(controlesPreferencias);
-    const capitulo = crearIndiceCapitulo(catalogo,relato.id,seleccionar);
-    root.replaceChildren(cabecera,capitulo,
-      nodo('article', { className:'mv-relato' },titulo,referencia,cuerpo),crearNavegacion(catalogo,relato.id,seleccionar));
-    if (focoModo) root.querySelector(`[data-modo="${estado.modo}"]`)?.focus();
-    else if (focoDentro) titulo.focus({ preventScroll:true });
-    async function abrirRecurso(uso) {
-      if (!vigente() || root.querySelector('dialog[open]')) return;
-      const disparador = document.activeElement, x = scrollX, y = scrollY;
-      const local = new AbortController();
-      const dialogo = nodo('dialog', {className:'mv-dialogo','aria-label':'Recurso visual del pasaje','data-educativo':'modal-recurso'});
-      const cerrar = boton('Cerrar recurso', () => { dialogo.close(); limpiar(true); });
-      const contenido = nodo('div', {}, mensaje('Cargando recurso…'));
-      dialogo.append(cerrar,contenido); root.append(dialogo);
-      const estabaBloqueado = document.body.classList.contains('mv-modal-abierto');
-      document.body.classList.add('mv-modal-abierto');
-      let limpio = false;
-      function limpiar(restaurar) {
-        if (limpio) return; limpio = true; local.abort();
-        const devolver = dialogo.contains(document.activeElement) || document.activeElement === document.body || document.activeElement === disparador;
-        if (dialogo.open) dialogo.close();
-        dialogo.remove();
-        if (!estabaBloqueado) document.body.classList.remove('mv-modal-abierto');
-        if (restaurar && devolver && vigente() && disparador?.isConnected) {
-          disparador.focus({preventScroll:true}); window.scrollTo(x,y);
-          requestAnimationFrame(() => { if (vigente() && document.activeElement === disparador && !document.querySelector('dialog[open]')) window.scrollTo(x,y); });
-        }
-      }
-      dialogo.addEventListener('close', () => limpiar(true));
-      signal.addEventListener('abort', () => limpiar(false), {once:true,signal:local.signal});
-      dialogo.showModal(); cerrar.focus({preventScroll:true});
-      try {
-        const [recurso,{crearExplorador}] = await Promise.all([
-          contenidos.cargarRecurso(relato,uso,{signal:local.signal}),import('../componentes/explorador.js')
-        ]);
-        if (local.signal.aborted || !vigente()) return;
-        contenido.replaceChildren(crearExplorador(recurso,uso,{signal:local.signal}));
-      } catch (error) {
-        if (!local.signal.aborted && vigente()) contenido.replaceChildren(mensaje('No fue posible cargar el recurso. Podés cerrar esta ventana y continuar leyendo.'));
-      }
-    }
+  function señalar() {
+    root.dataset.relato=estado.relatoId;
+    root.querySelectorAll('[data-relato-contenido]').forEach(e=>e.dataset.activo=String(e.dataset.relatoContenido===estado.relatoId));
+    root.querySelectorAll('[data-relato-indice]').forEach(e=>e.setAttribute('aria-current',String(e.dataset.relatoIndice===estado.relatoId)));
+  }
+  function irAlRelato(suave=true) {
+    const titulo=root.querySelector(`[data-relato-contenido="${estado.relatoId}"] .mv-titulo-relato`);
+    titulo?.focus({preventScroll:true});
+    titulo?.scrollIntoView({block:'start',behavior:suave&&!matchMedia('(prefers-reduced-motion: reduce)').matches?'smooth':'instant'});
+  }
+  function cambiarEnfoque(enfoque,{historial=true}={}) {
+    if(!['estudio','devocional'].includes(enfoque))throw new Error('Enfoque inválido.');
+    if(destruido||estado.enfoque===enfoque)return;
+    const posicion=posicionLectura();estado={...estado,enfoque};root.dataset.enfoque=enfoque;
+    root.querySelectorAll('[data-enfoque]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.enfoque===enfoque)));
+    if(usarHistorial&&historial)escribirRuta(estado);
+    educadores.forEach(pintar=>pintar());restaurarPosicion(posicion);
+  }
+  function abrirRecurso(relato,uso) {
+    abrirDialogoRecurso({contenedor:root,signal:carga.signal,cargar:async signal=>{
+      const [recurso,{crearExplorador}]=await Promise.all([contenidos.cargarRecurso(relato,uso,{signal}),import('../componentes/explorador.js')]);
+      return crearExplorador(recurso,uso,{signal});
+    }});
+  }
+  async function montarRelato(relato,signal,vigente) {
+    const titulo=nodo('h2',{className:'mv-titulo-relato',tabindex:-1,id:`relato-${relato.id}`},relato.titulo);
+    const referencia=nodo('p',{className:'mv-referencia'},relato.referenciaEtiqueta);
+    const cuerpo=nodo('div',{className:'mv-cuerpo'},mensaje('Cargando texto…'));
+    const articulo=nodo('article',{className:'mv-relato','data-relato-contenido':relato.id,'aria-labelledby':titulo.id},titulo,referencia,cuerpo);
+    root.querySelector('.mv-capitulo-lectura').append(articulo);
     try {
       const pasaje = await biblia.obtenerPasaje(relato.referencia);
       if (!vigente()) return;
-      capitulo.querySelector('.mv-libro').textContent = pasaje.libro;
+      root.querySelector('.mv-libro').textContent = pasaje.libro;
       const lector = crearLector(pasaje); cuerpo.replaceChildren(lector);
       if (estado.modo === 'texto') {
         for (const versiculo of lector.querySelectorAll('[data-versiculo]')) {
           const usos = relato.recursos.filter(u => claveVersiculo({libro:u.anclajeBiblico.libro,capitulo:u.anclajeBiblico.capitulo,numero:u.anclajeBiblico.versiculo}) === versiculo.dataset.versiculo);
           if (!usos.length) continue;
           const accesos = nodo('span', {className:'mv-accesos-recurso'});
-          usos.forEach((uso,i) => accesos.append(boton('▧', () => abrirRecurso(uso), {
+          usos.forEach((uso,i) => accesos.append(boton('🖼 Ver recurso visual', () => abrirRecurso(relato,uso), {
             className:'mv-acceso-recurso', 'data-recurso-acceso':uso.id,
-            'aria-label':`Abrir recurso visual ${i+1} del versículo ${uso.anclajeBiblico.versiculo}`
+            'aria-label':`Ver recurso visual ${i+1} del versículo ${uso.anclajeBiblico.versiculo}`
           })));
           versiculo.after(accesos);
         }
@@ -138,7 +93,7 @@ export async function crearMotor({ root, catalogo, biblia, contenidos, inicial, 
         const memoria = memorias.get(relato.id);
         let educacion;
         signal.addEventListener('abort', () => educacion?.abort(), { once:true });
-        pintarEducacion = () => {
+        const pintarEducacion = () => {
           if (!vigente()) return;
           educacion?.abort(); educacion = new AbortController();
           antes.replaceChildren(); despues.replaceChildren();
@@ -155,6 +110,7 @@ export async function crearMotor({ root, catalogo, biblia, contenidos, inicial, 
             montar(despues,secciones.filter(s => s.tipo === 'devocional'),opciones('mv-cierre mv-devocional','Devocional',memoria.devocional));
           }
         };
+        educadores.add(pintarEducacion);
         pintarEducacion();
         estadoVisual.remove();
       } catch (error) {
@@ -162,21 +118,51 @@ export async function crearMotor({ root, catalogo, biblia, contenidos, inicial, 
       }
     } catch (error) {
       if (vigente()) cuerpo.replaceChildren(mensaje('No fue posible cargar el texto. Probá seleccionar otro relato o volver a elegir el modo.'));
-    } finally {
-      // Esperar la carga y el montaje evita que el navegador ajuste el destino al reemplazar el relato.
-      // Una respuesta tardía nunca debe desplazar la lectura del relato elegido después.
-      if (irAlInicio && vigente()) {
-        enfocarInicio(titulo);
-      }
     }
   }
-  if (usarHistorial) window.addEventListener('popstate', () => renderizar(leerRuta(location.search,catalogo), { historial:false }), { signal:eventos.signal });
-  await renderizar(estado, { historial:false });
+  async function renderizar(proximo=estado,{historial=true,irAlInicio=false}={}) {
+    if(destruido)return;
+    proximo={...proximo,enfoque:proximo.enfoque??'estudio'};
+    if(!['texto','visual'].includes(proximo.modo))throw new Error('Modo inválido.');
+    if(!['estudio','devocional'].includes(proximo.enfoque))throw new Error('Enfoque inválido.');
+    if(!catalogo.relatos.some(r=>r.id===proximo.relatoId))throw new Error('Relato inexistente.');
+    const relatos=relatosDelCapitulo(catalogo,proximo.relatoId);
+    const mismoCapitulo=relatos.some(r=>r.id===estado.relatoId)&&root.querySelector('.mv-capitulo-lectura');
+    if(mismoCapitulo&&estado.modo===proximo.modo) {
+      const cambia=estado.relatoId!==proximo.relatoId;
+      cambiarEnfoque(proximo.enfoque,{historial:false});estado={...proximo};señalar();
+      if(usarHistorial&&historial)escribirRuta(estado);
+      const turno=generacion;await listo;
+      if(!destruido&&turno===generacion&&(cambia||irAlInicio))irAlRelato();
+      return;
+    }
+    const posicion=mismoCapitulo?posicionLectura():null;
+    const focoModo=root.contains(document.activeElement)&&document.activeElement?.dataset.modo;
+    carga?.abort();carga=new AbortController();educadores.clear();const {signal}=carga,turno=++generacion;
+    const vigente=()=>!destruido&&!signal.aborted&&turno===generacion;
+    estado={...proximo};root.dataset.modo=estado.modo;root.dataset.enfoque=estado.enfoque;
+    if(usarHistorial&&historial)escribirRuta(estado);
+    const seleccionar=relatoId=>renderizar({...estado,relatoId},{irAlInicio:true});
+    const cabecera=nodo('header',{className:'mv-barra-lector','aria-label':'Controles del lector'},
+      nodo('div',{className:'mv-selectores'},crearSelectorEnfoque(estado.enfoque,cambiarEnfoque),crearSelectorModo(estado.modo,modo=>renderizar({...estado,modo}))));
+    if(controlesPreferencias)cabecera.append(controlesPreferencias);
+    root.replaceChildren(cabecera,crearIndiceCapitulo(catalogo,estado.relatoId,seleccionar),
+      nodo('div',{className:'mv-capitulo-lectura'}),crearNavegacion(catalogo,estado.relatoId,seleccionar));
+    // Cada relato usa la misma composición; los lugares se insertan en orden antes
+    // de esperar respuestas, de modo que una carga lenta nunca reordena versículos.
+    listo=Promise.all(relatos.map(relato=>montarRelato(relato,signal,vigente)));señalar();
+    if(focoModo)root.querySelector(`[data-modo="${estado.modo}"]`)?.focus({preventScroll:true});
+    await listo;
+    if(!vigente())return;
+    if(posicion)restaurarPosicion(posicion);
+    else if(irAlInicio||estado.relatoId!==relatos[0].id)irAlRelato(false);
+  }
+  if(usarHistorial)window.addEventListener('popstate',()=>renderizar(leerRuta(location.search,catalogo),{historial:false}),{signal:eventos.signal});
+  await renderizar(estado,{historial:false});
   return {
-    cambiarModo: modo => renderizar({ ...estado,modo }),
-    cambiarEnfoque,
-    seleccionar: relatoId => renderizar({ ...estado,relatoId },{ irAlInicio:true }),
-    obtenerEstado: () => ({ ...estado }),
-    destruir() { destruido=true; generacion++; carga?.abort(); pintarEducacion=null; eventos.abort(); root.replaceChildren(); }
+    cambiarModo:modo=>renderizar({...estado,modo}),cambiarEnfoque,
+    seleccionar:relatoId=>renderizar({...estado,relatoId},{irAlInicio:true}),
+    obtenerEstado:()=>({...estado}),
+    destruir(){destruido=true;generacion++;carga?.abort();educadores.clear();eventos.abort();root.replaceChildren();}
   };
 }

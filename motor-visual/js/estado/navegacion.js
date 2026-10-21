@@ -11,19 +11,24 @@ export function escribirRuta(estado, { reemplazar = false } = {}) {
   url.searchParams.set('enfoque', estado.enfoque || 'estudio');
   if (url.href !== location.href) history[reemplazar ? 'replaceState' : 'pushState'](null, '', url);
 }
+export function relatosDelCapitulo(catalogo,id) {
+  const actual=catalogo.relatos.find(r=>r.id===id);
+  const ref=actual.referencia, capitulo=ref.rangos[0].capitulo;
+  return catalogo.relatos.filter(r=>r.coleccionId===actual.coleccionId && r.referencia.version===ref.version &&
+    r.referencia.libro===ref.libro && r.referencia.rangos.some(x=>x.capitulo===capitulo))
+    .sort((a,b)=>a.referencia.rangos[0].desde-b.referencia.rangos[0].desde || a.orden-b.orden);
+}
 export function crearIndiceCapitulo(catalogo, id, seleccionar) {
   const actual = catalogo.relatos.find(r => r.id === id);
-  const ref = actual.referencia, capitulo = ref.rangos[0].capitulo;
-  const relatos = catalogo.relatos.filter(r => r.coleccionId === actual.coleccionId &&
-    r.referencia.version === ref.version && r.referencia.libro === ref.libro &&
-    r.referencia.rangos.some(x => x.capitulo === capitulo)).sort((a,b) => a.orden-b.orden);
+  const capitulo = actual.referencia.rangos[0].capitulo, ref = actual.referencia;
+  const relatos = relatosDelCapitulo(catalogo,id);
   const bloque = nodo('section', { className:'mv-capitulo', 'aria-label':'Libro, capítulo y relatos' },
     nodo('p', { className:'mv-libro' },ref.libro.replaceAll('-',' ')),
     nodo('h1', {},`Capítulo ${capitulo}`),
     nodo('nav', { className:'mv-indice', 'aria-label':'Índice de relatos del capítulo' },
-      ...relatos.map(r => boton(r.titulo, () => seleccionar(r.id), {
+      ...relatos.map(r => boton('', () => seleccionar(r.id), {
         'data-relato-indice':r.id, 'aria-current':r.id === id ? 'true' : 'false', title:r.referenciaEtiqueta
-      }))));
+      })).map((b,i)=>{b.append(nodo('span',{},relatos[i].titulo),nodo('small',{},relatos[i].referenciaEtiqueta));return b;})));
   requestAnimationFrame(() => {
     if (!bloque.isConnected) return;
     const indice = bloque.querySelector('.mv-indice'), activo = indice.querySelector('[aria-current="true"]');

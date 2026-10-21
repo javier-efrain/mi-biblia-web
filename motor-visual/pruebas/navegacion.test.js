@@ -1,4 +1,4 @@
-import { test,assert,datos,conMotor,rechaza } from './harness.js';
+import { test,assert,datos,conMotor,rechaza,frame } from './harness.js';
 import { vecinos,leerRuta } from '../js/estado/navegacion.js';
 test('Los extremos del catálogo y los capítulos tienen límites independientes', async () => {
   const { catalogo }=await datos(); const primero=vecinos(catalogo,'demo-uno'),ultimo=vecinos(catalogo,'demo-tres');
@@ -17,8 +17,8 @@ test('La navegación por botones cambia el relato sin duplicar el lector', async
     const siguiente=root.querySelector('[data-relato-indice="demo-dos"]');
     siguiente.focus(); siguiente.click();
     await new Promise(r => setTimeout(r,30));
-    assert(motor.obtenerEstado().relatoId==='demo-dos'); assert(root.querySelectorAll('.mv-texto').length===1);
-    assert(document.activeElement===root.querySelector('.mv-titulo-relato'), 'El foco debe continuar en el relato nuevo');
+    assert(motor.obtenerEstado().relatoId==='demo-dos'); assert(root.querySelectorAll('.mv-texto').length===2);
+    assert(document.activeElement===root.querySelector('[data-relato-contenido="demo-dos"] .mv-titulo-relato'), 'El foco debe continuar en el relato nuevo');
   });
 });
 test('No se puede seleccionar un relato inexistente', async () => {
@@ -35,10 +35,11 @@ test('El índice reemplaza los botones redundantes y no monta descubrimiento', a
   });
 });
 test('La carga tardía de un relato anterior no roba el foco ni desplaza el nuevo destino', async () => {
-  const d=await datos(); let resolver;
+  const d=await datos(); let resolver,retrasar=false;
   const espera=new Promise(r=>{resolver=r;});
-  const biblia={obtenerPasaje:r=>r.rangos[0].desde===3 ? espera : d.biblia.obtenerPasaje(r)};
+  const biblia={obtenerPasaje:r=>retrasar&&r.rangos[0].desde===3 ? espera : d.biblia.obtenerPasaje(r)};
   await conMotor(async ({root,motor}) => {
+    await motor.seleccionar('demo-tres');retrasar=true;
     const anterior=motor.seleccionar('demo-dos');
     await motor.seleccionar('demo-tres');
     const destino=root.querySelector('.mv-titulo-relato');
@@ -58,7 +59,7 @@ test('Volver al relato activo desde el índice conserva el visor, su zoom y su m
     rango.value='250';rango.dispatchEvent(new Event('input'));
     root.querySelector('[data-elemento="punto-b"]').click();
     root.querySelector('.mv-panel nav button:last-child').click();
-    root.querySelector('.mv-indice [aria-current="true"]').click();
+    root.querySelector('.mv-indice [aria-current="true"]').click();await frame();
     assert(root.querySelector('.mv-visor')===visor && rango.value==='250');
     assert(root.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(root.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
