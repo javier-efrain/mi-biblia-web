@@ -56,23 +56,24 @@ test('Devocional sustituye contexto y estudio sin reconstruir el visor ni perder
     await motor.cambiarEnfoque('devocional');
     assert(!root.querySelector('.mv-contexto'));
     assert(root.querySelector('.mv-devocional') && !root.querySelector('.mv-pestanas'));
-    assert(root.querySelector('.mv-visor')===visor && root.querySelector('.mv-texto')===texto);
-    assert(rango.value==='250' && root.querySelector('.mv-panel h4').textContent==='Punto B');
+    assert(!visor.isConnected && root.querySelector('.mv-texto')===texto && !root.querySelector('.mv-recurso'));
+    assert(rango.value==='250' && visor.closest('.mv-recurso').querySelector('.mv-panel h4').textContent==='Punto B');
     avanzar(root.querySelector('.mv-cierre .mv-hoja'));
     await motor.cambiarEnfoque('estudio');
+    assert(root.querySelector('.mv-visor')===visor);
     assert(root.querySelector('.mv-contexto output').textContent.startsWith('2 / '));
     assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
     await motor.cambiarEnfoque('devocional');
     assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
   });
 });
-test('Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque', async () => {
+test('Solo texto conserva ambos selectores con estudios sin solicitar imágenes en ningún enfoque', async () => {
   let llamadas=0;
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarEnfoque('devocional');
     await motor.seleccionar('demo-dos');
     await motor.cambiarEnfoque('estudio');
-    assert(llamadas===0 && !root.querySelector('img,[data-educativo],dialog'));
+    assert(llamadas===0 && !root.querySelector('img,.mv-recurso,dialog'));
     assert(root.querySelectorAll('[data-enfoque]').length===2 && root.querySelectorAll('[data-modo]').length===2);
   },{ contenidos:{ cargarVisuales:async () => { llamadas++; } } });
 });

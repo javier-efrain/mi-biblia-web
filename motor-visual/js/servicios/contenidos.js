@@ -23,6 +23,13 @@ export function crearServicioContenidos({ baseURL, fetcher = fetch }) {
     if (!recurso) throw new Error('Recurso no disponible.');
     return resolverRecurso(recurso);
   }
+  async function cargarEstudio(relato,{signal}={}) {
+    const estudio=validarEstudio(await json(`estudios/${relato.estudioId}.json`,signal));
+    if(estudio.id!==relato.estudioId||estudio.relatoId!==relato.id||estudio.demostracion!==relato.demostracion) {
+      throw new Error('Estudio de otro relato o contenido incompatible.');
+    }
+    return estudio;
+  }
   async function cargarCatalogo() { return validarCatalogo(await json('catalogo.json')); }
   async function cargarVisuales(relato, { signal } = {}) {
     if (signal?.aborted) throw new DOMException('Carga cancelada', 'AbortError');
@@ -39,5 +46,5 @@ export function crearServicioContenidos({ baseURL, fetcher = fetch }) {
     if (signal?.aborted) throw new DOMException('Carga cancelada', 'AbortError');
     return datos;
   }
-  return { cargarCatalogo, cargarVisuales, cargarRecurso };
+  return { cargarCatalogo, cargarVisuales, cargarEstudio, cargarRecurso };
 }

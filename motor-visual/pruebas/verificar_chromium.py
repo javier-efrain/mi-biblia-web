@@ -99,12 +99,12 @@ def probar_demo(browser, origen, configuracion, nombre):
     pagina.goto(origen + '/motor-visual/demo.html?relato=demo-dos&modo=texto')
     esperar_selector(pagina,'#motor[data-listo="true"]')
     comprobar(localizar(pagina,'#motor [data-versiculo]').count() == 2, 'Enlace directo a segundo relato')
-    comprobar(localizar(pagina,'#motor img, #motor [data-educativo], #motor dialog').count() == 0,
-              'Solo texto sin DOM educativo o visual')
-    comprobar(not any('/datos/estudios/' in u or u.endswith('/datos/recursos.json') or u.endswith('.svg')
-                      for u in solicitudes), 'Solo texto sin solicitudes de estudios, biblioteca ni imágenes')
+    comprobar(localizar(pagina,'#motor img, #motor .mv-recurso, #motor dialog').count() == 0,
+              'Solo texto con estudio y sin recursos visuales')
+    comprobar(not any(u.endswith('/datos/recursos.json') or u.endswith('.svg')
+                      for u in solicitudes), 'Solo texto sin solicitudes de biblioteca ni imágenes')
     comprobar(not any('/componentes/' in u and any(x in u for x in
-                      ['visor.js', 'explorador.js', 'portada.js', 'lectura-horizontal.js', 'descubrimiento.js'])
+                      ['visor.js', 'explorador.js', 'portada.js', 'descubrimiento.js'])
                       for u in solicitudes), 'Solo texto sin descargar módulos visuales')
     comprobar(not any('/biblia/' in u or '/rvc/' in u for u in solicitudes), 'Sin solicitudes al lector o archivos RVC')
     comprobar(pagina.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'Sin desbordamiento horizontal inicial')
@@ -171,11 +171,11 @@ def probar_demo(browser, origen, configuracion, nombre):
         checks.append('Gesto horizontal simulado cambia de página')
 
     buscar_rol(pagina,'button', name='Solo texto bíblico', exact=True).click()
-    expect(localizar(pagina,'#motor [data-educativo], #motor img, #motor dialog')).to_have_count(0)
+    expect(localizar(pagina,'#motor .mv-recurso, #motor img, #motor dialog')).to_have_count(0)
     pagina.go_back()
     esperar_selector(pagina,'.mv-cierre')
     pagina.go_forward()
-    expect(localizar(pagina,'#motor [data-educativo]')).to_have_count(0)
+    expect(localizar(pagina,'#motor .mv-recurso')).to_have_count(0)
     checks.append('Atrás y Adelante restauran el modo y desmontan visuales')
     buscar_rol(pagina,'button', name='Capítulo siguiente:', exact=False).click()
     expect(localizar(pagina,'#motor')).to_have_attribute('data-relato','demo-tres')
@@ -256,6 +256,7 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
         aumentar.click()
     buscar_rol(pagina,'button',name='Devocional',exact=True).click()
     comprobar(localizar(pagina,'.mv-cierre .mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Devocional a 30 px')
+    buscar_rol(pagina,'button',name='Estudio',exact=True).click()
     localizar(pagina,'[data-marcador="punto-b"]').first.click()
     comprobar(localizar(pagina,'.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Explicación del mapa a 30 px')
     localizar(pagina,'input[type=range]').first.fill('250')
@@ -274,7 +275,7 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     localizar(pagina,'input[type=range]').first.dispatch_event('input')
     capturar(pagina,SALIDA / 'capturas' / f'editorial-claro-{nombre}-30.png')
     buscar_rol(pagina,'button',name='Solo texto bíblico',exact=True).click()
-    expect(localizar(pagina,'#motor [data-educativo],#motor img')).to_have_count(0)
+    expect(localizar(pagina,'#motor .mv-recurso,#motor img')).to_have_count(0)
     comprobar(localizar(pagina,'.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Solo texto conserva 30 px sin montar visuales')
     comprobar(localizar(pagina,'.mv-preferencias').is_visible(), 'Ajustes disponibles en Solo texto')
     buscar_rol(pagina,'button',name='Capítulo siguiente:',exact=False).click()
@@ -345,6 +346,8 @@ def probar_compactacion(browser, origen, configuracion, nombre):
                 comprobar(disposicion_valida(), f'Estudio a {tamano} px sin recortes, superposición ni scroll horizontal')
                 buscar_rol(pagina,'button',name='Devocional',exact=True).click()
                 comprobar(localizar(pagina,'.mv-cierre .mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Devocional a {tamano} px')
+                comprobar(localizar(pagina,'.mv-recurso').count()==0, f'Devocional sin recursos intercalados a {tamano} px')
+                buscar_rol(pagina,'button',name='Estudio',exact=True).click()
                 comprobar(localizar(pagina,'.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Panel de mapa a {tamano} px')
                 v=localizar(pagina,'.mv-viewport').first.bounding_box()
                 minimo=450 if nombre=='escritorio' else configuracion['viewport']['width']-50
@@ -354,7 +357,7 @@ def probar_compactacion(browser, origen, configuracion, nombre):
                 comprobar(abs(muestras[-1]['visor_ancho']-muestras[0]['visor_ancho'])<1, f'Visor independiente de letra a {tamano} px')
                 capturar(pagina,SALIDA/'capturas'/f'compacto-{nombre}-{tamano}.png')
             else:
-                expect(localizar(pagina,'#motor [data-educativo],#motor img')).to_have_count(0)
+                expect(localizar(pagina,'#motor .mv-recurso,#motor img')).to_have_count(0)
                 checks.append(f'Solo texto a {tamano} px sin montar recursos')
             comprobar(localizar(pagina,'.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Lectura {modo} a {tamano} px')
             comprobar(disposicion_valida(), f'Disposición {modo} válida a {tamano} px')
@@ -393,11 +396,11 @@ def probar_composicion(browser, origen, configuracion, nombre):
 
     pagina.goto(url); esperar_selector(pagina,'#motor[data-listo="true"]')
     comprobar(localizar(pagina,'#motor').get_attribute('data-enfoque')=='devocional','Enlace directo con enfoque Devocional')
-    comprobar(not any('/datos/estudios/' in u or u.endswith('/datos/recursos.json') or u.endswith('.svg') for u in solicitudes),'Solo texto + Devocional sin cargar contenido suplementario')
-    comprobar(not any('/componentes/' in u and any(x in u for x in ['visor.js','explorador.js','portada.js','lectura-horizontal.js','descubrimiento.js']) for u in solicitudes),'Solo texto + Devocional sin descargar componentes visuales')
-    comprobar(localizar(pagina,'#motor [data-educativo],#motor img').count()==0,'Solo texto + Devocional sin montaje educativo')
+    comprobar(not any(u.endswith('/datos/recursos.json') or u.endswith('.svg') for u in solicitudes),'Solo texto + Devocional sin cargar biblioteca ni imágenes')
+    comprobar(not any('/componentes/' in u and any(x in u for x in ['visor.js','explorador.js','portada.js','descubrimiento.js']) for u in solicitudes),'Solo texto + Devocional sin descargar componentes visuales')
+    comprobar(localizar(pagina,'#motor .mv-recurso,#motor img').count()==0,'Solo texto + Devocional sin recursos intercalados')
     buscar_rol(pagina,'button',name='Estudio',exact=True).click()
-    comprobar(not any('/datos/estudios/' in u for u in solicitudes),'Cambiar enfoque en Solo texto no carga estudios')
+    comprobar(any('/datos/estudios/' in u for u in solicitudes),'Solo texto carga las secciones textuales correspondientes')
     comprobar(localizar(pagina,'.mv-barra-lector [data-enfoque]').count()==2 and localizar(pagina,'.mv-barra-lector [data-modo]').count()==2,'Dos grupos independientes en la cabecera')
     comprobar(localizar(pagina,'.mv-barra-lector .mv-preferencias').is_visible(),'Controles tipográficos dentro de la cabecera')
     cabecera=localizar(pagina,'.mv-barra-lector').bounding_box()
@@ -432,9 +435,9 @@ def probar_composicion(browser, origen, configuracion, nombre):
     buscar_rol(pagina,'button',name='Devocional',exact=True).click()
     expect(localizar(pagina,'.mv-contexto')).to_have_count(0)
     expect(localizar(pagina,'.mv-devocional')).to_have_count(1)
-    comprobar(pagina.evaluate('window.__visorEditorial===document.querySelector(".mv-relato[data-activo=true] .mv-visor")'),'Cambiar enfoque conserva la misma instancia del visor')
-    comprobar(localizar(pagina,'input[type=range]').first.input_value()=='250','Cambiar enfoque conserva el zoom')
-    comprobar(localizar(pagina,'.mv-panel h4').first.inner_text()=='Punto B','Cambiar enfoque conserva el marcador seleccionado')
+    comprobar(pagina.evaluate('!window.__visorEditorial.isConnected'),'Devocional retira el visor de la lectura sin destruir su instancia')
+    comprobar(pagina.evaluate('window.__visorEditorial.querySelector("input").value')=='250','Cambiar enfoque conserva el zoom')
+    comprobar(pagina.evaluate('window.__visorEditorial.closest(".mv-recurso").querySelector(".mv-panel h4").textContent')=='Punto B','Cambiar enfoque conserva el marcador seleccionado')
     comprobar(antes==len([u for u in solicitudes if '/datos/' in u]),'Cambiar enfoque no vuelve a solicitar los datos visuales')
     pagina.go_back(); esperar_selector(pagina,'.mv-contexto')
     expect(localizar(pagina,'.mv-contexto output')).to_have_text(re.compile(r'^2 / \d+$'))
@@ -443,7 +446,7 @@ def probar_composicion(browser, origen, configuracion, nombre):
     pagina.go_forward(); esperar_selector(pagina,'.mv-devocional')
     checks.append('Adelante restaura el enfoque Devocional')
     buscar_rol(pagina,'button',name='Solo texto bíblico',exact=True).click()
-    expect(localizar(pagina,'#motor [data-educativo],#motor img, #motor dialog')).to_have_count(0)
+    expect(localizar(pagina,'#motor .mv-recurso,#motor img, #motor dialog')).to_have_count(0)
     comprobar(localizar(pagina,'#motor').get_attribute('data-enfoque')=='devocional','Solo texto conserva la elección de enfoque')
     buscar_rol(pagina,'button',name='Capítulo siguiente:',exact=False).click()
     expect(localizar(pagina,'#motor')).to_have_attribute('data-relato','demo-tres')
@@ -499,6 +502,8 @@ def probar_explorador(browser, origen, configuracion, nombre):
     comprobar(r.locator('[data-marcador]:visible').count()==0 and r.locator('[data-elemento]:visible').count()==0,'Ocultar elimina puntos y nombres de la vista')
     comprobar(r.locator('img').is_visible() and 'DEMO' in r.locator('.mv-panel p').inner_text(),'Imagen limpia con descripción general')
     buscar_rol(pagina,'button',name='Devocional',exact=True).click()
+    expect(localizar(pagina,'.mv-recurso')).to_have_count(0)
+    buscar_rol(pagina,'button',name='Estudio',exact=True).click()
     expect(r.locator('[data-control="puntos"]')).to_have_text('Mostrar puntos')
     r.locator('[data-control="puntos"]').click()
     expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
@@ -566,6 +571,8 @@ def probar_explorador(browser, origen, configuracion, nombre):
         cdp.detach()
     comprobar(r.evaluate('''e=>{const p=e.querySelector('.mv-plano').getBoundingClientRect(),b=e.querySelector('[data-marcador="punto-b"]').getBoundingClientRect();return Math.abs((b.x+b.width/2-p.x)/p.width-.75)<.01&&Math.abs((b.y+b.height/2-p.y)/p.height-.5)<.01;}'''),'Marcadores alineados después de zoom y desplazamiento')
     buscar_rol(pagina,'button',name='Devocional',exact=True).click()
+    expect(localizar(pagina,'.mv-recurso')).to_have_count(0)
+    buscar_rol(pagina,'button',name='Estudio',exact=True).click()
     expect(rango).to_have_value('300')
     checks.append('Cambiar enfoque conserva zoom')
     r.get_by_role('button',name='Restablecer',exact=True).click()
@@ -596,7 +603,7 @@ def probar_interfaz(browser, origen, configuracion, nombre):
             pagina.goto(url+f'&modo={modo}&enfoque={enfoque}')
             esperar_selector(pagina,'#motor[data-listo="true"]')
             if modo=='visual': esperar_selector(pagina,'.mv-cierre')
-            else: expect(localizar(pagina,'[data-educativo],#motor img')).to_have_count(0)
+            else: expect(localizar(pagina,'.mv-recurso,#motor img')).to_have_count(0)
             etiqueta=modo+' '+enfoque
             barra=localizar(pagina,'.mv-barra-lector')
             comprobar(barra.evaluate('e=>getComputedStyle(e).position')=='static',etiqueta+': barra en el flujo normal')
@@ -742,7 +749,7 @@ def probar_bloque2(browser, origen, configuracion, nombre):
     # Solo texto conserva posición y foco incluso con letra máxima.
     pagina.goto(url+'&modo=texto&enfoque=devocional');esperar_selector(pagina,'#motor[data-listo="true"]')
     comienzo=len(solicitudes)
-    comprobar(localizar(pagina,'[data-recurso-acceso]').count()==2 and localizar(pagina,'img,dialog,[data-educativo]').count()==0,'Solo texto monta únicamente iconos anclados')
+    comprobar(localizar(pagina,'[data-recurso-acceso]').count()==2 and localizar(pagina,'img,dialog,.mv-recurso').count()==0,'Solo texto monta únicamente iconos anclados')
     for _ in range(9):buscar_rol(pagina,'button',name='Aumentar tamaño de letra',exact=True).click()
     for cierre in ['Escape','boton']:
         icono=localizar(pagina,'[data-recurso-acceso]').first;icono.scroll_into_view_if_needed()
@@ -760,7 +767,7 @@ def probar_bloque2(browser, origen, configuracion, nombre):
         expect(icono).to_be_focused()
         comprobar(abs(pagina.evaluate('scrollY')-antes)<2,f'{cierre}: regresa exactamente a la posición de lectura')
         comprobar(localizar(pagina,'#motor').get_attribute('data-modo')=='texto' and localizar(pagina,'#motor').get_attribute('data-enfoque')=='devocional','Cerrar conserva Solo texto y Devocional')
-        comprobar(localizar(pagina,'[data-educativo],img').count()==0,'Cerrar desmonta todo el recurso')
+        comprobar(localizar(pagina,'.mv-recurso,img').count()==0,'Cerrar desmonta todo el recurso')
     capturar(pagina,SALIDA/'capturas'/f'bloque2-{nombre}-texto.png')
     buscar_rol(pagina,'button',name='Con recursos visuales',exact=True).click();esperar_selector(pagina,'.mv-cierre')
     capturar(pagina,SALIDA/'capturas'/f'bloque2-{nombre}-visual.png')
@@ -798,32 +805,28 @@ def probar_bloque3(browser, origen, configuracion, nombre):
         comprobar(len(solicitudes)==inicial and len(navegaciones)==documentos,'El índice no carga documentos ni datos '+id)
         comprobar(localizar(pagina,'.mv-titulo-relato').bounding_box()['y']>=-1,'Destino visible tras desplazamiento suave '+id)
     comprobar(pagina.locator('.mv-indice').evaluate('e=>getComputedStyle(e).position')=='static','Índice no fijo')
-    recurso=localizar(pagina,'.mv-recurso').first
-    recurso.locator('[data-elemento="punto-b"]').click();recurso.locator('.mv-panel nav button').last.click()
-    recurso.locator('input').fill('200');recurso.locator('input').dispatch_event('input')
-    abrir=recurso.get_by_role('button',name='Pantalla completa',exact=True)
-    abrir.scroll_into_view_if_needed();antes=pagina.evaluate('scrollY')
-    pagina.evaluate('window.__recursoB3=document.querySelector(".mv-relato[data-activo=true] .mv-recurso");window.__exploradorB3=window.__recursoB3.querySelector(".mv-visor")')
-    abrir.click();modal=pagina.locator('dialog[open].mv-completa');expect(modal).to_be_visible();pagina.wait_for_timeout(150)
-    comprobar(pagina.evaluate('document.querySelector("dialog .mv-visor")===window.__exploradorB3'),'Pantalla completa usa exactamente el mismo visor')
+    comprobar(pagina.locator('.mv-abrir-completa').count()==0,'Estudio Visual sin botón de pantalla completa integrado')
+    buscar_rol(pagina,'button',name='Solo texto bíblico',exact=True).click()
+    acceso=localizar(pagina,'[data-recurso-acceso]').first;acceso.scroll_into_view_if_needed();antes=pagina.evaluate('scrollY');acceso.click()
+    pagina.wait_for_selector('dialog .mv-visor');modal=pagina.locator('dialog[open]')
+    modal.locator('[data-elemento="punto-b"]').click();modal.locator('.mv-panel nav button').last.click()
+    modal.locator('input').fill('200');modal.locator('input').dispatch_event('input')
+    modal.locator('.mv-visor').evaluate('e=>window.__exploradorB3=e')
+    abrir=modal.get_by_role('button',name='Pantalla completa',exact=True);abrir.click();pagina.wait_for_timeout(150)
+    comprobar(modal.evaluate('e=>e.querySelector(".mv-visor")===window.__exploradorB3'),'Pantalla completa usa exactamente el mismo visor modal')
     comprobar(modal.evaluate('e=>e.clientWidth>=innerWidth-2&&e.clientHeight>=innerHeight-2'),'La superposición aprovecha todo el navegador')
     comprobar(modal.locator('.mv-viewport').evaluate('e=>getComputedStyle(e).aspectRatio')=='auto','Pantalla completa sin límite 3:4')
     comprobar(modal.locator('input').input_value()=='200','Zoom conservado al ampliar la vista')
     comprobar(modal.locator('[data-marcador="punto-b"]').get_attribute('aria-pressed')=='true','Selección conservada al ampliar la vista')
-    expect(modal.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
-    contador=modal.locator('.mv-panel output').inner_text()
-    botones=modal.locator('.mv-panel nav button');(botones.first if botones.last.is_disabled() else botones.last).click()
-    comprobar(modal.locator('.mv-panel output').inner_text()!=contador,'Explicaciones siguen paginando en pantalla completa')
     modal.get_by_role('button',name='Restablecer',exact=True).click()
     comprobar(modal.locator('.mv-viewport').evaluate('e=>{const v=e.getBoundingClientRect(),p=e.querySelector(".mv-plano").getBoundingClientRect();return Math.abs(p.width/p.height-2/3)<.01&&p.width<=v.width+1&&p.height<=v.height+1;}'),'Imagen completa y proporcionada en pantalla completa')
-    modal.get_by_role('button',name='Aumentar zoom',exact=True).click();expect(modal.locator('.mv-visor output')).to_have_text('125 %')
-    comprobar(modal.locator('.mv-recurso').evaluate('e=>{const p=e.querySelector(".mv-plano").getBoundingClientRect(),m=e.querySelector("[data-marcador=punto-b]").getBoundingClientRect();return Math.abs((m.x+m.width/2-p.x)/p.width-.75)<.01&&Math.abs((m.y+m.height/2-p.y)/p.height-.5)<.01;}'),'Marcadores alineados en pantalla completa')
     pagina.screenshot(path=str(SALIDA/'capturas'/f'bloque3-{nombre}-completa.png'),animations='disabled')
+    modal.get_by_role('button',name='Salir de pantalla completa',exact=True).click()
+    comprobar(modal.evaluate('e=>!e.classList.contains("mv-completa")&&e.querySelector(".mv-visor")===window.__exploradorB3'),'Salir de pantalla completa conserva el mismo modal y visor')
     pagina.keyboard.press('Escape');expect(pagina.locator('dialog')).to_have_count(0);pagina.wait_for_timeout(150)
-    expect(abrir).to_be_focused()
-    comprobar(abs(pagina.evaluate('scrollY')-antes)<2,'Cerrar pantalla completa restaura la posición de lectura')
-    comprobar(pagina.evaluate('window.__recursoB3===document.querySelector(".mv-relato[data-activo=true] .mv-recurso")'),'El mismo recurso vuelve al relato')
-    comprobar(recurso.locator('.mv-viewport').evaluate('e=>Math.abs(e.clientWidth/e.clientHeight-.75)<.01'),'Vuelve el marco integrado 3:4')
+    expect(acceso).to_be_focused();comprobar(abs(pagina.evaluate('scrollY')-antes)<2,'Cerrar el modal restaura la posición de lectura')
+    buscar_rol(pagina,'button',name='Con recursos visuales',exact=True).click()
+    recurso=localizar(pagina,'.mv-recurso').first
     if nombre=='movil':
         v=recurso.locator('.mv-viewport');cdp=contexto.new_cdp_session(pagina)
         def arrastrar(dx,dy):
@@ -842,14 +845,14 @@ def probar_bloque3(browser, origen, configuracion, nombre):
         cdp.detach()
     # Solo texto mantiene todo el capítulo, ofrece botones claros y no solicita estudios.
     pagina.goto(origen+'/motor-visual/demo.html?relato=demo-dos&modo=texto');pagina.wait_for_selector('#motor[data-listo="true"]')
-    comprobar(pagina.locator('.mv-relato').count()==2 and pagina.locator('img,[data-educativo]').count()==0,'Capítulo continuo en Solo texto sin contenido visual montado')
+    comprobar(pagina.locator('.mv-relato').count()==2 and pagina.locator('img,.mv-recurso').count()==0,'Capítulo continuo en Solo texto sin contenido visual montado')
     comprobar(pagina.locator('[data-recurso-acceso]').evaluate_all('es=>es.every(e=>e.textContent.includes("Ver recurso visual"))'),'Accesos reconocibles con símbolo y texto')
     inicio=len(solicitudes);boton=localizar(pagina,'[data-recurso-acceso]').first;boton.scroll_into_view_if_needed();antes=pagina.evaluate('scrollY')
     boton.click();pagina.wait_for_selector('dialog .mv-visor');modal=pagina.locator('dialog[open]')
     comprobar(modal.locator('.mv-recurso').count()==1 and not any('/datos/estudios/' in u or 'portada-demo.svg' in u for u in solicitudes[inicio:]),'Solo se carga el recurso elegido')
     modal.get_by_role('button',name='Cerrar recurso',exact=True).click();expect(boton).to_be_focused();pagina.wait_for_timeout(100)
     comprobar(abs(pagina.evaluate('scrollY')-antes)<2 and pagina.locator('#motor').get_attribute('data-modo')=='texto','Cerrar devuelve posición y mantiene Solo texto')
-    comprobar(pagina.locator('img,[data-educativo]').count()==0,'Modal desmontado completamente')
+    comprobar(pagina.locator('img,.mv-recurso').count()==0,'Modal desmontado completamente')
     contexto.close()
     contexto=browser.new_context(**configuracion,reduced_motion='reduce');pagina=contexto.new_page()
     pagina.goto(origen+'/motor-visual/demo.html?modo=texto');pagina.wait_for_selector('#motor[data-listo="true"]')
@@ -858,6 +861,66 @@ def probar_bloque3(browser, origen, configuracion, nombre):
     comprobar(pagina.evaluate('window.__movimientos.includes("instant")&&!window.__movimientos.includes("smooth")'),'Índice respeta movimiento reducido')
     comprobar(not errores,'Sin errores JavaScript del Bloque 3');contexto.close()
     return {'comprobaciones':checks,'errores':errores}
+
+
+def probar_editorial(browser, origen, configuracion, nombre):
+    checks=[]
+    def comprobar(valor,descripcion):
+        assert valor,f'{nombre}, editorial: {descripcion}'
+        checks.append(descripcion)
+    for modo in ['visual','texto']:
+        for enfoque in ['estudio','devocional']:
+            contexto=browser.new_context(**configuracion);pagina=contexto.new_page();solicitudes=[];errores=[]
+            pagina.on('request',lambda r:solicitudes.append(r.url));pagina.on('pageerror',lambda e:errores.append(str(e)))
+            pagina.goto(origen+f'/motor-visual/demo.html?relato=demo-uno&modo={modo}&enfoque={enfoque}')
+            pagina.wait_for_selector('#motor[data-listo="true"]');pagina.wait_for_timeout(100)
+            etiqueta=modo+' '+enfoque
+            comprobar(pagina.locator('.mv-relato').count()==2 and pagina.locator('.mv-indice button').count()==2,etiqueta+': capítulo e índice completos')
+            comprobar(pagina.locator('.mv-texto [data-versiculo]').count()==4,etiqueta+': versículos completos y ordenados')
+            comprobar(pagina.locator('.mv-portada').count()==(2 if modo=='visual' else 0),etiqueta+': banners según modo')
+            comprobar(pagina.locator('.mv-contexto').count()==(2 if enfoque=='estudio' else 0),etiqueta+': contexto según enfoque')
+            comprobar(pagina.locator('.mv-devocional').count()==(2 if enfoque=='devocional' else 0),etiqueta+': reflexión según enfoque')
+            comprobar(pagina.locator('.mv-cierre').count()==2,etiqueta+': cierres textuales correspondientes')
+            comprobar(pagina.locator('.mv-recurso').count()==(3 if modo=='visual' and enfoque=='estudio' else 0),etiqueta+': recursos intercalados según composición')
+            comprobar(pagina.locator('.mv-abrir-completa').count()==0,etiqueta+': sin pantalla completa integrada')
+            comprobar(pagina.locator('[data-recurso-acceso]').count()==(3 if modo=='texto' else 0),etiqueta+': accesos opcionales según modo')
+            if modo=='texto' or enfoque=='devocional':
+                comprobar(not any('diagrama-vertical-demo.svg' in u or '/componentes/explorador.js' in u for u in solicitudes),etiqueta+': no descarga recursos interactivos al iniciar')
+            if modo=='texto':
+                comprobar(not any('recursos.json' in u or '.svg' in u for u in solicitudes),etiqueta+': sin biblioteca ni imágenes antes de abrir recurso')
+                comprobar(any('/datos/estudios/' in u for u in solicitudes),etiqueta+': contenido textual cargado separadamente')
+                acceso=pagina.locator('[data-recurso-acceso]').first;acceso.scroll_into_view_if_needed();antes=pagina.evaluate('scrollY');inicio=len(solicitudes)
+                acceso.click();pagina.wait_for_selector('dialog .mv-visor');modal=pagina.locator('dialog[open]')
+                comprobar(pagina.locator('img').count()==1 and modal.locator('.mv-recurso').count()==1,etiqueta+': solo recurso solicitado')
+                comprobar(not any('/estudios/' in u or 'portada-demo.svg' in u for u in solicitudes[inicio:]),etiqueta+': apertura no recarga estudios ni portada')
+                modal.locator('[data-elemento="punto-b"]').click();modal.locator('input').fill('200');modal.locator('input').dispatch_event('input')
+                modal.locator('.mv-visor').evaluate('e=>window.__visorEditorialModal=e')
+                modal.get_by_role('button',name='Pantalla completa',exact=True).click();pagina.wait_for_timeout(100)
+                comprobar(modal.evaluate('e=>e.classList.contains("mv-completa")&&e.querySelector(".mv-visor")===window.__visorEditorialModal'),etiqueta+': pantalla completa usa el mismo visor modal')
+                comprobar(modal.locator('input').input_value()=='200' and modal.locator('[data-marcador="punto-b"]').get_attribute('aria-pressed')=='true',etiqueta+': conserva zoom y selección al ampliar')
+                modal.get_by_role('button',name='Salir de pantalla completa',exact=True).click()
+                comprobar(modal.evaluate('e=>!e.classList.contains("mv-completa")&&e.querySelector(".mv-visor")===window.__visorEditorialModal'),etiqueta+': salir conserva la ventana original')
+                pagina.keyboard.press('Escape');expect(pagina.locator('dialog')).to_have_count(0);pagina.wait_for_timeout(100)
+                expect(acceso).to_be_focused();comprobar(abs(pagina.evaluate('scrollY')-antes)<2,etiqueta+': restaura posición y foco')
+                comprobar(pagina.locator('#motor').get_attribute('data-modo')==modo and pagina.locator('#motor').get_attribute('data-enfoque')==enfoque,etiqueta+': no cambia modo ni enfoque al abrir recursos')
+            comprobar(not errores,etiqueta+': sin errores JavaScript');contexto.close()
+    contexto=browser.new_context(**configuracion);pagina=contexto.new_page()
+    pagina.goto(origen+'/motor-visual/demo.html?modo=visual');pagina.wait_for_selector('#motor[data-listo="true"]')
+    recurso=pagina.locator('.mv-recurso').first;recurso.locator('[data-elemento="punto-b"]').click();recurso.locator('.mv-panel nav button').last.click()
+    recurso.locator('input').fill('250');recurso.locator('input').dispatch_event('input')
+    pagina.evaluate('window.__recursoGuardado=document.querySelector(".mv-recurso");window.__visorGuardado=window.__recursoGuardado.querySelector(".mv-visor")')
+    verso=pagina.locator('[data-versiculo="contenido-sintetico:1:1"]')
+    verso.evaluate('e=>scrollTo(0,scrollY+e.getBoundingClientRect().top-140)');pagina.wait_for_timeout(100);y=verso.bounding_box()['y']
+    pagina.locator('[data-enfoque="devocional"]').evaluate('b=>b.click()');expect(pagina.locator('.mv-recurso')).to_have_count(0);pagina.wait_for_timeout(150)
+    comprobar(abs(verso.bounding_box()['y']-y)<2,'Cambiar a Devocional conserva el anclaje visible de lectura')
+    pagina.locator('[data-enfoque="estudio"]').evaluate('b=>b.click()');pagina.wait_for_selector('.mv-recurso');pagina.wait_for_timeout(150)
+    comprobar(abs(verso.bounding_box()['y']-y)<2,'Volver a Estudio conserva el anclaje visible de lectura')
+    comprobar(pagina.evaluate('document.querySelector(".mv-recurso")===window.__recursoGuardado&&document.querySelector(".mv-visor")===window.__visorGuardado'),'Regresa exactamente la misma instancia del visor')
+    comprobar(recurso.locator('input').input_value()=='250' and recurso.locator('[data-marcador="punto-b"]').get_attribute('aria-pressed')=='true','Conserva zoom y marcador al volver a Estudio')
+    comprobar(recurso.locator('.mv-panel output').inner_text().startswith('2 / '),'Conserva la página de explicación seleccionada')
+    capturar(pagina,SALIDA/'capturas'/f'editorial-enfoques-{nombre}-estudio.png')
+    pagina.locator('[data-enfoque="devocional"]').click();capturar(pagina,SALIDA/'capturas'/f'editorial-enfoques-{nombre}-devocional.png')
+    contexto.close();return {'comprobaciones':checks}
 
 
 def main():
@@ -897,6 +960,7 @@ def main():
                 resultado['interfaz'][nombre] = probar_interfaz(browser,origen,config,nombre)
                 resultado['bloque2'][nombre] = probar_bloque2(browser,origen,config,nombre)
                 resultado.setdefault('bloque3',{})[nombre] = probar_bloque3(browser,origen,config,nombre)
+                resultado.setdefault('editorial',{})[nombre] = probar_editorial(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -919,6 +983,7 @@ def main():
                       'explorador':{k:len(v['comprobaciones']) for k,v in resultado['explorador'].items()},
                       'interfaz':{k:len(v['comprobaciones']) for k,v in resultado['interfaz'].items()},
                       'bloque2':{k:len(v['comprobaciones']) for k,v in resultado['bloque2'].items()},
+                      'editorial':{k:len(v['comprobaciones']) for k,v in resultado.get('editorial',{}).items()},
                       'bloque3':{k:len(v['comprobaciones']) for k,v in resultado.get('bloque3',{}).items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 

@@ -1,9 +1,9 @@
 import { test,assert,conMotor,datos,diferida,esperar } from './harness.js';
-test('Solo texto no llama al servicio visual ni monta imágenes, estudios o visores', async () => {
+test('Solo texto no llama al servicio visual ni monta imágenes o visores; conserva el estudio', async () => {
   let solicitudes=0;
   await conMotor(async ({ root }) => {
     assert(solicitudes===0); assert(root.querySelectorAll('[data-versiculo]').length===4);
-    assert(!root.querySelector('img,[data-educativo],dialog,input[type="range"]'));
+    assert(!root.querySelector('img,.mv-recurso,dialog,input[type="range"]'));
   }, { contenidos:{ cargarVisuales:async () => { solicitudes++; } } });
 });
 test('Tres relatos se renderizan con el mismo motor y anclajes correctos', async () => {
@@ -23,12 +23,12 @@ test('Tres relatos se renderizan con el mismo motor y anclajes correctos', async
     }
   });
 });
-test('Cambiar de modo cierra el recurso modal y Solo texto conserva únicamente accesos', async () => {
+test('Cambiar de modo cierra el recurso modal y Solo texto conserva estudios y accesos', async () => {
   await conMotor(async ({root,motor}) => {
     root.querySelector('[data-recurso-acceso]').click();
     await esperar(()=>root.querySelector('dialog .mv-visor'));
     await motor.cambiarModo('visual'); assert(!root.querySelector('dialog'));
-    await motor.cambiarModo('texto'); assert(!root.querySelector('[data-educativo],img,dialog'));
+    await motor.cambiarModo('texto'); assert(!root.querySelector('.mv-recurso,.mv-visor,img,dialog'));
     assert(root.querySelector('[data-recurso-acceso]'));
   });
 });
@@ -41,7 +41,7 @@ test('Una respuesta educativa tardía no vuelve a montar recursos en Solo texto'
     assert(signal,'La solicitud visual no comenzó');
     await motor.cambiarModo('texto'); assert(signal.aborted);
     espera.resolver(await d.contenidos.cargarVisuales(d.catalogo.relatos[0])); await pendiente;
-    assert(!root.querySelector('[data-educativo],img'));
+    assert(!root.querySelector('.mv-recurso,.mv-visor,img'));
   }, { contenidos:{ cargarVisuales:(_r,opciones) => { signal=opciones.signal; return espera.promesa; } } });
 });
 test('Las respuestas antiguas del lector no sobrescriben el relato reciente', async () => {
@@ -67,6 +67,6 @@ test('Un fallo de lectura muestra el estado de error sin montar recursos', async
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual');
     assert(root.textContent.includes('No fue posible cargar el texto'));
-    assert(!root.querySelector('[data-educativo],img'));
+    assert(!root.querySelector('.mv-recurso,.mv-visor,img'));
   }, { biblia:{ obtenerPasaje:async () => { throw new Error('Fuente no disponible'); } } });
 });

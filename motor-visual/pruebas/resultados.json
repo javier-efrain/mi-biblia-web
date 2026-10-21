@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 75,
-      "aprobadas": 75,
+      "total": 80,
+      "aprobadas": 80,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -81,7 +81,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto no llama al servicio visual ni monta imágenes, estudios o visores",
+          "nombre": "Solo texto no llama al servicio visual ni monta imágenes o visores; conserva el estudio",
           "ok": true
         },
         {
@@ -89,7 +89,7 @@
           "ok": true
         },
         {
-          "nombre": "Cambiar de modo cierra el recurso modal y Solo texto conserva únicamente accesos",
+          "nombre": "Cambiar de modo cierra el recurso modal y Solo texto conserva estudios y accesos",
           "ok": true
         },
         {
@@ -249,7 +249,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque",
+          "nombre": "Solo texto conserva ambos selectores con estudios sin solicitar imágenes en ningún enfoque",
           "ok": true
         },
         {
@@ -265,7 +265,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto monta accesos anclados y carga solo el recurso solicitado, sin estudios",
+          "nombre": "Solo texto monta accesos anclados y carga solo el recurso solicitado, sin recargar los estudios",
           "ok": true
         },
         {
@@ -293,7 +293,7 @@
           "ok": true
         },
         {
-          "nombre": "Pantalla completa traslada el mismo explorador y restaura foco, zoom y selección",
+          "nombre": "Pantalla completa dentro del modal conserva la misma instancia, zoom y selección",
           "ok": true
         },
         {
@@ -306,14 +306,34 @@
         },
         {
           "nombre": "Cambiar de modo con pantalla completa abierta cancela y desmonta todos los recursos",
+          "ok": true
+        },
+        {
+          "nombre": "Las cuatro combinaciones editoriales conservan el capítulo y sus contenidos correspondientes",
+          "ok": true
+        },
+        {
+          "nombre": "Volver a Estudio reutiliza visores, zoom, puntos ocultos y paginación",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto carga estudio sin consultar la biblioteca de imágenes",
+          "ok": true
+        },
+        {
+          "nombre": "Pantalla completa modal permanece disponible en ambos enfoques sin cambiar el modo",
+          "ok": true
+        },
+        {
+          "nombre": "El servicio textual rechaza estudios de otro relato o no sintéticos compatibles",
           "ok": true
         }
       ],
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 75,
-      "aprobadas": 75,
+      "total": 80,
+      "aprobadas": 80,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -388,7 +408,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto no llama al servicio visual ni monta imágenes, estudios o visores",
+          "nombre": "Solo texto no llama al servicio visual ni monta imágenes o visores; conserva el estudio",
           "ok": true
         },
         {
@@ -396,7 +416,7 @@
           "ok": true
         },
         {
-          "nombre": "Cambiar de modo cierra el recurso modal y Solo texto conserva únicamente accesos",
+          "nombre": "Cambiar de modo cierra el recurso modal y Solo texto conserva estudios y accesos",
           "ok": true
         },
         {
@@ -556,7 +576,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque",
+          "nombre": "Solo texto conserva ambos selectores con estudios sin solicitar imágenes en ningún enfoque",
           "ok": true
         },
         {
@@ -572,7 +592,7 @@
           "ok": true
         },
         {
-          "nombre": "Solo texto monta accesos anclados y carga solo el recurso solicitado, sin estudios",
+          "nombre": "Solo texto monta accesos anclados y carga solo el recurso solicitado, sin recargar los estudios",
           "ok": true
         },
         {
@@ -600,7 +620,7 @@
           "ok": true
         },
         {
-          "nombre": "Pantalla completa traslada el mismo explorador y restaura foco, zoom y selección",
+          "nombre": "Pantalla completa dentro del modal conserva la misma instancia, zoom y selección",
           "ok": true
         },
         {
@@ -613,6 +633,26 @@
         },
         {
           "nombre": "Cambiar de modo con pantalla completa abierta cancela y desmonta todos los recursos",
+          "ok": true
+        },
+        {
+          "nombre": "Las cuatro combinaciones editoriales conservan el capítulo y sus contenidos correspondientes",
+          "ok": true
+        },
+        {
+          "nombre": "Volver a Estudio reutiliza visores, zoom, puntos ocultos y paginación",
+          "ok": true
+        },
+        {
+          "nombre": "Solo texto carga estudio sin consultar la biblioteca de imágenes",
+          "ok": true
+        },
+        {
+          "nombre": "Pantalla completa modal permanece disponible en ambos enfoques sin cambiar el modo",
+          "ok": true
+        },
+        {
+          "nombre": "El servicio textual rechaza estudios de otro relato o no sintéticos compatibles",
           "ok": true
         }
       ],
@@ -623,8 +663,8 @@
     "escritorio": {
       "comprobaciones": [
         "Enlace directo a segundo relato",
-        "Solo texto sin DOM educativo o visual",
-        "Solo texto sin solicitudes de estudios, biblioteca ni imágenes",
+        "Solo texto con estudio y sin recursos visuales",
+        "Solo texto sin solicitudes de biblioteca ni imágenes",
         "Solo texto sin descargar módulos visuales",
         "Sin solicitudes al lector o archivos RVC",
         "Sin desbordamiento horizontal inicial",
@@ -645,41 +685,50 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:42221/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:42221/motor-visual/css/motor.css",
-        "http://127.0.0.1:42221/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:42221/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:42221/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico.json",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json"
+        "http://127.0.0.1:36895/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:36895/motor-visual/css/motor.css",
+        "http://127.0.0.1:36895/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:36895/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:36895/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-tres.json"
       ],
       "errores": []
     },
     "movil": {
       "comprobaciones": [
         "Enlace directo a segundo relato",
-        "Solo texto sin DOM educativo o visual",
-        "Solo texto sin solicitudes de estudios, biblioteca ni imágenes",
+        "Solo texto con estudio y sin recursos visuales",
+        "Solo texto sin solicitudes de biblioteca ni imágenes",
         "Solo texto sin descargar módulos visuales",
         "Sin solicitudes al lector o archivos RVC",
         "Sin desbordamiento horizontal inicial",
@@ -701,33 +750,42 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:42221/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:42221/motor-visual/css/motor.css",
-        "http://127.0.0.1:42221/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:42221/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:42221/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:42221/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:42221/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico.json",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:42221/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:42221/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
-        "http://127.0.0.1:42221/motor-visual/datos/recursos.json"
+        "http://127.0.0.1:36895/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:36895/motor-visual/css/motor.css",
+        "http://127.0.0.1:36895/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:36895/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:36895/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:36895/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:36895/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:36895/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos/diagrama-vertical-demo.svg",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:36895/motor-visual/datos/estudios/piloto-tecnico-tres.json"
       ],
       "errores": []
     }
@@ -808,6 +866,7 @@
         "Estudio extenso a 8 px",
         "Estudio a 8 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 8 px",
+        "Devocional sin recursos intercalados a 8 px",
         "Panel de mapa a 8 px",
         "Visor amplio y 3:4 con lectura a 8 px",
         "Visor independiente de letra a 8 px",
@@ -822,6 +881,7 @@
         "Estudio extenso a 20 px",
         "Estudio a 20 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 20 px",
+        "Devocional sin recursos intercalados a 20 px",
         "Panel de mapa a 20 px",
         "Visor amplio y 3:4 con lectura a 20 px",
         "Visor independiente de letra a 20 px",
@@ -836,6 +896,7 @@
         "Estudio extenso a 30 px",
         "Estudio a 30 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 30 px",
+        "Devocional sin recursos intercalados a 30 px",
         "Panel de mapa a 30 px",
         "Visor amplio y 3:4 con lectura a 30 px",
         "Visor independiente de letra a 30 px",
@@ -875,6 +936,7 @@
         "Estudio extenso a 8 px",
         "Estudio a 8 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 8 px",
+        "Devocional sin recursos intercalados a 8 px",
         "Panel de mapa a 8 px",
         "Visor amplio y 3:4 con lectura a 8 px",
         "Visor independiente de letra a 8 px",
@@ -889,6 +951,7 @@
         "Estudio extenso a 20 px",
         "Estudio a 20 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 20 px",
+        "Devocional sin recursos intercalados a 20 px",
         "Panel de mapa a 20 px",
         "Visor amplio y 3:4 con lectura a 20 px",
         "Visor independiente de letra a 20 px",
@@ -903,6 +966,7 @@
         "Estudio extenso a 30 px",
         "Estudio a 30 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 30 px",
+        "Devocional sin recursos intercalados a 30 px",
         "Panel de mapa a 30 px",
         "Visor amplio y 3:4 con lectura a 30 px",
         "Visor independiente de letra a 30 px",
@@ -946,10 +1010,10 @@
     "escritorio": {
       "comprobaciones": [
         "Enlace directo con enfoque Devocional",
-        "Solo texto + Devocional sin cargar contenido suplementario",
+        "Solo texto + Devocional sin cargar biblioteca ni imágenes",
         "Solo texto + Devocional sin descargar componentes visuales",
-        "Solo texto + Devocional sin montaje educativo",
-        "Cambiar enfoque en Solo texto no carga estudios",
+        "Solo texto + Devocional sin recursos intercalados",
+        "Solo texto carga las secciones textuales correspondientes",
         "Dos grupos independientes en la cabecera",
         "Controles tipográficos dentro de la cabecera",
         "Cabecera compacta: hasta 110 px móvil y 60 px escritorio",
@@ -960,7 +1024,7 @@
         "Cierre de Estudio con Exégesis y Enseñanzas",
         "Contexto paginado sin cambiar el cierre",
         "Cierre paginado sin cambiar el contexto",
-        "Cambiar enfoque conserva la misma instancia del visor",
+        "Devocional retira el visor de la lectura sin destruir su instancia",
         "Cambiar enfoque conserva el zoom",
         "Cambiar enfoque conserva el marcador seleccionado",
         "Cambiar enfoque no vuelve a solicitar los datos visuales",
@@ -978,10 +1042,10 @@
     "movil": {
       "comprobaciones": [
         "Enlace directo con enfoque Devocional",
-        "Solo texto + Devocional sin cargar contenido suplementario",
+        "Solo texto + Devocional sin cargar biblioteca ni imágenes",
         "Solo texto + Devocional sin descargar componentes visuales",
-        "Solo texto + Devocional sin montaje educativo",
-        "Cambiar enfoque en Solo texto no carga estudios",
+        "Solo texto + Devocional sin recursos intercalados",
+        "Solo texto carga las secciones textuales correspondientes",
         "Dos grupos independientes en la cabecera",
         "Controles tipográficos dentro de la cabecera",
         "Cabecera compacta: hasta 110 px móvil y 60 px escritorio",
@@ -992,7 +1056,7 @@
         "Cierre de Estudio con Exégesis y Enseñanzas",
         "Contexto paginado sin cambiar el cierre",
         "Cierre paginado sin cambiar el contexto",
-        "Cambiar enfoque conserva la misma instancia del visor",
+        "Devocional retira el visor de la lectura sin destruir su instancia",
         "Cambiar enfoque conserva el zoom",
         "Cambiar enfoque conserva el marcador seleccionado",
         "Cambiar enfoque no vuelve a solicitar los datos visuales",
@@ -1383,17 +1447,15 @@
         "El índice no carga documentos ni datos demo-uno",
         "Destino visible tras desplazamiento suave demo-uno",
         "Índice no fijo",
-        "Pantalla completa usa exactamente el mismo visor",
+        "Estudio Visual sin botón de pantalla completa integrado",
+        "Pantalla completa usa exactamente el mismo visor modal",
         "La superposición aprovecha todo el navegador",
         "Pantalla completa sin límite 3:4",
         "Zoom conservado al ampliar la vista",
         "Selección conservada al ampliar la vista",
-        "Explicaciones siguen paginando en pantalla completa",
         "Imagen completa y proporcionada en pantalla completa",
-        "Marcadores alineados en pantalla completa",
-        "Cerrar pantalla completa restaura la posición de lectura",
-        "El mismo recurso vuelve al relato",
-        "Vuelve el marco integrado 3:4",
+        "Salir de pantalla completa conserva el mismo modal y visor",
+        "Cerrar el modal restaura la posición de lectura",
         "Capítulo continuo en Solo texto sin contenido visual montado",
         "Accesos reconocibles con símbolo y texto",
         "Solo se carga el recurso elegido",
@@ -1417,17 +1479,15 @@
         "El índice no carga documentos ni datos demo-uno",
         "Destino visible tras desplazamiento suave demo-uno",
         "Índice no fijo",
-        "Pantalla completa usa exactamente el mismo visor",
+        "Estudio Visual sin botón de pantalla completa integrado",
+        "Pantalla completa usa exactamente el mismo visor modal",
         "La superposición aprovecha todo el navegador",
         "Pantalla completa sin límite 3:4",
         "Zoom conservado al ampliar la vista",
         "Selección conservada al ampliar la vista",
-        "Explicaciones siguen paginando en pantalla completa",
         "Imagen completa y proporcionada en pantalla completa",
-        "Marcadores alineados en pantalla completa",
-        "Cerrar pantalla completa restaura la posición de lectura",
-        "El mismo recurso vuelve al relato",
-        "Vuelve el marco integrado 3:4",
+        "Salir de pantalla completa conserva el mismo modal y visor",
+        "Cerrar el modal restaura la posición de lectura",
         "Un dedo mueve ambos ejes de la imagen ampliada sin desplazar la lectura",
         "Restablecer recupera el desplazamiento vertical de página",
         "Capítulo continuo en Solo texto sin contenido visual montado",
@@ -1441,7 +1501,149 @@
       "errores": []
     }
   },
+  "editorial": {
+    "escritorio": {
+      "comprobaciones": [
+        "visual estudio: capítulo e índice completos",
+        "visual estudio: versículos completos y ordenados",
+        "visual estudio: banners según modo",
+        "visual estudio: contexto según enfoque",
+        "visual estudio: reflexión según enfoque",
+        "visual estudio: cierres textuales correspondientes",
+        "visual estudio: recursos intercalados según composición",
+        "visual estudio: sin pantalla completa integrada",
+        "visual estudio: accesos opcionales según modo",
+        "visual estudio: sin errores JavaScript",
+        "visual devocional: capítulo e índice completos",
+        "visual devocional: versículos completos y ordenados",
+        "visual devocional: banners según modo",
+        "visual devocional: contexto según enfoque",
+        "visual devocional: reflexión según enfoque",
+        "visual devocional: cierres textuales correspondientes",
+        "visual devocional: recursos intercalados según composición",
+        "visual devocional: sin pantalla completa integrada",
+        "visual devocional: accesos opcionales según modo",
+        "visual devocional: no descarga recursos interactivos al iniciar",
+        "visual devocional: sin errores JavaScript",
+        "texto estudio: capítulo e índice completos",
+        "texto estudio: versículos completos y ordenados",
+        "texto estudio: banners según modo",
+        "texto estudio: contexto según enfoque",
+        "texto estudio: reflexión según enfoque",
+        "texto estudio: cierres textuales correspondientes",
+        "texto estudio: recursos intercalados según composición",
+        "texto estudio: sin pantalla completa integrada",
+        "texto estudio: accesos opcionales según modo",
+        "texto estudio: no descarga recursos interactivos al iniciar",
+        "texto estudio: sin biblioteca ni imágenes antes de abrir recurso",
+        "texto estudio: contenido textual cargado separadamente",
+        "texto estudio: solo recurso solicitado",
+        "texto estudio: apertura no recarga estudios ni portada",
+        "texto estudio: pantalla completa usa el mismo visor modal",
+        "texto estudio: conserva zoom y selección al ampliar",
+        "texto estudio: salir conserva la ventana original",
+        "texto estudio: restaura posición y foco",
+        "texto estudio: no cambia modo ni enfoque al abrir recursos",
+        "texto estudio: sin errores JavaScript",
+        "texto devocional: capítulo e índice completos",
+        "texto devocional: versículos completos y ordenados",
+        "texto devocional: banners según modo",
+        "texto devocional: contexto según enfoque",
+        "texto devocional: reflexión según enfoque",
+        "texto devocional: cierres textuales correspondientes",
+        "texto devocional: recursos intercalados según composición",
+        "texto devocional: sin pantalla completa integrada",
+        "texto devocional: accesos opcionales según modo",
+        "texto devocional: no descarga recursos interactivos al iniciar",
+        "texto devocional: sin biblioteca ni imágenes antes de abrir recurso",
+        "texto devocional: contenido textual cargado separadamente",
+        "texto devocional: solo recurso solicitado",
+        "texto devocional: apertura no recarga estudios ni portada",
+        "texto devocional: pantalla completa usa el mismo visor modal",
+        "texto devocional: conserva zoom y selección al ampliar",
+        "texto devocional: salir conserva la ventana original",
+        "texto devocional: restaura posición y foco",
+        "texto devocional: no cambia modo ni enfoque al abrir recursos",
+        "texto devocional: sin errores JavaScript",
+        "Cambiar a Devocional conserva el anclaje visible de lectura",
+        "Volver a Estudio conserva el anclaje visible de lectura",
+        "Regresa exactamente la misma instancia del visor",
+        "Conserva zoom y marcador al volver a Estudio",
+        "Conserva la página de explicación seleccionada"
+      ]
+    },
+    "movil": {
+      "comprobaciones": [
+        "visual estudio: capítulo e índice completos",
+        "visual estudio: versículos completos y ordenados",
+        "visual estudio: banners según modo",
+        "visual estudio: contexto según enfoque",
+        "visual estudio: reflexión según enfoque",
+        "visual estudio: cierres textuales correspondientes",
+        "visual estudio: recursos intercalados según composición",
+        "visual estudio: sin pantalla completa integrada",
+        "visual estudio: accesos opcionales según modo",
+        "visual estudio: sin errores JavaScript",
+        "visual devocional: capítulo e índice completos",
+        "visual devocional: versículos completos y ordenados",
+        "visual devocional: banners según modo",
+        "visual devocional: contexto según enfoque",
+        "visual devocional: reflexión según enfoque",
+        "visual devocional: cierres textuales correspondientes",
+        "visual devocional: recursos intercalados según composición",
+        "visual devocional: sin pantalla completa integrada",
+        "visual devocional: accesos opcionales según modo",
+        "visual devocional: no descarga recursos interactivos al iniciar",
+        "visual devocional: sin errores JavaScript",
+        "texto estudio: capítulo e índice completos",
+        "texto estudio: versículos completos y ordenados",
+        "texto estudio: banners según modo",
+        "texto estudio: contexto según enfoque",
+        "texto estudio: reflexión según enfoque",
+        "texto estudio: cierres textuales correspondientes",
+        "texto estudio: recursos intercalados según composición",
+        "texto estudio: sin pantalla completa integrada",
+        "texto estudio: accesos opcionales según modo",
+        "texto estudio: no descarga recursos interactivos al iniciar",
+        "texto estudio: sin biblioteca ni imágenes antes de abrir recurso",
+        "texto estudio: contenido textual cargado separadamente",
+        "texto estudio: solo recurso solicitado",
+        "texto estudio: apertura no recarga estudios ni portada",
+        "texto estudio: pantalla completa usa el mismo visor modal",
+        "texto estudio: conserva zoom y selección al ampliar",
+        "texto estudio: salir conserva la ventana original",
+        "texto estudio: restaura posición y foco",
+        "texto estudio: no cambia modo ni enfoque al abrir recursos",
+        "texto estudio: sin errores JavaScript",
+        "texto devocional: capítulo e índice completos",
+        "texto devocional: versículos completos y ordenados",
+        "texto devocional: banners según modo",
+        "texto devocional: contexto según enfoque",
+        "texto devocional: reflexión según enfoque",
+        "texto devocional: cierres textuales correspondientes",
+        "texto devocional: recursos intercalados según composición",
+        "texto devocional: sin pantalla completa integrada",
+        "texto devocional: accesos opcionales según modo",
+        "texto devocional: no descarga recursos interactivos al iniciar",
+        "texto devocional: sin biblioteca ni imágenes antes de abrir recurso",
+        "texto devocional: contenido textual cargado separadamente",
+        "texto devocional: solo recurso solicitado",
+        "texto devocional: apertura no recarga estudios ni portada",
+        "texto devocional: pantalla completa usa el mismo visor modal",
+        "texto devocional: conserva zoom y selección al ampliar",
+        "texto devocional: salir conserva la ventana original",
+        "texto devocional: restaura posición y foco",
+        "texto devocional: no cambia modo ni enfoque al abrir recursos",
+        "texto devocional: sin errores JavaScript",
+        "Cambiar a Devocional conserva el anclaje visible de lectura",
+        "Volver a Estudio conserva el anclaje visible de lectura",
+        "Regresa exactamente la misma instancia del visor",
+        "Conserva zoom y marcador al volver a Estudio",
+        "Conserva la página de explicación seleccionada"
+      ]
+    }
+  },
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "8542114e12b01ba17942d898465c2faf39616dd2"
+  "commit_base": "57a8ac65b25d8d744de946cec9e955ad91ff3b53"
 }

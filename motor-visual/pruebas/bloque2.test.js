@@ -1,21 +1,22 @@
 import {test,assert,conMotor,datos,frame,esperar,diferida} from './harness.js';
 import {crearLecturaHorizontal} from '../js/componentes/lectura-horizontal.js';
 import {crearServicioContenidos} from '../js/servicios/contenidos.js';
-test('Solo texto monta accesos anclados y carga solo el recurso solicitado, sin estudios', async () => {
+test('Solo texto monta accesos anclados y carga solo el recurso solicitado, sin recargar los estudios', async () => {
   const solicitudes=[],d=await datos();
   const contenidos=crearServicioContenidos({baseURL:new URL('../datos/',import.meta.url),fetcher:(url,op)=>{solicitudes.push(String(url));return fetch(url,op);}});
   await conMotor(async ({root,motor}) => {
-    assert(solicitudes.length===0 && !root.querySelector('img,dialog,[data-educativo]'));
+    assert(solicitudes.length===2 && solicitudes.every(u=>u.includes('/estudios/')) && !root.querySelector('img,dialog,.mv-recurso'));
+    const inicial=solicitudes.length;
     const icono=root.querySelector('[data-recurso-acceso]');icono.focus();icono.click();
     await esperar(()=>root.querySelector('dialog .mv-visor'));
     assert(root.querySelectorAll('.mv-recurso').length===1 && root.querySelectorAll('img').length===1);
-    assert(solicitudes.length===1 && solicitudes[0].endsWith('recursos.json'));
+    assert(solicitudes.length===inicial+1 && solicitudes.at(-1).endsWith('recursos.json'));
     assert(motor.obtenerEstado().modo==='texto');
     const modal=root.querySelector('dialog');root.querySelector('[data-elemento="punto-b"]').click();
     await motor.cambiarEnfoque('devocional');
     assert(root.querySelector('dialog')===modal && root.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
     [...modal.querySelectorAll('button')].find(b=>b.textContent==='Cerrar recurso').click();
-    await frame();assert(!root.querySelector('[data-educativo],img,dialog') && document.activeElement===icono);
+    await frame();assert(!root.querySelector('.mv-recurso,img,dialog') && document.activeElement===icono);
     assert(motor.obtenerEstado().modo==='texto' && motor.obtenerEstado().enfoque==='devocional');
   },{contenidos,inicial:{relatoId:d.catalogo.relatos[1].id,modo:'texto'}});
 });

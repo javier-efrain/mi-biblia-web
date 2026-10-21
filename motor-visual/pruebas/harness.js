@@ -20,7 +20,7 @@ export async function conMotor(fn, opciones = {}) {
   const root = document.createElement('div'); root.className = 'mv-motor';
   document.querySelector('#sandbox').append(root);
   const dependencias = await datos();
-  const motor = await crearMotor({ root,...dependencias,...opciones });
+  const motor = await crearMotor({ root,...dependencias,...opciones,contenidos:{...dependencias.contenidos,...opciones.contenidos} });
   try { await fn({ root,motor,...dependencias }); }
   finally { motor.destruir(); root.remove(); }
 }

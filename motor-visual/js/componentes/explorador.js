@@ -1,7 +1,7 @@
 import { nodo, boton, abrirDialogoRecurso } from './dom.js';
 import { crearVisor } from './visor.js';
 import { crearLecturaHorizontal } from './lectura-horizontal.js';
-export function crearExplorador(recurso, uso, { signal } = {}) {
+export function crearExplorador(recurso, uso, { signal, pantallaCompleta = true } = {}) {
   const el = nodo('section', { className:'mv-recurso', 'data-educativo':'recurso', 'data-uso':uso.id });
   const panel = nodo('aside', { className:'mv-panel', 'aria-live':'polite' });
   const nombres = nodo('div', { className:'mv-elementos', role:'group', 'aria-label':'Elementos del recurso' });
@@ -41,9 +41,17 @@ export function crearExplorador(recurso, uso, { signal } = {}) {
   const cuerpo = nodo('div', { className:'mv-explorador' }, visor.el, panel);
   signal?.addEventListener('abort', () => { paginasAbort?.abort(); visor.destruir(); }, {once:true});
   descripcionGeneral();
-  const ampliar=boton('Pantalla completa',()=>abrirDialogoRecurso({
-    contenedor:el.closest('.mv-motor')||el.closest('.mv')||document.body,signal,contenido:el,completa:true
-  }),{className:'mv-abrir-completa'});
-  el.append(nodo('h3', {}, recurso.alt),ampliar,cuerpo);
+  const ampliar=boton('Pantalla completa',()=>{
+    const modal=el.closest('dialog');
+    if(modal) {
+      const completa=modal.classList.toggle('mv-completa');
+      ampliar.textContent=completa?'Salir de pantalla completa':'Pantalla completa';
+      ampliar.setAttribute('aria-pressed',String(completa));
+      modal.setAttribute('aria-label',completa?'Recurso en pantalla completa':'Recurso visual del pasaje');
+    } else abrirDialogoRecurso({
+      contenedor:el.closest('.mv-motor')||el.closest('.mv')||document.body,signal,contenido:el,completa:true
+    });
+  },{className:'mv-abrir-completa','aria-pressed':'false'});
+  el.append(nodo('h3', {}, recurso.alt),...(pantallaCompleta?[ampliar]:[]),cuerpo);
   return el;
 }
