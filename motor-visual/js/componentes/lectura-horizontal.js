@@ -20,7 +20,7 @@ export function crearLecturaHorizontal(estudio, { signal, clase = '', etiqueta =
   }
   function articulo(p) {
     return nodo('article', {className:'mv-pagina-columnas'}, nodo(compacto ? 'h4' : 'h3', {}, p.titulo),
-      ...p.parrafos.map(t => nodo('p', {}, t)), nodo('small', {}, p.referencias.join(' · ')));
+      ...p.parrafos.map(t => nodo('p', {}, t)), ...(p.referencias.length ? [nodo('small', {}, p.referencias.join(' · '))] : []));
   }
   function indice() { return cuentas.slice(0,pagina).reduce((a,b) => a+b,0)+columna; }
   function pintar(animar = 0) {
@@ -54,7 +54,17 @@ export function crearLecturaHorizontal(estudio, { signal, clase = '', etiqueta =
         Object.assign(a.style,{position:'absolute',visibility:'hidden',pointerEvents:'none',left:'0',top:'0',width:`${ancho}px`,height:`${alto}px`});
         hoja.append(a);
       }
-      const n = Math.max(1,Math.round((a.scrollWidth+24)/(a.clientWidth+24)));
+      // scrollWidth puede incluir una columna vacía al final según las métricas
+      // de fuente del navegador. Contar solo columnas que contienen texto real.
+      const walker = document.createTreeWalker(a,NodeFilter.SHOW_TEXT), rango = document.createRange();
+      const izquierda = a.getBoundingClientRect().left;
+      let texto, extremo = 0;
+      while ((texto = walker.nextNode())) {
+        if (!texto.textContent.trim()) continue;
+        rango.selectNodeContents(texto);
+        for (const rect of rango.getClientRects()) extremo = Math.max(extremo,rect.right-izquierda);
+      }
+      const n = Math.max(1,Math.ceil((extremo+24)/(a.clientWidth+24)-.00001));
       if (!actual) a.remove();
       return n;
     });

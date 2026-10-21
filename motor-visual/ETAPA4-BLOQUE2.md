@@ -19,7 +19,7 @@ Chromium 154.0.8037.57, escritorio 1280×900 y celular simulado 390×844:
 - 8 documentos validados contra sus esquemas.
 - 68/68 pruebas de componentes en cada pantalla.
 - 559 comprobaciones de interfaz y regresión: 253 escritorio y 306 móvil, incluyendo 67 escritorio y 107 móvil del Bloque 2 (ver los totales exactos en `pruebas/resultados.json`).
-- Paginación: todos los caracteres accesibles, altura estable, tamaños 12/30; regresiones de tipografía 8/20/30.
+- Paginación: todos los caracteres accesibles, altura estable, tamaños 12/30; regresiones de tipografía 8/20/30. El conteo usa rangos de texto para evitar páginas vacías por diferencias de métricas de fuente entre Chromium local y Actions.
 - Gestos CDP: desplazamiento vertical sobre imagen, pinza para acercar/alejar, desplazamiento con dos dedos y alineación de marcadores.
 - Recurso bajo demanda en Solo texto: sin cargar estudios ni portada; cierre/Escape, foco, posición, abortos y navegación.
 - Los 394 archivos originales permanecen intactos.
