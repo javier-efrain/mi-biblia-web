@@ -27,7 +27,7 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
     const alto = recurso.dimensiones.alto * factor * zoom;
     escena.style.width = `${w * zoom}px`; escena.style.height = `${h * zoom}px`;
     Object.assign(plano.style, { width:`${ancho}px`, height:`${alto}px`, left:`${(w * zoom - ancho)/2}px`, top:`${(h * zoom - alto)/2}px` });
-    rango.value = zoom * 100; salida.textContent = `${zoom * 100} %`;
+    rango.value = Math.round(zoom * 100); salida.textContent = `${Math.round(zoom * 100)} %`;
   }
   function ampliar(valor) {
     const anterior = zoom;
@@ -41,6 +41,9 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
   rango.addEventListener('input', () => ampliar(Number(rango.value)/100), { signal:localSignal });
   viewport.addEventListener('keydown', e => {
     if (e.target !== viewport) return;
+    if (zoom > 1 && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)) {
+      e.preventDefault(); viewport.scrollBy(e.key==='ArrowLeft'?-50:e.key==='ArrowRight'?50:0,e.key==='ArrowUp'?-50:e.key==='ArrowDown'?50:0);
+    }
     if (['+','-','0'].includes(e.key)) {
       e.preventDefault(); ampliar(e.key === '0' ? 1 : zoom + (e.key === '+' ? .25 : -.25));
     }
@@ -64,6 +67,46 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
   }
   viewport.addEventListener('pointerup', terminarArrastre, {signal:localSignal});
   viewport.addEventListener('pointercancel', terminarArrastre, {signal:localSignal});
+  // Un dedo vertical conserva el scroll nativo de la lectura. Dos dedos controlan
+  // zoom y desplazamiento del plano; el gesto horizontal de un dedo solo mueve X.
+  let tacto = null, suprimirClickHasta = 0;
+  function centro(touches) {
+    const r = viewport.getBoundingClientRect(), a = touches[0], b = touches[1];
+    return {x:(a.clientX+b.clientX)/2-r.left,y:(a.clientY+b.clientY)/2-r.top,
+      distancia:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)};
+  }
+  viewport.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      const c = centro(e.touches);
+      tacto = {...c,zoom,left:viewport.scrollLeft,top:viewport.scrollTop,pinza:true};
+      if (e.cancelable) e.preventDefault();
+    } else if (e.touches.length === 1) {
+      tacto = {x:e.touches[0].clientX,y:e.touches[0].clientY,left:viewport.scrollLeft,pinza:false};
+    } else tacto = null;
+  }, {passive:false,signal:localSignal});
+  viewport.addEventListener('touchmove', e => {
+    if (!tacto) return;
+    if (e.touches.length === 2 && tacto.pinza && tacto.distancia > 0) {
+      if (e.cancelable) e.preventDefault();
+      const c = centro(e.touches);
+      zoom = Math.max(1,Math.min(4,tacto.zoom*c.distancia/tacto.distancia));
+      dibujar();
+      viewport.scrollLeft = (tacto.left+tacto.x)*zoom/tacto.zoom-c.x;
+      viewport.scrollTop = (tacto.top+tacto.y)*zoom/tacto.zoom-c.y;
+      suprimirClickHasta = performance.now()+350;
+    } else if (e.touches.length === 1 && !tacto.pinza && zoom > 1) {
+      const dx = e.touches[0].clientX-tacto.x, dy = e.touches[0].clientY-tacto.y;
+      if (Math.abs(dx)>10 && Math.abs(dx)>Math.abs(dy)*1.5) {
+        if (e.cancelable) e.preventDefault();
+        viewport.scrollLeft = tacto.left-dx; suprimirClickHasta = performance.now()+350;
+      }
+    }
+  }, {passive:false,signal:localSignal});
+  viewport.addEventListener('touchend', () => { tacto=null; }, {passive:true,signal:localSignal});
+  viewport.addEventListener('touchcancel', () => { tacto=null; }, {passive:true,signal:localSignal});
+  viewport.addEventListener('click', e => {
+    if (performance.now()<suprimirClickHasta) { e.preventDefault(); e.stopPropagation(); }
+  }, {capture:true,signal:localSignal});
   imagen.addEventListener('error', () => {
     plano.replaceChildren(nodo('p', { role:'status' }, 'Imagen no disponible. El texto continúa disponible.'));
   }, { signal:localSignal });

@@ -1,4 +1,4 @@
-import { nodo, mensaje } from '../componentes/dom.js';
+import { nodo, mensaje, boton } from '../componentes/dom.js';
 import { crearLector, claveVersiculo } from '../componentes/lector.js';
 import { crearSelectorModo } from '../componentes/selector-modo.js';
 import { crearSelectorEnfoque } from '../componentes/selector-enfoque.js';
@@ -55,16 +55,63 @@ export async function crearMotor({ root, catalogo, biblia, contenidos, inicial, 
       nodo('div', { className:'mv-selectores' }, crearSelectorEnfoque(enfoque,cambiarEnfoque),crearSelectorModo(estado.modo,cambiarModo)));
     if (controlesPreferencias) cabecera.append(controlesPreferencias);
     const capitulo = crearIndiceCapitulo(catalogo,relato.id,seleccionar);
-    root.replaceChildren(cabecera,capitulo,crearNavegacion(catalogo,relato.id,seleccionar),
-      nodo('article', { className:'mv-relato' },titulo,referencia,cuerpo));
+    root.replaceChildren(cabecera,capitulo,
+      nodo('article', { className:'mv-relato' },titulo,referencia,cuerpo),crearNavegacion(catalogo,relato.id,seleccionar));
     if (focoModo) root.querySelector(`[data-modo="${estado.modo}"]`)?.focus();
     else if (focoDentro) titulo.focus({ preventScroll:true });
+    async function abrirRecurso(uso) {
+      if (!vigente() || root.querySelector('dialog[open]')) return;
+      const disparador = document.activeElement, x = scrollX, y = scrollY;
+      const local = new AbortController();
+      const dialogo = nodo('dialog', {className:'mv-dialogo','aria-label':'Recurso visual del pasaje','data-educativo':'modal-recurso'});
+      const cerrar = boton('Cerrar recurso', () => { dialogo.close(); limpiar(true); });
+      const contenido = nodo('div', {}, mensaje('Cargando recurso…'));
+      dialogo.append(cerrar,contenido); root.append(dialogo);
+      const estabaBloqueado = document.body.classList.contains('mv-modal-abierto');
+      document.body.classList.add('mv-modal-abierto');
+      let limpio = false;
+      function limpiar(restaurar) {
+        if (limpio) return; limpio = true; local.abort();
+        const devolver = dialogo.contains(document.activeElement) || document.activeElement === document.body || document.activeElement === disparador;
+        if (dialogo.open) dialogo.close();
+        dialogo.remove();
+        if (!estabaBloqueado) document.body.classList.remove('mv-modal-abierto');
+        if (restaurar && devolver && vigente() && disparador?.isConnected) {
+          disparador.focus({preventScroll:true}); window.scrollTo(x,y);
+          requestAnimationFrame(() => { if (vigente() && document.activeElement === disparador && !document.querySelector('dialog[open]')) window.scrollTo(x,y); });
+        }
+      }
+      dialogo.addEventListener('close', () => limpiar(true));
+      signal.addEventListener('abort', () => limpiar(false), {once:true,signal:local.signal});
+      dialogo.showModal(); cerrar.focus({preventScroll:true});
+      try {
+        const [recurso,{crearExplorador}] = await Promise.all([
+          contenidos.cargarRecurso(relato,uso,{signal:local.signal}),import('../componentes/explorador.js')
+        ]);
+        if (local.signal.aborted || !vigente()) return;
+        contenido.replaceChildren(crearExplorador(recurso,uso,{signal:local.signal}));
+      } catch (error) {
+        if (!local.signal.aborted && vigente()) contenido.replaceChildren(mensaje('No fue posible cargar el recurso. Podés cerrar esta ventana y continuar leyendo.'));
+      }
+    }
     try {
       const pasaje = await biblia.obtenerPasaje(relato.referencia);
       if (!vigente()) return;
       capitulo.querySelector('.mv-libro').textContent = pasaje.libro;
       const lector = crearLector(pasaje); cuerpo.replaceChildren(lector);
-      if (estado.modo === 'texto') return;
+      if (estado.modo === 'texto') {
+        for (const versiculo of lector.querySelectorAll('[data-versiculo]')) {
+          const usos = relato.recursos.filter(u => claveVersiculo({libro:u.anclajeBiblico.libro,capitulo:u.anclajeBiblico.capitulo,numero:u.anclajeBiblico.versiculo}) === versiculo.dataset.versiculo);
+          if (!usos.length) continue;
+          const accesos = nodo('span', {className:'mv-accesos-recurso'});
+          usos.forEach((uso,i) => accesos.append(boton('▧', () => abrirRecurso(uso), {
+            className:'mv-acceso-recurso', 'data-recurso-acceso':uso.id,
+            'aria-label':`Abrir recurso visual ${i+1} del versículo ${uso.anclajeBiblico.versiculo}`
+          })));
+          versiculo.after(accesos);
+        }
+        return;
+      }
       const estadoVisual = mensaje('Cargando recursos de demostración…'); cuerpo.append(estadoVisual);
       try {
         const [datos, { crearPortada }, { crearExplorador }, { crearLecturaHorizontal }] = await Promise.all([

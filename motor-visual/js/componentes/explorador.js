@@ -9,7 +9,10 @@ export function crearExplorador(recurso, uso, { signal } = {}) {
   let activo = null, visibles = true, paginasAbort;
   function descripcionGeneral() {
     paginasAbort?.abort();
-    panel.replaceChildren(nodo('h4', {}, 'Descripción general'), nodo('p', {}, recurso.leyenda));
+    paginasAbort = new AbortController();
+    panel.replaceChildren(crearLecturaHorizontal({secciones:[{id:'general',titulo:'Descripción general',paginas:[{
+      id:'general',titulo:'Descripción general',parrafos:[recurso.leyenda],referencias:[]
+    }]}]}, {signal:paginasAbort.signal,compacto:true,etiqueta:'Descripción general del recurso'}));
   }
   function seleccionar(m) {
     activo = m;
@@ -35,29 +38,9 @@ export function crearExplorador(recurso, uso, { signal } = {}) {
     if (visibles && activo) seleccionar(activo); else descripcionGeneral();
   }, {'aria-pressed':'true', 'data-control':'puntos'});
   if (uso.marcadores.length) visor.el.append(nodo('div', {className:'mv-puntos'}, puntos, nombres));
-  const dialogo = nodo('dialog', { className:'mv-dialogo', 'aria-label':recurso.alt });
-  let disparador;
-  const cerrar = boton('Cerrar visor', () => dialogo.close());
-  const expandir = boton('Ampliar visor', () => {
-    disparador = document.activeElement;
-    dialogo.append(visor.el, panel); dialogo.showModal(); cerrar.focus();
-  });
   const cuerpo = nodo('div', { className:'mv-explorador' }, visor.el, panel);
-  dialogo.append(cerrar);
-  dialogo.addEventListener('close', () => {
-    if (!signal?.aborted) {
-      const restaurar = dialogo.contains(document.activeElement) ||
-        document.activeElement === document.body || document.activeElement === disparador;
-      cuerpo.append(visor.el, panel);
-      if (restaurar) disparador?.focus();
-    }
-  });
-  signal?.addEventListener('abort', () => {
-    paginasAbort?.abort();
-    if (dialogo.open) dialogo.close();
-    dialogo.remove(); visor.destruir();
-  }, { once:true });
+  signal?.addEventListener('abort', () => { paginasAbort?.abort(); visor.destruir(); }, {once:true});
   descripcionGeneral();
-  el.append(nodo('h3', {}, recurso.alt), expandir, cuerpo, dialogo);
+  el.append(nodo('h3', {}, recurso.alt), cuerpo);
   return el;
 }

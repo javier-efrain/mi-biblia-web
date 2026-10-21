@@ -1,4 +1,4 @@
-import { test,assert,conMotor,frame } from './harness.js';
+import { test,assert,conMotor,frame,esperar } from './harness.js';
 test('Los visores son 3:4 y las imágenes de portada 16:9', async () => {
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual'); await frame();
@@ -25,7 +25,8 @@ test('Los marcadores actualizan su panel informativo', async () => {
 });
 test('El visor modal devuelve el foco al disparador', async () => {
   await conMotor(async ({ root,motor }) => {
-    await motor.cambiarModo('visual'); const abrir=root.querySelector('.mv-recurso > button'); abrir.focus(); abrir.click();
+    const abrir=root.querySelector('[data-recurso-acceso]'); abrir.focus(); abrir.click();
+    await esperar(()=>root.querySelector('dialog .mv-visor'));
     const dialogo=root.querySelector('dialog'); assert(dialogo.open); dialogo.close();
     await new Promise(r => setTimeout(r,30)); assert(document.activeElement===abrir);
   });
@@ -34,17 +35,20 @@ test('La lectura horizontal admite teclado, texto extenso y cambio de sección',
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual'); const hoja=root.querySelector('.mv-cierre .mv-hoja');
     hoja.dispatchEvent(new KeyboardEvent('keydown',{ key:'ArrowRight',bubbles:true }));
-    assert(root.querySelector('.mv-cierre output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
     assert(hoja.textContent.length>1500); assert(hoja.scrollHeight>=hoja.clientHeight);
-    const siguiente=root.querySelector('.mv-cierre nav button:last-child'); assert(siguiente.disabled);
+    const siguiente=root.querySelector('.mv-cierre nav button:last-child');
+    const [actual,total]=root.querySelector('.mv-cierre output').textContent.split('/').map(Number);
+    assert(siguiente.disabled===(actual===total));
     [...root.querySelectorAll('.mv-cierre .mv-pestanas button')].find(b => b.textContent==='Enseñanzas').click();
-    assert(root.querySelector('.mv-cierre output').textContent==='1 / 2');
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('1 / '));
   });
 });
 test('El cierre tardío del modal no roba el foco a la lectura', async () => {
   await conMotor(async ({ root,motor }) => {
-    await motor.cambiarModo('visual'); root.querySelector('.mv-recurso > button').click();
-    root.querySelector('dialog').close(); const hoja=root.querySelector('.mv-hoja'); hoja.focus();
+    root.querySelector('[data-recurso-acceso]').click();
+    await esperar(()=>root.querySelector('dialog .mv-visor'));
+    root.querySelector('dialog').close(); const hoja=root.querySelector('.mv-texto > p'); hoja.tabIndex=0; hoja.focus();
     await new Promise(r => setTimeout(r,40)); assert(document.activeElement===hoja);
   });
 });
@@ -65,14 +69,14 @@ test('Los nombres y puntos sincronizan selección y conservan páginas independi
     recurso.querySelector('[data-elemento="punto-b"]').click();
     assert(recurso.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
     recurso.querySelector('.mv-panel nav button:last-child').click();
-    assert(recurso.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(recurso.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(recurso.querySelector('[data-elemento="punto-b"]').getAttribute('aria-pressed')==='true');
     recurso.querySelector('[data-marcador="punto-a"]').click();
     assert(recurso.querySelector('[data-elemento="punto-a"]').getAttribute('aria-pressed')==='true');
-    assert(recurso.querySelector('.mv-panel output').textContent==='1 / 2');
+    assert(recurso.querySelector('.mv-panel output').textContent.startsWith('1 / '));
     recurso.querySelector('[data-elemento="punto-b"]').click();
-    assert(recurso.querySelector('.mv-panel output').textContent==='2 / 2');
-    assert(root.querySelector('.mv-cierre output').textContent==='1 / 2');
+    assert(recurso.querySelector('.mv-panel output').textContent.startsWith('2 / '));
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('1 / '));
   });
 });
 test('Ocultar puntos deja imagen y descripción general y recupera selección y página', async () => {
@@ -90,7 +94,7 @@ test('Ocultar puntos deja imagen y descripción general y recupera selección y 
     assert(control.textContent==='Mostrar puntos');
     control.click();
     assert(r.querySelector('[data-elemento="punto-b"]').getAttribute('aria-pressed')==='true');
-    assert(r.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(r.querySelector('.mv-panel output').textContent.startsWith('2 / '));
   });
 });
 test('El gesto horizontal pagina el marcador, el vertical no cambia página ni se cancela', async () => {
@@ -102,11 +106,11 @@ test('El gesto horizontal pagina el marcador, el vertical no cambia página ni s
       const e=new PointerEvent('pointerup',{pointerType:'touch',isPrimary:true,clientX:x,clientY:y,bubbles:true,cancelable:true});
       hoja.dispatchEvent(e); assert(!e.defaultPrevented);
     }
-    gesto(190,250); assert(root.querySelector('.mv-panel output').textContent==='1 / 2');
-    gesto(80,105); assert(root.querySelector('.mv-panel output').textContent==='2 / 2');
+    gesto(190,250); assert(root.querySelector('.mv-panel output').textContent.startsWith('1 / '));
+    gesto(80,105); assert(root.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(root.querySelector('[data-marcador="punto-a"]').getAttribute('aria-pressed')==='true');
     hoja.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));
-    assert(root.querySelector('.mv-panel output').textContent==='1 / 2');
+    assert(root.querySelector('.mv-panel output').textContent.startsWith('1 / '));
   });
 });
 test('La imagen 2:3 queda completa en el marco 3:4 y mantiene coordenadas al desplazar zoom', async () => {

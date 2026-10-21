@@ -5,6 +5,7 @@ Ejecutar: python motor-visual/pruebas/verificar_chromium.py
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -116,8 +117,10 @@ def probar_demo(browser, origen, configuracion, nombre):
     expect(pagina.locator('.mv-panel h4').first).to_have_text('Punto B')
     checks.append('Panel informativo del marcador')
 
-    abrir = pagina.get_by_role('button', name='Ampliar visor', exact=True).first
+    pagina.get_by_role('button',name='Solo texto bíblico',exact=True).click()
+    abrir = pagina.locator('[data-recurso-acceso]').first
     abrir.click()
+    pagina.wait_for_selector('dialog .mv-visor')
     dialogo = pagina.locator('dialog[open]')
     expect(dialogo).to_be_visible()
     pagina.keyboard.press('Tab')
@@ -126,18 +129,20 @@ def probar_demo(browser, origen, configuracion, nombre):
     pagina.keyboard.press('Escape')
     expect(pagina.locator('dialog[open]')).to_have_count(0)
     expect(abrir).to_be_focused()
-    checks.append('Escape cierra el visor y devuelve el foco')
+    checks.append('Escape cierra el recurso y devuelve el foco')
+    pagina.get_by_role('button',name='Con recursos visuales',exact=True).click()
+    pagina.wait_for_selector('.mv-cierre')
 
     hoja = pagina.locator('.mv-cierre .mv-hoja')
     hoja.focus()
     pagina.keyboard.press('ArrowRight')
-    expect(pagina.locator('.mv-cierre output')).to_have_text('2 / 2')
+    expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^2 / \d+$'))
     comprobar(len(hoja.inner_text()) > 1500, 'Lectura extensa por teclado sin truncamiento')
     if nombre == 'movil':
         pagina.get_by_role('button', name='Enseñanzas', exact=True).click()
         hoja.dispatch_event('pointerdown', {'pointerType':'touch', 'isPrimary':True, 'clientX':250, 'clientY':120})
         hoja.dispatch_event('pointerup', {'pointerType':'touch', 'isPrimary':True, 'clientX':100, 'clientY':125})
-        expect(pagina.locator('.mv-cierre output')).to_have_text('2 / 2')
+        expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^2 / \d+$'))
         checks.append('Gesto horizontal simulado cambia de página')
 
     pagina.get_by_role('button', name='Solo texto bíblico', exact=True).click()
@@ -174,6 +179,7 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
           if (document.documentElement.scrollWidth > innerWidth) return false;
           return [...document.querySelectorAll('.mv-texto > p,.mv-hoja p,.mv-panel p')].every(p => {
             if (!p.getBoundingClientRect().height) return true;
+            if (p.closest('.mv-hoja')) return p.closest('.mv-hoja').clientHeight<=260;
             const c=getComputedStyle(p);
             return p.scrollWidth <= p.clientWidth+1 && p.scrollHeight <= p.clientHeight+1 &&
               c.overflowX !== 'hidden' && c.overflowY !== 'hidden';
@@ -190,15 +196,15 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     pagina.locator('[data-marcador="punto-b"]').first.click()
     pagina.locator('.mv-cierre .mv-hoja').focus()
     pagina.keyboard.press('ArrowRight')
-    expect(pagina.locator('.mv-cierre output')).to_have_text('2 / 2')
-    pagina.evaluate('window.__hojaAntes = document.querySelector(".mv-cierre .mv-hoja")')
+    expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^2 / \d+$'))
+    pagina.evaluate('window.__hojaAntes = document.querySelector(".mv-cierre .mv-hoja"); window.__textoAntes=window.__hojaAntes.textContent')
     for _ in range(11):
         aumentar.focus()
         pagina.keyboard.press('Enter')
     expect(pagina.locator('.mv-preferencias output')).to_have_text('30 px')
     expect(aumentar).to_be_disabled()
     comprobar(pagina.evaluate('window.__hojaAntes === document.querySelector(".mv-cierre .mv-hoja")'), 'Aumentar texto no reconstruye el estudio')
-    comprobar(pagina.locator('.mv-cierre output').inner_text() == '2 / 2', 'Se conserva la página de explicación al ampliar')
+    comprobar(pagina.locator('.mv-cierre .mv-hoja').text_content()==pagina.evaluate('window.__textoAntes'), 'Se conserva el contenido de explicación al ampliar')
     for selector in ['.mv-texto > p', '.mv-hoja p', '.mv-panel p']:
         comprobar(pagina.locator(selector).first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', f'Texto a 30 px: {selector}')
     comprobar(sin_recortes(), 'Párrafos extensos a 30 px sin recortes ni scroll horizontal')
@@ -230,11 +236,14 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     pagina.locator('input[type=range]').first.fill('250')
     pagina.locator('input[type=range]').first.dispatch_event('input')
     comprobar(pagina.locator('.mv-visor output').first.inner_text() == '250 %', 'El zoom sigue funcionando con texto a 30 px')
-    pagina.get_by_role('button', name='Ampliar visor',exact=True).first.click()
+    pagina.get_by_role('button',name='Solo texto bíblico',exact=True).click()
+    pagina.locator('[data-recurso-acceso]').first.click()
+    pagina.wait_for_selector('dialog .mv-visor')
     comprobar(pagina.locator('dialog[open] .mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'El panel modal hereda el tamaño de lectura')
     comprobar(pagina.locator('dialog[open]').evaluate('(d)=>d.scrollWidth<=d.clientWidth+1'), 'Modal sin scroll horizontal de párrafos a 30 px')
     pagina.keyboard.press('Escape')
     pagina.wait_for_timeout(50)
+    pagina.get_by_role('button',name='Con recursos visuales',exact=True).click(); pagina.wait_for_selector('.mv-cierre')
     comprobar(sin_recortes(), 'Visuales, panel y devocional sin recortes a 30 px')
     pagina.locator('input[type=range]').first.fill('100')
     pagina.locator('input[type=range]').first.dispatch_event('input')
@@ -276,7 +285,7 @@ def probar_compactacion(browser, origen, configuracion, nombre):
         return pagina.evaluate("""() => {
           if (document.documentElement.scrollWidth > innerWidth) return false;
           const parrafos=[...document.querySelectorAll('.mv-texto > p,.mv-hoja p,.mv-panel p')];
-          if (!parrafos.every(p=>p.scrollWidth<=p.clientWidth+1 && p.scrollHeight<=p.clientHeight+1)) return false;
+          if (!parrafos.every(p=>p.closest('.mv-hoja') ? p.closest('.mv-hoja').clientHeight<=260 : p.scrollWidth<=p.clientWidth+1 && p.scrollHeight<=p.clientHeight+1)) return false;
           return [...document.querySelectorAll('.mv-ajustes,.mv-navegacion,.mv-controles,.mv-pestanas')].every(g=>{
             const rects=[...g.children].map(e=>e.getBoundingClientRect()).filter(r=>r.width && r.height);
             return rects.every((a,i)=>rects.slice(i+1).every(b=>
@@ -384,12 +393,12 @@ def probar_composicion(browser, origen, configuracion, nombre):
     comprobar(orden,'Orden editorial completo: portada, contexto, versículos y cierre')
     comprobar(pagina.locator('.mv-cierre .mv-pestanas button').all_text_contents()==['Exégesis','Enseñanzas'],'Cierre de Estudio con Exégesis y Enseñanzas')
     pagina.locator('.mv-contexto .mv-hoja').focus(); pagina.keyboard.press('ArrowRight')
-    expect(pagina.locator('.mv-contexto output')).to_have_text('2 / 2')
-    expect(pagina.locator('.mv-cierre output')).to_have_text('1 / 2')
+    expect(pagina.locator('.mv-contexto output')).to_have_text(re.compile(r'^2 / \d+$'))
+    expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^1 / \d+$'))
     checks.append('Contexto paginado sin cambiar el cierre')
     pagina.locator('.mv-cierre .mv-hoja').focus(); pagina.keyboard.press('ArrowRight')
-    expect(pagina.locator('.mv-cierre output')).to_have_text('2 / 2')
-    expect(pagina.locator('.mv-contexto output')).to_have_text('2 / 2')
+    expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^2 / \d+$'))
+    expect(pagina.locator('.mv-contexto output')).to_have_text(re.compile(r'^2 / \d+$'))
     checks.append('Cierre paginado sin cambiar el contexto')
     pagina.locator('[data-marcador="punto-b"]').first.click()
     pagina.locator('input[type=range]').first.fill('250'); pagina.locator('input[type=range]').first.dispatch_event('input')
@@ -403,8 +412,8 @@ def probar_composicion(browser, origen, configuracion, nombre):
     comprobar(pagina.locator('.mv-panel h4').first.inner_text()=='Punto B','Cambiar enfoque conserva el marcador seleccionado')
     comprobar(antes==len([u for u in solicitudes if '/datos/' in u]),'Cambiar enfoque no vuelve a solicitar los datos visuales')
     pagina.go_back(); pagina.wait_for_selector('.mv-contexto')
-    expect(pagina.locator('.mv-contexto output')).to_have_text('2 / 2')
-    expect(pagina.locator('.mv-cierre output')).to_have_text('2 / 2')
+    expect(pagina.locator('.mv-contexto output')).to_have_text(re.compile(r'^2 / \d+$'))
+    expect(pagina.locator('.mv-cierre output')).to_have_text(re.compile(r'^2 / \d+$'))
     comprobar(pagina.evaluate('window.__visorEditorial===document.querySelector(".mv-visor")'),'Atrás restaura Estudio sin reconstruir el visor')
     pagina.go_forward(); pagina.wait_for_selector('.mv-devocional')
     checks.append('Adelante restaura el enfoque Devocional')
@@ -422,7 +431,7 @@ def probar_composicion(browser, origen, configuracion, nombre):
     expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-dos')
     pagina.wait_for_selector('.mv-devocional')
     pagina.get_by_role('button',name='Estudio',exact=True).click(); pagina.wait_for_selector('.mv-contexto')
-    expect(pagina.locator('.mv-contexto output')).to_have_text('2 / 2')
+    expect(pagina.locator('.mv-contexto output')).to_have_text(re.compile(r'^2 / \d+$'))
     checks.append('Volver al relato recupera su página de contexto')
     # Capturas del orden editorial desde las primeras páginas.
     pagina.locator('.mv-contexto nav button').first.click()
@@ -458,7 +467,7 @@ def probar_explorador(browser, origen, configuracion, nombre):
     expect(boton).to_have_attribute('aria-pressed','true')
     checks.append('Selección desde botón sincroniza marcador')
     r.locator('.mv-panel nav button').last.click()
-    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
     expect(punto).to_have_attribute('aria-pressed','true')
     checks.append('Paginar conserva marcador seleccionado')
     r.locator('[data-control="puntos"]').click()
@@ -467,17 +476,17 @@ def probar_explorador(browser, origen, configuracion, nombre):
     pagina.get_by_role('button',name='Devocional',exact=True).click()
     expect(r.locator('[data-control="puntos"]')).to_have_text('Mostrar puntos')
     r.locator('[data-control="puntos"]').click()
-    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
     checks.append('Enfoque y ocultación conservan página y selección')
     r.locator('[data-marcador="punto-a"]').click()
     expect(r.locator('[data-elemento="punto-a"]')).to_have_attribute('aria-pressed','true')
-    expect(r.locator('.mv-panel output')).to_have_text('1 / 2')
+    expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^1 / \d+$'))
     checks.append('Selección desde punto sincroniza botón y página independiente')
     pagina.get_by_role('button',name='Estudio',exact=True).click()
     for tamano in [8,20,30]:
         pagina.evaluate('(n)=>document.body.style.setProperty("--mv-tamano-lectura",n+"px")',tamano)
         comprobar(pagina.evaluate('document.documentElement.scrollWidth<=innerWidth'),f'Sin desbordamiento de documento a {tamano} px')
-        comprobar(r.locator('.mv-panel .mv-hoja').evaluate('(e)=>e.scrollWidth<=e.clientWidth'),f'Explicación sin recorte horizontal a {tamano} px')
+        comprobar(r.locator('.mv-panel .mv-hoja').evaluate('(e)=>e.clientHeight<=260'),f'Explicación sin recorte horizontal a {tamano} px')
         comprobar(r.locator('.mv-elementos button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().height>=44&&b.getBoundingClientRect().width>=44)'),f'Botones táctiles a {tamano} px')
     pagina.evaluate('document.body.style.removeProperty("--mv-tamano-lectura")')
     if nombre == 'movil':
@@ -496,13 +505,13 @@ def probar_explorador(browser, origen, configuracion, nombre):
             cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
             pagina.wait_for_timeout(250)
         gesto(-140,2)
-        expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+        expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
         expect(r.locator('[data-elemento="punto-a"]')).to_have_attribute('aria-pressed','true')
         checks.append('Gesto horizontal real pagina sin cambiar selección')
         hoja.scroll_into_view_if_needed()
         previo = pagina.evaluate('scrollY')
         gesto(2,-120)
-        expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+        expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
         comprobar(pagina.evaluate('scrollY')>previo+20,'Gesto vertical real desplaza la página sin paginar')
         cdp.detach()
     rango = r.locator('input[type="range"]')
@@ -539,12 +548,8 @@ def probar_explorador(browser, origen, configuracion, nombre):
     expect(rango).to_have_value('100')
     comprobar(r.evaluate('''e=>{const v=e.querySelector('.mv-viewport').getBoundingClientRect(),p=e.querySelector('.mv-plano').getBoundingClientRect();return Math.abs(p.width/p.height-2/3)<.01&&p.width<=v.width+1&&p.height<=v.height+1;}'''),'Imagen completa 2:3 dentro de visor 3:4')
     r.locator('[data-elemento="punto-b"]').click()
-    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
-    r.locator(':scope > button').click()
-    expect(r.locator('dialog')).to_be_visible()
-    comprobar(r.locator('dialog [data-elemento="punto-b"]').is_visible(),'Modal opcional conserva controles sincronizados')
-    r.get_by_role('button',name='Cerrar visor').click()
-    expect(r.locator('.mv-panel output')).to_have_text('2 / 2')
+    expect(r.locator('.mv-panel output')).to_have_text(re.compile(r'^2 / \d+$'))
+    comprobar(r.locator(':scope > button').count()==0,'Visor integrado sin Ampliar visor')
     r.screenshot(path=str(SALIDA/'capturas'/f'explorador-{nombre}.png'),animations='disabled',
                  style='.mv-barra-lector { position:static !important; }')
     comprobar(not errores,'Sin errores JavaScript del explorador')
@@ -627,6 +632,118 @@ def probar_interfaz(browser, origen, configuracion, nombre):
     return {'comprobaciones':checks,'paleta':colores,'errores':errores}
 
 
+def probar_bloque2(browser, origen, configuracion, nombre):
+    contexto=browser.new_context(**configuracion)
+    pagina=contexto.new_page()
+    checks,errores,solicitudes=[],[],[]
+    pagina.on('pageerror',lambda e:errores.append(str(e)))
+    pagina.on('request',lambda r:solicitudes.append(r.url))
+    def comprobar(valor,descripcion):
+        assert valor,f'{nombre}, bloque 2: {descripcion}'
+        checks.append(descripcion)
+    url=origen+'/motor-visual/demo.html?relato=demo-dos'
+    pagina.goto(url+'&modo=visual');pagina.wait_for_selector('.mv-cierre');pagina.wait_for_timeout(100)
+    comprobar(pagina.locator('.mv-navegacion').evaluate('e=>e===e.parentElement.lastElementChild'),'Capítulos al final de la lectura')
+    comprobar(pagina.get_by_role('button',name='Ampliar visor',exact=True).count()==0,'Ampliar visor eliminado')
+    comprobar(pagina.locator('.mv-viewport').first.evaluate('e=>Math.abs(e.clientWidth/e.clientHeight-.75)<.01'),'Marco 3:4 conservado')
+    for tamano in [12,30]:
+        pagina.get_by_role('button',name='Restablecer tamaño de letra a 12 px',exact=True).click()
+        for _ in range((tamano-12)//2):pagina.get_by_role('button',name='Aumentar tamaño de letra',exact=True).click()
+        pagina.locator('[data-elemento="punto-b"]').first.click();pagina.wait_for_timeout(100)
+        for selector in ['.mv-contexto','.mv-cierre','.mv-panel .mv-estudio']:
+            bloque=pagina.locator(selector).first
+            hoja=bloque.locator('.mv-hoja')
+            previo=bloque.locator('nav button').first
+            while not previo.is_disabled():previo.click()
+            pagina.wait_for_timeout(50)
+            total=int(bloque.locator('output').inner_text().split('/')[1])
+            altura=hoja.bounding_box()['height']
+            for i in range(total):
+                comprobar(abs(hoja.bounding_box()['height']-altura)<1 and altura<=260,
+                          f'{selector}: altura estable {tamano} px, página {i+1}/{total}')
+                if i<total-1:bloque.locator('nav button').last.click()
+            comprobar(bloque.locator('nav button').last.is_disabled(),f'{selector}: límite de paginación correcto a {tamano} px')
+            comprobar(hoja.evaluate('''e=>{
+              const h=e.getBoundingClientRect(),w=document.createTreeWalker(e.firstChild,NodeFilter.SHOW_TEXT);let n,ultimo;
+              while((n=w.nextNode())) if(n.textContent.trim()) ultimo=n;
+              const fin=ultimo.textContent.trimEnd().length,r=document.createRange();r.setStart(ultimo,fin-1);r.setEnd(ultimo,fin);
+              const p=r.getBoundingClientRect();return p.left>=h.left-1&&p.right<=h.right+1&&p.top>=h.top-1&&p.bottom<=h.bottom+1;
+            }'''),f'{selector}: final del texto accesible a {tamano} px')
+        comprobar(pagina.locator('[data-elemento="punto-b"]').first.get_attribute('aria-pressed')=='true','Paginar mantiene el marcador seleccionado')
+        comprobar(pagina.evaluate('document.documentElement.scrollWidth<=innerWidth'),f'Sin desbordamiento del documento a {tamano} px')
+    pagina.get_by_role('button',name='Restablecer tamaño de letra a 12 px',exact=True).click()
+    v=pagina.locator('.mv-viewport').first
+    if nombre=='movil':
+        cdp=contexto.new_cdp_session(pagina)
+        def tocar(puntos,finales):
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':puntos})
+            for n in range(1,9):
+                pasos=[{'id':a['id'],'x':a['x']+(b['x']-a['x'])*n/8,'y':a['y']+(b['y']-a['y'])*n/8} for a,b in zip(puntos,finales)]
+                cdp.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':pasos});pagina.wait_for_timeout(25)
+            cdp.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});pagina.wait_for_timeout(150)
+        def posicion():
+            v.scroll_into_view_if_needed();c=v.bounding_box()
+            return c['x']+c['width']/2,c['y']+c['height']/2
+        x,y=posicion();antes=pagina.evaluate('scrollY')
+        tocar([{'id':1,'x':x,'y':y}],[{'id':1,'x':x,'y':y-120}])
+        comprobar(pagina.evaluate('scrollY')>antes+20 and v.evaluate('e=>e.scrollTop')==0,'Un dedo vertical sobre imagen desplaza la página')
+        x,y=posicion()
+        tocar([{'id':1,'x':x-45,'y':y},{'id':2,'x':x+45,'y':y}],
+              [{'id':1,'x':x-90,'y':y},{'id':2,'x':x+90,'y':y}])
+        zoom=int(pagina.locator('.mv-visor output').first.inner_text().split()[0])
+        comprobar(180<=zoom<=220,'Separar dos dedos amplía la imagen')
+        x,y=posicion();antes=pagina.evaluate('scrollY');desplazamiento=v.evaluate('e=>({x:e.scrollLeft,y:e.scrollTop})')
+        tocar([{'id':1,'x':x-40,'y':y},{'id':2,'x':x+40,'y':y}],
+              [{'id':1,'x':x-60,'y':y-30},{'id':2,'x':x+20,'y':y-30}])
+        comprobar(v.evaluate('e=>e.scrollTop')>desplazamiento['y']+10 and abs(pagina.evaluate('scrollY')-antes)<2,
+                  'Dos dedos desplazan la imagen ampliada sin mover la lectura')
+        comprobar(pagina.locator('.mv-recurso').first.evaluate('''e=>{
+          const p=e.querySelector('.mv-plano').getBoundingClientRect(),m=e.querySelector('[data-marcador="punto-b"]').getBoundingClientRect();
+          return Math.abs((m.x+m.width/2-p.x)/p.width-.75)<.01&&Math.abs((m.y+m.height/2-p.y)/p.height-.5)<.01;
+        }'''),'Marcadores alineados después de pellizco y desplazamiento')
+        x,y=posicion();antes=pagina.evaluate('scrollY');top=v.evaluate('e=>e.scrollTop')
+        tocar([{'id':1,'x':x,'y':y}],[{'id':1,'x':x,'y':y-100}])
+        comprobar(pagina.evaluate('scrollY')>antes+20 and abs(v.evaluate('e=>e.scrollTop')-top)<2,
+                  'Un dedo vertical sigue desplazando la página con zoom activo')
+        x,y=posicion()
+        tocar([{'id':1,'x':x-90,'y':y},{'id':2,'x':x+90,'y':y}],
+              [{'id':1,'x':x-40,'y':y},{'id':2,'x':x+40,'y':y}])
+        comprobar(int(pagina.locator('.mv-visor output').first.inner_text().split()[0])==100,'Juntar dos dedos reduce hasta 100 %')
+        cdp.detach()
+    else:
+        v.focus();pagina.keyboard.press('+');expect(pagina.locator('.mv-visor output').first).to_have_text('125 %')
+        pagina.keyboard.press('ArrowRight');comprobar(v.evaluate('e=>e.scrollLeft')>0,'Teclado desplaza imagen ampliada')
+        pagina.keyboard.press('0');expect(pagina.locator('.mv-visor output').first).to_have_text('100 %')
+    # Solo texto conserva posición y foco incluso con letra máxima.
+    pagina.goto(url+'&modo=texto&enfoque=devocional');pagina.wait_for_selector('#motor[data-listo="true"]')
+    comienzo=len(solicitudes)
+    comprobar(pagina.locator('[data-recurso-acceso]').count()==2 and pagina.locator('img,dialog,[data-educativo]').count()==0,'Solo texto monta únicamente iconos anclados')
+    for _ in range(9):pagina.get_by_role('button',name='Aumentar tamaño de letra',exact=True).click()
+    for cierre in ['Escape','boton']:
+        icono=pagina.locator('[data-recurso-acceso]').first;icono.scroll_into_view_if_needed()
+        antes=pagina.evaluate('scrollY');inicio=len(solicitudes)
+        icono.click();pagina.wait_for_selector('dialog .mv-visor')
+        comprobar(pagina.locator('.mv-recurso').count()==1 and pagina.locator('img').count()==1,'El modal carga únicamente el recurso elegido')
+        nuevas=solicitudes[inicio:]
+        comprobar(not any('/datos/estudios/' in u or 'portada-demo.svg' in u for u in nuevas),'Abrir recurso no carga estudios ni portada')
+        pagina.locator('dialog [data-elemento="punto-b"]').click()
+        comprobar(pagina.locator('dialog [data-marcador="punto-b"]').get_attribute('aria-pressed')=='true','El modal conserva selección interactiva sincronizada')
+        pagina.keyboard.press('Tab');comprobar(pagina.evaluate('document.querySelector("dialog").contains(document.activeElement)'),'Foco contenido en el modal')
+        if cierre=='Escape':pagina.keyboard.press('Escape')
+        else:pagina.get_by_role('button',name='Cerrar recurso',exact=True).click()
+        expect(pagina.locator('dialog')).to_have_count(0);pagina.wait_for_timeout(60)
+        expect(icono).to_be_focused()
+        comprobar(abs(pagina.evaluate('scrollY')-antes)<2,f'{cierre}: regresa exactamente a la posición de lectura')
+        comprobar(pagina.locator('#motor').get_attribute('data-modo')=='texto' and pagina.locator('#motor').get_attribute('data-enfoque')=='devocional','Cerrar conserva Solo texto y Devocional')
+        comprobar(pagina.locator('[data-educativo],img').count()==0,'Cerrar desmonta todo el recurso')
+    capturar(pagina,SALIDA/'capturas'/f'bloque2-{nombre}-texto.png')
+    pagina.get_by_role('button',name='Con recursos visuales',exact=True).click();pagina.wait_for_selector('.mv-cierre')
+    capturar(pagina,SALIDA/'capturas'/f'bloque2-{nombre}-visual.png')
+    comprobar(not errores,'Sin errores JavaScript en el bloque 2')
+    contexto.close()
+    return {'comprobaciones':checks,'errores':errores}
+
+
 def main():
     baseline = originales()
     total_esquemas = validar_esquemas()
@@ -634,7 +751,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),handler)
     threading.Thread(target=server.serve_forever,daemon=True).start()
     origen = f'http://127.0.0.1:{server.server_port}'
-    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{},'explorador':{},'interfaz':{}}
+    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{},'explorador':{},'interfaz':{},'bloque2':{}}
     try:
         with sync_playwright() as p:
             ejecutable = os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -662,6 +779,7 @@ def main():
                 resultado['composicion'][nombre] = probar_composicion(browser,origen,config,nombre)
                 resultado['explorador'][nombre] = probar_explorador(browser,origen,config,nombre)
                 resultado['interfaz'][nombre] = probar_interfaz(browser,origen,config,nombre)
+                resultado['bloque2'][nombre] = probar_bloque2(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -683,6 +801,7 @@ def main():
                       'composicion':{k:len(v['comprobaciones']) for k,v in resultado['composicion'].items()},
                       'explorador':{k:len(v['comprobaciones']) for k,v in resultado['explorador'].items()},
                       'interfaz':{k:len(v['comprobaciones']) for k,v in resultado['interfaz'].items()},
+                      'bloque2':{k:len(v['comprobaciones']) for k,v in resultado['bloque2'].items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 
 

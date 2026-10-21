@@ -1,4 +1,4 @@
-import { test,assert,conMotor,datos,diferida } from './harness.js';
+import { test,assert,conMotor,datos,diferida,esperar } from './harness.js';
 test('Solo texto no llama al servicio visual ni monta imágenes, estudios o visores', async () => {
   let solicitudes=0;
   await conMotor(async ({ root }) => {
@@ -22,12 +22,13 @@ test('Tres relatos se renderizan con el mismo motor y anclajes correctos', async
     }
   });
 });
-test('Cambiar a Solo texto desmonta recursos y cierra el diálogo abierto', async () => {
-  await conMotor(async ({ root,motor }) => {
-    await motor.cambiarModo('visual'); root.querySelector('.mv-recurso > button').click();
-    assert(root.querySelector('dialog[open]'));
-    await motor.cambiarModo('texto'); assert(!document.querySelector('dialog[open]'));
-    assert(!root.querySelector('[data-educativo],img,dialog'));
+test('Cambiar de modo cierra el recurso modal y Solo texto conserva únicamente accesos', async () => {
+  await conMotor(async ({root,motor}) => {
+    root.querySelector('[data-recurso-acceso]').click();
+    await esperar(()=>root.querySelector('dialog .mv-visor'));
+    await motor.cambiarModo('visual'); assert(!root.querySelector('dialog'));
+    await motor.cambiarModo('texto'); assert(!root.querySelector('[data-educativo],img,dialog'));
+    assert(root.querySelector('[data-recurso-acceso]'));
   });
 });
 test('Una respuesta educativa tardía no vuelve a montar recursos en Solo texto', async () => {

@@ -50,7 +50,7 @@
 .mv-explorador { display:grid; grid-template-columns:minmax(0,1fr); gap:8px; align-items:start; }
 /* Se conserva el marco 3:4 y el ancho útil: compactar controles no achica el visor. */
 .mv-visor { min-width:0; width:100%; max-width:480px; margin:auto; }
-.mv-viewport { width:100%; aspect-ratio:3/4; overflow:auto; background:var(--mv-fondo); border-radius:5px; touch-action:pan-x pan-y; overscroll-behavior:contain; }
+.mv-viewport { width:100%; aspect-ratio:3/4; overflow:hidden; background:var(--mv-fondo); border-radius:5px; touch-action:pan-y; overscroll-behavior:auto; }
 .mv-escena { position:relative; }
 .mv-plano { position:absolute; }
 .mv-plano > img { width:100%; height:100%; display:block; user-select:none; }
@@ -112,3 +112,14 @@
 .mv-puntos { margin-top:4px; }
 
 .mv h1, .mv h2, .mv h3, .mv h4 { color:var(--mv-verde-oscuro); }
+
+/* Bloque 2: texto completo distribuido en columnas de altura estable. */
+.mv-hoja { position:relative; block-size:clamp(190px,32dvh,260px); overflow:hidden; }
+.mv-pagina-columnas { block-size:100%; column-count:1; column-gap:24px; column-fill:auto; }
+.mv-pagina-columnas > :first-child { margin-top:0; }
+.mv-pagina-columnas > :last-child { margin-bottom:0; }
+.mv-accesos-recurso { display:flex; gap:4px; margin-block:4px; }
+.mv .mv-acceso-recurso { font-size:18px; color:var(--mv-acento); }
+.mv-modal-abierto { overflow:hidden; }
+.mv-dialogo { overscroll-behavior:contain; }
+.mv-dialogo > button { margin-bottom:8px; }

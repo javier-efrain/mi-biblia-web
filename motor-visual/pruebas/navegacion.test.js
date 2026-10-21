@@ -60,7 +60,7 @@ test('Volver al relato activo desde el índice conserva el visor, su zoom y su m
     root.querySelector('.mv-panel nav button:last-child').click();
     root.querySelector('.mv-indice [aria-current="true"]').click();
     assert(root.querySelector('.mv-visor')===visor && rango.value==='250');
-    assert(root.querySelector('.mv-panel output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(root.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
     assert(document.activeElement===root.querySelector('.mv-titulo-relato'));
   });

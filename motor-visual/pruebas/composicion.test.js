@@ -38,11 +38,11 @@ test('Contexto y cierre mantienen páginas independientes', async () => {
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual');
     avanzar(root.querySelector('.mv-contexto .mv-hoja'));
-    assert(root.querySelector('.mv-contexto output').textContent==='2 / 2');
-    assert(root.querySelector('.mv-cierre output').textContent==='1 / 2');
+    assert(root.querySelector('.mv-contexto output').textContent.startsWith('2 / '));
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('1 / '));
     avanzar(root.querySelector('.mv-cierre .mv-hoja'));
-    assert(root.querySelector('.mv-contexto output').textContent==='2 / 2');
-    assert(root.querySelector('.mv-cierre output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-contexto output').textContent.startsWith('2 / '));
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
   });
 });
 test('Devocional sustituye contexto y estudio sin reconstruir el visor ni perder su zoom', async () => {
@@ -60,10 +60,10 @@ test('Devocional sustituye contexto y estudio sin reconstruir el visor ni perder
     assert(rango.value==='250' && root.querySelector('.mv-panel h4').textContent==='Punto B');
     avanzar(root.querySelector('.mv-cierre .mv-hoja'));
     await motor.cambiarEnfoque('estudio');
-    assert(root.querySelector('.mv-contexto output').textContent==='2 / 2');
-    assert(root.querySelector('.mv-cierre output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-contexto output').textContent.startsWith('2 / '));
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
     await motor.cambiarEnfoque('devocional');
-    assert(root.querySelector('.mv-cierre output').textContent==='2 / 2');
+    assert(root.querySelector('.mv-cierre output').textContent.startsWith('2 / '));
   });
 });
 test('Solo texto conserva ambos selectores sin solicitar contenido educativo en ningún enfoque', async () => {

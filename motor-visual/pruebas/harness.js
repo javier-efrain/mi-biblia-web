@@ -38,3 +38,8 @@ export async function ejecutar() {
   window.__resultados = { total:resultados.length, aprobadas:resultados.filter(r => r.ok).length, resultados };
   document.querySelector('#resumen').textContent = `${window.__resultados.aprobadas}/${resultados.length} pruebas aprobadas`;
 }
+
+export async function esperar(condicion, mensaje='La condición asíncrona no se cumplió') {
+  for (let i=0;i<200;i++) { if (condicion()) return; await new Promise(r=>setTimeout(r,10)); }
+  assert(false,mensaje);
+}
