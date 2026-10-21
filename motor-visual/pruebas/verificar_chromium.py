@@ -51,7 +51,7 @@ class Silencioso(SimpleHTTPRequestHandler):
 
 
 def capturar(pagina, ruta):
-    # Fijar el origen antes de capturar una página completa con cabecera sticky.
+    # Fijar el origen antes de capturar la composición completa.
     pagina.evaluate('window.scrollTo(0,0)')
     pagina.wait_for_function('window.scrollY === 0')
     pagina.screenshot(path=str(ruta),full_page=True,animations="disabled")
@@ -89,7 +89,7 @@ def probar_demo(browser, origen, configuracion, nombre):
     pagina.get_by_role('button', name='Con recursos visuales', exact=True).click()
     pagina.wait_for_selector('.mv-cierre')
     comprobar(pagina.locator('#motor .mv-recurso').count() == 2, 'Dos recursos en dos anclajes del segundo relato')
-    comprobar(pagina.locator('.mv-tarjeta').count() == 3, 'Catálogo de tres relatos con metadatos')
+    comprobar(pagina.locator('.mv-descubrimiento,.mv-tarjeta').count() == 0, 'Sin sección de descubrimiento redundante')
     medidas = pagina.locator('.mv-viewport').first.evaluate('(e) => ({ w:e.clientWidth, h:e.clientHeight })')
     comprobar(abs(medidas['w'] / medidas['h'] - .75) < .01, 'Visor 3:4')
     portada = pagina.locator('.mv-portada img').first.evaluate('(e) => ({ w:e.clientWidth, h:e.clientHeight })')
@@ -182,8 +182,8 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
 
     pagina.goto(url)
     pagina.wait_for_selector('#motor[data-listo="true"]')
-    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'oscuro', 'Oscuro predeterminado en navegador sin preferencias')
-    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '8px', 'Texto de lectura experimental inicial a 8 px')
+    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia editorial clara en navegador sin preferencias')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '12px', 'Texto de lectura inicial a 12 px')
     aumentar = pagina.get_by_role('button', name='Aumentar tamaño de letra', exact=True)
     reducir = pagina.get_by_role('button', name='Reducir tamaño de letra', exact=True)
     comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Controles A− y A+ visibles')
@@ -204,14 +204,11 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     comprobar(sin_recortes(), 'Párrafos extensos a 30 px sin recortes ni scroll horizontal')
     botones = pagina.locator('.mv-preferencias button').evaluate_all('(bs)=>bs.every(b=>b.getBoundingClientRect().width>=44 && b.getBoundingClientRect().height>=44)')
     comprobar(botones, 'Controles de apariencia de al menos 44 × 44 px')
-    tema = pagina.get_by_role('button',name='Modo oscuro',exact=True)
-    tema.focus()
-    foco = tema.evaluate('(b)=>getComputedStyle(b).outlineStyle')
+    reducir.focus(); pagina.keyboard.press('Tab')
+    foco = pagina.evaluate('getComputedStyle(document.activeElement).outlineStyle')
     comprobar(foco != 'none', 'Foco visible al usar teclado')
-    tema.press('Space')
-    expect(tema).to_have_attribute('aria-pressed','false')
-    comprobar(pagina.locator('body').get_attribute('data-apariencia') == 'claro', 'Apariencia clara seleccionable con teclado')
-    comprobar(sin_recortes(), 'Modo claro a 30 px sin desbordamiento')
+    comprobar(pagina.get_by_role('button',name='Modo oscuro',exact=True).count()==0, 'Sin selector de modo oscuro')
+    comprobar(sin_recortes(), 'Paleta clara a 30 px sin desbordamiento')
     capturar(pagina,SALIDA / 'capturas' / f'{nombre}-claro-30.png')
     pagina.reload()
     pagina.wait_for_selector('#motor[data-listo="true"]')
@@ -226,7 +223,6 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     comprobar(sin_recortes(), 'Tamaño mínimo 8 px sin desbordamiento')
     for _ in range(11):
         aumentar.click()
-    tema.click()
     pagina.get_by_role('button',name='Devocional',exact=True).click()
     comprobar(pagina.locator('.mv-cierre .mv-hoja p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Devocional a 30 px')
     pagina.locator('[data-marcador="punto-b"]').first.click()
@@ -242,12 +238,12 @@ def probar_accesibilidad(browser, origen, configuracion, nombre):
     comprobar(sin_recortes(), 'Visuales, panel y devocional sin recortes a 30 px')
     pagina.locator('input[type=range]').first.fill('100')
     pagina.locator('input[type=range]').first.dispatch_event('input')
-    capturar(pagina,SALIDA / 'capturas' / f'{nombre}-oscuro-30.png')
+    capturar(pagina,SALIDA / 'capturas' / f'editorial-claro-{nombre}-30.png')
     pagina.get_by_role('button',name='Solo texto bíblico',exact=True).click()
     expect(pagina.locator('#motor [data-educativo],#motor img')).to_have_count(0)
     comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Solo texto conserva 30 px sin montar visuales')
     comprobar(pagina.locator('.mv-preferencias').is_visible(), 'Ajustes disponibles en Solo texto')
-    pagina.get_by_role('button',name='Relato siguiente:',exact=False).click()
+    pagina.get_by_role('button',name='Capítulo siguiente:',exact=False).click()
     expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-tres')
     comprobar(pagina.locator('.mv-texto > p').first.evaluate('(p)=>getComputedStyle(p).fontSize') == '30px', 'Navegar conserva tamaño y apariencia')
     if nombre == 'movil':
@@ -292,17 +288,18 @@ def probar_compactacion(browser, origen, configuracion, nombre):
     pagina.wait_for_selector('#motor[data-listo="true"]')
     expect(pagina.locator('.mv-preferencias output')).to_have_text('20 px')
     checks.append('Se recuperan los 20 px guardados antes de esta fase')
-    restablecer=pagina.get_by_role('button',name='Restablecer tamaño de letra a 8 px',exact=True)
+    restablecer=pagina.get_by_role('button',name='Restablecer tamaño de letra a 12 px',exact=True)
     restablecer.focus(); restablecer.press('Enter')
-    expect(pagina.locator('.mv-preferencias output')).to_have_text('8 px')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('12 px')
     pagina.reload(); pagina.wait_for_selector('#motor[data-listo="true"]')
-    expect(pagina.locator('.mv-preferencias output')).to_have_text('8 px')
-    checks.append('Restablecer por teclado guarda 8 px y persiste al recargar')
+    expect(pagina.locator('.mv-preferencias output')).to_have_text('12 px')
+    checks.append('Restablecer por teclado guarda 12 px y persiste al recargar')
     aumentar=pagina.get_by_role('button',name='Aumentar tamaño de letra',exact=True)
     for tamano in [8,20,30]:
         restablecer.click()
-        for _ in range((tamano-8)//2):
-            aumentar.click()
+        boton=pagina.get_by_role('button',name='Aumentar tamaño de letra' if tamano>=12 else 'Reducir tamaño de letra',exact=True)
+        for _ in range(abs(tamano-12)//2):
+            boton.click()
         for modo in ['visual','texto']:
             pagina.get_by_role('button',name='Con recursos visuales' if modo=='visual' else 'Solo texto bíblico',exact=True).click()
             if modo=='visual':
@@ -331,14 +328,13 @@ def probar_compactacion(browser, origen, configuracion, nombre):
               const r=e.getBoundingClientRect(); return !r.width || !r.height || (r.width>=44 && r.height>=44);
             })""")
             comprobar(tactiles, f'Controles independientes de {tamano} px: áreas de al menos 44 × 44 px en {modo}')
-        # También comprobar la apariencia clara sin recortar párrafos en cada tamaño.
-        tema=pagina.get_by_role('button',name='Modo oscuro',exact=True)
-        tema.click(); comprobar(disposicion_valida(), f'Apariencia clara sin desbordamiento a {tamano} px'); tema.click()
+        comprobar(disposicion_valida(), f'Apariencia clara sin desbordamiento a {tamano} px')
     if nombre=='movil':
         pagina.set_viewport_size({'width':320,'height':740})
         for tamano in [8,20,30]:
             restablecer.click()
-            for _ in range((tamano-8)//2): aumentar.click()
+            boton=pagina.get_by_role('button',name='Aumentar tamaño de letra' if tamano>=12 else 'Reducir tamaño de letra',exact=True)
+            for _ in range(abs(tamano-12)//2): boton.click()
             pagina.get_by_role('button',name='Con recursos visuales',exact=True).click()
             pagina.wait_for_selector('.mv-cierre')
             comprobar(disposicion_valida(), f'Pantalla 320 px: sin superposiciones a {tamano} px')
@@ -556,6 +552,81 @@ def probar_explorador(browser, origen, configuracion, nombre):
     return {'comprobaciones':checks,'errores':errores}
 
 
+def probar_interfaz(browser, origen, configuracion, nombre):
+    contexto=browser.new_context(**configuracion)
+    pagina=contexto.new_page()
+    checks,errores=[],[]
+    pagina.on('pageerror',lambda e:errores.append(str(e)))
+    def comprobar(valor,descripcion):
+        assert valor,f'{nombre}, interfaz: {descripcion}'
+        checks.append(descripcion)
+    url=origen+'/motor-visual/demo.html?relato=demo-uno'
+    for modo in ['visual','texto']:
+        for enfoque in ['estudio','devocional']:
+            pagina.goto(url+f'&modo={modo}&enfoque={enfoque}')
+            pagina.wait_for_selector('#motor[data-listo="true"]')
+            if modo=='visual': pagina.wait_for_selector('.mv-cierre')
+            else: expect(pagina.locator('[data-educativo],#motor img')).to_have_count(0)
+            etiqueta=modo+' '+enfoque
+            barra=pagina.locator('.mv-barra-lector')
+            comprobar(barra.evaluate('e=>getComputedStyle(e).position')=='static',etiqueta+': barra en el flujo normal')
+            comprobar(pagina.locator('[aria-label^="Relato anterior"],[aria-label^="Relato siguiente"],.mv-descubrimiento').count()==0,
+                      etiqueta+': sin navegación redundante ni descubrimiento')
+            if modo=='visual':
+                pagina.evaluate('scrollTo(0,document.documentElement.scrollHeight)')
+                comprobar(barra.bounding_box()['y']+barra.bounding_box()['height']<0,etiqueta+': controles desaparecen al bajar')
+            # Click real: Playwright lleva el índice al área visible antes de activarlo.
+            pagina.locator('[data-relato-indice="demo-dos"]').click()
+            expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-dos')
+            pagina.wait_for_function('document.activeElement?.classList.contains("mv-titulo-relato")')
+            if modo=='visual': pagina.wait_for_selector('.mv-cierre')
+            pagina.wait_for_function('''() => {
+              const t=document.querySelector('.mv-titulo-relato'),r=t.getBoundingClientRect();
+              const max=Math.max(0,document.documentElement.scrollHeight-innerHeight);
+              const destino=Math.min(max,Math.max(0,scrollY+r.top-8));
+              return Math.abs(scrollY-destino)<2;
+            }''')
+            comprobar(pagina.locator('.mv-titulo-relato').bounding_box()['y']>=0,etiqueta+': encabezado visible y alineado al inicio real')
+            comprobar(pagina.locator('.mv-texto [data-versiculo]').count()==2,etiqueta+': versículos correspondientes presentes')
+            comprobar(pagina.locator('#motor').get_attribute('data-modo')==modo and pagina.locator('#motor').get_attribute('data-enfoque')==enfoque,
+                      etiqueta+': índice conserva modo y enfoque')
+            comprobar(pagina.locator('.mv-capitulo h1').inner_text()=='Capítulo 1' and pagina.locator('.mv-indice button').count()==2,
+                      etiqueta+': índice permanece dentro del capítulo')
+            pagina.locator('[data-relato-indice="demo-uno"]').focus()
+            pagina.keyboard.press('Enter')
+            expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-uno')
+            expect(pagina.locator('.mv-titulo-relato')).to_be_focused()
+            comprobar(True,etiqueta+': índice accesible mediante teclado')
+            pagina.get_by_role('button',name='Capítulo siguiente:',exact=False).click()
+            expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-tres')
+            expect(pagina.locator('.mv-capitulo h1')).to_have_text('Capítulo 2')
+            comprobar(pagina.locator('.mv-indice button').count()==1,etiqueta+': capítulo siguiente mantiene su índice')
+            pagina.get_by_role('button',name='Capítulo anterior:',exact=False).click()
+            expect(pagina.locator('#motor')).to_have_attribute('data-relato','demo-uno')
+            comprobar(pagina.locator('#motor').get_attribute('data-modo')==modo and pagina.locator('#motor').get_attribute('data-enfoque')==enfoque,
+                      etiqueta+': volver al capítulo conserva las selecciones')
+    pagina.goto(url+'&modo=visual');pagina.wait_for_selector('#motor[data-listo="true"]');pagina.wait_for_selector('.mv-cierre')
+    comprobar(pagina.locator('body').get_attribute('data-apariencia')=='claro','Apariencia clara estable')
+    comprobar(pagina.get_by_role('button',name='Modo oscuro',exact=True).count()==0,'Control de modo oscuro eliminado')
+    comprobar(pagina.locator('.mv-texto > p').first.evaluate('e=>getComputedStyle(e).fontSize')=='12px','Inicial de lectura a 12 px')
+    colores=pagina.locator('body').evaluate('''e=>{
+      const c=getComputedStyle(e);return Object.fromEntries(['--mv-fondo','--mv-salvia','--mv-verde-oscuro','--mv-acento'].map(k=>[k,c.getPropertyValue(k).trim()]));
+    }''')
+    comprobar(colores['--mv-fondo']=='#faf9f3' and colores['--mv-salvia']=='#a8bca5' and colores['--mv-acento']=='#31583e',
+              'Paleta marfil y salvia centralizada en variables CSS')
+    # Comprobar fondo de tarjetas, títulos y selección con los mismos tokens.
+    comprobar(pagina.locator('.mv-estudio').first.evaluate('e=>getComputedStyle(e).backgroundColor')=='rgb(255, 255, 255)' and
+              pagina.locator('.mv-titulo-relato').evaluate('e=>getComputedStyle(e).color')=='rgb(49, 88, 62)',
+              'Tarjetas claras y títulos verdes consistentes')
+    capturar(pagina,SALIDA/'capturas'/f'etapa4-{nombre}-12.png')
+    pagina.locator('[data-relato-indice="demo-dos"]').click();pagina.wait_for_selector('.mv-cierre')
+    comprobar(pagina.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Sin desbordamiento en la navegación')
+    capturar(pagina,SALIDA/'capturas'/f'etapa4-{nombre}-indice.png')
+    comprobar(not errores,'Sin errores JavaScript en las cuatro combinaciones')
+    contexto.close()
+    return {'comprobaciones':checks,'paleta':colores,'errores':errores}
+
+
 def main():
     baseline = originales()
     total_esquemas = validar_esquemas()
@@ -563,7 +634,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1',0),handler)
     threading.Thread(target=server.serve_forever,daemon=True).start()
     origen = f'http://127.0.0.1:{server.server_port}'
-    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{},'explorador':{}}
+    resultado = {'ok':False,'esquemas':{'documentos_validos':total_esquemas},'suites':{},'demo':{},'accesibilidad':{},'compactacion':{},'composicion':{},'explorador':{},'interfaz':{}}
     try:
         with sync_playwright() as p:
             ejecutable = os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -590,6 +661,7 @@ def main():
                 resultado['compactacion'][nombre] = probar_compactacion(browser,origen,config,nombre)
                 resultado['composicion'][nombre] = probar_composicion(browser,origen,config,nombre)
                 resultado['explorador'][nombre] = probar_explorador(browser,origen,config,nombre)
+                resultado['interfaz'][nombre] = probar_interfaz(browser,origen,config,nombre)
             browser.close()
         assert originales() == baseline, 'Se alteró un archivo preexistente durante las pruebas'
         resultado['archivos_originales_intactos'] = len(baseline)
@@ -610,6 +682,7 @@ def main():
                       'compactacion':{k:len(v['comprobaciones']) for k,v in resultado['compactacion'].items()},
                       'composicion':{k:len(v['comprobaciones']) for k,v in resultado['composicion'].items()},
                       'explorador':{k:len(v['comprobaciones']) for k,v in resultado['explorador'].items()},
+                      'interfaz':{k:len(v['comprobaciones']) for k,v in resultado['interfaz'].items()},
                       'archivos_originales_intactos':resultado['archivos_originales_intactos']},ensure_ascii=False))
 
 

@@ -48,6 +48,6 @@ export function vecinos(catalogo, id) {
 export function crearNavegacion(catalogo, id, seleccionar) {
   const v = vecinos(catalogo, id);
   return nodo('nav', { className:'mv-navegacion', 'aria-label':'Navegación bíblica' },
-    ...[['Relato anterior',v.anterior],['Relato siguiente',v.siguiente],['Capítulo anterior',v.capituloAnterior],['Capítulo siguiente',v.capituloSiguiente]].map(([label,r]) =>
+    ...[['Capítulo anterior',v.capituloAnterior],['Capítulo siguiente',v.capituloSiguiente]].map(([label,r]) =>
       boton(label, () => seleccionar(r.id), { disabled:!r, 'aria-label':r ? `${label}: ${r.titulo}` : label })));
 }

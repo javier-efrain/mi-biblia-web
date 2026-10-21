@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title desc">
 <title id="title">Demostración técnica geométrica</title>
 <desc id="desc">Dos puntos conectados. Contenido sintético, sin representación histórica.</desc>
-<defs><linearGradient id="fondo" x2="1" y2="1"><stop stop-color="#173b3c"/><stop offset="1" stop-color="#4e7565"/></linearGradient></defs>
+<defs><linearGradient id="fondo" x2="1" y2="1"><stop stop-color="#e7efe3"/><stop offset="1" stop-color="#a8bca5"/></linearGradient></defs>
 <path fill="url(#fondo)" d="M0 0h1600v900H0z"/>
-<path d="M120 740L500 120 920 720 1440 140" fill="none" stroke="#d1ddc6" stroke-width="3" opacity=".2"/>
-<path d="M400 450Q800 180 1200 450" fill="none" stroke="#efc88b" stroke-width="8" stroke-dasharray="20 15"/>
-<circle cx="400" cy="450" r="65" fill="#efc88b"/><circle cx="1200" cy="450" r="65" fill="#efc88b"/>
-<text x="80" y="100" fill="#fff" font-family="sans-serif" font-size="38">DEMOSTRACIÓN · RECURSO COMPARTIDO</text>
-<text x="80" y="820" fill="#fff" font-family="sans-serif" font-size="28">Geometría sintética · No es una ilustración bíblica ni histórica</text>
+<path d="M120 740L500 120 920 720 1440 140" fill="none" stroke="#31583e" stroke-width="3" opacity=".2"/>
+<path d="M400 450Q800 180 1200 450" fill="none" stroke="#31583e" stroke-width="8" stroke-dasharray="20 15"/>
+<circle cx="400" cy="450" r="65" fill="#31583e"/><circle cx="1200" cy="450" r="65" fill="#31583e"/>
+<text x="80" y="100" fill="#20392b" font-family="sans-serif" font-size="38">DEMOSTRACIÓN · RECURSO COMPARTIDO</text>
+<text x="80" y="820" fill="#20392b" font-family="sans-serif" font-size="28">Geometría sintética · No es una ilustración bíblica ni histórica</text>
 </svg>

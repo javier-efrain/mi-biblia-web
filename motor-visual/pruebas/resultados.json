@@ -5,8 +5,8 @@
   },
   "suites": {
     "escritorio": {
-      "total": 60,
-      "aprobadas": 60,
+      "total": 64,
+      "aprobadas": 64,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -129,6 +129,18 @@
           "ok": true
         },
         {
+          "nombre": "El índice reemplaza los botones redundantes y no monta descubrimiento",
+          "ok": true
+        },
+        {
+          "nombre": "La carga tardía de un relato anterior no roba el foco ni desplaza el nuevo destino",
+          "ok": true
+        },
+        {
+          "nombre": "Volver al relato activo desde el índice conserva el visor, su zoom y su marcador",
+          "ok": true
+        },
+        {
           "nombre": "Los visores son 3:4 y las imágenes de portada 16:9",
           "ok": true
         },
@@ -177,7 +189,7 @@
           "ok": true
         },
         {
-          "nombre": "La apariencia inicial es oscura y la lectura empieza en 8 px",
+          "nombre": "La apariencia editorial inicial es clara y la lectura empieza en 12 px",
           "ok": true
         },
         {
@@ -185,11 +197,11 @@
           "ok": true
         },
         {
-          "nombre": "Apariencia y tamaño se recuperan del almacenamiento sin guardar contenido",
+          "nombre": "La apariencia clara y el tamaño se guardan sin contenido educativo",
           "ok": true
         },
         {
-          "nombre": "Preferencias corruptas o fuera de rango usan los valores experimentales",
+          "nombre": "Preferencias corruptas o fuera de rango usan los nuevos valores iniciales",
           "ok": true
         },
         {
@@ -201,7 +213,7 @@
           "ok": true
         },
         {
-          "nombre": "Ambas apariencias mantienen contraste AA en texto, paneles y controles",
+          "nombre": "La paleta editorial mantiene contraste AA en texto, paneles y controles",
           "ok": true
         },
         {
@@ -209,7 +221,11 @@
           "ok": true
         },
         {
-          "nombre": "Los 32 px anteriores se adaptan a 30 px sin perder la apariencia elegida",
+          "nombre": "Los 32 px anteriores se adaptan a 30 px en la apariencia clara",
+          "ok": true
+        },
+        {
+          "nombre": "El oscuro guardado se migra a claro conservando tamaños válidos, incluido el mínimo",
           "ok": true
         },
         {
@@ -252,8 +268,8 @@
       "errores_no_controlados": []
     },
     "movil": {
-      "total": 60,
-      "aprobadas": 60,
+      "total": 64,
+      "aprobadas": 64,
       "resultados": [
         {
           "nombre": "Tres relatos sintéticos válidos comparten un recurso",
@@ -376,6 +392,18 @@
           "ok": true
         },
         {
+          "nombre": "El índice reemplaza los botones redundantes y no monta descubrimiento",
+          "ok": true
+        },
+        {
+          "nombre": "La carga tardía de un relato anterior no roba el foco ni desplaza el nuevo destino",
+          "ok": true
+        },
+        {
+          "nombre": "Volver al relato activo desde el índice conserva el visor, su zoom y su marcador",
+          "ok": true
+        },
+        {
           "nombre": "Los visores son 3:4 y las imágenes de portada 16:9",
           "ok": true
         },
@@ -424,7 +452,7 @@
           "ok": true
         },
         {
-          "nombre": "La apariencia inicial es oscura y la lectura empieza en 8 px",
+          "nombre": "La apariencia editorial inicial es clara y la lectura empieza en 12 px",
           "ok": true
         },
         {
@@ -432,11 +460,11 @@
           "ok": true
         },
         {
-          "nombre": "Apariencia y tamaño se recuperan del almacenamiento sin guardar contenido",
+          "nombre": "La apariencia clara y el tamaño se guardan sin contenido educativo",
           "ok": true
         },
         {
-          "nombre": "Preferencias corruptas o fuera de rango usan los valores experimentales",
+          "nombre": "Preferencias corruptas o fuera de rango usan los nuevos valores iniciales",
           "ok": true
         },
         {
@@ -448,7 +476,7 @@
           "ok": true
         },
         {
-          "nombre": "Ambas apariencias mantienen contraste AA en texto, paneles y controles",
+          "nombre": "La paleta editorial mantiene contraste AA en texto, paneles y controles",
           "ok": true
         },
         {
@@ -456,7 +484,11 @@
           "ok": true
         },
         {
-          "nombre": "Los 32 px anteriores se adaptan a 30 px sin perder la apariencia elegida",
+          "nombre": "Los 32 px anteriores se adaptan a 30 px en la apariencia clara",
+          "ok": true
+        },
+        {
+          "nombre": "El oscuro guardado se migra a claro conservando tamaños válidos, incluido el mínimo",
           "ok": true
         },
         {
@@ -509,7 +541,7 @@
         "Sin solicitudes al lector o archivos RVC",
         "Sin desbordamiento horizontal inicial",
         "Dos recursos en dos anclajes del segundo relato",
-        "Catálogo de tres relatos con metadatos",
+        "Sin sección de descubrimiento redundante",
         "Visor 3:4",
         "Portada 16:9",
         "Sin desbordamiento horizontal visual",
@@ -525,31 +557,30 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:37569/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:37569/motor-visual/css/motor.css",
-        "http://127.0.0.1:37569/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:37569/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:37569/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:37569/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
+        "http://127.0.0.1:37425/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:37425/motor-visual/css/motor.css",
+        "http://127.0.0.1:37425/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:37425/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:37425/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:37425/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
       ],
       "errores": []
     },
@@ -562,7 +593,7 @@
         "Sin solicitudes al lector o archivos RVC",
         "Sin desbordamiento horizontal inicial",
         "Dos recursos en dos anclajes del segundo relato",
-        "Catálogo de tres relatos con metadatos",
+        "Sin sección de descubrimiento redundante",
         "Visor 3:4",
         "Portada 16:9",
         "Sin desbordamiento horizontal visual",
@@ -579,31 +610,30 @@
         "Sin solicitudes externas"
       ],
       "solicitudes": [
-        "http://127.0.0.1:37569/motor-visual/demo.html?relato=demo-dos&modo=texto",
-        "http://127.0.0.1:37569/motor-visual/css/motor.css",
-        "http://127.0.0.1:37569/motor-visual/js/iniciar.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/biblia.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/contenidos.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/lectura.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/navegacion.js",
-        "http://127.0.0.1:37569/motor-visual/js/estado/preferencias.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/preferencias.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/dom.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/lector.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-modo.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/selector-enfoque.js",
-        "http://127.0.0.1:37569/motor-visual/js/servicios/validacion.js",
-        "http://127.0.0.1:37569/motor-visual/datos/catalogo.json",
-        "http://127.0.0.1:37569/motor-visual/pruebas/fixtures/contenido-sintetico.json",
-        "http://127.0.0.1:37569/motor-visual/datos/estudios/piloto-tecnico-dos.json",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos.json",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/portada.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/explorador.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/lectura-horizontal.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/descubrimiento.js",
-        "http://127.0.0.1:37569/motor-visual/js/componentes/visor.js",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos/portada-demo.svg",
-        "http://127.0.0.1:37569/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
+        "http://127.0.0.1:37425/motor-visual/demo.html?relato=demo-dos&modo=texto",
+        "http://127.0.0.1:37425/motor-visual/css/motor.css",
+        "http://127.0.0.1:37425/motor-visual/js/iniciar.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/biblia.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/contenidos.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/lectura.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/navegacion.js",
+        "http://127.0.0.1:37425/motor-visual/js/estado/preferencias.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/preferencias.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/dom.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/lector.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/selector-modo.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/selector-enfoque.js",
+        "http://127.0.0.1:37425/motor-visual/js/servicios/validacion.js",
+        "http://127.0.0.1:37425/motor-visual/datos/catalogo.json",
+        "http://127.0.0.1:37425/motor-visual/pruebas/fixtures/contenido-sintetico.json",
+        "http://127.0.0.1:37425/motor-visual/datos/estudios/piloto-tecnico-dos.json",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos.json",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/portada.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/explorador.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/lectura-horizontal.js",
+        "http://127.0.0.1:37425/motor-visual/js/componentes/visor.js",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos/portada-demo.svg",
+        "http://127.0.0.1:37425/motor-visual/datos/recursos/diagrama-vertical-demo.svg"
       ],
       "errores": []
     }
@@ -611,8 +641,8 @@
   "accesibilidad": {
     "escritorio": {
       "comprobaciones": [
-        "Oscuro predeterminado en navegador sin preferencias",
-        "Texto de lectura experimental inicial a 8 px",
+        "Apariencia editorial clara en navegador sin preferencias",
+        "Texto de lectura inicial a 12 px",
         "Controles A− y A+ visibles",
         "Aumentar texto no reconstruye el estudio",
         "Se conserva la página de explicación al ampliar",
@@ -622,8 +652,8 @@
         "Párrafos extensos a 30 px sin recortes ni scroll horizontal",
         "Controles de apariencia de al menos 44 × 44 px",
         "Foco visible al usar teclado",
-        "Apariencia clara seleccionable con teclado",
-        "Modo claro a 30 px sin desbordamiento",
+        "Sin selector de modo oscuro",
+        "Paleta clara a 30 px sin desbordamiento",
         "Apariencia recuperada al recargar",
         "Tamaño recuperado al recargar",
         "Se guardan solo apariencia y tamaño",
@@ -643,8 +673,8 @@
     },
     "movil": {
       "comprobaciones": [
-        "Oscuro predeterminado en navegador sin preferencias",
-        "Texto de lectura experimental inicial a 8 px",
+        "Apariencia editorial clara en navegador sin preferencias",
+        "Texto de lectura inicial a 12 px",
         "Controles A− y A+ visibles",
         "Aumentar texto no reconstruye el estudio",
         "Se conserva la página de explicación al ampliar",
@@ -654,8 +684,8 @@
         "Párrafos extensos a 30 px sin recortes ni scroll horizontal",
         "Controles de apariencia de al menos 44 × 44 px",
         "Foco visible al usar teclado",
-        "Apariencia clara seleccionable con teclado",
-        "Modo claro a 30 px sin desbordamiento",
+        "Sin selector de modo oscuro",
+        "Paleta clara a 30 px sin desbordamiento",
         "Apariencia recuperada al recargar",
         "Tamaño recuperado al recargar",
         "Se guardan solo apariencia y tamaño",
@@ -680,7 +710,7 @@
     "escritorio": {
       "comprobaciones": [
         "Se recuperan los 20 px guardados antes de esta fase",
-        "Restablecer por teclado guarda 8 px y persiste al recargar",
+        "Restablecer por teclado guarda 12 px y persiste al recargar",
         "Estudio extenso a 8 px",
         "Estudio a 8 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 8 px",
@@ -747,7 +777,7 @@
     "movil": {
       "comprobaciones": [
         "Se recuperan los 20 px guardados antes de esta fase",
-        "Restablecer por teclado guarda 8 px y persiste al recargar",
+        "Restablecer por teclado guarda 12 px y persiste al recargar",
         "Estudio extenso a 8 px",
         "Estudio a 8 px sin recortes, superposición ni scroll horizontal",
         "Devocional a 8 px",
@@ -944,8 +974,122 @@
       "errores": []
     }
   },
+  "interfaz": {
+    "escritorio": {
+      "comprobaciones": [
+        "visual estudio: barra en el flujo normal",
+        "visual estudio: sin navegación redundante ni descubrimiento",
+        "visual estudio: controles desaparecen al bajar",
+        "visual estudio: encabezado visible y alineado al inicio real",
+        "visual estudio: versículos correspondientes presentes",
+        "visual estudio: índice conserva modo y enfoque",
+        "visual estudio: índice permanece dentro del capítulo",
+        "visual estudio: índice accesible mediante teclado",
+        "visual estudio: capítulo siguiente mantiene su índice",
+        "visual estudio: volver al capítulo conserva las selecciones",
+        "visual devocional: barra en el flujo normal",
+        "visual devocional: sin navegación redundante ni descubrimiento",
+        "visual devocional: controles desaparecen al bajar",
+        "visual devocional: encabezado visible y alineado al inicio real",
+        "visual devocional: versículos correspondientes presentes",
+        "visual devocional: índice conserva modo y enfoque",
+        "visual devocional: índice permanece dentro del capítulo",
+        "visual devocional: índice accesible mediante teclado",
+        "visual devocional: capítulo siguiente mantiene su índice",
+        "visual devocional: volver al capítulo conserva las selecciones",
+        "texto estudio: barra en el flujo normal",
+        "texto estudio: sin navegación redundante ni descubrimiento",
+        "texto estudio: encabezado visible y alineado al inicio real",
+        "texto estudio: versículos correspondientes presentes",
+        "texto estudio: índice conserva modo y enfoque",
+        "texto estudio: índice permanece dentro del capítulo",
+        "texto estudio: índice accesible mediante teclado",
+        "texto estudio: capítulo siguiente mantiene su índice",
+        "texto estudio: volver al capítulo conserva las selecciones",
+        "texto devocional: barra en el flujo normal",
+        "texto devocional: sin navegación redundante ni descubrimiento",
+        "texto devocional: encabezado visible y alineado al inicio real",
+        "texto devocional: versículos correspondientes presentes",
+        "texto devocional: índice conserva modo y enfoque",
+        "texto devocional: índice permanece dentro del capítulo",
+        "texto devocional: índice accesible mediante teclado",
+        "texto devocional: capítulo siguiente mantiene su índice",
+        "texto devocional: volver al capítulo conserva las selecciones",
+        "Apariencia clara estable",
+        "Control de modo oscuro eliminado",
+        "Inicial de lectura a 12 px",
+        "Paleta marfil y salvia centralizada en variables CSS",
+        "Tarjetas claras y títulos verdes consistentes",
+        "Sin desbordamiento en la navegación",
+        "Sin errores JavaScript en las cuatro combinaciones"
+      ],
+      "paleta": {
+        "--mv-fondo": "#faf9f3",
+        "--mv-salvia": "#a8bca5",
+        "--mv-verde-oscuro": "#31583e",
+        "--mv-acento": "#31583e"
+      },
+      "errores": []
+    },
+    "movil": {
+      "comprobaciones": [
+        "visual estudio: barra en el flujo normal",
+        "visual estudio: sin navegación redundante ni descubrimiento",
+        "visual estudio: controles desaparecen al bajar",
+        "visual estudio: encabezado visible y alineado al inicio real",
+        "visual estudio: versículos correspondientes presentes",
+        "visual estudio: índice conserva modo y enfoque",
+        "visual estudio: índice permanece dentro del capítulo",
+        "visual estudio: índice accesible mediante teclado",
+        "visual estudio: capítulo siguiente mantiene su índice",
+        "visual estudio: volver al capítulo conserva las selecciones",
+        "visual devocional: barra en el flujo normal",
+        "visual devocional: sin navegación redundante ni descubrimiento",
+        "visual devocional: controles desaparecen al bajar",
+        "visual devocional: encabezado visible y alineado al inicio real",
+        "visual devocional: versículos correspondientes presentes",
+        "visual devocional: índice conserva modo y enfoque",
+        "visual devocional: índice permanece dentro del capítulo",
+        "visual devocional: índice accesible mediante teclado",
+        "visual devocional: capítulo siguiente mantiene su índice",
+        "visual devocional: volver al capítulo conserva las selecciones",
+        "texto estudio: barra en el flujo normal",
+        "texto estudio: sin navegación redundante ni descubrimiento",
+        "texto estudio: encabezado visible y alineado al inicio real",
+        "texto estudio: versículos correspondientes presentes",
+        "texto estudio: índice conserva modo y enfoque",
+        "texto estudio: índice permanece dentro del capítulo",
+        "texto estudio: índice accesible mediante teclado",
+        "texto estudio: capítulo siguiente mantiene su índice",
+        "texto estudio: volver al capítulo conserva las selecciones",
+        "texto devocional: barra en el flujo normal",
+        "texto devocional: sin navegación redundante ni descubrimiento",
+        "texto devocional: encabezado visible y alineado al inicio real",
+        "texto devocional: versículos correspondientes presentes",
+        "texto devocional: índice conserva modo y enfoque",
+        "texto devocional: índice permanece dentro del capítulo",
+        "texto devocional: índice accesible mediante teclado",
+        "texto devocional: capítulo siguiente mantiene su índice",
+        "texto devocional: volver al capítulo conserva las selecciones",
+        "Apariencia clara estable",
+        "Control de modo oscuro eliminado",
+        "Inicial de lectura a 12 px",
+        "Paleta marfil y salvia centralizada en variables CSS",
+        "Tarjetas claras y títulos verdes consistentes",
+        "Sin desbordamiento en la navegación",
+        "Sin errores JavaScript en las cuatro combinaciones"
+      ],
+      "paleta": {
+        "--mv-fondo": "#faf9f3",
+        "--mv-salvia": "#a8bca5",
+        "--mv-verde-oscuro": "#31583e",
+        "--mv-acento": "#31583e"
+      },
+      "errores": []
+    }
+  },
   "chromium": "154.0.8037.57",
   "archivos_originales_intactos": 394,
   "rama": "desarrollo-motor-visual",
-  "commit_base": "9c081a6245449ffeb9269a36544e2bd53b33cc19"
+  "commit_base": "3089fedd574ace8dd7697305c6cb582efd8279db"
 }

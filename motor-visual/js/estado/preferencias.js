@@ -1,11 +1,13 @@
 export const CLAVE_PREFERENCIAS = 'mi-biblia-web:motor-visual:preferencias:v1';
 export const TAMANO_MINIMO = 8;
 export const TAMANO_MAXIMO = 30;
-const INICIALES = { apariencia:'oscuro', tamano:8 };
+export const TAMANO_INICIAL = 12;
+const INICIALES = { apariencia:'claro', tamano:TAMANO_INICIAL };
 
 export function normalizarPreferencias(valor) {
   return {
-    apariencia: valor?.apariencia === 'claro' ? 'claro' : 'oscuro',
+    // La apariencia editorial clara reemplaza también el oscuro guardado anteriormente.
+    apariencia: 'claro',
     // Mantener las preferencias anteriores; 31/32 px se adaptan al nuevo máximo.
     tamano: Number.isInteger(valor?.tamano) && valor.tamano >= TAMANO_MINIMO && valor.tamano <= 32 ? Math.min(valor.tamano, TAMANO_MAXIMO) : INICIALES.tamano
   };
@@ -33,7 +35,6 @@ export function crearPreferencias({ raiz = document.body, almacen } = {}) {
   aplicar();
   return {
     obtener: () => ({ ...estado, persistido }),
-    cambiarApariencia: () => actualizar({ apariencia:estado.apariencia === 'oscuro' ? 'claro' : 'oscuro' }),
     restablecerLectura: () => actualizar({ tamano:INICIALES.tamano }),
     ajustarTamano: delta => {
       if (!Number.isFinite(delta)) return;

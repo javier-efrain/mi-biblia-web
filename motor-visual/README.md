@@ -4,6 +4,14 @@ Implementación modular sin framework, exclusiva de la rama `desarrollo-motor-vi
 
 **Todos los datos y el SVG son sintéticos y están identificados como demostración. No publicar.** Esta carpeta no se enlaza desde el sitio actual. No incluye Marcos 12, contenido de V15, imágenes históricas ni copias de texto RVC.
 
+## Versión actual · Etapa 4, bloque 1
+
+Interfaz editorial clara en marfil y verde salvia, con verde oscuro para títulos y selecciones. La barra forma parte del flujo normal. Lectura inicial y restablecimiento a **12 px**, manteniendo el rango **8–30 px** y los tamaños válidos guardados. La apariencia oscura y su botón se retiraron.
+
+El índice horizontal es el acceso a los relatos del capítulo y desplaza al título real sin reiniciar el modo elegido. Permanecen los controles de capítulo; se retiraron Relato anterior/siguiente y el descubrimiento final. Se preservan los visores y sus funciones aprobadas.
+
+[ETAPA4-BLOQUE1.md](ETAPA4-BLOQUE1.md) es el informe vigente, con pruebas, alcance y limitaciones de la publicación. Los apartados e informes posteriores de este README describen las fases históricas del prototipo y sus decisiones de entonces. El repositorio de demostración y la configuración de Pages no se modificaron en este bloque.
+
 ## Abrir localmente
 
 Desde la raíz del repositorio:
