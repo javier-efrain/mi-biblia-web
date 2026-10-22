@@ -43,3 +43,11 @@ export async function esperar(condicion, mensaje='La condición asíncrona no se
   for (let i=0;i<200;i++) { if (condicion()) return; await new Promise(r=>setTimeout(r,10)); }
   assert(false,mensaje);
 }
+
+// Ajusta el zoom mediante los mismos botones accesibles que usa el lector.
+export function ajustarZoom(salida, porcentaje) {
+  const barra=salida.closest('.mv-herramientas');
+  const actual=Number(salida.dataset.zoom), pasos=Math.abs(porcentaje-actual)/25;
+  assert(Number.isInteger(pasos) && porcentaje>=100 && porcentaje<=400);
+  for(let i=0;i<pasos;i++) barra.querySelector(porcentaje>actual ? '[aria-label="Aumentar zoom"]' : '[aria-label="Reducir zoom"]').click();
+}

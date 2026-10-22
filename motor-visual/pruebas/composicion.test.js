@@ -1,3 +1,4 @@
+import { ajustarZoom } from './harness.js';
 import { test,assert,conMotor,datos,rechaza,diferida } from './harness.js';
 import { leerRuta } from '../js/estado/navegacion.js';
 const despues = (a,b) => Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
@@ -48,8 +49,8 @@ test('Contexto y cierre mantienen páginas independientes', async () => {
 test('Devocional sustituye contexto y estudio sin reconstruir el visor ni perder su zoom', async () => {
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual');
-    const visor=root.querySelector('.mv-visor'),texto=root.querySelector('.mv-texto'),rango=root.querySelector('input[type="range"]');
-    rango.value='250'; rango.dispatchEvent(new Event('input'));
+    const visor=root.querySelector('.mv-visor'),texto=root.querySelector('.mv-texto'),rango=root.querySelector('[data-zoom]');
+    ajustarZoom(rango,250);
     root.querySelector('[data-marcador="punto-b"]').click();
     avanzar(root.querySelector('.mv-contexto .mv-hoja'));
     avanzar(root.querySelector('.mv-cierre .mv-hoja'));
@@ -57,7 +58,7 @@ test('Devocional sustituye contexto y estudio sin reconstruir el visor ni perder
     assert(!root.querySelector('.mv-contexto'));
     assert(root.querySelector('.mv-devocional') && !root.querySelector('.mv-pestanas'));
     assert(!visor.isConnected && root.querySelector('.mv-texto')===texto && !root.querySelector('.mv-recurso'));
-    assert(rango.value==='250' && visor.closest('.mv-recurso').querySelector('.mv-panel h4').textContent==='Punto B');
+    assert(rango.dataset.zoom==='250' && visor.closest('.mv-recurso').querySelector('.mv-panel h4').textContent==='Punto B');
     avanzar(root.querySelector('.mv-cierre .mv-hoja'));
     await motor.cambiarEnfoque('estudio');
     assert(root.querySelector('.mv-visor')===visor);

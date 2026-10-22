@@ -10,7 +10,8 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
   plano.append(imagen); escena.append(plano); viewport.append(escena);
   let zoom = 1;
   const salida = nodo('output', { 'aria-live':'polite' }, '100 %');
-  const rango = nodo('input', { type:'range', min:100, max:400, step:25, value:100, 'aria-label':'Nivel de zoom' });
+  salida.setAttribute('aria-label','Nivel de zoom');
+  salida.dataset.zoom = '100';
   const marcadoresDOM = marcadores.map((m,i) => {
     const b = boton(String(i+1), () => {
       marcadoresDOM.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
@@ -29,7 +30,8 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
     Object.assign(plano.style, { width:`${ancho}px`, height:`${alto}px`, left:`${(w * zoom - ancho)/2}px`, top:`${(h * zoom - alto)/2}px` });
     viewport.style.touchAction=zoom>1?'none':'pan-y';
     viewport.dataset.ampliado=String(zoom>1);
-    rango.value = Math.round(zoom * 100); salida.textContent = `${Math.round(zoom * 100)} %`;
+    salida.dataset.zoom = String(Math.round(zoom * 100)); salida.textContent = `${Math.round(zoom * 100)} %`;
+    alejar.disabled = zoom <= 1; acercar.disabled = zoom >= 4;
   }
   function ampliar(valor) {
     const anterior = zoom;
@@ -40,7 +42,6 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
     viewport.scrollLeft = x * zoom / anterior - viewport.clientWidth / 2;
     viewport.scrollTop = y * zoom / anterior - viewport.clientHeight / 2;
   }
-  rango.addEventListener('input', () => ampliar(Number(rango.value)/100), { signal:localSignal });
   viewport.addEventListener('keydown', e => {
     if (e.target !== viewport) return;
     if (zoom > 1 && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)) {
@@ -112,16 +113,23 @@ export function crearVisor(recurso, { marcadores = [], seleccionar = () => {}, s
   imagen.addEventListener('error', () => {
     plano.replaceChildren(nodo('p', { role:'status' }, 'Imagen no disponible. El texto continúa disponible.'));
   }, { signal:localSignal });
-  const controles = nodo('div', { className:'mv-controles' },
-    boton('−', () => ampliar(zoom-.25), { 'aria-label':'Reducir zoom' }), rango,
-    boton('+', () => ampliar(zoom+.25), { 'aria-label':'Aumentar zoom' }), salida,
-    boton('Restablecer', () => { ampliar(1); viewport.scrollTo(0,0); }));
-  el.append(viewport, controles, nodo('small', {}, recurso.leyenda));
+  const alejar = boton('−', () => ampliar(zoom-.25), { 'aria-label':'Reducir zoom', title:'Reducir zoom' });
+  const acercar = boton('+', () => ampliar(zoom+.25), { 'aria-label':'Aumentar zoom', title:'Aumentar zoom' });
+  const restablecer = boton('↺', () => { ampliar(1); viewport.scrollTo(0,0); }, {
+    'aria-label':'Restablecer', title:'Restablecer vista'
+  });
+  // Punto de extensión para acciones del explorador y futuras herramientas.
+  // Solo se insertan controles implementados; no hay botones de reserva.
+  const controles = nodo('div', { className:'mv-controles mv-herramientas', role:'group', 'aria-label':'Controles de imagen' },
+    alejar, salida, acercar, restablecer);
+  alejar.disabled = true;
+  el.append(viewport, controles);
   const observador = new ResizeObserver(dibujar); observador.observe(viewport);
   function destruir() { observador.disconnect(); eventos.abort(); }
   if (signal?.aborted) destruir(); else signal?.addEventListener('abort', destruir, { once:true });
   requestAnimationFrame(() => { if (!localSignal.aborted) dibujar(); });
   return { el, ampliar, destruir, viewport, plano,
+    agregarControl(control) { controles.append(control); },
     seleccionarMarcador(id) { marcadoresDOM.forEach(b => b.setAttribute('aria-pressed',String(b.dataset.marcador === id))); },
     mostrarPuntos(visible) { marcadoresDOM.forEach(b => { b.hidden = !visible; }); }
   };

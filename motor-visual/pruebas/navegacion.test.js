@@ -1,3 +1,4 @@
+import { ajustarZoom } from './harness.js';
 import { test,assert,datos,conMotor,rechaza,frame } from './harness.js';
 import { vecinos,leerRuta } from '../js/estado/navegacion.js';
 test('Los extremos del catálogo y los capítulos tienen límites independientes', async () => {
@@ -55,12 +56,12 @@ test('La carga tardía de un relato anterior no roba el foco ni desplaza el nuev
 test('Volver al relato activo desde el índice conserva el visor, su zoom y su marcador', async () => {
   await conMotor(async ({root,motor}) => {
     await motor.cambiarModo('visual');
-    const visor=root.querySelector('.mv-visor'),rango=visor.querySelector('input[type="range"]');
-    rango.value='250';rango.dispatchEvent(new Event('input'));
+    const visor=root.querySelector('.mv-visor'),rango=visor.querySelector('[data-zoom]');
+    ajustarZoom(rango,250);
     root.querySelector('[data-elemento="punto-b"]').click();
     root.querySelector('.mv-panel nav button:last-child').click();
     root.querySelector('.mv-indice [aria-current="true"]').click();await frame();
-    assert(root.querySelector('.mv-visor')===visor && rango.value==='250');
+    assert(root.querySelector('.mv-visor')===visor && rango.dataset.zoom==='250');
     assert(root.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(root.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
     assert(document.activeElement===root.querySelector('.mv-titulo-relato'));

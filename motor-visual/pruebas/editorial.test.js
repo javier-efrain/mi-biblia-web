@@ -1,3 +1,4 @@
+import { ajustarZoom } from './harness.js';
 import {test,assert,conMotor,datos,frame,esperar,rechaza} from './harness.js';
 import {composicionLectura} from '../js/componentes/selector-enfoque.js';
 import {crearServicioContenidos} from '../js/servicios/contenidos.js';
@@ -20,13 +21,13 @@ test('Las cuatro combinaciones editoriales conservan el capítulo y sus contenid
 });
 test('Volver a Estudio reutiliza visores, zoom, puntos ocultos y paginación',async()=>{
   await conMotor(async({root,motor})=>{
-    await motor.cambiarModo('visual');const e=root.querySelector('.mv-recurso'),v=e.querySelector('.mv-visor'),r=e.querySelector('input');
-    r.value='250';r.dispatchEvent(new Event('input'));e.querySelector('[data-elemento="punto-b"]').click();e.querySelector('.mv-panel nav button:last-child').click();
+    await motor.cambiarModo('visual');const e=root.querySelector('.mv-recurso'),v=e.querySelector('.mv-visor'),r=e.querySelector('[data-zoom]');
+    ajustarZoom(r,250);e.querySelector('[data-elemento="punto-b"]').click();e.querySelector('.mv-panel nav button:last-child').click();
     e.querySelector('[data-control="puntos"]').click();
     await motor.cambiarEnfoque('devocional');assert(!e.isConnected&&!root.querySelector('.mv-recurso'));
     await motor.cambiarEnfoque('estudio');await frame();
-    assert(root.querySelector('.mv-recurso')===e&&e.querySelector('.mv-visor')===v&&r.value==='250');
-    assert(e.querySelector('[data-control="puntos"]').textContent==='Mostrar puntos');
+    assert(root.querySelector('.mv-recurso')===e&&e.querySelector('.mv-visor')===v&&r.dataset.zoom==='250');
+    assert(e.querySelector('[data-control="puntos"]').getAttribute('aria-label')==='Mostrar puntos');
     e.querySelector('[data-control="puntos"]').click();assert(e.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(e.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
   });

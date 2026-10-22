@@ -1,3 +1,4 @@
+import { ajustarZoom } from './harness.js';
 import {test,assert,conMotor,frame,esperar,datos} from './harness.js';
 import {relatosDelCapitulo} from '../js/estado/navegacion.js';
 
@@ -17,12 +18,12 @@ test('El capítulo monta todos sus relatos, versículos ordenados y una sola cab
 test('El índice cambia el destino y conserva todos los nodos, zoom y páginas del capítulo',async()=>{
   await conMotor(async({root,motor})=>{
     await motor.cambiarModo('visual');
-    const articulos=[...root.querySelectorAll('.mv-relato')],v=root.querySelector('.mv-visor'),r=v.querySelector('input');
-    r.value='250';r.dispatchEvent(new Event('input'));
+    const articulos=[...root.querySelectorAll('.mv-relato')],v=root.querySelector('.mv-visor'),r=v.querySelector('[data-zoom]');
+    ajustarZoom(r,250);
     root.querySelector('[data-elemento="punto-b"]').click();root.querySelector('.mv-panel nav button:last-child').click();
     await motor.seleccionar('demo-dos');await motor.seleccionar('demo-uno');
     assert(articulos.every((e,i)=>root.querySelectorAll('.mv-relato')[i]===e));
-    assert(root.querySelector('.mv-visor')===v && r.value==='250');
+    assert(root.querySelector('.mv-visor')===v && r.dataset.zoom==='250');
     assert(root.querySelector('.mv-panel output').textContent.startsWith('2 / '));
     assert(root.querySelector('[data-relato-indice="demo-uno"]').getAttribute('aria-current')==='true');
   });
@@ -35,11 +36,11 @@ test('Pantalla completa dentro del modal conserva la misma instancia, zoom y sel
   await conMotor(async({root})=>{
     const acceso=root.querySelector('[data-recurso-acceso]');acceso.focus();acceso.click();
     await esperar(()=>root.querySelector('dialog .mv-visor'));await frame();
-    const modal=root.querySelector('dialog'),e=modal.querySelector('.mv-recurso'),v=e.querySelector('.mv-visor'),r=e.querySelector('input');
-    r.value='200';r.dispatchEvent(new Event('input'));e.querySelector('[data-elemento="punto-b"]').click();
+    const modal=root.querySelector('dialog'),e=modal.querySelector('.mv-recurso'),v=e.querySelector('.mv-visor'),r=e.querySelector('[data-zoom]');
+    ajustarZoom(r,200);e.querySelector('[data-elemento="punto-b"]').click();
     const abrir=e.querySelector('.mv-abrir-completa');abrir.click();await frame();
     assert(modal.classList.contains('mv-completa')&&modal.querySelector('.mv-visor')===v);
-    assert(r.value==='200'&&getComputedStyle(v.querySelector('.mv-viewport')).aspectRatio==='auto');
+    assert(r.dataset.zoom==='200'&&getComputedStyle(v.querySelector('.mv-viewport')).aspectRatio==='auto');
     assert(e.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
     abrir.click();await frame();assert(!modal.classList.contains('mv-completa')&&modal.querySelector('.mv-visor')===v);
     assert(Math.abs(v.querySelector('.mv-viewport').clientWidth/v.querySelector('.mv-viewport').clientHeight-.75)<.01);
@@ -49,9 +50,9 @@ test('Pantalla completa dentro del modal conserva la misma instancia, zoom y sel
 test('Los visores cambian la acción táctil según el zoom y la restauran al 100 %',async()=>{
   await conMotor(async({root,motor})=>{
     await motor.cambiarModo('visual');await frame();
-    const v=root.querySelector('.mv-viewport'),r=root.querySelector('.mv-visor input');
-    assert(v.style.touchAction==='pan-y');r.value='200';r.dispatchEvent(new Event('input'));
-    assert(v.style.touchAction==='none');r.value='100';r.dispatchEvent(new Event('input'));assert(v.style.touchAction==='pan-y');
+    const v=root.querySelector('.mv-viewport'),r=root.querySelector('.mv-visor [data-zoom]');
+    assert(v.style.touchAction==='pan-y');ajustarZoom(r,200);
+    assert(v.style.touchAction==='none');ajustarZoom(r,100);assert(v.style.touchAction==='pan-y');
   });
 });
 test('Solo texto ofrece un botón reconocible y reutiliza el mismo explorador bajo demanda',async()=>{

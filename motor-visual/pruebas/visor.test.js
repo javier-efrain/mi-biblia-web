@@ -1,3 +1,4 @@
+import { ajustarZoom } from './harness.js';
 import { test,assert,conMotor,frame,esperar } from './harness.js';
 test('Los visores son 3:4 y las imágenes de portada 16:9', async () => {
   await conMotor(async ({ root,motor }) => {
@@ -9,12 +10,12 @@ test('Los visores son 3:4 y las imágenes de portada 16:9', async () => {
 test('El zoom respeta límites y los marcadores se mantienen sobre la imagen', async () => {
   await conMotor(async ({ root,motor }) => {
     await motor.cambiarModo('visual'); await frame();
-    const rango=root.querySelector('input[type="range"]'); rango.value='400'; rango.dispatchEvent(new Event('input')); await frame();
+    const rango=root.querySelector('[data-zoom]'); ajustarZoom(rango,400); await frame();
     const plano=root.querySelector('.mv-plano').getBoundingClientRect(),m=root.querySelector('[data-marcador="punto-a"]').getBoundingClientRect();
     assert(Math.abs((m.x+m.width/2-plano.x)/plano.width-.25)<.01);
     assert(Math.abs((m.y+m.height/2-plano.y)/plano.height-.5)<.01);
-    root.querySelector('button[aria-label="Aumentar zoom"]').click(); assert(rango.value==='400');
-    [...root.querySelectorAll('button')].find(b => b.textContent==='Restablecer').click(); assert(rango.value==='100');
+    root.querySelector('button[aria-label="Aumentar zoom"]').click(); assert(rango.dataset.zoom==='400');
+    root.querySelector('[aria-label="Restablecer"]').click(); assert(rango.dataset.zoom==='100');
   });
 });
 test('Los marcadores actualizan su panel informativo', async () => {
@@ -79,7 +80,7 @@ test('Los nombres y puntos sincronizan selección y conservan páginas independi
     assert(root.querySelector('.mv-cierre output').textContent.startsWith('1 / '));
   });
 });
-test('Ocultar puntos deja imagen y descripción general y recupera selección y página', async () => {
+test('Ocultar puntos deja solo imagen y controles y recupera selección y página', async () => {
   await conMotor(async ({root,motor}) => {
     await motor.cambiarModo('visual');
     const r=root.querySelector('.mv-recurso'), img=r.querySelector('img');
@@ -88,10 +89,10 @@ test('Ocultar puntos deja imagen y descripción general y recupera selección y 
     const control=r.querySelector('[data-control="puntos"]'); control.click();
     assert([...r.querySelectorAll('[data-marcador]')].every(b=>b.hidden));
     assert(r.querySelector('.mv-elementos').hidden);
-    assert(r.querySelector('.mv-panel p').textContent.includes('DEMO'));
+    assert(r.querySelector('.mv-panel').hidden);
     assert(r.querySelector('img')===img && img.isConnected);
     await motor.cambiarEnfoque('devocional');
-    assert(control.textContent==='Mostrar puntos');
+    assert(control.getAttribute('aria-label')==='Mostrar puntos');
     control.click();
     assert(r.querySelector('[data-elemento="punto-b"]').getAttribute('aria-pressed')==='true');
     assert(r.querySelector('.mv-panel output').textContent.startsWith('2 / '));
@@ -121,13 +122,13 @@ test('La imagen 2:3 queda completa en el marco 3:4 y mantiene coordenadas al des
     assert(Math.abs(plano.width/plano.height-2/3)<.01);
     assert(plano.width<=marco.width+1 && plano.height<=marco.height+1);
     assert(plano.left>=marco.left-1 && plano.top>=marco.top-1);
-    const rango=root.querySelector('input[type="range"]'); rango.value='300';rango.dispatchEvent(new Event('input'));
+    const rango=root.querySelector('[data-zoom]'); ajustarZoom(rango,300);
     v.scrollTo(80,120); await frame();
     const q=p.getBoundingClientRect(),b=root.querySelector('[data-marcador="punto-b"]').getBoundingClientRect();
     assert(Math.abs((b.x+b.width/2-q.x)/q.width-.75)<.01);
     assert(Math.abs((b.y+b.height/2-q.y)/q.height-.5)<.01);
-    [...root.querySelectorAll('button')].find(b=>b.textContent==='Restablecer').click();
-    assert(v.scrollLeft===0 && v.scrollTop===0 && rango.value==='100');
+    root.querySelector('[aria-label="Restablecer"]').click();
+    assert(v.scrollLeft===0 && v.scrollTop===0 && rango.dataset.zoom==='100');
   });
 });
 test('Los paneles heredados de una página y recursos sin puntos siguen siendo compatibles', async () => {
@@ -141,6 +142,44 @@ test('Los paneles heredados de una página y recursos sin puntos siguen siendo c
     assert(el.querySelector('.mv-panel nav').hidden);
     const sinPuntos=crearExplorador(recurso,{id:'limpio',marcadores:[]},{signal:abort.signal}); root.append(sinPuntos);
     assert(!sinPuntos.querySelector('[data-control="puntos"]'));
-    assert(sinPuntos.querySelector('.mv-panel p').textContent===recurso.leyenda);
+    assert(sinPuntos.querySelector('.mv-panel').hidden && sinPuntos.querySelector('.mv-ficha-recurso p').textContent===recurso.leyenda);
   } finally {abort.abort();root.remove();}
+});
+
+test('El explorador selecciona el primer elemento sin duplicar su explicación ni la descripción general', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual'); await frame();
+    for(const r of root.querySelectorAll('.mv-recurso')) {
+      const primero=r.querySelector('[data-elemento]');
+      if(!primero) { assert(r.querySelector('.mv-panel').hidden); continue; }
+      assert(primero.getAttribute('aria-pressed')==='true');
+      assert(r.querySelectorAll('[data-marcador][aria-pressed="true"]').length===1);
+      assert(r.querySelector('.mv-panel h4').textContent===primero.textContent);
+      assert(r.querySelectorAll('.mv-panel .mv-estudio').length===1);
+      assert(!r.querySelector('.mv-ficha-recurso').open && !r.querySelector('.mv-visor small'));
+    }
+  });
+});
+test('La barra contiene solo cuatro botones accesibles y el porcentaje, sin controles futuros ni deslizador', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual'); await frame();
+    const barra=root.querySelector('.mv-herramientas');
+    assert(barra.children.length===5 && barra.querySelectorAll('button').length===4 && !barra.querySelector('input'));
+    assert([...barra.querySelectorAll('button')].every(b=>b.getAttribute('aria-label')));
+    assert(barra.querySelector('output').dataset.zoom==='100');
+    assert(barra.querySelector('[aria-label="Reducir zoom"]').disabled);
+    assert(barra.querySelector('[data-control="puntos"]').getAttribute('aria-pressed')==='true');
+  });
+});
+test('La ficha conserva las advertencias y al ocultar no se monta una descripción de reemplazo', async () => {
+  await conMotor(async ({root,motor}) => {
+    await motor.cambiarModo('visual'); await frame();
+    const r=root.querySelector('.mv-recurso'),panel=r.querySelector('.mv-panel'),estudio=panel.firstChild;
+    const info=r.querySelector('.mv-ficha-recurso'); info.open=true;
+    assert(info.querySelector('p').textContent.length>0); info.open=false;
+    r.querySelector('[data-control="puntos"]').click();
+    assert(panel.hidden && panel.firstChild===estudio && r.querySelector('img'));
+    r.querySelector('[data-control="puntos"]').click();
+    assert(!panel.hidden && r.querySelectorAll('.mv-panel .mv-estudio').length===1);
+  });
 });
