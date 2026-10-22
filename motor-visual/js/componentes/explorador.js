@@ -25,11 +25,10 @@ export function crearExplorador(recurso, uso, { signal, pantallaCompleta = true 
   })));
   const puntos = boton('👁︎', () => {
     visibles = !visibles;
-    visor.mostrarPuntos(visibles); nombres.hidden = !visibles; panel.hidden = !visibles;
+    visor.mostrarPuntos(visibles);
     const etiqueta = visibles ? 'Ocultar puntos' : 'Mostrar puntos';
     puntos.setAttribute('aria-label',etiqueta); puntos.title = etiqueta;
     puntos.setAttribute('aria-pressed',String(visibles));
-    if (!visibles) ficha.open = false;
     if (visibles && !activo) seleccionar(uso.marcadores[0]);
   }, {'aria-pressed':'true', 'aria-label':'Ocultar puntos', title:'Ocultar puntos', 'data-control':'puntos'});
   if (uso.marcadores.length) visor.agregarControl(puntos);

@@ -80,7 +80,7 @@ test('Los nombres y puntos sincronizan selección y conservan páginas independi
     assert(root.querySelector('.mv-cierre output').textContent.startsWith('1 / '));
   });
 });
-test('Ocultar puntos deja solo imagen y controles y recupera selección y página', async () => {
+test('Ocultar puntos conserva nombres y panel; recupera la selección actual', async () => {
   await conMotor(async ({root,motor}) => {
     await motor.cambiarModo('visual');
     const r=root.querySelector('.mv-recurso'), img=r.querySelector('img');
@@ -88,8 +88,8 @@ test('Ocultar puntos deja solo imagen y controles y recupera selección y págin
     r.querySelector('.mv-panel nav button:last-child').click();
     const control=r.querySelector('[data-control="puntos"]'); control.click();
     assert([...r.querySelectorAll('[data-marcador]')].every(b=>b.hidden));
-    assert(r.querySelector('.mv-elementos').hidden);
-    assert(r.querySelector('.mv-panel').hidden);
+    assert(!r.querySelector('.mv-elementos').hidden);
+    assert(!r.querySelector('.mv-panel').hidden);
     assert(r.querySelector('img')===img && img.isConnected);
     await motor.cambiarEnfoque('devocional');
     assert(control.getAttribute('aria-label')==='Mostrar puntos');
@@ -178,8 +178,12 @@ test('La ficha conserva las advertencias y al ocultar no se monta una descripci�
     const info=r.querySelector('.mv-ficha-recurso'); info.open=true;
     assert(info.querySelector('p').textContent.length>0); info.open=false;
     r.querySelector('[data-control="puntos"]').click();
-    assert(panel.hidden && panel.firstChild===estudio && r.querySelector('img'));
+    assert(!panel.hidden && panel.firstChild===estudio && r.querySelector('img'));
+    r.querySelector('[data-elemento="punto-b"]').click();
+    assert(panel.querySelector('h4').textContent==='Punto B');
+    assert(r.querySelector('[data-marcador="punto-b"]').hidden);
     r.querySelector('[data-control="puntos"]').click();
     assert(!panel.hidden && r.querySelectorAll('.mv-panel .mv-estudio').length===1);
+    assert(!r.querySelector('[data-marcador="punto-b"]').hidden && r.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
   });
 });

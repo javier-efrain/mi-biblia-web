@@ -356,7 +356,7 @@ def probar_compactacion(browser, origen, configuracion, nombre):
                 buscar_rol(pagina,'button',name='Estudio',exact=True).click()
                 comprobar(localizar(pagina,'.mv-panel p').first.evaluate('(p)=>getComputedStyle(p).fontSize')==f'{tamano}px', f'Panel de mapa a {tamano} px')
                 v=localizar(pagina,'.mv-viewport').first.bounding_box()
-                minimo=450 if nombre=='escritorio' else min(configuracion['viewport']['width']-50,max(240,configuracion['viewport']['height']*.375))-.5
+                minimo=450 if nombre=='escritorio' else configuracion['viewport']['width']-50
                 comprobar(v['width']>=minimo and abs(v['width']/v['height']-.75)<.01, f'Visor útil, compacto y 3:4 con lectura a {tamano} px')
                 muestras.append({'tamano':tamano,'visor_ancho':round(v['width'],2),'visor_alto':round(v['height'],2)})
                 # La tipografía no debe agrandar ni achicar el área del visor.
@@ -505,8 +505,8 @@ def probar_explorador(browser, origen, configuracion, nombre):
     expect(punto).to_have_attribute('aria-pressed','true')
     checks.append('Paginar conserva marcador seleccionado')
     r.locator('[data-control="puntos"]').click()
-    comprobar(r.locator('[data-marcador]:visible').count()==0 and r.locator('[data-elemento]:visible').count()==0,'Ocultar elimina puntos y nombres de la vista')
-    comprobar(r.locator('img').is_visible() and r.locator('.mv-panel').is_hidden(),'Imagen limpia sin explicación de reemplazo')
+    comprobar(r.locator('[data-marcador]:visible').count()==0 and r.locator('[data-elemento]:visible').count()>0,'Ocultar solo elimina puntos de la imagen')
+    comprobar(r.locator('img').is_visible() and r.locator('.mv-panel').is_visible(),'Imagen sin puntos y explicación conservada')
     buscar_rol(pagina,'button',name='Devocional',exact=True).click()
     expect(localizar(pagina,'.mv-recurso')).to_have_count(0)
     buscar_rol(pagina,'button',name='Estudio',exact=True).click()
