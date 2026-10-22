@@ -1,7 +1,7 @@
-import { nodo, boton, abrirDialogoRecurso } from './dom.js';
+import { nodo, boton } from './dom.js';
 import { crearVisor } from './visor.js';
 import { crearLecturaHorizontal } from './lectura-horizontal.js';
-export function crearExplorador(recurso, uso, { signal, pantallaCompleta = true } = {}) {
+export function crearExplorador(recurso, uso, { signal } = {}) {
   const el = nodo('section', { className:'mv-recurso', 'data-educativo':'recurso', 'data-uso':uso.id });
   const panel = nodo('aside', { className:'mv-panel', 'aria-live':'polite' });
   const nombres = nodo('div', { className:'mv-elementos', role:'group', 'aria-label':'Elementos del recurso' });
@@ -37,22 +37,11 @@ export function crearExplorador(recurso, uso, { signal, pantallaCompleta = true 
   const cuerpo = nodo('div', { className:'mv-explorador' }, visor.el, panel);
   signal?.addEventListener('abort', () => { paginasAbort?.abort(); visor.destruir(); }, {once:true});
   if (uso.marcadores.length) seleccionar(uso.marcadores[0]);
-  const ampliar=boton('Pantalla completa',()=>{
-    const modal=el.closest('dialog');
-    if(modal) {
-      const completa=modal.classList.toggle('mv-completa');
-      ampliar.textContent=completa?'Salir de pantalla completa':'Pantalla completa';
-      ampliar.setAttribute('aria-pressed',String(completa));
-      modal.setAttribute('aria-label',completa?'Recurso en pantalla completa':'Recurso visual del pasaje');
-    } else abrirDialogoRecurso({
-      contenedor:el.closest('.mv-motor')||el.closest('.mv')||document.body,signal,contenido:el,completa:true
-    });
-  },{className:'mv-abrir-completa','aria-pressed':'false'});
   const ficha = nodo('details', {className:'mv-ficha-recurso'},
     nodo('summary', {title:'Información del recurso'}, nodo('h3', {}, recurso.alt),
       nodo('span', {'aria-hidden':'true'}, 'ⓘ'), nodo('span', {className:'mv-solo-lectores'}, 'Información del recurso')),
     nodo('p', {}, recurso.leyenda),
     ...[...new Set(uso.marcadores.map(m=>m.certezaHistorica).filter(t=>t && !recurso.leyenda.includes(t)))].map(t=>nodo('p',{},t)));
-  el.append(ficha,...(pantallaCompleta?[ampliar]:[]),cuerpo);
+  el.append(ficha,cuerpo);
   return el;
 }

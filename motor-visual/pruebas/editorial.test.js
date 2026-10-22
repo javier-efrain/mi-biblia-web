@@ -41,12 +41,13 @@ test('Solo texto carga estudio sin consultar la biblioteca de imágenes',async()
     assert(!root.querySelector('img,.mv-recurso,.mv-portada'));
   },{contenidos});
 });
-test('Pantalla completa modal permanece disponible en ambos enfoques sin cambiar el modo',async()=>{
+test('El modal conserva Cerrar recurso y no ofrece pantalla completa en ambos enfoques',async()=>{
   await conMotor(async({root,motor})=>{
     for(const enfoque of ['estudio','devocional']){
       await motor.cambiarEnfoque(enfoque);const abrir=root.querySelector('[data-recurso-acceso]');abrir.focus();abrir.click();
       await esperar(()=>root.querySelector('dialog .mv-visor'));const d=root.querySelector('dialog'),visor=d.querySelector('.mv-visor');
-      d.querySelector('.mv-abrir-completa').click();assert(d.classList.contains('mv-completa')&&d.querySelector('.mv-visor')===visor);
+      assert(!d.querySelector('.mv-abrir-completa') && d.querySelector('.mv-visor')===visor);
+      assert(d.querySelector('button').textContent==='Cerrar recurso');
       assert(motor.obtenerEstado().enfoque===enfoque&&motor.obtenerEstado().modo==='texto');
       d.querySelector('button').click();await frame();assert(!root.querySelector('dialog')&&document.activeElement===abrir);
     }

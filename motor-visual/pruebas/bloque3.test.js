@@ -32,17 +32,16 @@ test('El orden del capítulo sigue los versículos aunque el catálogo llegue in
   const {catalogo}=await datos();catalogo.relatos.reverse();
   assert(relatosDelCapitulo(catalogo,'demo-dos').map(r=>r.id).join(',')==='demo-uno,demo-dos');
 });
-test('Pantalla completa dentro del modal conserva la misma instancia, zoom y selección',async()=>{
+test('El modal sin pantalla completa conserva visor, zoom, selección y cierre',async()=>{
   await conMotor(async({root})=>{
     const acceso=root.querySelector('[data-recurso-acceso]');acceso.focus();acceso.click();
     await esperar(()=>root.querySelector('dialog .mv-visor'));await frame();
     const modal=root.querySelector('dialog'),e=modal.querySelector('.mv-recurso'),v=e.querySelector('.mv-visor'),r=e.querySelector('[data-zoom]');
     ajustarZoom(r,200);e.querySelector('[data-elemento="punto-b"]').click();
-    const abrir=e.querySelector('.mv-abrir-completa');abrir.click();await frame();
-    assert(modal.classList.contains('mv-completa')&&modal.querySelector('.mv-visor')===v);
-    assert(r.dataset.zoom==='200'&&getComputedStyle(v.querySelector('.mv-viewport')).aspectRatio==='auto');
+    assert(!e.querySelector('.mv-abrir-completa') && !modal.classList.contains('mv-completa'));
+    assert(modal.querySelector('.mv-visor')===v && r.dataset.zoom==='200');
     assert(e.querySelector('[data-marcador="punto-b"]').getAttribute('aria-pressed')==='true');
-    abrir.click();await frame();assert(!modal.classList.contains('mv-completa')&&modal.querySelector('.mv-visor')===v);
+    assert(modal.querySelector('button').textContent==='Cerrar recurso');
     assert(Math.abs(v.querySelector('.mv-viewport').clientWidth/v.querySelector('.mv-viewport').clientHeight-.75)<.01);
     modal.querySelector('button').click();await frame();assert(!root.querySelector('dialog')&&document.activeElement===acceso);
   });
@@ -64,9 +63,9 @@ test('Solo texto ofrece un botón reconocible y reutiliza el mismo explorador ba
     root.querySelector('dialog').close();await frame();assert(document.activeElement===boton && !root.querySelector('img'));
   });
 });
-test('Cambiar de modo con pantalla completa abierta cancela y desmonta todos los recursos',async()=>{
+test('Cambiar de modo con el modal abierto cancela y desmonta todos los recursos',async()=>{
   await conMotor(async({root,motor})=>{
-    root.querySelector('[data-recurso-acceso]').click();await esperar(()=>root.querySelector('dialog .mv-abrir-completa'));root.querySelector('dialog .mv-abrir-completa').click();
+    root.querySelector('[data-recurso-acceso]').click();await esperar(()=>root.querySelector('dialog .mv-visor'));
     assert(root.querySelector('dialog[open]'));await motor.cambiarModo('visual');await motor.cambiarModo('texto');
     assert(!root.querySelector('dialog,img,.mv-recurso')&&!document.body.classList.contains('mv-modal-abierto'));
     assert(root.querySelectorAll('.mv-relato').length===2);
